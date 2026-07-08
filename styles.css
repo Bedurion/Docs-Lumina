@@ -63,10 +63,10 @@ code, pre { font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospac
   height: 2.45rem;
   display: grid;
   place-items: center;
-  border-radius: 0.85rem;
-  background: linear-gradient(135deg, var(--gold), #a66f00);
-  color: #1f1400;
-  box-shadow: 0 12px 30px rgba(242, 201, 76, 0.25);
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  box-shadow: none;
 }
 .nav-links { display: flex; align-items: center; gap: 0.25rem; }
 .nav-links a {
@@ -1221,7 +1221,7 @@ pre {
   width: 100%;
   height: 100%;
   display: block;
-  object-fit: cover;
+  object-fit: contain;
 }
 .feature-icon img {
   width: 1.72rem;
