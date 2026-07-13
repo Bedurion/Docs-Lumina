@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Luminox Recruitment Rewards guide covering claims, review, disputes and loyalty protection.">
+  <title>Lumina · Recruitment Rewards</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/png" href="assets/brand/lumina-seal-256.png">
+</head>
+<body>
+  <header class="site-header compact-header" id="top"><nav class="nav"><a class="brand" href="index.html"><span class="brand-mark"><img src="assets/brand/lumina-seal-256.png" alt="" aria-hidden="true"></span><span>Lumina</span></a><button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">☰</button><div class="nav-links" data-nav-links></div></nav></header>
+  <main class="page-shell">
+    <section class="page-hero"><p class="eyebrow">Documentation · Recruitment</p><h1>Reward real recruitment without opening an abuse path.</h1><p class="lead">Claims are limited to newly registered guild members, reviewed by specialist staff and protected through disputes and retention rules.</p></section>
+    <section class="section doc-layout">
+      <aside class="toc-card"><p class="eyebrow">On this page</p><a href="#setup">Setup</a><a href="#claim">Claim flow</a><a href="#review">Review</a><a href="#rewards">Rewards</a><a href="#retention">Retention</a><a href="#disputes">Disputes</a></aside>
+      <article class="doc-article">
+        <section id="setup" class="doc-section"><p class="eyebrow">Setup</p><h2>Publish the panel and select the specialist role</h2><code class="command-signature">/recruitment set channel:#recruitment role:@Recruitment</code><p>Administrators can always review. Moderators need both a configured global moderator role and the additional recruitment role.</p></section>
+        <section id="claim" class="doc-section"><p class="eyebrow">Member flow</p><h2>Only eligible recent registrations appear</h2><ol class="steps rich-steps"><li>Click <strong>Report recruitment</strong>.</li><li>Select a newly registered guild member from the filtered selector.</li><li>Choose whether the member applied because of you or was directly invited and accepted by you.</li><li>Confirm the exact declaration and submit it for review.</li></ol><div class="doc-callout warning"><strong>Anti-alter protection</strong><p>The recruited identity must be a first-time character registration on a new Discord account. Existing alters, recycled registrations and duplicate claims do not qualify.</p></div></section>
+        <section id="review" class="doc-section"><p class="eyebrow">Staff review</p><h2>Approval is provisional before becoming historical</h2><div class="flow-strip"><div><strong>Pending review</strong><p>Specialist staff checks the recruiter, registration and guild membership.</p></div><div><strong>Approved</strong><p>Points are granted and the three-day dispute window opens.</p></div><div><strong>Disputed</strong><p>Staff reviews competing ownership evidence and records a verdict.</p></div><div><strong>Historical log</strong><p>After the claim window closes, the panel entry becomes a fixed log message.</p></div></div></section>
+        <section id="rewards" class="doc-section"><p class="eyebrow">Exponential rewards</p><h2>Recent successful recruitment increases the next reward</h2><ul class="check-list"><li>Base reward starts at 5,000 Loyalty Points.</li><li>Recent approved recruitments increase the multiplier exponentially.</li><li>Previous recruitment influence decays continuously with a 90-day half-life.</li><li>One recruitment reward is capped at 1,000,000 Loyalty Points.</li><li>The applied multiplier and awarded total are written to public and private Loyalty history.</li></ul></section>
+        <section id="retention" class="doc-section"><p class="eyebrow">Twelve-month protection</p><h2>Points become protected gradually</h2><p>The recruit must remain in the configured guild for twelve months. If the member leaves early, only the unprotected proportional part is reversed. Each recruitment has its own independent retention timeline.</p><div class="info-table"><div><strong>Leaves immediately</strong><span>Almost the entire reward remains at risk.</span></div><div><strong>Leaves after six months</strong><span>Approximately half of that recruitment reward is protected.</span></div><div><strong>Leaves after twelve months</strong><span>The reward is fully protected and no longer reversed.</span></div></div></section>
+        <section id="disputes" class="doc-section"><p class="eyebrow">Disputes</p><h2>Any eligible member can challenge ownership</h2><p>Claims can be disputed while pending or during the three-day approved claim period. The challenger selects the recruitment, provides the date and a short explanation. Recruitment reviewers or administrators record the final verdict in the log.</p></section>
+      </article>
+    </section>
+  </main>
+  <footer class="footer"><a href="#top">Back to top</a><span>Built for Lumina · Luminox</span></footer>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Luminox identity tracker guide for name changes, trades, transfers, returns and deleted enemies.">
+  <title>Lumina · Luminox Identity Tracker</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/png" href="assets/brand/lumina-seal-256.png">
+</head>
+<body>
+  <header class="site-header compact-header" id="top"><nav class="nav"><a class="brand" href="index.html"><span class="brand-mark"><img src="assets/brand/lumina-seal-256.png" alt="" aria-hidden="true"></span><span>Lumina</span></a><button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">☰</button><div class="nav-links" data-nav-links></div></nav></header>
+  <main class="page-shell">
+    <section class="page-hero"><p class="eyebrow">Documentation · Identity Tracker</p><h1>Keep moderation records attached to the real Tibia identity.</h1><p class="lead">The tracker follows sanctioned characters through renames, trades, world transfers, returns and deletion without creating additional Tibia requests.</p></section>
+    <section class="section doc-layout">
+      <aside class="toc-card"><p class="eyebrow">On this page</p><a href="#setup">Setup</a><a href="#detects">What it detects</a><a href="#lists">List behavior</a><a href="#alerts">Guild Chat alerts</a><a href="#delivery">Reliable delivery</a></aside>
+      <article class="doc-article">
+        <section id="setup" class="doc-section"><p class="eyebrow">Setup</p><h2>Tracker log and important alert channel</h2><div class="info-table"><div><strong>Tracker channel</strong><span><code>/tracker set channel:#tracker</code></span></div><div><strong>Important alerts</strong><span><code>/guild chat channel:#guildchat</code></span></div><div><strong>Source records</strong><span>Blacklist, Ban List and enemy watchlist identities.</span></div><div><strong>Founder scan</strong><span>Founder Edition checks risk identities every 15 minutes; normal scan is every 30 minutes.</span></div></div></section>
+
+        <section id="detects" class="doc-section"><p class="eyebrow">Detection model</p><h2>Each outcome has a different meaning</h2><div class="doc-table-wrap"><table class="doc-table"><thead><tr><th>Change</th><th>Marker</th><th>Important alert</th></tr></thead><tbody><tr><td><strong>Name change</strong></td><td><code>(changed)</code></td><td>No defeat alert. The Tracker logs it and linked lists are renamed.</td></tr><tr><td><strong>Traded character</strong></td><td><code>(traded)</code></td><td><code>Enemy Defeated</code></td></tr><tr><td><strong>Transferred away</strong></td><td><code>(transferred)</code></td><td><code>Enemy Defeated</code> with origin and destination worlds.</td></tr><tr><td><strong>Traded and transferred</strong></td><td><code>(traded + transferred)</code></td><td>One combined defeat alert, not two duplicates.</td></tr><tr><td><strong>Returned</strong></td><td><code>(returned)</code></td><td><code>Enemy Returned</code> and reactivation in the configured world.</td></tr><tr><td><strong>Deleted character</strong></td><td>Archived as deleted</td><td><code>Enemy Defeated</code> after two confirmed not-found checks.</td></tr><tr><td><strong>Disbanded guild</strong></td><td>Archived as disbanded</td><td><code>Enemy Guild Defeated</code> after two confirmed checks.</td></tr></tbody></table></div><div class="doc-callout warning"><strong>A rename is not a defeat</strong><p>Renaming only updates identity references and creates a historical Tracker entry.</p></div></section>
+
+        <section id="lists" class="doc-section"><p class="eyebrow">Blacklist organization</p><h2>Records move instead of disappearing</h2><ol class="steps rich-steps"><li><strong>Blacklist · Disbanded / Deleted</strong> keeps removed historical entities.</li><li><strong>Blacklist · Out of This World</strong> keeps transferred characters outside the configured world.</li><li><strong>Blacklist · On This World</strong> contains active local threats and panel controls.</li></ol><p>Characters outside the world remain in Blacklist history but are excluded from Enemies Online. If they return, they move back automatically.</p></section>
+
+        <section id="alerts" class="doc-section"><p class="eyebrow">Guild Chat alerts</p><h2>Compact outcome messages</h2><p>Important alerts include the linked character or guild, vocation and level, outcome details, assigned TC bounty, blacklist reason and recorded time.</p><div class="code-card"><p>• <strong>Linked Enemy [EK1120]</strong><br>• Traded + transferred.</p><p><strong>Outcome</strong><br>• Transferred from <strong>Secura</strong> to <strong>Celesta</strong>.<br>• Marked as traded.</p><p><strong>Bounty</strong><br>• 1,000 TC</p></div></section>
+
+        <section id="delivery" class="doc-section"><p class="eyebrow">Reliable delivery</p><h2>Failed important alerts are retried safely</h2><ul class="check-list"><li>Alerts enter a small persistent outbox before sending.</li><li>Failed deliveries are retried for up to 24 hours.</li><li>Each alert carries a deterministic delivery marker to prevent duplicates after restarts.</li><li>An empty outbox makes no additional Discord or Tibia network requests.</li><li>Tracker lookups already required by the identity scan are reused.</li></ul></section>
+      </article>
+    </section>
+  </main>
+  <footer class="footer"><a href="#top">Back to top</a><span>Built for Lumina · Luminox</span></footer>
+  <script src="script.js"></script>
+</body>
+</html>

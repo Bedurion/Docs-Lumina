@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Luminox staff roles, private voting and public staff application panels.">
+  <title>Lumina · Luminox Staff Systems</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/png" href="assets/brand/lumina-seal-256.png">
+</head>
+<body>
+  <header class="site-header compact-header" id="top"><nav class="nav"><a class="brand" href="index.html"><span class="brand-mark"><img src="assets/brand/lumina-seal-256.png" alt="" aria-hidden="true"></span><span>Lumina</span></a><button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">☰</button><div class="nav-links" data-nav-links></div></nav></header>
+  <main class="page-shell">
+    <section class="page-hero"><p class="eyebrow">Documentation · Staff</p><h1>Multiple moderator roles, specialist permissions and two paths into staff.</h1><p class="lead">Global moderator roles unlock common tools. Specialist roles add focused access for GuildBank, recruitment and support categories.</p></section>
+    <section class="section doc-layout">
+      <aside class="toc-card"><p class="eyebrow">On this page</p><a href="#roles">Moderator roles</a><a href="#specialists">Specialists</a><a href="#voting">Staff voting</a><a href="#applications">Applications</a><a href="#admins">Administrators</a></aside>
+      <article class="doc-article">
+        <section id="roles" class="doc-section"><p class="eyebrow">Global moderators</p><h2>Configure more than one moderator role</h2><div class="info-table"><div><strong>Add role</strong><span><code>/moderators roles add role:@Role</code></span></div><div><strong>Remove role</strong><span><code>/moderators roles remove role:@Role</code></span></div><div><strong>Inspect roles</strong><span><code>/moderators roles overview</code></span></div></div><p>A user holding any configured global moderator role is treated as a moderator. Discord Administrator permission continues to grant administrator access independently.</p></section>
+
+        <section id="specialists" class="doc-section"><p class="eyebrow">Specialist roles</p><h2>Global moderator plus system-specific role</h2><div class="doc-table-wrap"><table class="doc-table"><thead><tr><th>System</th><th>Required access</th><th>Configuration</th></tr></thead><tbody><tr><td><strong>GuildBank review</strong></td><td>Global moderator + Treasurer, or Administrator</td><td><code>/guildbank set treasurer</code></td></tr><tr><td><strong>Recruitment review</strong></td><td>Global moderator + Recruitment role, or Administrator</td><td><code>/recruitment set</code></td></tr><tr><td><strong>Support category</strong></td><td>Global moderator + one category staff role, or Administrator</td><td><code>/support category</code></td></tr></tbody></table></div></section>
+
+        <section id="voting" class="doc-section"><p class="eyebrow">Private staff voting</p><h2>Anonymous internal candidacies</h2><code class="command-signature">/moderators set voting channel:#staff-voting</code><ul class="check-list"><li>Only staff can start a vote or vote.</li><li>The candidate is selected through their registered main character.</li><li>Existing staff cannot be nominated again.</li><li>One Discord account can vote once for each candidate.</li><li>The initiator and individual voters remain private.</li><li>Administrators archive the candidacy or invite the selected candidate.</li></ul></section>
+
+        <section id="applications" class="doc-section"><p class="eyebrow">Public applications</p><h2>Members apply with context, not an empty vote card</h2><code class="command-signature">/moderators set applications channel:#applications</code><p>The public panel lets eligible guild members submit their registered main character and allows guild voting. Every application must explain what the candidate can contribute, their staff experience in this or other games, their game experience and the time they can commit — including an indefinite commitment when appropriate.</p><p>A second button routes members who prefer privacy to the configured Support channel instead of publishing their application.</p></section>
+
+        <section id="admins" class="doc-section"><p class="eyebrow">Administrators</p><h2>Administrator is determined by Discord</h2><p>Luminox does not maintain a separate administrator role list. A member is an administrator when Discord grants the <strong>Administrator</strong> permission. Administrators can bypass specialist-role requirements where documented, but their actions are still logged.</p></section>
+      </article>
+    </section>
+  </main>
+  <footer class="footer"><a href="#top">Back to top</a><span>Built for Lumina · Luminox</span></footer>
+  <script src="script.js"></script>
+</body>
+</html>

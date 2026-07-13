@@ -1,0 +1,10 @@
+{
+  "name": "luminox-docs",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static Lumina and Luminox product website and documentation.",
+  "scripts": {
+    "test": "node tools/validate-site.js",
+    "validate": "node tools/validate-site.js"
+  }
+}

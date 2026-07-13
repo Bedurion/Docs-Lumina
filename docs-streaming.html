@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Configure and understand Luminox Stream Loyalty, valid screen-share sessions, limits, rewards and streaming leaderboards.">
+  <meta name="theme-color" content="#0b1020">
+  <title>Lumina · Stream Loyalty</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/png" href="assets/brand/lumina-seal-256.png">
+</head>
+<body>
+  <header class="site-header compact-header" id="top"><nav class="nav"><a class="brand" href="index.html"><span class="brand-mark"><img src="assets/brand/lumina-seal-256.png" alt="" aria-hidden="true"></span><span>Lumina</span></a><button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">☰</button><div class="nav-links" data-nav-links></div></nav></header>
+  <main class="page-shell">
+    <section class="page-hero">
+      <p class="eyebrow">Documentation · Stream Loyalty</p>
+      <h1>Reward real screen-share activity without polling Discord every minute.</h1>
+      <p class="lead">Luminox follows Discord voice-state changes, checkpoints active sessions safely and calculates every valid minute when the stream ends.</p>
+    </section>
+
+    <section class="section doc-layout">
+      <aside class="toc-card">
+        <p class="eyebrow">On this page</p>
+        <a href="#setup">Setup</a>
+        <a href="#eligibility">Eligibility</a>
+        <a href="#calculation">Calculation</a>
+        <a href="#limits">Limits</a>
+        <a href="#profile">Profiles &amp; rankings</a>
+        <a href="#reliability">Reliability</a>
+      </aside>
+
+      <article class="doc-article">
+        <section id="setup" class="doc-section">
+          <p class="eyebrow">Administrator setup</p>
+          <h2>Enable only the voice channels intended for streaming</h2>
+          <code class="command-signature">/loyalty streams channel:Stream enabled:true</code>
+          <p>Run the command once for every voice channel where members may earn Stream Loyalty. Use the same command with <code>enabled:false</code> to remove a channel later. The configured channels appear in the server configuration overview; members do not need a separate command or panel.</p>
+          <div class="doc-callout">
+            <strong>Recommended permissions</strong>
+            <p>Members need permission to view and connect to the voice channel and to stream their screen. They do not need permission to speak if the channel is designed as a silent streaming room.</p>
+          </div>
+        </section>
+
+        <section id="eligibility" class="doc-section">
+          <p class="eyebrow">Eligibility</p>
+          <h2>The account must be a verified, active guild member</h2>
+          <ul class="check-list">
+            <li>The Discord account needs at least one verified character in the configured guild and world.</li>
+            <li>The member must be connected to an enabled voice channel.</li>
+            <li>Discord must report that the member is actively sharing their screen.</li>
+            <li>The session must last at least ten minutes before it becomes rewardable.</li>
+            <li>Blacklist, Ban List and normal Loyalty eligibility rules still apply.</li>
+            <li>Simply sitting in voice, speaking or watching another stream does not count.</li>
+          </ul>
+        </section>
+
+        <section id="calculation" class="doc-section">
+          <p class="eyebrow">Reward calculation</p>
+          <h2>Ten points per hour, with every valid minute preserved</h2>
+          <p>Luminox calculates the reward proportionally instead of discarding incomplete hours. A valid 90-minute session contributes the equivalent of 15 Loyalty Points. Fractional progress is retained internally, so several shorter valid sessions can eventually produce the next whole point.</p>
+          <div class="info-table">
+            <div><strong>10 minutes</strong><span>Session becomes valid; minute progress is saved.</span></div>
+            <div><strong>60 minutes</strong><span>10 Loyalty Points worth of streamed time.</span></div>
+            <div><strong>90 minutes</strong><span>15 Loyalty Points worth of streamed time.</span></div>
+            <div><strong>Session end</strong><span>The final duration and reward are settled once, preventing repeated grants.</span></div>
+          </div>
+        </section>
+
+        <section id="limits" class="doc-section">
+          <p class="eyebrow">Abuse protection</p>
+          <h2>A rolling daily limit keeps the reward healthy</h2>
+          <p>Each account can receive rewards for up to six streamed hours in a rolling 24-hour window. The limit follows the account, not an individual character or voice channel. Moving between enabled channels therefore cannot reset it.</p>
+          <div class="doc-callout warning">
+            <strong>Below-minimum sessions</strong>
+            <p>A session shorter than ten minutes is closed without Loyalty Points. It does not become a reusable fragment that can be spammed repeatedly.</p>
+          </div>
+        </section>
+
+        <section id="profile" class="doc-section">
+          <p class="eyebrow">Member visibility</p>
+          <h2>Streaming progress appears where members already check Loyalty</h2>
+          <p>The private <strong>View my Loyalty Profile</strong> response includes current streaming status, total valid streamed time, rewarded streamed time, points already earned, pending progress and rolling 24-hour usage.</p>
+          <p>The main Leaderboards panel also includes <strong>Total Streamed Hours</strong>. This ranking uses the same stored session totals and does not trigger extra Discord or Tibia requests.</p>
+          <p><a class="text-link" href="docs-loyalty.html">Return to the complete Loyalty guide →</a></p>
+        </section>
+
+        <section id="reliability" class="doc-section">
+          <p class="eyebrow">Reliability</p>
+          <h2>Event-driven tracking with periodic safety checkpoints</h2>
+          <p>Luminox reacts when Discord reports a member starting, stopping, joining, leaving or moving a stream. Active sessions are checkpointed every ten minutes so a restart does not discard a long session. Rewards use deterministic session identifiers, which prevents the same closed stream from being credited twice.</p>
+          <ul class="check-list">
+            <li>No additional Tibia requests are required.</li>
+            <li>No per-second database writes are performed.</li>
+            <li>Active state is restored safely after normal bot restarts.</li>
+            <li>Leaving the guild or losing Loyalty eligibility removes stream progression with the rest of the account profile.</li>
+          </ul>
+        </section>
+      </article>
+    </section>
+  </main>
+  <footer class="footer"><a href="#top">Back to top</a><span>Built for Lumina · Luminox</span></footer>
+  <script src="script.js"></script>
+</body>
+</html>

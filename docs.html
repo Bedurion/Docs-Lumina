@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Complete Luminox documentation for members, staff and Discord administrators.">
+  <title>Lumina · Luminox Documentation</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/png" href="assets/brand/lumina-seal-256.png">
+</head>
+<body>
+  <header class="site-header compact-header" id="top"><nav class="nav"><a class="brand" href="index.html"><span class="brand-mark"><img src="assets/brand/lumina-seal-256.png" alt="" aria-hidden="true"></span><span>Lumina</span></a><button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">☰</button><div class="nav-links" data-nav-links></div></nav></header>
+  <main class="page-shell">
+    <section class="page-hero hero-simple">
+      <p class="eyebrow">Luminox Documentation</p>
+      <h1>Everything your guild needs, documented from setup to daily use.</h1>
+      <p class="lead">Search by command, panel or workflow. Every guide follows the current panel-first version of Luminox.</p>
+      <div class="docs-search-shell">
+        <input class="search-input" type="search" placeholder="Search registration, GuildBank, events, tracker..." aria-label="Search documentation" data-docs-search>
+        <div class="docs-search-results" data-docs-search-results></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading compact-heading"><p class="eyebrow">Choose a path</p><h2>Start with what you are trying to do.</h2></div>
+      <div class="docs-topic-grid">
+        <a class="doc-topic-card" href="docs-getting-started.html"><div class="feature-icon"><img src="assets/icons/setup.svg" alt=""></div><h3>Install and configure</h3><p>Choose an edition, verify the guild, map roles and publish the first panels.</p></a>
+        <a class="doc-topic-card" href="docs-registration.html"><div class="feature-icon"><img src="assets/icons/identity.svg" alt=""></div><h3>Join as a member</h3><p>Set a timezone, verify a character, choose a main and receive the correct guild role.</p></a>
+        <a class="doc-topic-card" href="docs-loyalty.html"><div class="feature-icon"><img src="assets/icons/leaderboards.svg" alt=""></div><h3>Understand Loyalty</h3><p>See every reward source, level threshold, profile field and eligibility rule.</p></a>
+        <a class="doc-topic-card" href="docs-events.html"><div class="feature-icon"><img src="assets/icons/events.svg" alt=""></div><h3>Run events</h3><p>Create hunts, bosses, quests and general events from their channel panels.</p></a>
+        <a class="doc-topic-card" href="docs-guildbank.html"><div class="feature-icon"><img src="assets/icons/economy.svg" alt=""></div><h3>Operate GuildBank</h3><p>Configure treasurers, review deposits, accumulate small contributions and audit logs.</p></a>
+        <a class="doc-topic-card" href="docs-moderation.html"><div class="feature-icon"><img src="assets/icons/intelligence.svg" alt=""></div><h3>Moderate safely</h3><p>Manage bans, blacklist records, tracker outcomes and important Guild Chat alerts.</p></a>
+        <a class="doc-topic-card" href="docs-progression.html"><div class="feature-icon"><img src="assets/icons/leaderboards.svg" alt=""></div><h3>Track progression</h3><p>Understand level, death and guild-roster panels with rolling time windows.</p></a>
+        <a class="doc-topic-card" href="docs-automation.html"><div class="feature-icon"><img src="assets/icons/setup.svg" alt=""></div><h3>Maintain the server</h3><p>Use safe refreshes, timed cleanup, bounded retention and automatic backups.</p></a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading compact-heading"><p class="eyebrow">Recommended setup journey</p><h2>A safe order that avoids broken panels.</h2></div>
+      <div class="flow-strip">
+        <div><strong>Run the wizard</strong><p>Use <code>/install wizard</code> to detect missing configuration without deleting existing data.</p></div>
+        <div><strong>Verify identity rules</strong><p>Configure guild, world, ranks, guest role and global moderator roles.</p></div>
+        <div><strong>Publish panels</strong><p>Assign dedicated channels for registration, economy, events, intelligence and support.</p></div>
+        <div><strong>Review the result</strong><p>Use <code>/install overview</code> and test every panel with the correct access level.</p></div>
+      </div>
+      <div class="doc-callout"><strong>Panel-first design</strong><p>Members normally use buttons and selectors. Slash commands are mostly reserved for installation, configuration and administrative maintenance.</p></div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading compact-heading"><p class="eyebrow">Reference</p><h2>Fast access to the two most important indexes.</h2></div>
+      <div class="grid cards three">
+        <article class="card"><h3>Command reference</h3><p>Every active command, exact syntax, access level and related panel.</p><a class="text-link" href="commands.html">Browse commands →</a></article>
+        <article class="card"><h3>Panel directory</h3><p>Every panel, setup command, prerequisites and intended audience.</p><a class="text-link" href="docs-panels.html">Browse panels →</a></article>
+        <article class="card"><h3>Troubleshooting</h3><p>Permissions, missing messages, failed interactions and synchronization checks.</p><a class="text-link" href="docs-troubleshooting.html">Solve a problem →</a></article>
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><a href="#top">Back to top</a><span>Built for Lumina · Luminox</span></footer>
+  <script src="script.js"></script>
+</body>
+</html>
