@@ -152,6 +152,100 @@ const documentationCatalog = [
   ['docs-faq.html', 'FAQ', 'Short answers to common member and staff questions.', 'faq questions help']
 ];
 
+const pagePresentations = {
+  '404.html': { family: 'utility', variant: 'signal', accent: 'red', code: '404', icon: 'troubleshooting.svg', label: 'Lost route', summary: 'The requested destination is outside the current site map.', tags: ['Return', 'Search', 'Recover'] },
+  'changelog.html': { family: 'editorial', variant: 'ledger', accent: 'green', code: 'Build log', icon: 'commands.svg', label: 'Product history', summary: 'A curated record of meaningful releases rather than a raw stream of file changes.', tags: ['Released', 'Verified', 'Documented'] },
+  'commands.html': { family: 'reference', variant: 'terminal', accent: 'blue', code: '32 roots', icon: 'commands.svg', label: 'Command index', summary: 'Exact syntax, access level and purpose for every registered command.', tags: ['Everyone', 'Staff', 'Admin'] },
+  'contact.html': { family: 'contact', variant: 'portal', accent: 'blue', code: 'Discord first', icon: 'support.svg', label: 'Direct contact', summary: 'Guild questions, product support and private evidence all begin in the right Discord space.', tags: ['Support', 'Guild', 'Product'] },
+  'docs.html': { family: 'reference', variant: 'library', accent: 'violet', code: 'Documentation', icon: 'docs.svg', label: 'Search the manual', summary: 'Move from installation to daily operation through role-aware, current guides.', tags: ['Members', 'Staff', 'Admins'] },
+  'docs-getting-started.html': { family: 'reference', variant: 'steps', accent: 'green', code: 'Guide 01', icon: 'setup.svg', label: 'Start here', summary: 'Three paths explain what members, staff and administrators should do first.', tags: ['Choose role', 'Follow path', 'Verify'] },
+  'setup.html': { family: 'reference', variant: 'blueprint', accent: 'gold', code: 'Guide 02', icon: 'setup.svg', label: 'Installation', summary: 'A non-destructive route from an empty server to correctly published panels.', tags: ['Audit', 'Configure', 'Publish'] },
+  'docs-panels.html': { family: 'reference', variant: 'directory', accent: 'violet', code: 'Guide 03', icon: 'docs.svg', label: 'Panel directory', summary: 'Every public control surface, its channel and its prerequisite configuration.', tags: ['Channel', 'Command', 'Audience'] },
+  'docs-registration.html': { family: 'reference', variant: 'identity', accent: 'blue', code: 'Guide 04', icon: 'identity.svg', label: 'Registration', summary: 'The verified link between a Discord account, its Tibia characters and guild access.', tags: ['Verify', 'Main', 'Synchronize'] },
+  'docs-loyalty.html': { family: 'reference', variant: 'progress', accent: 'gold', code: 'Guide 05', icon: 'leaderboards.svg', label: 'Loyalty', summary: 'Account-wide rewards, levels, eligibility and transparent reward history.', tags: ['Earn', 'Level', 'Review'] },
+  'docs-streaming.html': { family: 'reference', variant: 'broadcast', accent: 'red', code: 'Guide 06', icon: 'leaderboards.svg', label: 'Stream Loyalty', summary: 'Event-driven screen-share tracking with proportional rewards and healthy limits.', tags: ['10 min', 'Per minute', '6h cap'] },
+  'docs-events.html': { family: 'reference', variant: 'schedule', accent: 'green', code: 'Guide 07', icon: 'events.svg', label: 'Events', summary: 'Four activity types, participant scheduling, leadership and automatic completion.', tags: ['Create', 'Join', 'Complete'] },
+  'docs-loot.html': { family: 'reference', variant: 'calculator', accent: 'gold', code: 'Guide 08', icon: 'loot.svg', label: 'Loot Split', summary: 'A guided analyzer flow from pasted session data to fair transfers and contributions.', tags: ['Paste', 'Calculate', 'Confirm'] },
+  'docs-finder.html': { family: 'reference', variant: 'radar', accent: 'blue', code: 'Guide 09', icon: 'finder.svg', label: 'Finder', summary: 'Cached online data becomes compatible teams and voluntary Looking for team signals.', tags: ['Online', 'Match', 'Connect'] },
+  'docs-timezones.html': { family: 'reference', variant: 'clock', accent: 'violet', code: 'Guide 10', icon: 'timezones.svg', label: 'Timezones', summary: 'Local input becomes a Discord timestamp every participant can read correctly.', tags: ['Local', 'Convert', 'Display'] },
+  'docs-guildbank.html': { family: 'reference', variant: 'ledger', accent: 'gold', code: 'Guide 11', icon: 'economy.svg', label: 'GuildBank', summary: 'Pending accumulation, specialist review and an auditable confirmed balance.', tags: ['Deposit', 'Review', 'Ledger'] },
+  'docs-leaderboards.html': { family: 'reference', variant: 'ranking', accent: 'green', code: 'Guide 12', icon: 'leaderboards.svg', label: 'Leaderboards', summary: 'Compact rankings for progress, contribution, activity and account Loyalty.', tags: ['Rank', 'Compare', 'Navigate'] },
+  'docs-watchlists.html': { family: 'reference', variant: 'pulse', accent: 'red', code: 'Guide 13', icon: 'watchlists.svg', label: 'Watchlists', summary: 'Live guild and enemy awareness derived from shared cached snapshots.', tags: ['Online', 'Session', 'Risk'] },
+  'docs-progression.html': { family: 'reference', variant: 'timeline', accent: 'green', code: 'Guide 14', icon: 'leaderboards.svg', label: 'Progress', summary: 'Rolling level and death records alongside a living, ranked guild roster.', tags: ['Daily', 'Monthly', 'Yearly'] },
+  'docs-tracker.html': { family: 'reference', variant: 'trace', accent: 'red', code: 'Guide 15', icon: 'intelligence.svg', label: 'Identity Tracker', summary: 'Names remain connected through trades, transfers, returns and deletion.', tags: ['Detect', 'Update', 'Record'] },
+  'docs-guards.html': { family: 'reference', variant: 'alert', accent: 'red', code: 'Guide 16', icon: 'guards.svg', label: 'Guards', summary: 'Temporary duty and coordinated blacklisted-enemy reports with bounded lifetimes.', tags: ['Enable', 'Report', 'Coordinate'] },
+  'docs-recruitment.html': { family: 'reference', variant: 'growth', accent: 'green', code: 'Guide 17', icon: 'guild.svg', label: 'Recruitment', summary: 'Reviewed claims, disputes and retention-aware rewards for real new members.', tags: ['Claim', 'Review', 'Protect'] },
+  'docs-support.html': { family: 'reference', variant: 'inbox', accent: 'blue', code: 'Guide 18', icon: 'support.svg', label: 'Support', summary: 'Private role-aware tickets that keep their full conversation inside Discord.', tags: ['Open', 'Claim', 'Archive'] },
+  'docs-moderation.html': { family: 'reference', variant: 'shield', accent: 'red', code: 'Guide 19', icon: 'intelligence.svg', label: 'Moderation', summary: 'Blacklist, Ban List and permanent logs tied to game identities.', tags: ['Restrict', 'Track', 'Audit'] },
+  'docs-staff.html': { family: 'reference', variant: 'roles', accent: 'violet', code: 'Guide 20', icon: 'guild.svg', label: 'Staff systems', summary: 'Global moderators, specialist roles, private voting and public applications.', tags: ['Roles', 'Access', 'Decisions'] },
+  'docs-admin.html': { family: 'reference', variant: 'control', accent: 'gold', code: 'Guide 21', icon: 'setup.svg', label: 'Administration', summary: 'Configuration boundaries, maintenance tools and safe operational decisions.', tags: ['Configure', 'Inspect', 'Maintain'] },
+  'docs-automation.html': { family: 'reference', variant: 'cycle', accent: 'green', code: 'Guide 22', icon: 'setup.svg', label: 'Automation', summary: 'Refresh, cleanup, private response expiry and retention without heavy repetition.', tags: ['Refresh', 'Expire', 'Retain'] },
+  'docs-website.html': { family: 'reference', variant: 'publish', accent: 'blue', code: 'Guide 23', icon: 'docs.svg', label: 'Website publishing', summary: 'A guarded path from a private Discord proposal to sanitized public media.', tags: ['Submit', 'Review', 'Publish'] },
+  'docs-troubleshooting.html': { family: 'reference', variant: 'diagnostic', accent: 'red', code: 'Guide 24', icon: 'troubleshooting.svg', label: 'Troubleshooting', summary: 'Diagnose permissions and configuration before forcing expensive synchronization.', tags: ['Observe', 'Isolate', 'Recover'] },
+  'systems.html': { family: 'reference', variant: 'architecture', accent: 'violet', code: 'Guide 25', icon: 'docs.svg', label: 'Architecture', summary: 'Separated systems derive multiple views from shared authoritative data.', tags: ['Collect once', 'Reuse', 'Bound'] },
+  'docs-faq.html': { family: 'reference', variant: 'questions', accent: 'blue', code: 'Guide 26', icon: 'support.svg', label: 'FAQ', summary: 'Fast answers with direct routes to the complete operational guides.', tags: ['Ask', 'Answer', 'Continue'] },
+  'features.html': { family: 'product', variant: 'constellation', accent: 'violet', code: 'Product map', icon: 'finder.svg', label: 'Connected systems', summary: 'One verified identity connects every panel, workflow and permanent audit trail.', tags: ['Identity', 'Operations', 'Intelligence'] },
+  'features-identity.html': { family: 'product', variant: 'identity', accent: 'blue', code: '01', icon: 'identity.svg', label: 'Verified identity', summary: 'Make the person, Discord account, characters, main and guild rank agree.', tags: ['Account', 'Character', 'Role'] },
+  'features-economy.html': { family: 'product', variant: 'economy', accent: 'gold', code: '02', icon: 'economy.svg', label: 'Guild economy', summary: 'Turn loot and contributions into reviewed records instead of private assumptions.', tags: ['Split', 'Accumulate', 'Approve'] },
+  'features-events.html': { family: 'product', variant: 'events', accent: 'green', code: '03', icon: 'events.svg', label: 'Event engine', summary: 'Specialized team rules and one reliable lifecycle from recruitment to archive.', tags: ['Schedule', 'Team', 'Reward'] },
+  'features-intelligence.html': { family: 'product', variant: 'intelligence', accent: 'red', code: '04', icon: 'intelligence.svg', label: 'Live intelligence', summary: 'Connect online state, enemy risk and identity changes without duplicate scans.', tags: ['Observe', 'Track', 'Alert'] },
+  'features-finder.html': { family: 'product', variant: 'finder', accent: 'blue', code: '05', icon: 'finder.svg', label: 'Team discovery', summary: 'Use current activity and compatible vocations to surface playable groups.', tags: ['Signal', 'Score', 'Match'] },
+  'features-support.html': { family: 'product', variant: 'support', accent: 'violet', code: '06', icon: 'support.svg', label: 'Private support', summary: 'Route every request to the correct people without exposing it publicly.', tags: ['Route', 'Resolve', 'Archive'] },
+  'guild.html': { family: 'guild', variant: 'manifesto', accent: 'gold', code: 'Secura', icon: 'guild.svg', label: 'The guild', summary: 'An international Tibia community where structure protects the social experience.', tags: ['Trust', 'Respect', 'Together'] },
+  'guild-community.html': { family: 'guild', variant: 'community', accent: 'green', code: 'Chapter 02', icon: 'guild.svg', label: 'Community', summary: 'Organization creates more room for helping, playing and staying connected.', tags: ['Hunts', 'Voice', 'Support'] },
+  'gallery.html': { family: 'guild', variant: 'gallery', accent: 'violet', code: 'Field notes', icon: 'guild.svg', label: 'Community gallery', summary: 'Staff-reviewed moments from the people and activities behind Lumina.', tags: ['Captured', 'Reviewed', 'Published'] },
+  'guild-join.html': { family: 'guild', variant: 'journey', accent: 'blue', code: 'Chapter 03', icon: 'identity.svg', label: 'Join Lumina', summary: 'A clear journey from interested visitor to verified guild member.', tags: ['Apply', 'Verify', 'Enter'] },
+  'guild-rules.html': { family: 'guild', variant: 'charter', accent: 'red', code: 'Chapter 04', icon: 'guards.svg', label: 'Guild charter', summary: 'The principles that protect claims, communication and long-term trust.', tags: ['Respect', 'Evidence', 'Accountability'] },
+  'pricing.html': { family: 'commercial', variant: 'editions', accent: 'gold', code: '3 editions', icon: 'pricing.svg', label: 'Product paths', summary: 'Founder depth today; honest Community and Universal packaging when ready.', tags: ['Founder', 'Community', 'Universal'] },
+  'roadmap.html': { family: 'editorial', variant: 'route', accent: 'violet', code: 'Now → later', icon: 'pricing.svg', label: 'Development route', summary: 'Depth, reliability and packaging happen in that order — never the reverse.', tags: ['Harden', 'Package', 'Scale'] }
+};
+
+const renderOpeningAside = (presentation) => {
+  const aside = document.createElement('aside');
+  aside.className = 'opening-aside';
+  aside.setAttribute('aria-label', `${presentation.label} page summary`);
+
+  const tags = presentation.tags.map((tag) => `<span>${tag}</span>`).join('');
+  aside.innerHTML = `
+    <div class="opening-aside-top">
+      <span class="opening-code">${presentation.code}</span>
+      <span class="opening-icon"><img src="assets/icons/${presentation.icon}" alt="" aria-hidden="true"></span>
+    </div>
+    <div class="opening-aside-body">
+      <p class="opening-label">${presentation.label}</p>
+      <p class="opening-summary">${presentation.summary}</p>
+      <div class="opening-tags">${tags}</div>
+    </div>`;
+  return aside;
+};
+
+const applyPagePresentation = () => {
+  if (currentPage === 'index.html') {
+    document.body.classList.add('page-home');
+    return;
+  }
+
+  const presentation = pagePresentations[currentPage];
+  const opening = document.querySelector('.page-hero');
+  if (!presentation || !opening) return;
+
+  document.body.classList.add(
+    'page-interior',
+    `page-family-${presentation.family}`,
+    `page-accent-${presentation.accent}`,
+    `page-variant-${presentation.variant}`
+  );
+  opening.classList.add('page-opening');
+
+  const copy = document.createElement('div');
+  copy.className = 'opening-copy';
+  while (opening.firstChild) copy.append(opening.firstChild);
+
+  opening.append(copy, renderOpeningAside(presentation));
+};
+
+applyPagePresentation();
+
 const mainContent = document.querySelector('main');
 if (mainContent) {
   mainContent.id ||= 'main-content';

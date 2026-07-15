@@ -73,6 +73,15 @@ if (!fs.existsSync(sitemapPath)) {
 }
 
 const scriptSource = fs.readFileSync(path.join(root, 'script.js'), 'utf8');
+const presentationPages = [...scriptSource.matchAll(/^  '([^']+\.html)': \{ family:/gm)].map((match) => match[1]);
+const interiorPages = htmlFiles.filter((file) => file !== 'index.html');
+interiorPages.forEach((page) => {
+  if (!presentationPages.includes(page)) report('script.js', `missing unique page presentation for ${page}`);
+});
+presentationPages.forEach((page) => {
+  if (!interiorPages.includes(page)) report('script.js', `unknown page presentation ${page}`);
+});
+
 for (const page of publicPages) {
   if (page === 'index.html') continue;
   const source = fs.readFileSync(path.join(root, page), 'utf8');
