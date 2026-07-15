@@ -14,7 +14,7 @@ Static GitHub Pages product website and documentation for Lumina and Luminox.
 - `script.js` — menus and search.
 - `gallery.html`, `gallery.js`, `data/community-media.json` — approved community-media gallery.
 - `tools/validate-site.js` — link, metadata, navigation and optional live command-reference validation.
-- `tools/publish-community-media.mjs` — isolated attachment validation, metadata stripping and WebP conversion.
+- `tools/publish-community-media.mjs` — isolated JPG/PNG/MP4 validation, metadata stripping and safe re-encoding.
 - `sitemap.xml`, `robots.txt`, `404.html` — GitHub Pages discovery and fallback files.
 
 Changelog updates are manual. Avoid generated status files that change during normal bot runtime.
@@ -35,6 +35,6 @@ In the GitHub repository settings, open **Pages** and select **GitHub Actions** 
 
 ## Publish approved Discord media
 
-The `publish-community-media.yml` workflow is intentionally manual-only through `workflow_dispatch`. Luminox sends one AES-256-GCM encrypted payload after moderator approval and final administrator confirmation. A read-only runner accepts only signed Discord CDN attachments that resolve to matching JPG, PNG or WebP bytes, applies hard size and pixel limits, and re-encodes every image. A separate write-enabled job verifies the isolated artifact before committing only generated files under `assets/community/` plus the gallery index.
+The `publish-community-media.yml` workflow is intentionally manual-only through `workflow_dispatch`. Luminox sends one AES-256-GCM encrypted payload after moderator approval and final administrator confirmation. A read-only runner accepts only signed Discord CDN attachments that resolve to matching JPG, PNG or MP4 bytes, applies hard size and media limits, converts images to WebP, and re-encodes MP4 video as H.264 with optional AAC audio. A separate write-enabled job verifies the isolated artifact before committing only generated files under `assets/community/` plus the gallery index.
 
-Add a GitHub Actions repository secret named `WEBSITE_PUBLISH_PAYLOAD_SECRET`. It must match the 32-byte Base64 secret stored only in the Luminox `.env`. The bot credential used to dispatch the workflow should be fine-grained, repository-scoped and limited to **Actions: write**. Image decoding runs with read-only repository access; only the final artifact-verification job receives `contents: write`.
+Add a GitHub Actions repository secret named `WEBSITE_PUBLISH_PAYLOAD_SECRET`. It must match the 32-byte Base64 secret stored only in the Luminox `.env`. The bot credential used to dispatch the workflow should be fine-grained, repository-scoped and limited to **Actions: write**. Media decoding runs with read-only repository access; only the final artifact-verification job receives `contents: write`.

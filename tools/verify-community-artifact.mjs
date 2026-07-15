@@ -94,7 +94,7 @@ if (!isPlainObject(stagedData) || !hasOnlyKeys(stagedData, ['version', 'entry'])
 
 const entry = stagedData.entry;
 
-if (!isPlainObject(entry) || !hasOnlyKeys(entry, ['id', 'title', 'description', 'credit', 'submittedAt', 'publishedAt', 'images'])) {
+if (!isPlainObject(entry) || !hasOnlyKeys(entry, ['id', 'title', 'description', 'credit', 'submittedAt', 'publishedAt', 'media'])) {
   fail('New gallery entry contains an invalid structure.');
 }
 
@@ -105,33 +105,51 @@ assertString(entry.credit, 1, 100, 'Credit');
 assertIsoDate(entry.submittedAt, 'Submission date');
 assertIsoDate(entry.publishedAt, 'Publication date');
 
-if (!Array.isArray(entry.images) || entry.images.length < 1 || entry.images.length > 4) {
-  fail('Gallery entry must contain between one and four images.');
+if (!Array.isArray(entry.media) || entry.media.length < 1 || entry.media.length > 4) {
+  fail('Gallery entry must contain between one and four media files.');
 }
 
 const expectedFiles = new Set(['data/community-media-entry.json']);
 
-for (const [index, image] of entry.images.entries()) {
-  if (!isPlainObject(image) || !hasOnlyKeys(image, ['src', 'alt', 'width', 'height'])) {
-    fail('Gallery image metadata contains an invalid structure.');
+for (const [index, media] of entry.media.entries()) {
+  if (!isPlainObject(media) || !['image', 'video'].includes(media.type)) {
+    fail('Gallery media metadata contains an invalid structure.');
   }
 
-  const expectedName = `${submissionId.toLowerCase()}-${index + 1}.webp`;
+  const isVideo = media.type === 'video';
+  const expectedKeys = isVideo
+    ? ['type', 'src', 'alt', 'width', 'height', 'duration']
+    : ['type', 'src', 'alt', 'width', 'height'];
+
+  if (!hasOnlyKeys(media, expectedKeys)) {
+    fail('Gallery media metadata contains unexpected fields.');
+  }
+
+  const expectedName = `${submissionId.toLowerCase()}-${index + 1}.${isVideo ? 'mp4' : 'webp'}`;
   const expectedSource = `assets/community/${expectedName}`;
 
-  if (image.src !== expectedSource) fail('Gallery image path is not generated from the submission ID.');
-  assertString(image.alt, 5, 340, 'Alternative text');
+  if (media.src !== expectedSource) fail('Gallery media path is not generated from the submission ID.');
+  assertString(media.alt, 5, 340, 'Alternative text');
 
   if (
-    !Number.isSafeInteger(image.width) ||
-    !Number.isSafeInteger(image.height) ||
-    image.width < 1 ||
-    image.height < 1 ||
-    image.width > 2400 ||
-    image.height > 2400 ||
-    image.width * image.height > 40_000_000
+    !Number.isSafeInteger(media.width) ||
+    !Number.isSafeInteger(media.height) ||
+    media.width < 1 ||
+    media.height < 1 ||
+    media.width > (isVideo ? 1920 : 2400) ||
+    media.height > (isVideo ? 1920 : 2400) ||
+    media.width * media.height > 40_000_000
   ) {
-    fail('Gallery image dimensions are invalid.');
+    fail('Gallery media dimensions are invalid.');
+  }
+
+  if (isVideo && (
+    typeof media.duration !== 'number' ||
+    !Number.isFinite(media.duration) ||
+    media.duration <= 0 ||
+    media.duration > 120
+  )) {
+    fail('Gallery video duration is invalid.');
   }
 
   expectedFiles.add(expectedSource);
@@ -161,12 +179,27 @@ for (const file of stagedFiles.filter((candidate) => candidate.relativePath.ends
   }
 }
 
+for (const file of stagedFiles.filter((candidate) => candidate.relativePath.endsWith('.mp4'))) {
+  if (file.stats.size < 12 || file.stats.size > maximumArtifactBytes) {
+    fail(`Sanitized video has invalid size: ${file.relativePath}`);
+  }
+
+  const handle = await fs.open(file.absolutePath, 'r');
+  const signature = Buffer.alloc(12);
+  await handle.read(signature, 0, signature.length, 0);
+  await handle.close();
+
+  if (signature.subarray(4, 8).toString('ascii') !== 'ftyp') {
+    fail(`Sanitized video has an invalid MP4 signature: ${file.relativePath}`);
+  }
+}
+
 await fs.mkdir(path.join(root, 'assets', 'community'), { recursive: true });
 
-for (const image of entry.images) {
+for (const media of entry.media) {
   await fs.copyFile(
-    path.join(stagingRoot, image.src),
-    path.join(root, image.src),
+    path.join(stagingRoot, media.src),
+    path.join(root, media.src),
     fsConstants.COPYFILE_EXCL
   );
 }

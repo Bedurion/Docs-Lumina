@@ -22,15 +22,31 @@ function buildGalleryEntry(entry) {
   article.className = 'community-gallery-entry';
   article.id = String(entry.id || '').toLowerCase();
 
+  const mediaItems = Array.isArray(entry.media)
+    ? entry.media
+    : (Array.isArray(entry.images) ? entry.images.map((image) => ({ ...image, type: 'image' })) : []);
   const media = document.createElement('div');
-  media.className = `community-gallery-media images-${Math.min(entry.images.length, 4)}`;
+  media.className = `community-gallery-media media-${Math.min(mediaItems.length, 4)}`;
 
-  entry.images.forEach((imageData) => {
+  mediaItems.forEach((mediaData) => {
+    if (mediaData.type === 'video') {
+      const video = document.createElement('video');
+      video.src = mediaData.src;
+      video.setAttribute('aria-label', mediaData.alt);
+      video.width = mediaData.width;
+      video.height = mediaData.height;
+      video.controls = true;
+      video.preload = 'metadata';
+      video.playsInline = true;
+      media.append(video);
+      return;
+    }
+
     const image = document.createElement('img');
-    image.src = imageData.src;
-    image.alt = imageData.alt;
-    image.width = imageData.width;
-    image.height = imageData.height;
+    image.src = mediaData.src;
+    image.alt = mediaData.alt;
+    image.width = mediaData.width;
+    image.height = mediaData.height;
     image.loading = 'lazy';
     image.decoding = 'async';
     media.append(image);
