@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://bedurion.github.io/Docs/sitemap.xml
+Sitemap: https://bedurion.github.io/Docs-Lumina/sitemap.xml

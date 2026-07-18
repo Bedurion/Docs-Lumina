@@ -4,8 +4,10 @@ const { execFileSync } = require('node:child_process');
 
 const root = path.resolve(__dirname, '..');
 const htmlFiles = fs.readdirSync(root).filter((file) => file.endsWith('.html')).sort();
+const publicBaseUrl = 'https://bedurion.github.io/Docs-Lumina/';
 const errors = [];
 const warnings = [];
+const pageTitles = new Map();
 
 function report(file, message) {
   errors.push(`${file}: ${message}`);
@@ -17,14 +19,45 @@ function stripFragment(value) {
 
 for (const file of htmlFiles) {
   const source = fs.readFileSync(path.join(root, file), 'utf8');
+  const title = source.match(/<title>([^<]+)<\/title>/i)?.[1]?.trim() || '';
+  const description = source.match(/<meta\s+name="description"\s+content="([^"]+)"/i)?.[1]?.trim() || '';
 
-  if (!/<title>[^<]+<\/title>/i.test(source)) report(file, 'missing title');
+  if (!title) report(file, 'missing title');
   if (!/<meta\s+name="viewport"/i.test(source)) report(file, 'missing viewport');
-  if (!/<meta\s+name="description"\s+content="[^"]+"/i.test(source)) report(file, 'missing meta description');
+  if (!description) report(file, 'missing meta description');
   if (!/<h1(?:\s[^>]*)?>[\s\S]*?<\/h1>/i.test(source)) report(file, 'missing h1');
   if (!/data-nav-links/.test(source)) report(file, 'missing shared navigation mount');
 
-  const rawEntity = source.match(/&(?![A-Za-z][A-Za-z0-9]+;|#[0-9]+;|#x[0-9A-Fa-f]+;)/);
+  if (file !== '404.html') {
+    const expectedUrl = file === 'index.html' ? publicBaseUrl : `${publicBaseUrl}${file}`;
+    if (title.length < 25 || title.length > 65) report(file, `SEO title length ${title.length} is outside 25-65 characters`);
+    if (description.length < 110 || description.length > 165) report(file, `meta description length ${description.length} is outside 110-165 characters`);
+    if (!source.includes(`<link rel="canonical" href="${expectedUrl}">`)) report(file, `missing canonical URL ${expectedUrl}`);
+    if (!/<meta\s+name="robots"\s+content="index,follow,[^"]+"/i.test(source)) report(file, 'missing indexable robots policy');
+    if (!source.includes(`<meta property="og:url" content="${expectedUrl}">`)) report(file, 'missing matching Open Graph URL');
+    if (!/<meta\s+property="og:title"\s+content="[^"]+"/i.test(source)) report(file, 'missing Open Graph title');
+    if (!/<meta\s+property="og:description"\s+content="[^"]+"/i.test(source)) report(file, 'missing Open Graph description');
+    if (!/<meta\s+property="og:image"\s+content="https:\/\/[^\"]+"/i.test(source)) report(file, 'missing absolute Open Graph image');
+    if (!/<meta\s+name="twitter:card"\s+content="[^"]+"/i.test(source)) report(file, 'missing Twitter card metadata');
+
+    const structuredData = source.match(/<script\s+type="application\/ld\+json">([\s\S]*?)<\/script>/i)?.[1];
+    if (!structuredData) {
+      report(file, 'missing JSON-LD structured data');
+    } else {
+      try {
+        JSON.parse(structuredData);
+      } catch {
+        report(file, 'invalid JSON-LD structured data');
+      }
+    }
+
+    pageTitles.set(title, [...(pageTitles.get(title) || []), file]);
+  } else if (!/<meta\s+name="robots"\s+content="noindex"/i.test(source)) {
+    report(file, '404 page must remain noindex');
+  }
+
+  const htmlWithoutStructuredData = source.replace(/<script\s+type="application\/ld\+json">[\s\S]*?<\/script>/gi, '');
+  const rawEntity = htmlWithoutStructuredData.match(/&(?![A-Za-z][A-Za-z0-9]+;|#[0-9]+;|#x[0-9A-Fa-f]+;)/);
   if (rawEntity) report(file, 'contains an unescaped ampersand');
 
   const ids = [...source.matchAll(/\sid="([^"]+)"/g)].map((match) => match[1]);
@@ -52,12 +85,21 @@ for (const file of htmlFiles) {
   }
 }
 
+for (const [title, files] of pageTitles.entries()) {
+  if (files.length > 1) report(files.join(', '), `duplicate SEO title ${title}`);
+}
+
 const publicPages = htmlFiles.filter((file) => file !== '404.html');
 const sitemapPath = path.join(root, 'sitemap.xml');
 if (!fs.existsSync(sitemapPath)) {
   report('sitemap.xml', 'missing sitemap');
 } else {
   const sitemapSource = fs.readFileSync(sitemapPath, 'utf8');
+  const sitemapUrls = [...sitemapSource.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
+  sitemapUrls.forEach((url) => {
+    if (!url.startsWith(publicBaseUrl)) report('sitemap.xml', `URL uses the wrong public base ${url}`);
+  });
+  if (new Set(sitemapUrls).size !== sitemapUrls.length) report('sitemap.xml', 'contains duplicate URLs');
   const sitemapPages = [...sitemapSource.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => {
     const pathname = new URL(match[1]).pathname;
     return pathname.endsWith('/') ? 'index.html' : path.basename(pathname);
@@ -70,6 +112,14 @@ if (!fs.existsSync(sitemapPath)) {
   sitemapPages.forEach((page) => {
     if (!publicPages.includes(page)) report('sitemap.xml', `unknown public page ${page}`);
   });
+}
+
+const robotsPath = path.join(root, 'robots.txt');
+if (!fs.existsSync(robotsPath)) {
+  report('robots.txt', 'missing robots file');
+} else {
+  const robotsSource = fs.readFileSync(robotsPath, 'utf8');
+  if (!robotsSource.includes(`Sitemap: ${publicBaseUrl}sitemap.xml`)) report('robots.txt', 'sitemap URL does not match the public site');
 }
 
 const scriptSource = fs.readFileSync(path.join(root, 'script.js'), 'utf8');
