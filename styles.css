@@ -221,15 +221,15 @@ pre {
 
 .brand > span:last-child {
   display: block;
-  width: 116px;
-  height: 36px;
+  width: 128px;
+  height: 39px;
   overflow: hidden;
   flex: 0 0 auto;
   color: transparent;
   font-size: 0;
   line-height: 0;
   text-indent: -9999px;
-  background: url("assets/brand/lumina-wordmark.svg") center / contain no-repeat;
+  background: url("assets/brand/lumina-wordmark.svg?v=20260718-2") center / contain no-repeat;
 }
 
 .brand-mark {
@@ -3728,8 +3728,8 @@ pre {
   }
 
   .brand > span:last-child {
-    width: 104px;
-    height: 32px;
+    width: 116px;
+    height: 35px;
   }
 }
 
