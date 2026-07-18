@@ -219,17 +219,12 @@ pre {
   transform: translateY(-1px);
 }
 
-.brand > span:last-child {
+.brand-wordmark {
   display: block;
   width: 128px;
   height: 39px;
-  overflow: hidden;
   flex: 0 0 auto;
-  color: transparent;
-  font-size: 0;
-  line-height: 0;
-  text-indent: -9999px;
-  background: url("assets/brand/lumina-wordmark.svg?v=20260718-2") center / contain no-repeat;
+  object-fit: contain;
 }
 
 .brand-mark {
@@ -3727,7 +3722,7 @@ pre {
     grid-template-columns: 1fr;
   }
 
-  .brand > span:last-child {
+  .brand-wordmark {
     width: 116px;
     height: 35px;
   }
