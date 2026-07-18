@@ -5,7 +5,7 @@ const currentPage = window.location.pathname.split('/').pop() || 'index.html';
 const navigationSections = {
   guild: {
     label: 'Guild',
-    icon: 'guild.svg',
+    icon: 'nav-guild.svg',
     pages: [
       ['guild.html', 'Overview'],
       ['guild-community.html', 'Community'],
@@ -16,7 +16,7 @@ const navigationSections = {
   },
   features: {
     label: 'Features',
-    icon: 'finder.svg',
+    icon: 'nav-finder.svg',
     pages: [
       ['features.html', 'Overview'],
       ['use-cases.html', 'Use cases'],
@@ -31,7 +31,7 @@ const navigationSections = {
   },
   docs: {
     label: 'Docs',
-    icon: 'docs.svg',
+    icon: 'nav-docs.svg',
     pages: [
       ['docs.html', 'Documentation Home', 'Start'],
       ['docs-getting-started.html', 'Getting Started', 'Start'],
@@ -66,7 +66,7 @@ const navigationSections = {
   },
   pricing: {
     label: 'Pricing',
-    icon: 'pricing.svg',
+    icon: 'nav-pricing.svg',
     pages: [
       ['pricing.html', 'Plans'],
       ['roadmap.html', 'Roadmap'],
@@ -76,6 +76,7 @@ const navigationSections = {
 };
 
 const sectionContainsPage = (section) => section.pages.some(([href]) => href === currentPage);
+const renderNavIcon = (icon) => `<span class="nav-icon-shell"><img class="nav-icon" src="assets/icons/${icon}" alt="" aria-hidden="true"></span>`;
 const renderDropdownLinks = (section) => {
   const hasGroups = section.pages.some(([, , group]) => group);
   if (!hasGroups) {
@@ -105,25 +106,41 @@ const renderDropdownLinks = (section) => {
     </section>`).join('');
 };
 const renderNavMenu = (section, wide = false) => `
-  <div class="nav-menu">
+  <div class="nav-menu" data-nav-section="${section.label.toLowerCase()}">
     <button class="nav-link nav-menu-button ${sectionContainsPage(section) ? 'active' : ''}" type="button" aria-expanded="false">
-      <img class="nav-icon" src="assets/icons/${section.icon}" alt="" aria-hidden="true"><span>${section.label}</span>
+      ${renderNavIcon(section.icon)}<span>${section.label}</span><span class="nav-chevron" aria-hidden="true"></span>
     </button>
     <div class="nav-dropdown ${wide ? 'nav-dropdown-wide' : ''}">${renderDropdownLinks(section)}</div>
   </div>`;
 
 if (navLinks) {
   navLinks.innerHTML = `
-    <a class="nav-link ${currentPage === 'index.html' ? 'active' : ''}" href="index.html"><img class="nav-icon" src="assets/icons/home.svg" alt="" aria-hidden="true"><span>Home</span></a>
+    <a class="nav-link ${currentPage === 'index.html' ? 'active' : ''}" href="index.html">${renderNavIcon('home.svg')}<span>Home</span></a>
     ${renderNavMenu(navigationSections.guild)}
     ${renderNavMenu(navigationSections.features)}
     ${renderNavMenu(navigationSections.docs, true)}
     ${renderNavMenu(navigationSections.pricing)}
-    <a class="nav-cta ${currentPage === 'contact.html' ? 'active' : ''}" href="contact.html"><img class="nav-icon" src="assets/icons/support.svg" alt="" aria-hidden="true"><span>Questions?</span></a>`;
+    <a class="nav-cta ${currentPage === 'contact.html' ? 'active' : ''}" href="contact.html"><span class="nav-cta-icon">${renderNavIcon('nav-support.svg')}</span><span>Questions?</span><span class="nav-cta-arrow" aria-hidden="true">↗</span></a>`;
 }
 
 if (navToggle) {
   navToggle.innerHTML = '<span class="nav-toggle-icon" aria-hidden="true"><span></span><span></span><span></span></span>';
+}
+
+const siteFooter = document.querySelector('.footer');
+if (siteFooter) {
+  const currentYear = new Date().getFullYear();
+  const copyrightYears = currentYear > 2025 ? `2025–${currentYear}` : '2025';
+  siteFooter.innerHTML = `
+    <a class="footer-brand" href="index.html" aria-label="Lumina home">
+      <img src="assets/brand/seal-dark-web.png" alt="" aria-hidden="true">
+      <span><strong>Lumina</strong><small>Powered by Luminox</small></span>
+    </a>
+    <nav class="footer-links" aria-label="Footer navigation">
+      <a href="guild.html">Guild</a><a href="docs.html">Docs</a><a href="pricing.html">Pricing</a><a href="contact.html">Questions</a>
+    </nav>
+    <span class="footer-copyright">© ${copyrightYears} Lumina</span>
+    <a class="footer-top" href="#top"><span aria-hidden="true">↑</span> Top</a>`;
 }
 
 const documentationCatalog = [
@@ -205,21 +222,132 @@ const pagePresentations = {
   'gallery.html': { family: 'guild', variant: 'gallery', accent: 'violet', code: 'Field notes', icon: 'guild.svg', label: 'Community gallery', summary: 'Staff-reviewed moments from the people and activities behind Lumina.', tags: ['Captured', 'Reviewed', 'Published'] },
   'guild-join.html': { family: 'guild', variant: 'journey', accent: 'blue', code: 'Chapter 03', icon: 'identity.svg', label: 'Join Lumina', summary: 'A clear journey from interested visitor to verified guild member.', tags: ['Apply', 'Verify', 'Enter'] },
   'guild-rules.html': { family: 'guild', variant: 'charter', accent: 'red', code: 'Chapter 04', icon: 'guards.svg', label: 'Guild charter', summary: 'The principles that protect claims, communication and long-term trust.', tags: ['Respect', 'Evidence', 'Accountability'] },
-  'pricing.html': { family: 'commercial', variant: 'editions', accent: 'gold', code: 'Free + Premium', icon: 'pricing.svg', label: 'Plans and editions', summary: 'Start with Free; choose Premium when higher limits, longer history or closer support matter.', tags: ['Free', 'Premium', 'Founder'] },
+  'pricing.html': { family: 'commercial', variant: 'editions', accent: 'gold', code: 'Free + 3 Premium', icon: 'pricing.svg', label: 'Plans and editions', summary: 'Start free, then choose Core, Growth or Scale when your guild needs more capacity.', tags: ['Free', 'Core', 'Growth', 'Scale'] },
   'roadmap.html': { family: 'editorial', variant: 'route', accent: 'violet', code: 'Now → later', icon: 'pricing.svg', label: 'Development route', summary: 'Depth, reliability and packaging happen in that order — never the reverse.', tags: ['Harden', 'Package', 'Scale'] }
 };
+
+const pageOpeningTitles = {
+  'index.html': 'Run Guilds Better',
+  '404.html': 'Route Not Found',
+  'changelog.html': 'Product Milestones',
+  'commands.html': 'Command Reference',
+  'contact.html': 'Talk With Us',
+  'docs.html': 'Luminox Docs',
+  'docs-admin.html': 'Safe Administration',
+  'docs-automation.html': 'Smart Automation',
+  'docs-events.html': 'Event System',
+  'docs-faq.html': 'Common Questions',
+  'docs-finder.html': 'Better Teaming',
+  'docs-getting-started.html': 'Start Here',
+  'docs-guards.html': 'Guard Operations',
+  'docs-guildbank.html': 'GuildBank Guide',
+  'docs-guildhall.html': 'Guildhall Management',
+  'docs-leaderboards.html': 'Leaderboard Guide',
+  'docs-loot.html': 'Loot Splitting',
+  'docs-loyalty.html': 'Loyalty System',
+  'docs-moderation.html': 'Moderation Lists',
+  'docs-panels.html': 'Panel Directory',
+  'docs-progression.html': 'Guild Progression',
+  'docs-recruitment.html': 'Recruitment Rewards',
+  'docs-registration.html': 'Verified Identity',
+  'docs-staff.html': 'Staff Access',
+  'docs-streaming.html': 'Stream Loyalty',
+  'docs-support.html': 'Private Support',
+  'docs-timezones.html': 'Local Time',
+  'docs-tracker.html': 'Identity Tracker',
+  'docs-troubleshooting.html': 'Fix It Fast',
+  'docs-watchlists.html': 'Live Watchlists',
+  'docs-website.html': 'Website Publishing',
+  'features.html': 'Your Guild OS',
+  'features-economy.html': 'Guild Economy',
+  'features-events.html': 'Better Events',
+  'features-finder.html': 'Find Your Team',
+  'features-identity.html': 'Verified Members',
+  'features-intelligence.html': 'Live Intelligence',
+  'features-support.html': 'Private Support',
+  'gallery.html': 'Lumina Gallery',
+  'guild.html': 'Meet Lumina',
+  'guild-community.html': 'Better Together',
+  'guild-join.html': 'Join Lumina',
+  'guild-rules.html': 'Lumina Standards',
+  'pricing.html': 'Plans That Scale',
+  'roadmap.html': 'Product Roadmap',
+  'security.html': 'Built for Trust',
+  'setup.html': 'Safe Installation',
+  'systems.html': 'Efficient by Design',
+  'use-cases.html': 'Solve Real Friction'
+};
+
+const editionBadgeDefinitions = Object.freeze({
+  universal: {
+    label: 'Universal',
+    icon: 'edition-universal.svg',
+    href: 'pricing.html?edition=universal#premium-tiers'
+  },
+  community: {
+    label: 'Community',
+    icon: 'edition-community.svg',
+    href: 'pricing.html?edition=community#premium-tiers'
+  }
+});
+
+const bothEditionPages = [
+  'commands.html',
+  'docs.html',
+  'docs-admin.html',
+  'docs-automation.html',
+  'docs-events.html',
+  'docs-faq.html',
+  'docs-getting-started.html',
+  'docs-leaderboards.html',
+  'docs-loyalty.html',
+  'docs-panels.html',
+  'docs-staff.html',
+  'docs-streaming.html',
+  'docs-support.html',
+  'docs-timezones.html',
+  'docs-troubleshooting.html',
+  'docs-website.html',
+  'features.html',
+  'features-events.html',
+  'features-support.html',
+  'security.html',
+  'setup.html',
+  'systems.html',
+  'use-cases.html'
+];
+
+const communityEditionPages = [
+  'docs-finder.html',
+  'docs-guards.html',
+  'docs-guildbank.html',
+  'docs-guildhall.html',
+  'docs-loot.html',
+  'docs-moderation.html',
+  'docs-progression.html',
+  'docs-recruitment.html',
+  'docs-registration.html',
+  'docs-tracker.html',
+  'docs-watchlists.html',
+  'features-economy.html',
+  'features-finder.html',
+  'features-identity.html',
+  'features-intelligence.html'
+];
+
+const editionAvailabilityByPage = new Map([
+  ...bothEditionPages.map((page) => [page, ['universal', 'community']]),
+  ...communityEditionPages.map((page) => [page, ['community']])
+]);
 
 const openingLayoutGroups = {
   minimal: [
     '404.html',
-    'changelog.html',
     'docs.html',
     'docs-getting-started.html',
     'docs-troubleshooting.html',
     'docs-faq.html',
     'use-cases.html',
-    'guild.html',
-    'guild-rules.html',
     'roadmap.html'
   ],
   band: [
@@ -227,21 +355,7 @@ const openingLayoutGroups = {
     'docs-events.html',
     'docs-timezones.html',
     'docs-automation.html',
-    'features-intelligence.html',
-    'guild-community.html',
-    'guild-join.html',
-    'pricing.html'
-  ],
-  chapter: [
-    'docs-registration.html',
-    'docs-loyalty.html',
-    'docs-loot.html',
-    'docs-guildbank.html',
-    'docs-tracker.html',
-    'docs-guildhall.html',
-    'docs-moderation.html',
-    'docs-staff.html',
-    'docs-admin.html'
+    'features-intelligence.html'
   ],
   centered: [
     'docs-panels.html',
@@ -259,21 +373,38 @@ const openingLayoutGroups = {
     'systems.html'
   ],
   rail: [
-    'contact.html',
     'features-economy.html',
-    'features-support.html'
+    'features-support.html',
+    'changelog.html'
   ],
   spotlight: [
     'features-identity.html',
     'features-finder.html',
-    'gallery.html'
+    'gallery.html',
+    'guild-join.html'
   ],
   split: [
     'commands.html',
-    'features.html',
     'features-events.html',
-    'security.html'
-  ]
+    'security.html',
+    'guild-community.html'
+  ],
+  chapter: [
+    'docs-registration.html',
+    'docs-loyalty.html',
+    'docs-loot.html',
+    'docs-guildbank.html',
+    'docs-tracker.html',
+    'docs-guildhall.html',
+    'docs-moderation.html',
+    'docs-staff.html',
+    'docs-admin.html',
+    'guild-rules.html'
+  ],
+  'guild-cover': ['guild.html'],
+  'feature-map': ['features.html'],
+  'pricing-tiers': ['pricing.html'],
+  'contact-paths': ['contact.html']
 };
 
 const openingLayoutByPage = new Map(
@@ -336,12 +467,106 @@ const renderOpeningBrief = (presentation) => {
   return brief;
 };
 
+const renderGuildCover = () => {
+  const visual = document.createElement('aside');
+  visual.className = 'opening-guild-cover';
+  visual.setAttribute('aria-label', 'Lumina guild profile');
+  visual.innerHTML = `
+    <div class="guild-cover-seal"><img src="assets/brand/lumina-seal-256.png" alt="Lumina guild seal"></div>
+    <p class="guild-cover-motto">Structure protects the community.</p>
+    <div class="guild-cover-facts">
+      <span><strong>Secura</strong>World</span>
+      <span><strong>International</strong>Community</span>
+      <span><strong>Luminox</strong>Built here</span>
+    </div>`;
+  return visual;
+};
+
+const renderFeatureMap = () => {
+  const visual = document.createElement('aside');
+  visual.className = 'opening-feature-map';
+  visual.setAttribute('aria-label', 'Connected Luminox systems');
+  visual.innerHTML = `
+    <span class="feature-map-core">Luminox</span>
+    <a href="features-identity.html"><img src="assets/icons/identity.svg" alt=""><span>Identity</span></a>
+    <a href="features-events.html"><img src="assets/icons/events.svg" alt=""><span>Events</span></a>
+    <a href="features-economy.html"><img src="assets/icons/economy.svg" alt=""><span>Economy</span></a>
+    <a href="features-intelligence.html"><img src="assets/icons/intelligence.svg" alt=""><span>Intelligence</span></a>
+    <a href="features-finder.html"><img src="assets/icons/finder.svg" alt=""><span>Finder</span></a>
+    <a href="features-support.html"><img src="assets/icons/support.svg" alt=""><span>Support</span></a>`;
+  return visual;
+};
+
+const renderPricingTiers = () => {
+  const visual = document.createElement('aside');
+  visual.className = 'opening-pricing-tiers';
+  visual.setAttribute('aria-label', 'Luminox plan paths');
+  visual.innerHTML = `
+    <div class="opening-tier-stack">
+      <a class="opening-tier opening-tier-free" href="#free-plan"><span><img src="assets/icons/plan-free.svg" alt=""><b>Start</b></span><strong>Free</strong><em>€0</em><small>Build the first reliable workflow.</small></a>
+      <a class="opening-tier opening-tier-premium" href="#premium-tiers"><span><img src="assets/icons/plan-premium.svg" alt=""><b>Scale</b></span><strong>Premium</strong><em>From €4.99</em><small>Core, Growth and Scale.</small></a>
+      <a class="opening-tier opening-tier-exclusive" href="#founder-edition"><span><img src="assets/icons/plan-exclusive.svg" alt=""><b>Private</b></span><strong>Exclusive</strong><em>Lumina only</em><small>Discover access to Founder Edition.</small></a>
+    </div>
+    <p><img src="assets/icons/discord.svg" alt="" aria-hidden="true"><span>Monthly subscriptions handled inside <strong>Discord</strong>.</span></p>`;
+  return visual;
+};
+
+const renderContactPaths = () => {
+  const visual = document.createElement('aside');
+  visual.className = 'opening-contact-paths';
+  visual.setAttribute('aria-label', 'Contact paths');
+  visual.innerHTML = `
+    <a href="https://discord.com/channels/1444873714213720318/1513054668748754976" target="_blank" rel="noopener noreferrer"><img src="assets/icons/discord.svg" alt=""><span><strong>Product help</strong><small>Setup, panels and troubleshooting</small></span></a>
+    <a href="guild-join.html"><img src="assets/icons/guild.svg" alt=""><span><strong>Join Lumina</strong><small>Community and membership questions</small></span></a>
+    <a href="pricing.html"><img src="assets/icons/pricing.svg" alt=""><span><strong>Plan guidance</strong><small>Free, Premium and rollout fit</small></span></a>`;
+  return visual;
+};
+
+const customOpeningRenderers = {
+  'guild-cover': renderGuildCover,
+  'feature-map': renderFeatureMap,
+  'pricing-tiers': renderPricingTiers,
+  'contact-paths': renderContactPaths
+};
+
+const addEditionAvailability = (copy) => {
+  const editions = editionAvailabilityByPage.get(currentPage);
+  const title = copy.querySelector('h1');
+  if (!editions?.length || !title) return;
+
+  const titleRow = document.createElement('div');
+  titleRow.className = 'opening-title-row';
+
+  const badges = document.createElement('nav');
+  badges.className = 'edition-availability';
+  badges.setAttribute('aria-label', 'Available Luminox editions');
+
+  editions.forEach((edition) => {
+    const definition = editionBadgeDefinitions[edition];
+    const badge = document.createElement('a');
+    badge.className = `edition-availability-badge edition-availability-${edition}`;
+    badge.href = definition.href;
+    badge.title = `Available in ${definition.label} Edition`;
+    badge.setAttribute('aria-label', `View ${definition.label} Edition plans`);
+    badge.innerHTML = `<img src="assets/icons/${definition.icon}" alt="" aria-hidden="true"><span>${definition.label}</span>`;
+    badges.append(badge);
+  });
+
+  title.before(titleRow);
+  titleRow.append(title, badges);
+};
+
 const applyPagePresentation = () => {
   document.body.dataset.page = currentPage.replace(/\.html$/i, '') || 'home';
 
   if (currentPage === 'index.html') {
     document.body.classList.add('page-home');
     return;
+  }
+
+  const visibleTitle = document.querySelector('main h1');
+  if (visibleTitle && pageOpeningTitles[currentPage]) {
+    visibleTitle.textContent = pageOpeningTitles[currentPage];
   }
 
   const presentation = pagePresentations[currentPage];
@@ -361,6 +586,13 @@ const applyPagePresentation = () => {
   const copy = document.createElement('div');
   copy.className = 'opening-copy';
   while (opening.firstChild) copy.append(opening.firstChild);
+  addEditionAvailability(copy);
+
+  const customRenderer = customOpeningRenderers[layout];
+  if (customRenderer) {
+    opening.append(copy, customRenderer());
+    return;
+  }
 
   if (layout === 'band') {
     copy.append(renderOpeningBand(presentation));
@@ -460,12 +692,50 @@ const appendContextualConversion = () => {
 
 appendContextualConversion();
 
+const resolveButtonActionIcon = (button) => {
+  const href = (button.getAttribute('href') || '').toLowerCase();
+  const label = (button.textContent || '').trim().toLowerCase();
+  const intent = `${href} ${label}`;
+
+  if (/oauth2\/authorize|add luminox|your discord/.test(intent)) return 'action-discord.svg';
+  if (/rule|trust|safety|security/.test(intent)) return 'action-security.svg';
+  if (/help|support|question|contact|talk with/.test(intent)) return 'action-support.svg';
+  if (/configure|installation|setup|administrator|automation|troubleshoot|how luminox stays efficient/.test(intent)) return 'action-settings.svg';
+  if (/pricing|premium|free|choose core|choose growth|choose scale|compare plan/.test(intent)) return 'action-pricing.svg';
+  if (/guild|lumina|community|gallery|joining process|how to join/.test(intent)) return 'action-guild.svg';
+  if (/changelog|roadmap|development history/.test(intent)) return 'action-history.svg';
+  if (/index\.html|return home/.test(intent)) return 'action-home.svg';
+  if (/discord\.com/.test(intent)) return 'action-discord.svg';
+  if (/docs|guide|documentation|command reference|panel directory|faq/.test(intent)) return 'action-docs.svg';
+  return 'action-explore.svg';
+};
+
+document.querySelectorAll('.button').forEach((button) => {
+  if (button.querySelector('img') || button.hasAttribute('data-no-action-icon')) return;
+  const icon = document.createElement('img');
+  icon.className = 'button-action-icon';
+  icon.src = `assets/icons/${resolveButtonActionIcon(button)}`;
+  icon.alt = '';
+  icon.setAttribute('aria-hidden', 'true');
+  button.prepend(icon);
+  button.classList.add('button-with-action-icon');
+});
+
 if (navToggle && navLinks) {
   navToggle.addEventListener('click', () => {
     const isOpen = navLinks.classList.toggle('open');
+    const isMobile = window.matchMedia('(max-width: 1040px)').matches;
     navToggle.setAttribute('aria-expanded', String(isOpen));
     navToggle.setAttribute('aria-label', isOpen ? 'Close navigation' : 'Open navigation');
-    document.body.classList.toggle('nav-open', isOpen && window.matchMedia('(max-width: 1040px)').matches);
+    document.body.classList.toggle('nav-open', isOpen && isMobile);
+
+    if (isOpen && isMobile) {
+      const activeMenu = navLinks.querySelector('.nav-menu-button.active')?.closest('.nav-menu');
+      const defaultMenu = activeMenu || navLinks.querySelector('[data-nav-section="docs"]');
+      closeOtherMenus(defaultMenu);
+      setMenuOpen(defaultMenu, true);
+      navLinks.scrollTop = 0;
+    }
   });
 }
 
@@ -531,6 +801,14 @@ document.querySelectorAll('.nav-menu').forEach((menu) => {
 
   button?.addEventListener('click', (event) => {
     event.stopPropagation();
+    if (window.matchMedia('(max-width: 1040px)').matches) {
+      if (!menu.classList.contains('open')) {
+        closeOtherMenus(menu);
+        setMenuOpen(menu, true);
+      }
+      return;
+    }
+
     const willOpen = !menu.classList.contains('open');
     closeOtherMenus(menu);
     setMenuOpen(menu, willOpen);
@@ -547,8 +825,20 @@ document.querySelectorAll('.nav-menu').forEach((menu) => {
 });
 
 document.addEventListener('click', (event) => {
-  if (!event.target.closest('.nav-menu')) {
+  if (!event.target.closest('.nav-menu') && !event.target.closest('.nav-toggle')) {
     closeOtherMenus();
+  }
+
+  if (
+    window.matchMedia('(max-width: 1040px)').matches
+    && navLinks?.classList.contains('open')
+    && !event.target.closest('.nav-links')
+    && !event.target.closest('.nav-toggle')
+  ) {
+    navLinks.classList.remove('open');
+    navToggle?.setAttribute('aria-expanded', 'false');
+    navToggle?.setAttribute('aria-label', 'Open navigation');
+    document.body.classList.remove('nav-open');
   }
 
   if (window.matchMedia('(max-width: 1040px)').matches && event.target.closest('.nav-links a')) {
@@ -584,6 +874,164 @@ document.querySelectorAll('[data-tab]').forEach((button) => {
     document.querySelectorAll('[data-tab-panel]').forEach((panel) => panel.classList.toggle('active', panel.dataset.tabPanel === tab));
   });
 });
+
+const pricingEditionContent = {
+  community: {
+    heading: 'Community Edition Plans',
+    summary: 'Purpose-built for Tibia guilds using characters, vocations, worlds, guild ranks and live game intelligence.',
+    prices: ['€0', '€7.99', '€14.99', '€29.99'],
+    plans: {
+      free: {
+        fit: 'For smaller Tibia guilds introducing verified characters and one guided operational panel.',
+        features: [
+          'Verified Tibia character identity and guild-aware onboarding.',
+          'Starter access to eligible member and guild panels.',
+          'Standard public limits and Community refresh policy.',
+          'Documentation for every included workflow.'
+        ]
+      },
+      core: {
+        fit: 'For active Tibia guilds ready to expand beyond their first Community workflows.',
+        features: [
+          'Expanded Community systems for active Tibia guilds.',
+          'Higher character, panel and operational limits.',
+          'Faster eligible Tibia sync and refresh schedules.',
+          'Extended useful history for guild operations.'
+        ]
+      },
+      growth: {
+        fit: 'For growing Tibia guilds running several connected systems every day.',
+        features: [
+          'Broader access across events, recruitment, Loyalty and intelligence.',
+          'Greater room for panels, members and operational history.',
+          'Faster eligible member and watchlist updates than Core.',
+          'Priority configuration guidance.'
+        ]
+      },
+      scale: {
+        fit: 'For established Tibia communities operating Luminox as a core guild platform.',
+        features: [
+          'Highest public Community feature access.',
+          'Highest public operating limits for Tibia guilds.',
+          'Fastest public Community refresh policy where supported.',
+          'Longest public history and rollout support.'
+        ]
+      }
+    },
+    comparison: {
+      bestFit: ['First Tibia workflow', 'Small Tibia guild', 'Growing Tibia guild', 'Established Tibia operation'],
+      access: ['Character identity + starter panels', 'Expanded Tibia systems', 'Broader guild operations', 'Highest public Community access']
+    }
+  },
+  universal: {
+    heading: 'Universal Edition Plans',
+    summary: 'Game-independent operations for gaming guilds and communities that do not need Tibia-specific systems.',
+    prices: ['€0', '€4.99', '€9.99', '€19.99'],
+    plans: {
+      free: {
+        fit: 'For gaming communities introducing identity, support or one guided workflow.',
+        features: [
+          'Game-independent member identity and onboarding.',
+          'Starter access to eligible community panels.',
+          'Standard public limits and Universal refresh policy.',
+          'Documentation for every included workflow.'
+        ]
+      },
+      core: {
+        fit: 'For active gaming communities expanding beyond their first Universal workflows.',
+        features: [
+          'Expanded Universal systems for active gaming communities.',
+          'Higher member, panel and workflow limits.',
+          'Faster eligible panel refresh schedules.',
+          'Extended useful history for daily moderation.'
+        ]
+      },
+      growth: {
+        fit: 'For growing communities coordinating several staff and member systems every day.',
+        features: [
+          'Broader access across events, support, recruitment and engagement.',
+          'Greater room for staff workflows, panels and history.',
+          'Faster eligible updates than Core.',
+          'Priority configuration guidance.'
+        ]
+      },
+      scale: {
+        fit: 'For established gaming communities using Luminox as their operational layer.',
+        features: [
+          'Highest public Universal feature access.',
+          'Highest public operating limits for gaming communities.',
+          'Fastest public Universal refresh policy where supported.',
+          'Longest public history and rollout support.'
+        ]
+      }
+    },
+    comparison: {
+      bestFit: ['First community workflow', 'Small gaming community', 'Growing community', 'Established community operation'],
+      access: ['Identity + starter panels', 'Expanded community systems', 'Broader staff operations', 'Highest public Universal access']
+    }
+  }
+};
+
+const pricingEditionSelector = document.querySelector('[data-pricing-edition-selector]');
+if (pricingEditionSelector) {
+  const editionButtons = [...pricingEditionSelector.querySelectorAll('[data-pricing-edition]')];
+  const editionHeading = document.querySelector('[data-pricing-edition-heading]');
+  const editionSummary = document.querySelector('[data-pricing-edition-summary]');
+  const planGrid = document.querySelector('.plan-tier-grid');
+  const validEditions = new Set(Object.keys(pricingEditionContent));
+
+  const selectPricingEdition = (edition, updateUrl = true) => {
+    const selectedEdition = validEditions.has(edition) ? edition : 'universal';
+    const content = pricingEditionContent[selectedEdition];
+
+    pricingEditionSelector.dataset.selectedEdition = selectedEdition;
+    editionButtons.forEach((button) => {
+      const isSelected = button.dataset.pricingEdition === selectedEdition;
+      button.setAttribute('aria-pressed', String(isSelected));
+    });
+
+    if (editionHeading) editionHeading.textContent = content.heading;
+    if (editionSummary) editionSummary.textContent = content.summary;
+
+    Object.entries(content.plans).forEach(([planName, planContent]) => {
+      const card = document.querySelector(`[data-plan-tier="${planName}"]`);
+      if (!card) return;
+      const fit = card.querySelector('.plan-tier-fit');
+      const list = card.querySelector('.plan-list');
+      const price = card.querySelector('.plan-price strong');
+      const planIndex = ['free', 'core', 'growth', 'scale'].indexOf(planName);
+      if (fit) fit.textContent = planContent.fit;
+      if (list) list.innerHTML = planContent.features.map((feature) => `<li>${feature}</li>`).join('');
+      if (price && planIndex >= 0) price.textContent = content.prices[planIndex];
+    });
+
+    document.querySelectorAll('[data-pricing-comparison="price"]').forEach((cell, index) => {
+      cell.textContent = content.prices[index] || '';
+    });
+    document.querySelectorAll('[data-pricing-comparison="best-fit"]').forEach((cell, index) => {
+      cell.textContent = content.comparison.bestFit[index] || '';
+    });
+    document.querySelectorAll('[data-pricing-comparison="access"]').forEach((cell, index) => {
+      cell.textContent = content.comparison.access[index] || '';
+    });
+
+    planGrid?.classList.remove('edition-updated');
+    window.requestAnimationFrame(() => planGrid?.classList.add('edition-updated'));
+
+    if (updateUrl) {
+      const url = new URL(window.location.href);
+      url.searchParams.set('edition', selectedEdition);
+      window.history.replaceState({}, '', url);
+    }
+  };
+
+  editionButtons.forEach((button) => {
+    button.addEventListener('click', () => selectPricingEdition(button.dataset.pricingEdition));
+  });
+
+  const initialEdition = new URL(window.location.href).searchParams.get('edition');
+  selectPricingEdition(initialEdition, false);
+}
 
 const commandSearch = document.querySelector('[data-command-search]');
 if (commandSearch) {
