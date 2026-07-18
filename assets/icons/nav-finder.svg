@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-label="Features">
-  <defs>
-    <linearGradient id="gold" x1="18" y1="12" x2="82" y2="84" gradientUnits="userSpaceOnUse"><stop stop-color="#F8D86B"/><stop offset="1" stop-color="#D99F21"/></linearGradient>
-    <filter id="shadow" x="-25%" y="-25%" width="150%" height="150%"><feDropShadow dx="0" dy="5" stdDeviation="4" flood-color="#000" flood-opacity="0.72"/></filter>
-  </defs>
-  <circle cx="42" cy="42" r="18" fill="none" stroke="url(#gold)" stroke-width="9" filter="url(#shadow)"/><path d="M56 56l17 17" stroke="#F8D86B" stroke-width="10" stroke-linecap="round" filter="url(#shadow)"/><path d="M34 42h16M42 34v16" stroke="#fff4bd" stroke-width="5" stroke-linecap="round" opacity="0.9"/>
-</svg>

@@ -16,7 +16,7 @@ const navigationSections = {
   },
   features: {
     label: 'Features',
-    icon: 'nav-finder.svg',
+    icon: 'nav-features.svg',
     pages: [
       ['features.html', 'Overview'],
       ['use-cases.html', 'Use cases'],
@@ -472,12 +472,12 @@ const renderGuildCover = () => {
   visual.className = 'opening-guild-cover';
   visual.setAttribute('aria-label', 'Lumina guild profile');
   visual.innerHTML = `
-    <div class="guild-cover-seal"><img src="assets/brand/lumina-seal-256.png" alt="Lumina guild seal"></div>
+    <div class="guild-cover-seal"><img src="assets/brand/seal-light.png" alt="Lumina guild seal"></div>
     <p class="guild-cover-motto">Structure protects the community.</p>
     <div class="guild-cover-facts">
-      <span><strong>Secura</strong>World</span>
-      <span><strong>International</strong>Community</span>
-      <span><strong>Luminox</strong>Built here</span>
+      <span><strong>Secura</strong><small>World</small></span>
+      <span><strong>International</strong><small>Community</small></span>
+      <span><strong>Luminox</strong><small>Built here</small></span>
     </div>`;
   return visual;
 };
@@ -532,7 +532,11 @@ const customOpeningRenderers = {
 const addEditionAvailability = (copy) => {
   const editions = editionAvailabilityByPage.get(currentPage);
   const title = copy.querySelector('h1');
+  const eyebrow = copy.querySelector(':scope > .eyebrow');
   if (!editions?.length || !title) return;
+
+  const metaRow = document.createElement('div');
+  metaRow.className = 'opening-meta-row';
 
   const titleRow = document.createElement('div');
   titleRow.className = 'opening-title-row';
@@ -552,8 +556,16 @@ const addEditionAvailability = (copy) => {
     badges.append(badge);
   });
 
+  if (eyebrow) {
+    eyebrow.before(metaRow);
+    metaRow.append(eyebrow, badges);
+  } else {
+    title.before(metaRow);
+    metaRow.append(badges);
+  }
+
   title.before(titleRow);
-  titleRow.append(title, badges);
+  titleRow.append(title);
 };
 
 const applyPagePresentation = () => {
@@ -977,6 +989,7 @@ if (pricingEditionSelector) {
   const editionButtons = [...pricingEditionSelector.querySelectorAll('[data-pricing-edition]')];
   const editionHeading = document.querySelector('[data-pricing-edition-heading]');
   const editionSummary = document.querySelector('[data-pricing-edition-summary]');
+  const comparisonEdition = document.querySelector('[data-pricing-comparison-edition]');
   const planGrid = document.querySelector('.plan-tier-grid');
   const validEditions = new Set(Object.keys(pricingEditionContent));
 
@@ -992,6 +1005,15 @@ if (pricingEditionSelector) {
 
     if (editionHeading) editionHeading.textContent = content.heading;
     if (editionSummary) editionSummary.textContent = content.summary;
+    if (comparisonEdition) {
+      const badge = comparisonEdition.querySelector('.edition-availability-badge');
+      const badgeIcon = badge?.querySelector('img');
+      const badgeLabel = badge?.querySelector('span');
+      badge?.classList.toggle('edition-availability-universal', selectedEdition === 'universal');
+      badge?.classList.toggle('edition-availability-community', selectedEdition === 'community');
+      if (badgeIcon) badgeIcon.src = `assets/icons/edition-${selectedEdition}.svg`;
+      if (badgeLabel) badgeLabel.textContent = selectedEdition === 'universal' ? 'Universal' : 'Community';
+    }
 
     Object.entries(content.plans).forEach(([planName, planContent]) => {
       const card = document.querySelector(`[data-plan-tier="${planName}"]`);

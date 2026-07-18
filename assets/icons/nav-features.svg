@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-label="Features">
+  <defs>
+    <linearGradient id="gold" x1="16" y1="14" x2="82" y2="84" gradientUnits="userSpaceOnUse"><stop stop-color="#FFF0A6"/><stop offset="0.48" stop-color="#F8D86B"/><stop offset="1" stop-color="#D99F21"/></linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="5" stdDeviation="4" flood-color="#000" flood-opacity="0.72"/></filter>
+  </defs>
+  <g filter="url(#shadow)">
+    <path d="M48 28v13M48 55v13M28 48h13M55 48h13" fill="none" stroke="url(#gold)" stroke-width="7" stroke-linecap="round"/>
+    <rect x="37" y="37" width="22" height="22" rx="6" fill="url(#gold)"/>
+    <rect x="15" y="15" width="22" height="22" rx="8" fill="url(#gold)"/>
+    <rect x="59" y="15" width="22" height="22" rx="8" fill="url(#gold)"/>
+    <rect x="15" y="59" width="22" height="22" rx="8" fill="url(#gold)"/>
+    <rect x="59" y="59" width="22" height="22" rx="8" fill="url(#gold)"/>
+  </g>
+  <path d="M44 48h8M48 44v8" stroke="#4A2B05" stroke-width="4" stroke-linecap="round"/>
+</svg>
