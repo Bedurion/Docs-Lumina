@@ -686,10 +686,76 @@ const conversionCopy = {
   }
 };
 
+const conversionCopyByPage = {
+  'docs-panels.html': {
+    eyebrow: 'Choose your first panel',
+    title: 'Publish one useful workflow before expanding the server.',
+    text: 'Use the directory to match each panel with its channel, setup command and intended audience.',
+    primary: ['docs-getting-started.html', 'Follow the setup path'],
+    secondary: ['pricing.html', 'Compare editions']
+  },
+  'docs-registration.html': {
+    eyebrow: 'Build trusted identity first',
+    title: 'Connect characters, accounts and roles before adding automation.',
+    text: 'A verified Registration panel gives every later Luminox workflow a reliable member identity.',
+    primary: ['setup.html', 'Configure registration'],
+    secondary: ['features-identity.html', 'See the identity workflow']
+  },
+  'docs-events.html': {
+    eyebrow: 'Launch one event board',
+    title: 'Give members a guided place to organize the next activity.',
+    text: 'Start with the event type your guild uses most, verify its roles and only then publish the remaining boards.',
+    primary: ['features-events.html', 'Explore event workflows'],
+    secondary: ['docs-timezones.html', 'Review scheduling']
+  },
+  'docs-guildbank.html': {
+    eyebrow: 'Make every movement reviewable',
+    title: 'Define thresholds and specialist access before accepting deposits.',
+    text: 'The GuildBank panel separates requests from confirmed balance and preserves a clear final audit trail.',
+    primary: ['features-economy.html', 'See the economy workflow'],
+    secondary: ['docs-loot.html', 'Connect Loot Split']
+  },
+  'docs-finder.html': {
+    eyebrow: 'Turn online data into teams',
+    title: 'Publish Finder where members already check who is online.',
+    text: 'Finder reuses current guild data, adds voluntary Looking for team intent and keeps long results navigable.',
+    primary: ['features-finder.html', 'See Finder in action'],
+    secondary: ['docs-watchlists.html', 'Review online data']
+  },
+  'docs-support.html': {
+    eyebrow: 'Replace scattered direct messages',
+    title: 'Route each request into the right private Discord thread.',
+    text: 'Configure categories, required context and specialist staff roles before opening Support to members.',
+    primary: ['features-support.html', 'Explore private support'],
+    secondary: ['docs-staff.html', 'Review staff access']
+  },
+  'docs-moderation.html': {
+    eyebrow: 'Keep restrictions accountable',
+    title: 'Connect moderation lists with identity history and live awareness.',
+    text: 'Blacklist and Ban List panels preserve who changed what while Tracker keeps renamed and transferred identities connected.',
+    primary: ['features-intelligence.html', 'Explore guild intelligence'],
+    secondary: ['docs-tracker.html', 'Review Tracker']
+  },
+  'docs-recruitment.html': {
+    eyebrow: 'Reward verified growth',
+    title: 'Make recruitment claims reviewable before Loyalty is protected.',
+    text: 'The panel keeps applicants, ownership disputes and retention-aware rewards in one understandable workflow.',
+    primary: ['docs-panels.html', 'Publish Recruitment'],
+    secondary: ['docs-loyalty.html', 'Review Loyalty rules']
+  },
+  'docs-website.html': {
+    eyebrow: 'Publish with a review boundary',
+    title: 'Keep community media in Discord until staff approves it.',
+    text: 'The Website panel separates proposals, moderation and final publication without exposing local secrets.',
+    primary: ['security.html', 'Review the security model'],
+    secondary: ['contact.html', 'Ask about publishing']
+  }
+};
+
 const appendContextualConversion = () => {
   if (!mainContent || mainContent.querySelector('.conversion-cta') || ['index.html', '404.html', 'contact.html'].includes(currentPage)) return;
   const presentation = pagePresentations[currentPage];
-  const copy = presentation ? conversionCopy[presentation.family] : null;
+  const copy = conversionCopyByPage[currentPage] || (presentation ? conversionCopy[presentation.family] : null);
   if (!copy) return;
 
   const section = document.createElement('section');
@@ -703,6 +769,29 @@ const appendContextualConversion = () => {
 };
 
 appendContextualConversion();
+
+const enhanceContentRhythm = () => {
+  document.querySelectorAll('.doc-article > .doc-section').forEach((section, index) => {
+    section.classList.add(index % 2 === 0 ? 'doc-section-panel' : 'doc-section-open');
+  });
+
+  document.querySelectorAll('.page-family-product .outcome-grid').forEach((grid) => {
+    grid.classList.add('outcome-list');
+  });
+
+  document.querySelectorAll('.product-preview').forEach((preview) => {
+    preview.classList.add('product-proof');
+    const toolbar = preview.querySelector('.preview-toolbar');
+    if (toolbar && !toolbar.querySelector('.preview-proof-label')) {
+      const label = document.createElement('span');
+      label.className = 'preview-proof-label';
+      label.textContent = 'Panel preview';
+      toolbar.prepend(label);
+    }
+  });
+};
+
+enhanceContentRhythm();
 
 const resolveButtonActionIcon = (button) => {
   const href = (button.getAttribute('href') || '').toLowerCase();
