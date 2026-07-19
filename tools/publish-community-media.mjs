@@ -8,9 +8,11 @@ import sharp from 'sharp';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const sourceDataPath = path.join(root, 'data', 'community-media.json');
+const sourceBlogDataPath = path.join(root, 'data', 'blog-posts.json');
 const configuredOutputDirectory = String(process.env.PUBLICATION_OUTPUT_DIR || '.').trim();
 const outputRoot = path.resolve(root, configuredOutputDirectory);
-const outputDataPath = path.join(outputRoot, 'data', 'community-media-entry.json');
+const outputGalleryDataPath = path.join(outputRoot, 'data', 'community-media-entry.json');
+const outputBlogOperationPath = path.join(outputRoot, 'data', 'blog-operation.json');
 const mediaDirectory = path.join(outputRoot, 'assets', 'community');
 const maximumAttachments = 4;
 const maximumAttachmentBytes = 10 * 1024 * 1024;
@@ -126,7 +128,8 @@ function validateDiscordAttachment(attachment) {
   return {
     url: url.toString(),
     contentType,
-    size
+    size,
+    altText: cleanSingleLine(attachment.altText || 'Approved website media', 300, 'Attachment alternative text')
   };
 }
 
@@ -364,6 +367,24 @@ async function loadGalleryData() {
   }
 }
 
+async function loadBlogData() {
+  try {
+    const parsed = JSON.parse(await fs.readFile(sourceBlogDataPath, 'utf8'));
+
+    if (parsed?.version !== 1 || !Array.isArray(parsed.posts)) {
+      fail('Blog data file has an invalid schema.');
+    }
+
+    return parsed;
+  } catch (error) {
+    if (error.code === 'ENOENT') {
+      return { version: 1, posts: [] };
+    }
+
+    throw error;
+  }
+}
+
 const expectedSubmissionId = cleanSingleLine(process.env.SUBMISSION_ID, 32, 'Submission ID');
 
 if (!/^WS-[A-Z2-9]{8}$/.test(expectedSubmissionId)) {
@@ -372,103 +393,233 @@ if (!/^WS-[A-Z2-9]{8}$/.test(expectedSubmissionId)) {
 
 const payload = decryptPayload(process.env.ENCRYPTED_PAYLOAD, process.env.PUBLISH_PAYLOAD_SECRET);
 
-if (payload?.version !== 1 || payload.submissionId !== expectedSubmissionId) {
+if (![1, 2].includes(payload?.version) || payload.submissionId !== expectedSubmissionId) {
   fail('Encrypted payload does not match the requested submission.');
 }
 
+const contentType = cleanSingleLine(payload.contentType || 'gallery', 20, 'Content type');
+const operation = cleanSingleLine(payload.operation || 'create', 30, 'Publication operation');
+
+if (!['gallery', 'blog'].includes(contentType)) {
+  fail('Encrypted payload contains an unsupported publication type.');
+}
+
 const title = cleanSingleLine(payload.title, 100, 'Title');
-const description = cleanMultiline(payload.description, 1200, 'Description');
-const altText = cleanSingleLine(payload.altText, 300, 'Alternative text');
-const credit = cleanSingleLine(payload.credit, 100, 'Credit');
 const submittedAt = new Date(payload.submittedAt);
 
 if (Number.isNaN(submittedAt.getTime()) || submittedAt.getTime() > Date.now() + 60_000) {
   fail('Submission date is invalid.');
 }
 
-if (!Array.isArray(payload.attachments) || payload.attachments.length < 1 || payload.attachments.length > maximumAttachments) {
-  fail(`Payload must contain between 1 and ${maximumAttachments} attachments.`);
-}
+if (contentType === 'blog') {
+  if (!['create', 'update', 'hide', 'unhide', 'delete', 'hide_for_changes'].includes(operation)) {
+    fail('Blog publication operation is not supported.');
+  }
 
-const attachments = payload.attachments.map(validateDiscordAttachment);
-const declaredTotalBytes = attachments.reduce((sum, attachment) => sum + attachment.size, 0);
+  const blogData = await loadBlogData();
+  const existingPost = blogData.posts.find((post) => post.id === expectedSubmissionId) || null;
 
-if (declaredTotalBytes > maximumTotalBytes) {
-  fail('Submission exceeds the maximum combined attachment size.');
-}
+  if (operation === 'create' && existingPost) {
+    fail('This blog submission is already published.');
+  }
 
-const galleryData = await loadGalleryData();
+  if (operation !== 'create' && !existingPost) {
+    fail('The requested blog article does not exist.');
+  }
 
-if (galleryData.entries.some((entry) => entry.id === expectedSubmissionId)) {
-  fail('This submission is already published.');
-}
+  let blogPost = null;
 
-await fs.mkdir(mediaDirectory, { recursive: true });
-await fs.mkdir(path.dirname(outputDataPath), { recursive: true });
+  if (['create', 'update'].includes(operation)) {
+    const excerpt = cleanMultiline(payload.excerpt, 300, 'Excerpt');
+    const body = cleanMultiline(payload.body, 4000, 'Article body');
+    const category = cleanSingleLine(payload.category, 50, 'Category');
+    const author = cleanSingleLine(payload.author, 100, 'Author');
 
-const publishedMedia = [];
+    if (excerpt.length < 20 || body.length < 100 || category.length < 2) {
+      fail('Blog publication fields are below their minimum length.');
+    }
 
-for (const [index, attachment] of attachments.entries()) {
-  const downloaded = await downloadAttachment(attachment);
-  const isVideo = downloaded.contentType === 'video/mp4';
-  const outputName = `${expectedSubmissionId.toLowerCase()}-${index + 1}.${isVideo ? 'mp4' : 'webp'}`;
-  const outputPath = path.join(mediaDirectory, outputName);
+    if (!Array.isArray(payload.attachments) || payload.attachments.length > maximumAttachments) {
+      fail(`Blog payload can contain at most ${maximumAttachments} image attachments.`);
+    }
 
-  if (isVideo) {
-    const metadata = await sanitizeVideo(downloaded.input, outputPath);
+    const attachments = payload.attachments.map(validateDiscordAttachment);
+
+    if (attachments.some((attachment) => !['image/jpeg', 'image/png'].includes(attachment.contentType))) {
+      fail('Blog publications accept only JPG and PNG images.');
+    }
+
+    const declaredTotalBytes = attachments.reduce((sum, attachment) => sum + attachment.size, 0);
+
+    if (declaredTotalBytes > maximumTotalBytes) {
+      fail('Blog images exceed the maximum combined size.');
+    }
+
+    await fs.mkdir(mediaDirectory, { recursive: true });
+    const publishedMedia = [];
+
+    for (const [index, attachment] of attachments.entries()) {
+      const downloaded = await downloadAttachment(attachment);
+      const outputName = `${expectedSubmissionId.toLowerCase()}-blog-${index + 1}.webp`;
+      const outputPath = path.join(mediaDirectory, outputName);
+      const { data, info } = await sharp(downloaded.input, {
+        failOn: 'warning',
+        limitInputPixels: maximumInputPixels,
+        sequentialRead: true
+      })
+        .rotate()
+        .resize({
+          width: 2400,
+          height: 2400,
+          fit: 'inside',
+          withoutEnlargement: true
+        })
+        .webp({
+          quality: 86,
+          effort: 4,
+          smartSubsample: true
+        })
+        .toBuffer({ resolveWithObject: true });
+
+      if (info.width < 1 || info.height < 1 || info.width * info.height > maximumInputPixels) {
+        fail('Sanitized Blog image dimensions are invalid.');
+      }
+
+      await fs.writeFile(outputPath, data, { flag: 'wx' });
+      publishedMedia.push({
+        type: 'image',
+        src: `assets/community/${outputName}`,
+        alt: cleanSingleLine(attachment.altText || title, 300, 'Blog image alternative text'),
+        width: info.width,
+        height: info.height
+      });
+    }
+
+    const operationAt = new Date().toISOString();
+    const wordCount = body.split(/\s+/).filter(Boolean).length;
+    blogPost = {
+      id: expectedSubmissionId,
+      title,
+      excerpt,
+      body,
+      category,
+      author,
+      submittedAt: existingPost?.submittedAt || submittedAt.toISOString(),
+      publishedAt: existingPost?.publishedAt || operationAt,
+      updatedAt: operationAt,
+      visible: existingPost ? existingPost.visible !== false : true,
+      readingMinutes: Math.max(1, Math.min(60, Math.ceil(wordCount / 220))),
+      views: existingPost?.views ?? 0,
+      leadersSelection: existingPost?.leadersSelection === true,
+      media: publishedMedia
+    };
+  } else if (!Array.isArray(payload.attachments) || payload.attachments.length !== 0) {
+    fail('This Blog management operation cannot contain attachments.');
+  }
+
+  const blogOperation = {
+    version: 1,
+    operation,
+    submissionId: expectedSubmissionId,
+    operationAt: new Date().toISOString(),
+    post: blogPost
+  };
+
+  await fs.mkdir(path.dirname(outputBlogOperationPath), { recursive: true });
+  await fs.writeFile(outputBlogOperationPath, `${JSON.stringify(blogOperation, null, 2)}\n`, 'utf8');
+  console.log(`Validated Blog ${operation} operation for ${expectedSubmissionId}.`);
+} else {
+  if (operation !== 'create') {
+    fail('Gallery entries support only the create operation.');
+  }
+  const description = cleanMultiline(payload.description, 1200, 'Description');
+  const altText = cleanSingleLine(payload.altText, 300, 'Alternative text');
+  const credit = cleanSingleLine(payload.credit, 100, 'Credit');
+
+  if (!Array.isArray(payload.attachments) || payload.attachments.length < 1 || payload.attachments.length > maximumAttachments) {
+    fail(`Payload must contain between 1 and ${maximumAttachments} attachments.`);
+  }
+
+  const attachments = payload.attachments.map(validateDiscordAttachment);
+  const declaredTotalBytes = attachments.reduce((sum, attachment) => sum + attachment.size, 0);
+
+  if (declaredTotalBytes > maximumTotalBytes) {
+    fail('Submission exceeds the maximum combined attachment size.');
+  }
+
+  const galleryData = await loadGalleryData();
+
+  if (galleryData.entries.some((entry) => entry.id === expectedSubmissionId)) {
+    fail('This submission is already published.');
+  }
+
+  await fs.mkdir(mediaDirectory, { recursive: true });
+  await fs.mkdir(path.dirname(outputGalleryDataPath), { recursive: true });
+
+  const publishedMedia = [];
+
+  for (const [index, attachment] of attachments.entries()) {
+    const downloaded = await downloadAttachment(attachment);
+    const isVideo = downloaded.contentType === 'video/mp4';
+    const outputName = `${expectedSubmissionId.toLowerCase()}-${index + 1}.${isVideo ? 'mp4' : 'webp'}`;
+    const outputPath = path.join(mediaDirectory, outputName);
+
+    if (isVideo) {
+      const metadata = await sanitizeVideo(downloaded.input, outputPath);
+      publishedMedia.push({
+        type: 'video',
+        src: `assets/community/${outputName}`,
+        alt: altText,
+        width: metadata.width,
+        height: metadata.height,
+        duration: Number(metadata.duration.toFixed(3))
+      });
+      continue;
+    }
+
+    const { data, info } = await sharp(downloaded.input, {
+      failOn: 'warning',
+      limitInputPixels: maximumInputPixels,
+      sequentialRead: true
+    })
+      .rotate()
+      .resize({
+        width: 2400,
+        height: 2400,
+        fit: 'inside',
+        withoutEnlargement: true
+      })
+      .webp({
+        quality: 86,
+        effort: 4,
+        smartSubsample: true
+      })
+      .toBuffer({ resolveWithObject: true });
+
+    if (info.width < 1 || info.height < 1 || info.width * info.height > maximumInputPixels) {
+      fail('Sanitized image dimensions are invalid.');
+    }
+
+    await fs.writeFile(outputPath, data, { flag: 'wx' });
     publishedMedia.push({
-      type: 'video',
+      type: 'image',
       src: `assets/community/${outputName}`,
-      alt: attachments.length > 1 ? `${altText} (${index + 1}/${attachments.length})` : altText,
-      width: metadata.width,
-      height: metadata.height,
-      duration: Number(metadata.duration.toFixed(3))
+      alt: altText,
+      width: info.width,
+      height: info.height
     });
-    continue;
   }
 
-  const { data, info } = await sharp(downloaded.input, {
-    failOn: 'warning',
-    limitInputPixels: maximumInputPixels,
-    sequentialRead: true
-  })
-    .rotate()
-    .resize({
-      width: 2400,
-      height: 2400,
-      fit: 'inside',
-      withoutEnlargement: true
-    })
-    .webp({
-      quality: 86,
-      effort: 4,
-      smartSubsample: true
-    })
-    .toBuffer({ resolveWithObject: true });
+  const galleryEntry = {
+    id: expectedSubmissionId,
+    title,
+    description,
+    credit,
+    submittedAt: submittedAt.toISOString(),
+    publishedAt: new Date().toISOString(),
+    media: publishedMedia
+  };
 
-  if (info.width < 1 || info.height < 1 || info.width * info.height > maximumInputPixels) {
-    fail('Sanitized image dimensions are invalid.');
-  }
-
-  await fs.writeFile(outputPath, data, { flag: 'wx' });
-  publishedMedia.push({
-    type: 'image',
-    src: `assets/community/${outputName}`,
-    alt: attachments.length > 1 ? `${altText} (${index + 1}/${attachments.length})` : altText,
-    width: info.width,
-    height: info.height
-  });
+  await fs.writeFile(outputGalleryDataPath, `${JSON.stringify({ version: 1, entry: galleryEntry }, null, 2)}\n`, 'utf8');
+  console.log(`Sanitized ${publishedMedia.length} approved media file(s) for ${expectedSubmissionId}.`);
 }
-
-const galleryEntry = {
-  id: expectedSubmissionId,
-  title,
-  description,
-  credit,
-  submittedAt: submittedAt.toISOString(),
-  publishedAt: new Date().toISOString(),
-  media: publishedMedia
-};
-
-await fs.writeFile(outputDataPath, `${JSON.stringify({ version: 1, entry: galleryEntry }, null, 2)}\n`, 'utf8');
-console.log(`Sanitized ${publishedMedia.length} approved media file(s) for ${expectedSubmissionId}.`);

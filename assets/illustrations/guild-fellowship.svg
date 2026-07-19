@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 540" fill="none">
+  <defs>
+    <linearGradient id="gf-line" x1="150" y1="100" x2="570" y2="460" gradientUnits="userSpaceOnUse"><stop stop-color="#F6D46F"/><stop offset=".48" stop-color="#5EE19D"/><stop offset="1" stop-color="#8B5CF6"/></linearGradient>
+    <radialGradient id="gf-aura" cx="0" cy="0" r="1" gradientTransform="translate(360 270) rotate(90) scale(245 310)" gradientUnits="userSpaceOnUse"><stop stop-color="#5EE19D" stop-opacity=".18"/><stop offset=".55" stop-color="#8B5CF6" stop-opacity=".08"/><stop offset="1" stop-color="#8B5CF6" stop-opacity="0"/></radialGradient>
+    <filter id="gf-shadow" x="-30%" y="-30%" width="160%" height="175%"><feDropShadow dx="0" dy="24" stdDeviation="24" flood-color="#000" flood-opacity=".45"/></filter>
+  </defs>
+  <ellipse cx="360" cy="272" rx="314" ry="245" fill="url(#gf-aura)"/>
+  <circle cx="360" cy="270" r="203" stroke="#5EE19D" stroke-opacity=".13" stroke-dasharray="7 13"/>
+  <path d="M205 337 360 189l155 148M205 337h310" stroke="url(#gf-line)" stroke-opacity=".38" stroke-width="3"/>
+  <g filter="url(#gf-shadow)">
+    <g transform="translate(286 112)"><path d="M74 0 142 39v78c0 58-35 96-68 118-33-22-68-60-68-118V39L74 0Z" fill="#0D142B" stroke="url(#gf-line)" stroke-width="3"/><circle cx="74" cy="73" r="29" fill="#F6D46F" fill-opacity=".16" stroke="#F6D46F" stroke-opacity=".72" stroke-width="3"/><path d="M29 176c8-38 31-57 45-57s37 19 45 57" stroke="#F6D46F" stroke-opacity=".72" stroke-width="5" stroke-linecap="round"/></g>
+    <g transform="translate(92 265)"><rect width="226" height="158" rx="38" fill="#0B1228" stroke="#5EE19D" stroke-opacity=".62" stroke-width="3"/><circle cx="113" cy="52" r="24" fill="#5EE19D" fill-opacity=".15" stroke="#5EE19D" stroke-width="3"/><path d="M72 121c8-30 25-45 41-45s33 15 41 45" stroke="#5EE19D" stroke-width="4" stroke-linecap="round"/></g>
+    <g transform="translate(402 265)"><rect width="226" height="158" rx="38" fill="#0B1228" stroke="#A675FF" stroke-opacity=".62" stroke-width="3"/><circle cx="113" cy="52" r="24" fill="#A675FF" fill-opacity=".14" stroke="#A675FF" stroke-width="3"/><path d="M72 121c8-30 25-45 41-45s33 15 41 45" stroke="#A675FF" stroke-width="4" stroke-linecap="round"/></g>
+  </g>
+  <g fill="#F6D46F"><circle cx="89" cy="176" r="4"/><circle cx="612" cy="158" r="4"/><circle cx="360" cy="475" r="4"/></g>
+</svg>

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 540" fill="none">
+  <defs>
+    <linearGradient id="ev-edge" x1="150" y1="100" x2="565" y2="455" gradientUnits="userSpaceOnUse"><stop stop-color="#5EE19D"/><stop offset=".46" stop-color="#56C7F5"/><stop offset="1" stop-color="#A675FF"/></linearGradient>
+    <linearGradient id="ev-card" x1="210" y1="121" x2="520" y2="450" gradientUnits="userSpaceOnUse"><stop stop-color="#24325A"/><stop offset="1" stop-color="#090F21"/></linearGradient>
+    <radialGradient id="ev-aura" cx="0" cy="0" r="1" gradientTransform="translate(360 275) rotate(90) scale(240 300)" gradientUnits="userSpaceOnUse"><stop stop-color="#5EE19D" stop-opacity=".18"/><stop offset=".55" stop-color="#56C7F5" stop-opacity=".08"/><stop offset="1" stop-color="#8B5CF6" stop-opacity="0"/></radialGradient>
+    <filter id="ev-shadow" x="-25%" y="-25%" width="150%" height="175%"><feDropShadow dx="0" dy="27" stdDeviation="25" flood-color="#000" flood-opacity=".5"/></filter>
+  </defs>
+  <ellipse cx="360" cy="275" rx="302" ry="236" fill="url(#ev-aura)"/>
+  <g filter="url(#ev-shadow)">
+    <rect x="158" y="119" width="404" height="354" rx="34" fill="url(#ev-card)" stroke="url(#ev-edge)" stroke-width="3"/>
+    <path d="M158 208h404" stroke="#56C7F5" stroke-opacity=".4" stroke-width="3"/>
+    <path d="M248 92v54M472 92v54" stroke="#F6D46F" stroke-width="13" stroke-linecap="round"/>
+    <g fill="#EAF1FF" fill-opacity=".18"><rect x="206" y="248" width="70" height="56" rx="15"/><rect x="325" y="248" width="70" height="56" rx="15"/><rect x="444" y="248" width="70" height="56" rx="15"/><rect x="206" y="337" width="70" height="56" rx="15"/><rect x="325" y="337" width="70" height="56" rx="15"/><rect x="444" y="337" width="70" height="56" rx="15"/></g>
+    <rect x="325" y="248" width="70" height="56" rx="15" fill="#5EE19D" fill-opacity=".22" stroke="#5EE19D" stroke-width="3"/>
+    <circle cx="360" cy="276" r="9" fill="#F6D46F"/>
+  </g>
+  <g filter="url(#ev-shadow)">
+    <g transform="translate(79 340)"><circle cx="70" cy="70" r="68" fill="#0A1022" stroke="#56C7F5" stroke-width="3"/><circle cx="70" cy="51" r="21" stroke="#56C7F5" stroke-width="3"/><path d="M34 104c8-25 22-38 36-38s28 13 36 38" stroke="#56C7F5" stroke-width="4" stroke-linecap="round"/></g>
+    <g transform="translate(501 337)"><circle cx="70" cy="70" r="68" fill="#0A1022" stroke="#A675FF" stroke-width="3"/><circle cx="70" cy="51" r="21" stroke="#A675FF" stroke-width="3"/><path d="M34 104c8-25 22-38 36-38s28 13 36 38" stroke="#A675FF" stroke-width="4" stroke-linecap="round"/></g>
+  </g>
+</svg>

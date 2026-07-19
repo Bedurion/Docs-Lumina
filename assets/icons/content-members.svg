@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 68 68" fill="none">
+  <defs>
+    <linearGradient id="members-gold" x1="10" y1="8" x2="53" y2="57" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFE48A"/>
+      <stop offset=".48" stop-color="#F3CC63"/>
+      <stop offset="1" stop-color="#9B5CFF"/>
+    </linearGradient>
+  </defs>
+  <path d="M32 6.5 52 14v15.2c0 12.6-7.8 22.2-20 28.3-12.2-6.1-20-15.7-20-28.3V14L32 6.5Z" stroke="url(#members-gold)" stroke-width="2.6"/>
+  <circle cx="32" cy="23" r="6" stroke="url(#members-gold)" stroke-width="2.4"/>
+  <circle cx="20.5" cy="29" r="4" stroke="url(#members-gold)" stroke-width="2.2"/>
+  <circle cx="43.5" cy="29" r="4" stroke="url(#members-gold)" stroke-width="2.2"/>
+  <path d="M21.5 43.5c1.2-6.1 4.8-9.2 10.5-9.2s9.3 3.1 10.5 9.2M12.8 42.4c.8-4.7 3.4-7 7.7-7 1.8 0 3.3.4 4.5 1.2M51.2 42.4c-.8-4.7-3.4-7-7.7-7-1.8 0-3.3.4-4.5 1.2" stroke="url(#members-gold)" stroke-width="2.4" stroke-linecap="round"/>
+</svg>

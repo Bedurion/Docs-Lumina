@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 540" fill="none">
+  <defs>
+    <linearGradient id="td-line" x1="164" y1="94" x2="564" y2="445" gradientUnits="userSpaceOnUse"><stop stop-color="#56C7F5"/><stop offset=".5" stop-color="#A675FF"/><stop offset="1" stop-color="#F6D46F"/></linearGradient>
+    <radialGradient id="td-aura" cx="0" cy="0" r="1" gradientTransform="translate(360 270) rotate(90) scale(242 302)" gradientUnits="userSpaceOnUse"><stop stop-color="#56C7F5" stop-opacity=".18"/><stop offset="1" stop-color="#8B5CF6" stop-opacity="0"/></radialGradient>
+    <filter id="td-shadow" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="24" stdDeviation="24" flood-color="#000" flood-opacity=".5"/></filter>
+  </defs>
+  <ellipse cx="360" cy="270" rx="305" ry="240" fill="url(#td-aura)"/>
+  <g filter="url(#td-shadow)">
+    <circle cx="360" cy="270" r="154" fill="#0A1022" stroke="url(#td-line)" stroke-width="4"/>
+    <circle cx="360" cy="270" r="115" stroke="#56C7F5" stroke-opacity=".34" stroke-width="3" stroke-dasharray="7 12"/>
+    <path d="M360 172v104l71 41" stroke="#F6D46F" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="360" cy="270" r="12" fill="#F6D46F"/>
+  </g>
+  <g fill="#0A1022" stroke-width="3" filter="url(#td-shadow)" font-family="Arial, sans-serif" font-weight="800" text-anchor="middle">
+    <g transform="translate(82 224)"><rect width="132" height="92" rx="27" stroke="#56C7F5"/><text x="66" y="39" fill="#56C7F5" font-size="16">YOUR TIME</text><text x="66" y="67" fill="#fff" font-size="23">20:00</text></g>
+    <g transform="translate(506 224)"><rect width="132" height="92" rx="27" stroke="#A675FF"/><text x="66" y="39" fill="#A675FF" font-size="16">THEIR TIME</text><text x="66" y="67" fill="#fff" font-size="23">14:00</text></g>
+  </g>
+</svg>

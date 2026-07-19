@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 540" fill="none">
+  <defs>
+    <linearGradient id="ms-line" x1="160" y1="96" x2="562" y2="448" gradientUnits="userSpaceOnUse"><stop stop-color="#FF7777"/><stop offset=".5" stop-color="#F6D46F"/><stop offset="1" stop-color="#56C7F5"/></linearGradient>
+    <radialGradient id="ms-aura" cx="0" cy="0" r="1" gradientTransform="translate(360 270) rotate(90) scale(238 302)" gradientUnits="userSpaceOnUse"><stop stop-color="#FF5D73" stop-opacity=".16"/><stop offset="1" stop-color="#8B5CF6" stop-opacity="0"/></radialGradient>
+    <filter id="ms-shadow" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="24" stdDeviation="24" flood-color="#000" flood-opacity=".5"/></filter>
+  </defs>
+  <ellipse cx="360" cy="270" rx="305" ry="238" fill="url(#ms-aura)"/>
+  <g filter="url(#ms-shadow)">
+    <path d="M360 79 526 139v127c0 103-64 170-166 209-102-39-166-106-166-209V139l166-60Z" fill="#0A1022" stroke="url(#ms-line)" stroke-width="5" stroke-linejoin="round"/>
+    <circle cx="360" cy="262" r="86" fill="#FF7777" fill-opacity=".08" stroke="#FF7777" stroke-width="4"/>
+    <path d="m304 206 112 112M416 206 304 318" stroke="#FF7777" stroke-width="12" stroke-linecap="round"/>
+    <path d="M278 390h164" stroke="#56C7F5" stroke-width="5" stroke-linecap="round" stroke-dasharray="8 13"/>
+  </g>
+</svg>

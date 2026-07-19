@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 540" fill="none">
+  <defs>
+    <linearGradient id="el-gold" x1="151" y1="103" x2="567" y2="453" gradientUnits="userSpaceOnUse"><stop stop-color="#FFF1AD"/><stop offset=".48" stop-color="#F4C84F"/><stop offset="1" stop-color="#A5641F"/></linearGradient>
+    <linearGradient id="el-book" x1="220" y1="116" x2="520" y2="442" gradientUnits="userSpaceOnUse"><stop stop-color="#253158"/><stop offset="1" stop-color="#090F20"/></linearGradient>
+    <radialGradient id="el-aura" cx="0" cy="0" r="1" gradientTransform="translate(360 280) rotate(90) scale(235 300)" gradientUnits="userSpaceOnUse"><stop stop-color="#F4C84F" stop-opacity=".22"/><stop offset=".52" stop-color="#8B5CF6" stop-opacity=".08"/><stop offset="1" stop-color="#8B5CF6" stop-opacity="0"/></radialGradient>
+    <filter id="el-shadow" x="-25%" y="-25%" width="150%" height="175%"><feDropShadow dx="0" dy="28" stdDeviation="26" flood-color="#000" flood-opacity=".52"/></filter>
+  </defs>
+  <ellipse cx="360" cy="280" rx="300" ry="235" fill="url(#el-aura)"/>
+  <g filter="url(#el-shadow)">
+    <rect x="211" y="92" width="352" height="385" rx="28" fill="url(#el-book)" stroke="url(#el-gold)" stroke-width="3"/>
+    <path d="M261 92v385" stroke="#F4C84F" stroke-opacity=".4" stroke-width="3"/>
+    <path d="M310 164h188M310 209h146M310 321h188M310 366h126" stroke="#DDE6FA" stroke-opacity=".28" stroke-width="9" stroke-linecap="round"/>
+    <path d="M310 265h41l32-34 44 59 37-45 34 20" stroke="url(#el-gold)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <g filter="url(#el-shadow)">
+    <g transform="translate(102 309)"><ellipse cx="102" cy="115" rx="102" ry="31" fill="#9B5A16"/><rect x="0" y="71" width="204" height="44" fill="#C98625"/><ellipse cx="102" cy="71" rx="102" ry="31" fill="url(#el-gold)" stroke="#FFF1AD" stroke-opacity=".45" stroke-width="2"/><path d="M102 52v38M84 62h36" stroke="#8F5414" stroke-width="6" stroke-linecap="round"/></g>
+    <g transform="translate(115 246)"><ellipse cx="89" cy="88" rx="89" ry="27" fill="#9B5A16"/><rect x="0" y="51" width="178" height="37" fill="#C98625"/><ellipse cx="89" cy="51" rx="89" ry="27" fill="url(#el-gold)"/></g>
+  </g>
+  <g transform="translate(476 375)"><circle cx="63" cy="63" r="61" fill="#0A1022" stroke="url(#el-gold)" stroke-width="3"/><path d="m35 63 18 18 38-43" stroke="#5EE19D" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></g>
+</svg>

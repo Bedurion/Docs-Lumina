@@ -1,4 +1,4 @@
-name: Publish approved community media
+name: Publish approved website content
 
 run-name: Website submission ${{ inputs.submission_id }} · ${{ inputs.dispatch_id }}
 
@@ -46,7 +46,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install --yes --no-install-recommends ffmpeg
 
-      - name: Validate, sanitize and stage approved media
+      - name: Validate and stage approved website content
         env:
           SUBMISSION_ID: ${{ inputs.submission_id }}
           ENCRYPTED_PAYLOAD: ${{ inputs.payload }}
@@ -101,12 +101,12 @@ jobs:
         run: |
           git config user.name "Luminox Website Publisher"
           git config user.email "luminox-publisher@users.noreply.github.com"
-          git add -- assets/community data/community-media.json
+          git add -- assets/community data/community-media.json data/blog-posts.json
           if git diff --cached --quiet; then
             echo "No publishable changes were produced."
             exit 1
           fi
-          git commit -m "Publish approved community media"
+          git commit -m "Publish approved website content"
           git push origin "HEAD:${GITHUB_REF_NAME}"
 
   deploy:

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs><linearGradient id="price-a" x1="10" y1="9" x2="55" y2="55" gradientUnits="userSpaceOnUse"><stop stop-color="#FFE38B"/><stop offset=".55" stop-color="#F0B94A"/><stop offset="1" stop-color="#B58CFF"/></linearGradient></defs>
+  <path d="M9 15h24l22 22-18 18L15 33V15Z" stroke="url(#price-a)" stroke-width="3" stroke-linejoin="round"/>
+  <circle cx="23" cy="25" r="4" stroke="#FFF4C8" stroke-width="2.5"/>
+  <path d="M34 34.5c0-2.2 1.9-3.8 4.6-3.8 2.2 0 4 .8 5.2 2.1M44.5 40.6c0 2.3-2 3.9-4.8 3.9-2.4 0-4.5-.9-5.8-2.4M39.3 27.5v20" stroke="url(#price-a)" stroke-width="2.6" stroke-linecap="round"/>
+</svg>

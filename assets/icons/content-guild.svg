@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs><linearGradient id="guild-a" x1="7" y1="8" x2="57" y2="57" gradientUnits="userSpaceOnUse"><stop stop-color="#F7D66F"/><stop offset=".52" stop-color="#7FE2B3"/><stop offset="1" stop-color="#56C7F5"/></linearGradient></defs>
+  <circle cx="32" cy="20" r="7" stroke="url(#guild-a)" stroke-width="3"/>
+  <circle cx="15" cy="27" r="5" stroke="url(#guild-a)" stroke-width="2.7"/>
+  <circle cx="49" cy="27" r="5" stroke="url(#guild-a)" stroke-width="2.7"/>
+  <path d="M19 51c1.6-11.2 5.9-16.8 13-16.8S43.4 39.8 45 51M5.5 50c1-8.3 4.2-12.4 9.5-12.4 2.5 0 4.6.9 6.2 2.8M58.5 50c-1-8.3-4.2-12.4-9.5-12.4-2.5 0-4.6.9-6.2 2.8" stroke="url(#guild-a)" stroke-width="3" stroke-linecap="round"/>
+  <path d="M28 10h8" stroke="#FFF4C8" stroke-width="2.5" stroke-linecap="round"/>
+</svg>

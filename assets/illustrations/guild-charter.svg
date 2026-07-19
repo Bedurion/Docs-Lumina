@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 540" fill="none">
+  <defs>
+    <linearGradient id="ch-paper" x1="200" y1="92" x2="516" y2="476" gradientUnits="userSpaceOnUse"><stop stop-color="#FFF1C2"/><stop offset=".6" stop-color="#DCC38A"/><stop offset="1" stop-color="#8F7040"/></linearGradient>
+    <linearGradient id="ch-edge" x1="180" y1="110" x2="555" y2="450" gradientUnits="userSpaceOnUse"><stop stop-color="#F6D46F"/><stop offset=".52" stop-color="#FB7185"/><stop offset="1" stop-color="#8B5CF6"/></linearGradient>
+    <radialGradient id="ch-aura" cx="0" cy="0" r="1" gradientTransform="translate(360 266) rotate(90) scale(235 278)" gradientUnits="userSpaceOnUse"><stop stop-color="#FB7185" stop-opacity=".17"/><stop offset=".5" stop-color="#F6D46F" stop-opacity=".1"/><stop offset="1" stop-color="#8B5CF6" stop-opacity="0"/></radialGradient>
+    <filter id="ch-shadow" x="-25%" y="-25%" width="150%" height="170%"><feDropShadow dx="0" dy="28" stdDeviation="26" flood-color="#000" flood-opacity=".5"/></filter>
+  </defs>
+  <ellipse cx="360" cy="270" rx="286" ry="236" fill="url(#ch-aura)"/>
+  <g filter="url(#ch-shadow)">
+    <path d="M218 88h284c-17 26-17 52 0 78v271H218V166c17-26 17-52 0-78Z" fill="url(#ch-paper)" stroke="url(#ch-edge)" stroke-width="3"/>
+    <path d="M218 88c-25 0-45 17-45 39s20 39 45 39h284c25 0 45-17 45-39s-20-39-45-39H218ZM218 437c-25 0-45 17-45 39s20 39 45 39h284c25 0 45-17 45-39s-20-39-45-39H218Z" fill="#111830" stroke="url(#ch-edge)" stroke-width="3"/>
+    <path d="M263 220h194M263 261h194M263 302h142M263 343h172" stroke="#56421E" stroke-opacity=".55" stroke-width="8" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(310 128)"><path d="m50 0 47 27v54L50 108 3 81V27L50 0Z" fill="#10172F" stroke="url(#ch-edge)" stroke-width="3"/><path d="m27 54 15 15 33-36" stroke="#F6D46F" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></g>
+  <path d="M448 362c29-10 59 6 69 35-31 4-53-6-69-35Z" fill="#FB7185" fill-opacity=".28" stroke="#FB7185" stroke-width="3"/>
+  <circle cx="459" cy="374" r="23" fill="#A61631" stroke="#F6D46F" stroke-width="3"/><path d="m459 358 7 12 14 3-10 10 2 14-13-6-13 6 2-14-10-10 14-3 7-12Z" fill="#F6D46F"/>
+</svg>

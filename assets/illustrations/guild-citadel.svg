@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 540" fill="none">
+  <defs>
+    <linearGradient id="gc-gold" x1="178" y1="104" x2="554" y2="468" gradientUnits="userSpaceOnUse"><stop stop-color="#FFF1B8"/><stop offset=".42" stop-color="#F4C84F"/><stop offset="1" stop-color="#9D5B19"/></linearGradient>
+    <linearGradient id="gc-night" x1="210" y1="190" x2="498" y2="492" gradientUnits="userSpaceOnUse"><stop stop-color="#222F5E"/><stop offset="1" stop-color="#0A1022"/></linearGradient>
+    <radialGradient id="gc-aura" cx="0" cy="0" r="1" gradientTransform="translate(360 262) rotate(90) scale(248 300)" gradientUnits="userSpaceOnUse"><stop stop-color="#F4C84F" stop-opacity=".28"/><stop offset=".46" stop-color="#8B5CF6" stop-opacity=".1"/><stop offset="1" stop-color="#8B5CF6" stop-opacity="0"/></radialGradient>
+    <filter id="gc-shadow" x="-25%" y="-25%" width="150%" height="165%"><feDropShadow dx="0" dy="30" stdDeviation="28" flood-color="#000" flood-opacity=".5"/></filter>
+  </defs>
+  <ellipse cx="360" cy="273" rx="310" ry="252" fill="url(#gc-aura)"/>
+  <path d="M96 457c98-38 178-37 264 1 86-38 166-39 264-1" stroke="#F4C84F" stroke-opacity=".18" stroke-width="2"/>
+  <g filter="url(#gc-shadow)">
+    <path d="M161 434V238l72-31v-52l62-27 65-78 65 78 62 27v52l72 31v196H161Z" fill="url(#gc-night)" stroke="url(#gc-gold)" stroke-opacity=".72" stroke-width="3"/>
+    <path d="M188 434V264h72v170M460 434V264h72v170M287 434V192h146v242" stroke="#F4C84F" stroke-opacity=".45" stroke-width="3"/>
+    <path d="m360 80 33 57h-66l33-57Z" fill="#F4C84F" fill-opacity=".18" stroke="url(#gc-gold)" stroke-width="3"/>
+    <path d="M333 434v-96c0-19 12-34 27-34s27 15 27 34v96" fill="#080D1C" stroke="#F4C84F" stroke-opacity=".55" stroke-width="3"/>
+    <g fill="#F4C84F" fill-opacity=".66"><rect x="207" y="291" width="25" height="42" rx="12"/><rect x="488" y="291" width="25" height="42" rx="12"/><rect x="315" y="228" width="24" height="39" rx="12"/><rect x="381" y="228" width="24" height="39" rx="12"/></g>
+  </g>
+  <g>
+    <path d="M360 135 414 166v62l-54 31-54-31v-62l54-31Z" fill="#0D142B" stroke="url(#gc-gold)" stroke-width="3"/>
+    <path d="M360 154v82M331 176h58M337 213l23-59 23 59" stroke="#F4C84F" stroke-opacity=".8" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="360" cy="212" r="7" fill="#FB7185"/>
+  </g>
+  <g fill="#F4C84F"><circle cx="130" cy="172" r="4"/><circle cx="582" cy="151" r="3"/><circle cx="620" cy="341" r="4"/></g>
+  <g fill="#A675FF"><circle cx="104" cy="328" r="3"/><circle cx="554" cy="98" r="3"/></g>
+</svg>

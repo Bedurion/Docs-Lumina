@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 540" fill="none">
+  <defs>
+    <linearGradient id="gh-line" x1="117" y1="96" x2="604" y2="442" gradientUnits="userSpaceOnUse"><stop stop-color="#A675FF"/><stop offset=".52" stop-color="#F6D46F"/><stop offset="1" stop-color="#56C7F5"/></linearGradient>
+    <radialGradient id="gh-aura" cx="0" cy="0" r="1" gradientTransform="translate(360 275) rotate(90) scale(238 305)" gradientUnits="userSpaceOnUse"><stop stop-color="#A675FF" stop-opacity=".17"/><stop offset="1" stop-color="#8B5CF6" stop-opacity="0"/></radialGradient>
+    <filter id="gh-shadow" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="24" stdDeviation="24" flood-color="#000" flood-opacity=".5"/></filter>
+  </defs>
+  <ellipse cx="360" cy="270" rx="306" ry="238" fill="url(#gh-aura)"/>
+  <g filter="url(#gh-shadow)">
+    <path d="M153 217 360 91l207 126v225H153V217Z" fill="#0A1022" stroke="url(#gh-line)" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M204 235h312v207H204V235Z" stroke="#F6D46F" stroke-opacity=".42" stroke-width="3"/>
+    <path d="M308 235v207M412 235v207M204 339h312" stroke="#A675FF" stroke-opacity=".48" stroke-width="3"/>
+    <path d="M332 442V321h56v121" fill="#F6D46F" fill-opacity=".11" stroke="#F6D46F" stroke-width="3"/>
+    <circle cx="375" cy="383" r="5" fill="#F6D46F"/>
+  </g>
+  <g fill="#5EE19D"><circle cx="256" cy="286" r="7"/><circle cx="464" cy="286" r="7"/></g>
+  <g fill="#56C7F5"><circle cx="256" cy="390" r="7"/><circle cx="464" cy="390" r="7"/></g>
+</svg>

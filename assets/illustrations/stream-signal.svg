@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 540" fill="none">
+  <defs>
+    <linearGradient id="ss-line" x1="151" y1="105" x2="570" y2="428" gradientUnits="userSpaceOnUse"><stop stop-color="#FF7777"/><stop offset=".48" stop-color="#A675FF"/><stop offset="1" stop-color="#56C7F5"/></linearGradient>
+    <radialGradient id="ss-aura" cx="0" cy="0" r="1" gradientTransform="translate(360 270) rotate(90) scale(230 300)" gradientUnits="userSpaceOnUse"><stop stop-color="#FF5D73" stop-opacity=".2"/><stop offset="1" stop-color="#8B5CF6" stop-opacity="0"/></radialGradient>
+    <filter id="ss-shadow" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="24" stdDeviation="24" flood-color="#000" flood-opacity=".48"/></filter>
+  </defs>
+  <ellipse cx="360" cy="270" rx="302" ry="230" fill="url(#ss-aura)"/>
+  <g opacity=".5" stroke="url(#ss-line)" stroke-width="4" stroke-linecap="round">
+    <path d="M181 178c-48 52-48 132 0 184M539 178c48 52 48 132 0 184"/>
+    <path d="M222 212c-29 32-29 84 0 116M498 212c29 32 29 84 0 116"/>
+  </g>
+  <g filter="url(#ss-shadow)">
+    <rect x="245" y="147" width="230" height="178" rx="35" fill="#0A1022" stroke="url(#ss-line)" stroke-width="4"/>
+    <path d="m339 200 72 36-72 37v-73Z" fill="#FF7777" fill-opacity=".2" stroke="#FF7777" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M311 376h98M340 325v51m40-51v51" stroke="#56C7F5" stroke-width="5" stroke-linecap="round"/>
+    <rect x="269" y="395" width="182" height="52" rx="21" fill="#0A1022" stroke="#5EE19D" stroke-width="3"/>
+    <path d="M302 421h72" stroke="#5EE19D" stroke-width="5" stroke-linecap="round"/><circle cx="408" cy="421" r="10" fill="#F6D46F"/>
+  </g>
+</svg>

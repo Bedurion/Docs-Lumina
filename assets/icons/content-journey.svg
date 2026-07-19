@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs><linearGradient id="journey-a" x1="8" y1="54" x2="56" y2="9" gradientUnits="userSpaceOnUse"><stop stop-color="#56C7F5"/><stop offset=".5" stop-color="#7FE2B3"/><stop offset="1" stop-color="#F7D66F"/></linearGradient></defs>
+  <path d="M10 52c4-12 10.3-18 19-18 7 0 9.5-7 12-13 2.1-5 5.5-7.7 10-8" stroke="url(#journey-a)" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 6"/>
+  <circle cx="10" cy="52" r="5" stroke="#56C7F5" stroke-width="2.8"/>
+  <path d="M47 8h9v9M56 8 43 21" stroke="#FFF4C8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="m26 25 4 4-4 4-4-4 4-4Z" fill="#7FE2B3"/>
+</svg>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 540" fill="none">
+  <defs>
+    <linearGradient id="st-line" x1="130" y1="100" x2="590" y2="455" gradientUnits="userSpaceOnUse"><stop stop-color="#56C7F5"/><stop offset=".5" stop-color="#A675FF"/><stop offset="1" stop-color="#F6D46F"/></linearGradient>
+    <radialGradient id="st-aura" cx="0" cy="0" r="1" gradientTransform="translate(360 270) rotate(90) scale(245 310)" gradientUnits="userSpaceOnUse"><stop stop-color="#56C7F5" stop-opacity=".18"/><stop offset=".55" stop-color="#8B5CF6" stop-opacity=".1"/><stop offset="1" stop-color="#8B5CF6" stop-opacity="0"/></radialGradient>
+    <filter id="st-shadow" x="-25%" y="-25%" width="150%" height="180%"><feDropShadow dx="0" dy="26" stdDeviation="24" flood-color="#000" flood-opacity=".5"/></filter>
+  </defs>
+  <ellipse cx="360" cy="270" rx="306" ry="238" fill="url(#st-aura)"/>
+  <g filter="url(#st-shadow)">
+    <path d="M105 139h347c33 0 60 27 60 60v143c0 33-27 60-60 60H271l-94 72 22-72h-94c-33 0-60-27-60-60V199c0-33 27-60 60-60Z" fill="#0B1228" stroke="url(#st-line)" stroke-width="3"/>
+    <path d="M148 221h261M148 272h210M148 323h235" stroke="#E8EFFD" stroke-opacity=".27" stroke-width="10" stroke-linecap="round"/>
+    <path d="M405 234h181c33 0 60 27 60 60v93c0 33-27 60-60 60h-43l15 56-71-56h-82c-33 0-60-27-60-60v-93c0-33 27-60 60-60Z" fill="#10172F" stroke="#A675FF" stroke-width="3"/>
+    <circle cx="439" cy="339" r="11" fill="#56C7F5"/><circle cx="495" cy="339" r="11" fill="#F6D46F"/><circle cx="551" cy="339" r="11" fill="#A675FF"/>
+  </g>
+  <g transform="translate(450 76)"><path d="m61 0 57 33v67c0 49-29 82-57 101C33 182 4 149 4 100V33L61 0Z" fill="#0A1022" stroke="url(#st-line)" stroke-width="3"/><path d="m36 99 17 17 34-40" stroke="#5EE19D" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></g>
+</svg>

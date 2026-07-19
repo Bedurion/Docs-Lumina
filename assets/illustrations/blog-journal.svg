@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 540" fill="none">
+  <defs>
+    <linearGradient id="bj-cover" x1="180" y1="105" x2="540" y2="456" gradientUnits="userSpaceOnUse"><stop stop-color="#27345F"/><stop offset=".46" stop-color="#151C3B"/><stop offset="1" stop-color="#090E1E"/></linearGradient>
+    <linearGradient id="bj-edge" x1="194" y1="106" x2="540" y2="460" gradientUnits="userSpaceOnUse"><stop stop-color="#F7D873"/><stop offset=".48" stop-color="#A675FF"/><stop offset="1" stop-color="#56C7F5"/></linearGradient>
+    <radialGradient id="bj-aura" cx="0" cy="0" r="1" gradientTransform="translate(360 270) rotate(90) scale(235 285)" gradientUnits="userSpaceOnUse"><stop stop-color="#F6D46F" stop-opacity=".18"/><stop offset=".5" stop-color="#8B5CF6" stop-opacity=".12"/><stop offset="1" stop-color="#8B5CF6" stop-opacity="0"/></radialGradient>
+    <filter id="bj-shadow" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="30" stdDeviation="28" flood-color="#000" flood-opacity=".55"/></filter>
+  </defs>
+  <ellipse cx="360" cy="270" rx="300" ry="238" fill="url(#bj-aura)"/>
+  <g filter="url(#bj-shadow)" transform="rotate(-4 350 287)">
+    <rect x="190" y="86" width="334" height="386" rx="26" fill="#090D1B" stroke="#F6D46F" stroke-opacity=".36" stroke-width="3"/>
+    <rect x="211" y="69" width="334" height="386" rx="26" fill="url(#bj-cover)" stroke="url(#bj-edge)" stroke-width="3"/>
+    <path d="M253 69v386" stroke="#F6D46F" stroke-opacity=".42" stroke-width="3"/>
+    <path d="M499 69v386" stroke="#56C7F5" stroke-opacity=".22" stroke-width="2"/>
+    <path d="M299 137h163M299 174h119" stroke="#E7ECFA" stroke-opacity=".5" stroke-width="9" stroke-linecap="round"/>
+    <path d="M299 335h171M299 371h137" stroke="#E7ECFA" stroke-opacity=".22" stroke-width="7" stroke-linecap="round"/>
+    <path d="m374 220 52 30v60l-52 30-52-30v-60l52-30Z" fill="#0A1022" stroke="url(#bj-edge)" stroke-width="3"/>
+    <path d="M350 283h48M374 257v52" stroke="#F6D46F" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="374" cy="283" r="8" fill="#FB7185"/>
+  </g>
+  <g transform="translate(487 93) rotate(18)"><path d="M0 257C19 174 45 92 83 9" stroke="#F6D46F" stroke-width="9" stroke-linecap="round"/><path d="M83 9C48 19 28 43 23 78c28-2 49-15 62-39 0 36-13 66-39 90 32-5 55-21 69-48-2 35-17 64-46 86" fill="#F6D46F" fill-opacity=".12" stroke="url(#bj-edge)" stroke-width="3" stroke-linejoin="round"/></g>
+  <g fill="#F6D46F"><circle cx="127" cy="171" r="4"/><circle cx="607" cy="337" r="4"/></g>
+  <g fill="#56C7F5"><circle cx="126" cy="362" r="3"/><circle cx="574" cy="113" r="3"/></g>
+</svg>

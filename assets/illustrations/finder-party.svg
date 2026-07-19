@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 540" fill="none">
+  <defs>
+    <linearGradient id="fp-line" x1="120" y1="110" x2="600" y2="455" gradientUnits="userSpaceOnUse"><stop stop-color="#56C7F5"/><stop offset=".34" stop-color="#5EE19D"/><stop offset=".67" stop-color="#F6D46F"/><stop offset="1" stop-color="#A675FF"/></linearGradient>
+    <radialGradient id="fp-aura" cx="0" cy="0" r="1" gradientTransform="translate(360 270) rotate(90) scale(245 310)" gradientUnits="userSpaceOnUse"><stop stop-color="#56C7F5" stop-opacity=".18"/><stop offset=".58" stop-color="#5EE19D" stop-opacity=".08"/><stop offset="1" stop-color="#8B5CF6" stop-opacity="0"/></radialGradient>
+    <filter id="fp-shadow" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="24" stdDeviation="22" flood-color="#000" flood-opacity=".48"/></filter>
+  </defs>
+  <ellipse cx="360" cy="270" rx="312" ry="240" fill="url(#fp-aura)"/>
+  <path d="M211 190 360 270l149-80M211 350l149-80 149 80" stroke="url(#fp-line)" stroke-opacity=".38" stroke-width="3"/>
+  <circle cx="360" cy="270" r="111" stroke="url(#fp-line)" stroke-opacity=".22" stroke-dasharray="7 12"/>
+  <g filter="url(#fp-shadow)">
+    <g transform="translate(276 186)"><circle cx="84" cy="84" r="82" fill="#0A1022" stroke="url(#fp-line)" stroke-width="3"/><path d="M84 36 125 60v48l-41 24-41-24V60l41-24Z" fill="#56C7F5" fill-opacity=".12" stroke="#56C7F5" stroke-width="3"/><path d="m63 84 14 14 29-33" stroke="#5EE19D" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></g>
+    <g transform="translate(87 102)"><circle cx="90" cy="90" r="76" fill="#0A1022" stroke="#56C7F5" stroke-width="3"/><path d="m90 39 38 22v44l-38 22-38-22V61l38-22Z" stroke="#56C7F5" stroke-width="3"/><path d="M90 55v57M68 83h44" stroke="#56C7F5" stroke-width="4" stroke-linecap="round"/></g>
+    <g transform="translate(457 102)"><circle cx="90" cy="90" r="76" fill="#0A1022" stroke="#F6D46F" stroke-width="3"/><path d="m90 38 36 72H54l36-72Z" stroke="#F6D46F" stroke-width="3"/><circle cx="90" cy="91" r="9" fill="#F6D46F"/></g>
+    <g transform="translate(87 282)"><circle cx="90" cy="90" r="76" fill="#0A1022" stroke="#5EE19D" stroke-width="3"/><path d="M90 45c22 15 35 36 38 64-23-4-37-16-38-36-1 20-15 32-38 36 3-28 16-49 38-64Z" stroke="#5EE19D" stroke-width="3"/></g>
+    <g transform="translate(457 282)"><circle cx="90" cy="90" r="76" fill="#0A1022" stroke="#A675FF" stroke-width="3"/><path d="M90 43 106 76l36 5-26 25 6 36-32-17-32 17 6-36-26-25 36-5 16-33Z" stroke="#A675FF" stroke-width="3"/></g>
+  </g>
+</svg>

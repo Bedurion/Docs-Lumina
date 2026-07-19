@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 540" fill="none">
+  <defs>
+    <linearGradient id="pp-line" x1="110" y1="410" x2="604" y2="110" gradientUnits="userSpaceOnUse"><stop stop-color="#56C7F5"/><stop offset=".45" stop-color="#5EE19D"/><stop offset="1" stop-color="#F6D46F"/></linearGradient>
+    <radialGradient id="pp-aura" cx="0" cy="0" r="1" gradientTransform="translate(360 275) rotate(90) scale(235 305)" gradientUnits="userSpaceOnUse"><stop stop-color="#5EE19D" stop-opacity=".17"/><stop offset=".54" stop-color="#F6D46F" stop-opacity=".08"/><stop offset="1" stop-color="#8B5CF6" stop-opacity="0"/></radialGradient>
+    <filter id="pp-shadow" x="-25%" y="-25%" width="150%" height="175%"><feDropShadow dx="0" dy="26" stdDeviation="25" flood-color="#000" flood-opacity=".48"/></filter>
+  </defs>
+  <ellipse cx="360" cy="275" rx="305" ry="235" fill="url(#pp-aura)"/>
+  <g filter="url(#pp-shadow)">
+    <path d="M94 438h112v-87h114v-87h114v-87h114V90h84v348H94Z" fill="#0A1022"/>
+    <path d="M94 438h112v-87h114v-87h114v-87h114V90h84" stroke="url(#pp-line)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M94 438h538" stroke="#56C7F5" stroke-opacity=".32" stroke-width="3" stroke-linecap="round"/>
+    <path d="M150 406 263 319l114-83 114-82 95-65" stroke="url(#pp-line)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="m555 85 50-12-19 48" stroke="#F6D46F" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+    <g fill="#0A1022" stroke-width="4"><circle cx="150" cy="406" r="15" stroke="#56C7F5"/><circle cx="263" cy="319" r="15" stroke="#5EE19D"/><circle cx="377" cy="236" r="15" stroke="#A675FF"/><circle cx="491" cy="154" r="15" stroke="#F6D46F"/></g>
+  </g>
+  <g transform="translate(477 50)"><path d="M37 23V4h80v19M42 23h70v55c0 38-19 65-35 80-16-15-35-42-35-80V23Z" fill="#10172F" stroke="#F6D46F" stroke-width="3"/><path d="m77 47 10 20 22 3-16 16 4 22-20-10-20 10 4-22-16-16 22-3 10-20Z" fill="#F6D46F" fill-opacity=".2" stroke="#F6D46F" stroke-width="3"/></g>
+</svg>

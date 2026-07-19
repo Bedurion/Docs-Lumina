@@ -2,6 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://bedurion.github.io/Docs-Lumina/</loc><lastmod>2026-07-18</lastmod><priority>1.0</priority></url>
   <url><loc>https://bedurion.github.io/Docs-Lumina/features.html</loc><lastmod>2026-07-18</lastmod></url>
+  <url><loc>https://bedurion.github.io/Docs-Lumina/bot-registration.html</loc><lastmod>2026-07-19</lastmod></url>
+  <url><loc>https://bedurion.github.io/Docs-Lumina/bot-loyalty.html</loc><lastmod>2026-07-19</lastmod></url>
+  <url><loc>https://bedurion.github.io/Docs-Lumina/bot-streaming.html</loc><lastmod>2026-07-19</lastmod></url>
+  <url><loc>https://bedurion.github.io/Docs-Lumina/bot-timezones.html</loc><lastmod>2026-07-19</lastmod></url>
+  <url><loc>https://bedurion.github.io/Docs-Lumina/bot-finder.html</loc><lastmod>2026-07-19</lastmod></url>
+  <url><loc>https://bedurion.github.io/Docs-Lumina/bot-events.html</loc><lastmod>2026-07-19</lastmod></url>
+  <url><loc>https://bedurion.github.io/Docs-Lumina/bot-loot.html</loc><lastmod>2026-07-19</lastmod></url>
+  <url><loc>https://bedurion.github.io/Docs-Lumina/bot-progression.html</loc><lastmod>2026-07-19</lastmod></url>
+  <url><loc>https://bedurion.github.io/Docs-Lumina/bot-leaderboards.html</loc><lastmod>2026-07-19</lastmod></url>
+  <url><loc>https://bedurion.github.io/Docs-Lumina/bot-guildbank.html</loc><lastmod>2026-07-19</lastmod></url>
+  <url><loc>https://bedurion.github.io/Docs-Lumina/bot-watchlists.html</loc><lastmod>2026-07-19</lastmod></url>
+  <url><loc>https://bedurion.github.io/Docs-Lumina/bot-tracker.html</loc><lastmod>2026-07-19</lastmod></url>
+  <url><loc>https://bedurion.github.io/Docs-Lumina/bot-guards.html</loc><lastmod>2026-07-19</lastmod></url>
+  <url><loc>https://bedurion.github.io/Docs-Lumina/bot-recruitment.html</loc><lastmod>2026-07-19</lastmod></url>
+  <url><loc>https://bedurion.github.io/Docs-Lumina/bot-guildhall.html</loc><lastmod>2026-07-19</lastmod></url>
+  <url><loc>https://bedurion.github.io/Docs-Lumina/bot-support.html</loc><lastmod>2026-07-19</lastmod></url>
+  <url><loc>https://bedurion.github.io/Docs-Lumina/bot-moderation.html</loc><lastmod>2026-07-19</lastmod></url>
+  <url><loc>https://bedurion.github.io/Docs-Lumina/bot-staff.html</loc><lastmod>2026-07-19</lastmod></url>
+  <url><loc>https://bedurion.github.io/Docs-Lumina/bot-automation.html</loc><lastmod>2026-07-19</lastmod></url>
+  <url><loc>https://bedurion.github.io/Docs-Lumina/bot-website.html</loc><lastmod>2026-07-19</lastmod></url>
   <url><loc>https://bedurion.github.io/Docs-Lumina/use-cases.html</loc><lastmod>2026-07-18</lastmod></url>
   <url><loc>https://bedurion.github.io/Docs-Lumina/features-identity.html</loc><lastmod>2026-07-18</lastmod></url>
   <url><loc>https://bedurion.github.io/Docs-Lumina/features-economy.html</loc><lastmod>2026-07-18</lastmod></url>
@@ -41,10 +61,15 @@
   <url><loc>https://bedurion.github.io/Docs-Lumina/docs-faq.html</loc><lastmod>2026-07-18</lastmod></url>
   <url><loc>https://bedurion.github.io/Docs-Lumina/guild.html</loc><lastmod>2026-07-18</lastmod></url>
   <url><loc>https://bedurion.github.io/Docs-Lumina/guild-community.html</loc><lastmod>2026-07-18</lastmod></url>
+  <url><loc>https://bedurion.github.io/Docs-Lumina/guild-members.html</loc><lastmod>2026-07-19</lastmod></url>
+  <url><loc>https://bedurion.github.io/Docs-Lumina/blog.html</loc><lastmod>2026-07-18</lastmod></url>
   <url><loc>https://bedurion.github.io/Docs-Lumina/gallery.html</loc><lastmod>2026-07-18</lastmod></url>
+  <url><loc>https://bedurion.github.io/Docs-Lumina/guild-roleplay.html</loc><lastmod>2026-07-18</lastmod></url>
   <url><loc>https://bedurion.github.io/Docs-Lumina/guild-join.html</loc><lastmod>2026-07-18</lastmod></url>
   <url><loc>https://bedurion.github.io/Docs-Lumina/guild-rules.html</loc><lastmod>2026-07-18</lastmod></url>
   <url><loc>https://bedurion.github.io/Docs-Lumina/pricing.html</loc><lastmod>2026-07-18</lastmod></url>
+  <url><loc>https://bedurion.github.io/Docs-Lumina/pricing-faq.html</loc><lastmod>2026-07-19</lastmod></url>
+  <url><loc>https://bedurion.github.io/Docs-Lumina/guarantee.html</loc><lastmod>2026-07-19</lastmod></url>
   <url><loc>https://bedurion.github.io/Docs-Lumina/roadmap.html</loc><lastmod>2026-07-18</lastmod></url>
   <url><loc>https://bedurion.github.io/Docs-Lumina/changelog.html</loc><lastmod>2026-07-18</lastmod></url>
   <url><loc>https://bedurion.github.io/Docs-Lumina/contact.html</loc><lastmod>2026-07-18</lastmod></url>

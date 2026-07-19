@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 540" fill="none">
+  <defs>
+    <linearGradient id="dl-page" x1="140" y1="158" x2="570" y2="452" gradientUnits="userSpaceOnUse"><stop stop-color="#F4F0D8"/><stop offset=".55" stop-color="#BFCBE7"/><stop offset="1" stop-color="#61718F"/></linearGradient>
+    <linearGradient id="dl-edge" x1="151" y1="125" x2="568" y2="446" gradientUnits="userSpaceOnUse"><stop stop-color="#56C7F5"/><stop offset=".5" stop-color="#A675FF"/><stop offset="1" stop-color="#F6D46F"/></linearGradient>
+    <radialGradient id="dl-aura" cx="0" cy="0" r="1" gradientTransform="translate(360 278) rotate(90) scale(245 300)" gradientUnits="userSpaceOnUse"><stop stop-color="#56C7F5" stop-opacity=".2"/><stop offset=".52" stop-color="#8B5CF6" stop-opacity=".1"/><stop offset="1" stop-color="#8B5CF6" stop-opacity="0"/></radialGradient>
+    <filter id="dl-shadow" x="-25%" y="-25%" width="150%" height="175%"><feDropShadow dx="0" dy="26" stdDeviation="26" flood-color="#000" flood-opacity=".48"/></filter>
+  </defs>
+  <ellipse cx="360" cy="280" rx="300" ry="238" fill="url(#dl-aura)"/>
+  <g opacity=".6"><path d="M123 202h148M470 141h127M107 367h117M494 397h109" stroke="url(#dl-edge)" stroke-opacity=".45" stroke-width="3" stroke-linecap="round"/><circle cx="104" cy="202" r="6" fill="#56C7F5"/><circle cx="616" cy="141" r="6" fill="#F6D46F"/><circle cx="88" cy="367" r="6" fill="#A675FF"/><circle cx="622" cy="397" r="6" fill="#56C7F5"/></g>
+  <g filter="url(#dl-shadow)">
+    <path d="M105 217c86-34 171-18 255 48 84-66 169-82 255-48v243c-87-30-172-13-255 50-83-63-168-80-255-50V217Z" fill="#0B1228" stroke="url(#dl-edge)" stroke-width="3"/>
+    <path d="M128 235c73-24 146-6 218 51v194c-71-43-144-55-218-36V235ZM592 235c-73-24-146-6-218 51v194c71-43 144-55 218-36V235Z" fill="url(#dl-page)" fill-opacity=".92"/>
+    <path d="M360 267v240" stroke="#F6D46F" stroke-opacity=".55" stroke-width="3"/>
+    <g stroke="#34415F" stroke-opacity=".55" stroke-width="7" stroke-linecap="round"><path d="M169 309c43-7 86 2 128 29M169 351c43-7 86 2 128 29M169 393c43-7 86 2 128 29M551 309c-43-7-86 2-128 29M551 351c-43-7-86 2-128 29M551 393c-43-7-86 2-128 29"/></g>
+  </g>
+  <g transform="translate(301 78)"><path d="M59 0 114 32v64l-55 32L4 96V32L59 0Z" fill="#0A1022" stroke="url(#dl-edge)" stroke-width="3"/><path d="M39 36h40v59H39z" stroke="#56C7F5" stroke-width="4"/><path d="M47 49h24M47 62h24M47 75h15" stroke="#F6D46F" stroke-width="4" stroke-linecap="round"/></g>
+</svg>

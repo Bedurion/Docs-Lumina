@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">Lumina blog</title>
+  <defs>
+    <linearGradient id="paper" x1="10" y1="8" x2="52" y2="56" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFE59A"/>
+      <stop offset=".52" stop-color="#F4C84F"/>
+      <stop offset="1" stop-color="#A77CFF"/>
+    </linearGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="2.2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <path d="M16 10.5h25.5L50 19v34.5H16z" fill="#10182E" stroke="url(#paper)" stroke-width="2.5" stroke-linejoin="round"/>
+  <path d="M41.5 10.5V19H50" fill="none" stroke="url(#paper)" stroke-width="2.5" stroke-linejoin="round"/>
+  <path d="M23 28h20M23 35h17M23 42h13" fill="none" stroke="url(#paper)" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M47.5 38.5 53 44l-10.2 10.2-6.6 1.1 1.1-6.6z" fill="#121A31" stroke="#F4C84F" stroke-width="2.3" stroke-linejoin="round" filter="url(#glow)"/>
+  <path d="m37.3 48.7 5.5 5.5" stroke="#A77CFF" stroke-width="2.3"/>
+</svg>

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 540" fill="none">
+  <defs>
+    <linearGradient id="lo-line" x1="118" y1="90" x2="602" y2="446" gradientUnits="userSpaceOnUse"><stop stop-color="#F6D46F"/><stop offset=".52" stop-color="#A675FF"/><stop offset="1" stop-color="#5EE19D"/></linearGradient>
+    <radialGradient id="lo-aura" cx="0" cy="0" r="1" gradientTransform="translate(360 270) rotate(90) scale(238 300)" gradientUnits="userSpaceOnUse"><stop stop-color="#F6D46F" stop-opacity=".22"/><stop offset=".6" stop-color="#8B5CF6" stop-opacity=".08"/><stop offset="1" stop-color="#8B5CF6" stop-opacity="0"/></radialGradient>
+    <filter id="lo-shadow" x="-35%" y="-35%" width="170%" height="185%"><feDropShadow dx="0" dy="24" stdDeviation="24" flood-color="#000" flood-opacity=".5"/></filter>
+  </defs>
+  <ellipse cx="360" cy="270" rx="306" ry="238" fill="url(#lo-aura)"/>
+  <path d="M116 356c72-29 128-111 198-97 59 11 81 76 145 63 59-12 87-74 147-110" stroke="url(#lo-line)" stroke-width="4" stroke-linecap="round" stroke-dasharray="8 13" opacity=".45"/>
+  <g filter="url(#lo-shadow)">
+    <path d="m360 98 42 88 97 14-70 68 17 96-86-45-86 45 17-96-70-68 97-14 42-88Z" fill="#0B1228" stroke="url(#lo-line)" stroke-width="4"/>
+    <circle cx="360" cy="242" r="62" fill="#F6D46F" fill-opacity=".12" stroke="#F6D46F" stroke-width="4"/>
+    <path d="M339 274v-64h25c23 0 37 11 37 31 0 21-14 33-38 33h-24Zm19-17h7c11 0 17-5 17-16 0-10-6-15-17-15h-7v31Z" fill="#F6D46F"/>
+  </g>
+  <g filter="url(#lo-shadow)" font-family="Arial, sans-serif" font-weight="800" text-anchor="middle">
+    <g transform="translate(96 119)"><rect width="130" height="82" rx="25" fill="#0A1022" stroke="#56C7F5" stroke-width="3"/><text x="65" y="35" fill="#56C7F5" font-size="16">ACTIVITY</text><text x="65" y="60" fill="#fff" font-size="18">+ POINTS</text></g>
+    <g transform="translate(494 119)"><rect width="130" height="82" rx="25" fill="#0A1022" stroke="#A675FF" stroke-width="3"/><text x="65" y="35" fill="#A675FF" font-size="16">ACCOUNT</text><text x="65" y="60" fill="#fff" font-size="18">ONE LEVEL</text></g>
+    <g transform="translate(120 381)"><rect width="130" height="82" rx="25" fill="#0A1022" stroke="#5EE19D" stroke-width="3"/><text x="65" y="35" fill="#5EE19D" font-size="16">HISTORY</text><text x="65" y="60" fill="#fff" font-size="18">EXPLAINED</text></g>
+    <g transform="translate(470 381)"><rect width="130" height="82" rx="25" fill="#0A1022" stroke="#F6D46F" stroke-width="3"/><text x="65" y="35" fill="#F6D46F" font-size="16">PROGRESS</text><text x="65" y="60" fill="#fff" font-size="18">VISIBLE</text></g>
+  </g>
+</svg>

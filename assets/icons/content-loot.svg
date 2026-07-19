@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs><linearGradient id="loot-a" x1="8" y1="9" x2="55" y2="57" gradientUnits="userSpaceOnUse"><stop stop-color="#F7D66F"/><stop offset=".52" stop-color="#FF8E9E"/><stop offset="1" stop-color="#B58CFF"/></linearGradient></defs>
+  <path d="M10 25h44v28H10V25ZM14 25c1.2-9.3 7.4-14 18-14s16.8 4.7 18 14" stroke="url(#loot-a)" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M10 35h44M32 25v28" stroke="url(#loot-a)" stroke-width="2.6"/>
+  <path d="m32 33 5 5-5 7-5-7 5-5Z" fill="#0B1022" stroke="#FFF4C8" stroke-width="2.3" stroke-linejoin="round"/>
+  <circle cx="18" cy="18" r="2" fill="#F7D66F"/><circle cx="47" cy="15" r="2" fill="#B58CFF"/>
+</svg>
