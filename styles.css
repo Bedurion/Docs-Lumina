@@ -7244,6 +7244,26 @@ body.page-interior .opening-title-row h1 {
   color: rgba(255, 255, 255, 0.78);
 }
 
+.home-cta-guild-primary .home-cta-copy strong,
+.home-cta-bot-primary .home-cta-copy strong {
+  display: inline-block;
+  width: fit-content;
+  color: #fff1c4;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.home-cta-guild-primary .home-cta-copy strong {
+  background-image: linear-gradient(96deg, #ffe89a 0%, #ffc16f 38%, #ff8b82 72%, #f5deff 100%);
+  filter: drop-shadow(0 2px 9px rgba(243, 204, 99, 0.14));
+}
+
+.home-cta-bot-primary .home-cta-copy strong {
+  background-image: linear-gradient(96deg, #ffb0c0 0%, #d5a4ff 45%, #8fc4ff 72%, #8ce9dc 100%);
+  filter: drop-shadow(0 2px 9px rgba(176, 121, 255, 0.16));
+}
+
 .home-cta-arrow {
   color: rgba(255, 255, 255, 0.62);
   font-size: 1rem;
