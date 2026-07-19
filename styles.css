@@ -3364,11 +3364,22 @@ pre {
   }
 
   .preview-row {
-    grid-template-columns: auto 1fr;
+    grid-template-columns: auto minmax(0, 1fr);
+    row-gap: 0.35rem;
   }
 
-  .preview-row .metric {
+  .preview-row > :last-child {
     grid-column: 2;
+    justify-self: start;
+  }
+
+  .product-proof .preview-toolbar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .product-proof .preview-proof-label {
+    grid-column: 1 / -1;
   }
 
   .footer {
