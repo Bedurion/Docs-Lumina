@@ -1579,21 +1579,37 @@ if (commandSearch) {
 const docsSearch = document.querySelector('[data-docs-search]');
 const docsSearchResults = document.querySelector('[data-docs-search-results]');
 if (docsSearch && docsSearchResults) {
+  const compactDocsSearch = window.matchMedia('(max-width: 760px)');
+  const compactFeaturedGuides = new Set([
+    'docs-registration.html',
+    'docs-events.html',
+    'docs-guildbank.html',
+    'docs-support.html'
+  ]);
+
   const renderDocumentationResults = () => {
     const query = docsSearch.value.trim().toLowerCase();
     const matches = documentationCatalog.filter(([, title, description, keywords]) =>
       !query || `${title} ${description} ${keywords}`.toLowerCase().includes(query)
     );
+    const showCompactSelection = !query && compactDocsSearch.matches;
+    const visibleMatches = showCompactSelection
+      ? matches.filter(([href]) => compactFeaturedGuides.has(href))
+      : matches;
+    const searchSummary = showCompactSelection
+      ? `<p class="docs-search-summary">Popular guides are shown below. Type a topic to search all ${documentationCatalog.length} documentation pages.</p>`
+      : '';
 
-    docsSearchResults.innerHTML = matches.length > 0
-      ? matches.map(([href, title, description]) => `
+    docsSearchResults.innerHTML = visibleMatches.length > 0
+      ? `${searchSummary}${visibleMatches.map(([href, title, description]) => `
         <a class="docs-search-result" href="${href}">
           <strong>${title}</strong><span>${description}</span>
-        </a>`).join('')
+        </a>`).join('')}`
       : '<p class="empty-state">No documentation pages match that search.</p>';
   };
 
   docsSearch.addEventListener('input', renderDocumentationResults);
+  compactDocsSearch.addEventListener('change', renderDocumentationResults);
   renderDocumentationResults();
 }
 

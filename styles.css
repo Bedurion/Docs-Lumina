@@ -2508,6 +2508,14 @@ pre {
   overflow-y: auto;
 }
 
+.docs-search-summary {
+  grid-column: 1 / -1;
+  margin: 0 0 0.15rem;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
 .docs-search-result {
   display: grid;
   gap: 0.22rem;
@@ -5859,6 +5867,12 @@ pre {
 
   .page-variant-library .docs-search-shell {
     overflow: visible;
+  }
+
+  .page-variant-library .docs-search-results {
+    max-height: none;
+    overflow: visible;
+    overscroll-behavior: auto;
   }
 
   .pain-outcome-grid,
