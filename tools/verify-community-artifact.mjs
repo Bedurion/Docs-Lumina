@@ -131,7 +131,7 @@ if (hasBlogArtifact) {
     const postKeys = [
       'id', 'title', 'excerpt', 'body', 'category', 'author', 'submittedAt',
       'publishedAt', 'updatedAt', 'visible', 'readingMinutes', 'views',
-      'leadersSelection', 'media'
+      'leadersSelection', 'media', 'content'
     ];
 
     if (!isPlainObject(post) || !hasOnlyKeys(post, postKeys) || post.id !== submissionId) {
@@ -140,7 +140,7 @@ if (hasBlogArtifact) {
 
     assertString(post.title, 3, 100, 'Blog title');
     assertString(post.excerpt, 20, 300, 'Blog excerpt');
-    assertString(post.body, 100, 4000, 'Blog body');
+    assertString(post.body, 100, 12_000, 'Blog body');
     assertString(post.category, 2, 50, 'Blog category');
     assertString(post.author, 1, 100, 'Blog author');
     assertIsoDate(post.submittedAt, 'Submission date');
@@ -155,6 +155,10 @@ if (hasBlogArtifact) {
     if (typeof post.leadersSelection !== 'boolean') fail('Blog leadership selection must be boolean.');
     if (!Array.isArray(post.media) || post.media.length > 4) {
       fail('Blog media must contain at most four images.');
+    }
+
+    if (!Array.isArray(post.content) || post.content.length < 1 || post.content.length > 100) {
+      fail('Blog content must contain between one and 100 ordered blocks.');
     }
 
     for (const [index, media] of post.media.entries()) {
@@ -179,6 +183,42 @@ if (hasBlogArtifact) {
       }
 
       expectedFiles.add(expectedSource);
+    }
+
+    const textBlocks = [];
+    const referencedImages = [];
+
+    for (const block of post.content) {
+      if (!isPlainObject(block)) fail('Blog content contains an invalid block.');
+
+      if (block.type === 'text') {
+        if (!hasOnlyKeys(block, ['type', 'text'])) fail('Blog text block has an invalid structure.');
+        assertString(block.text, 1, 12_000, 'Blog text block');
+        textBlocks.push(block.text);
+        continue;
+      }
+
+      if (block.type === 'image') {
+        if (!hasOnlyKeys(block, ['type', 'mediaIndex'])) fail('Blog image block has an invalid structure.');
+        if (!Number.isSafeInteger(block.mediaIndex) || block.mediaIndex < 0 || block.mediaIndex >= post.media.length) {
+          fail('Blog image block references invalid media.');
+        }
+        referencedImages.push(block.mediaIndex);
+        continue;
+      }
+
+      fail('Blog content contains an unsupported block type.');
+    }
+
+    if (textBlocks.join('\n\n') !== post.body) {
+      fail('Blog ordered text does not match its approved body.');
+    }
+
+    if (
+      referencedImages.length !== post.media.length ||
+      new Set(referencedImages).size !== post.media.length
+    ) {
+      fail('Blog ordered content must reference each image exactly once.');
     }
   } else if (post !== null) {
     fail('This Blog management operation cannot contain article content.');

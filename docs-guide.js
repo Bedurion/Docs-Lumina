@@ -53,10 +53,10 @@
     'docs-events.html': {
       label: 'Events explained',
       title: 'Create, organize and archive guild activities.',
-      introduction: 'Universal Edition provides a general Event Board for game-independent communities. Community Edition keeps that board and adds Hunts on Free, then Bosses and Quests from Core. Every enabled board guides creation, signups, scheduling, thread coordination and automatic completion from its own rules.',
+      introduction: 'Universal Edition provides a general Event Board for game-independent communities. Community Edition keeps that board and adds Hunts on Free, then Bosses and Quests from Core. Every enabled board guides creation, registered-character invitations where applicable, signups, scheduling, thread coordination and automatic completion from its own rules.',
       solves: 'It replaces scattered messages and reaction-only signups with one current event panel and one archived Discord thread per activity.',
       audience: 'Members creating or joining activities and administrators publishing only the Event Boards available in their edition and plan.',
-      outcome: 'Understand edition availability, scheduling choices, participant rules, leadership controls, automatic success and archival behaviour.'
+      outcome: 'Understand edition availability, event types, scheduling choices, manual invitations, participant states, Leadership controls, automatic success and archival behaviour.'
     },
     'docs-loot.html': {
       label: 'Loot Split explained',

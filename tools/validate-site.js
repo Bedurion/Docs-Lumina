@@ -181,7 +181,9 @@ if (!fs.existsSync(blogDataPath)) {
       ];
       blogData.posts.forEach((post, index) => {
         const label = `post ${index + 1}`;
-        if (!isPlainObject(post) || !hasExactKeys(post, postKeys)) {
+        const hasLegacySchema = isPlainObject(post) && hasExactKeys(post, postKeys);
+        const hasOrderedSchema = isPlainObject(post) && hasExactKeys(post, [...postKeys, 'content']);
+        if (!hasLegacySchema && !hasOrderedSchema) {
           report('data/blog-posts.json', `${label} has an invalid schema`);
           return;
         }
@@ -189,7 +191,7 @@ if (!fs.existsSync(blogDataPath)) {
         seenIds.add(post.id);
         if (typeof post.title !== 'string' || post.title.length < 3 || post.title.length > 100) report('data/blog-posts.json', `${label} has an invalid title`);
         if (typeof post.excerpt !== 'string' || post.excerpt.length < 20 || post.excerpt.length > 300) report('data/blog-posts.json', `${label} has an invalid excerpt`);
-        if (typeof post.body !== 'string' || post.body.length < 100 || post.body.length > 4000) report('data/blog-posts.json', `${label} has an invalid body`);
+        if (typeof post.body !== 'string' || post.body.length < 100 || post.body.length > 12_000) report('data/blog-posts.json', `${label} has an invalid body`);
         if (typeof post.category !== 'string' || post.category.length < 2 || post.category.length > 50) report('data/blog-posts.json', `${label} has an invalid category`);
         if (typeof post.author !== 'string' || post.author.length < 1 || post.author.length > 100) report('data/blog-posts.json', `${label} has an invalid author`);
         if (Number.isNaN(Date.parse(post.submittedAt)) || Number.isNaN(Date.parse(post.publishedAt)) || Number.isNaN(Date.parse(post.updatedAt))) report('data/blog-posts.json', `${label} has an invalid date`);
@@ -220,6 +222,48 @@ if (!fs.existsSync(blogDataPath)) {
               report('data/blog-posts.json', `${label} contains invalid media ${mediaIndex + 1}`);
             }
           });
+        }
+        if (hasOrderedSchema) {
+          if (!Array.isArray(post.content) || post.content.length < 1 || post.content.length > 100) {
+            report('data/blog-posts.json', `${label} has invalid ordered content`);
+          } else {
+            const textBlocks = [];
+            const imageIndexes = [];
+            post.content.forEach((block, blockIndex) => {
+              if (!isPlainObject(block)) {
+                report('data/blog-posts.json', `${label} contains invalid content block ${blockIndex + 1}`);
+                return;
+              }
+              if (block.type === 'text') {
+                if (
+                  !hasExactKeys(block, ['type', 'text']) ||
+                  typeof block.text !== 'string' ||
+                  block.text.length < 1 ||
+                  block.text.length > 12_000
+                ) {
+                  report('data/blog-posts.json', `${label} contains invalid text block ${blockIndex + 1}`);
+                  return;
+                }
+                textBlocks.push(block.text);
+                return;
+              }
+              if (
+                block.type !== 'image' ||
+                !hasExactKeys(block, ['type', 'mediaIndex']) ||
+                !Number.isSafeInteger(block.mediaIndex) ||
+                block.mediaIndex < 0 ||
+                block.mediaIndex >= post.media.length
+              ) {
+                report('data/blog-posts.json', `${label} contains invalid image block ${blockIndex + 1}`);
+                return;
+              }
+              imageIndexes.push(block.mediaIndex);
+            });
+            if (textBlocks.join('\n\n') !== post.body) report('data/blog-posts.json', `${label} ordered text does not match its body`);
+            if (imageIndexes.length !== post.media.length || new Set(imageIndexes).size !== post.media.length) {
+              report('data/blog-posts.json', `${label} ordered content does not reference each image exactly once`);
+            }
+          }
         }
       });
     }

@@ -48,15 +48,27 @@ function buildMeta(post, options = {}) {
   return meta;
 }
 
-function buildBody(post) {
-  const body = document.createElement('div');
-  body.className = 'blog-post-body';
-  String(post.body || '')
+function appendTextParagraphs(container, value) {
+  String(value || '')
     .split(/\n\s*\n/)
     .map((paragraph) => paragraph.trim())
     .filter(Boolean)
-    .forEach((paragraph) => body.append(createTextElement('p', '', paragraph)));
-  return body;
+    .forEach((paragraph) => container.append(createTextElement('p', '', paragraph)));
+}
+
+function buildImageFigure(post, media, index, className = '') {
+  if (media?.type !== 'image' || typeof media.src !== 'string') return null;
+  const figure = document.createElement('figure');
+  if (className) figure.className = className;
+  const image = document.createElement('img');
+  image.src = media.src;
+  image.alt = media.alt || `${post.title || 'Lumina article'} image ${index + 1}`;
+  image.width = Number(media.width) || 1200;
+  image.height = Number(media.height) || 800;
+  image.loading = 'lazy';
+  image.decoding = 'async';
+  figure.append(image);
+  return figure;
 }
 
 function buildMedia(post) {
@@ -68,20 +80,39 @@ function buildMedia(post) {
   gallery.className = `blog-post-media blog-post-media-${Math.min(mediaItems.length, 4)}`;
 
   mediaItems.forEach((media, index) => {
-    if (media?.type !== 'image' || typeof media.src !== 'string') return;
-    const figure = document.createElement('figure');
-    const image = document.createElement('img');
-    image.src = media.src;
-    image.alt = media.alt || `${post.title || 'Lumina article'} image ${index + 1}`;
-    image.width = Number(media.width) || 1200;
-    image.height = Number(media.height) || 800;
-    image.loading = 'lazy';
-    image.decoding = 'async';
-    figure.append(image);
-    gallery.append(figure);
+    const figure = buildImageFigure(post, media, index);
+    if (figure) gallery.append(figure);
   });
 
   return gallery.childElementCount > 0 ? gallery : null;
+}
+
+function buildArticleContent(post) {
+  const body = document.createElement('div');
+  body.className = 'blog-post-body';
+  const orderedContent = Array.isArray(post.content) ? post.content : [];
+  const mediaItems = Array.isArray(post.media) ? post.media : [];
+
+  if (orderedContent.length === 0) {
+    appendTextParagraphs(body, post.body);
+    const media = buildMedia(post);
+    if (media) body.append(media);
+    return body;
+  }
+
+  orderedContent.forEach((block) => {
+    if (block?.type === 'text') {
+      appendTextParagraphs(body, block.text);
+      return;
+    }
+
+    if (block?.type === 'image' && Number.isSafeInteger(block.mediaIndex)) {
+      const figure = buildImageFigure(post, mediaItems[block.mediaIndex], block.mediaIndex, 'blog-inline-media');
+      if (figure) body.append(figure);
+    }
+  });
+
+  return body;
 }
 
 function buildFeatured(post) {
@@ -101,10 +132,8 @@ function buildFeatured(post) {
     createTextElement('h3', '', post.title || 'Lumina story'),
     createTextElement('p', 'blog-post-excerpt', post.excerpt || ''),
     createTextElement('p', 'blog-post-author', `By ${post.author || 'Lumina staff'}`),
-    buildBody(post)
+    buildArticleContent(post)
   );
-  const media = buildMedia(post);
-  if (media) content.append(media);
   article.append(marker, content);
   return article;
 }
@@ -138,9 +167,7 @@ function buildArchivePost(post, options = {}) {
     details.className = 'blog-archive-details';
     const toggle = document.createElement('summary');
     toggle.textContent = 'Read complete article';
-    details.append(toggle, buildBody(post));
-    const media = buildMedia(post);
-    if (media) details.append(media);
+    details.append(toggle, buildArticleContent(post));
     article.append(summary, details);
   }
   return article;

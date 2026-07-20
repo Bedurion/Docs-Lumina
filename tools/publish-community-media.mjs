@@ -15,6 +15,8 @@ const outputGalleryDataPath = path.join(outputRoot, 'data', 'community-media-ent
 const outputBlogOperationPath = path.join(outputRoot, 'data', 'blog-operation.json');
 const mediaDirectory = path.join(outputRoot, 'assets', 'community');
 const maximumAttachments = 4;
+const maximumBlogBodyLength = 12_000;
+const maximumBlogContentBlocks = 100;
 const maximumAttachmentBytes = 10 * 1024 * 1024;
 const maximumTotalBytes = 25 * 1024 * 1024;
 const maximumInputPixels = 40_000_000;
@@ -56,7 +58,7 @@ function decryptPayload(value, secret) {
   const tag = Buffer.from(encodedTag, 'base64url');
   const ciphertext = Buffer.from(encodedCiphertext, 'base64url');
 
-  if (iv.length !== 12 || tag.length !== 16 || ciphertext.length === 0 || ciphertext.length > 32_000) {
+  if (iv.length !== 12 || tag.length !== 16 || ciphertext.length === 0 || ciphertext.length > 48_000) {
     fail('Encrypted publication payload has invalid bounds.');
   }
 
@@ -64,7 +66,7 @@ function decryptPayload(value, secret) {
   decipher.setAuthTag(tag);
   const plaintext = Buffer.concat([decipher.update(ciphertext), decipher.final()]);
 
-  if (plaintext.length > 24_000) {
+  if (plaintext.length > 36_000) {
     fail('Decrypted publication payload is too large.');
   }
 
@@ -393,7 +395,7 @@ if (!/^WS-[A-Z2-9]{8}$/.test(expectedSubmissionId)) {
 
 const payload = decryptPayload(process.env.ENCRYPTED_PAYLOAD, process.env.PUBLISH_PAYLOAD_SECRET);
 
-if (![1, 2].includes(payload?.version) || payload.submissionId !== expectedSubmissionId) {
+if (![1, 2, 3].includes(payload?.version) || payload.submissionId !== expectedSubmissionId) {
   fail('Encrypted payload does not match the requested submission.');
 }
 
@@ -431,7 +433,7 @@ if (contentType === 'blog') {
 
   if (['create', 'update'].includes(operation)) {
     const excerpt = cleanMultiline(payload.excerpt, 300, 'Excerpt');
-    const body = cleanMultiline(payload.body, 4000, 'Article body');
+    const body = cleanMultiline(payload.body, maximumBlogBodyLength, 'Article body');
     const category = cleanSingleLine(payload.category, 50, 'Category');
     const author = cleanSingleLine(payload.author, 100, 'Author');
 
@@ -495,6 +497,67 @@ if (contentType === 'blog') {
       });
     }
 
+    const requestedContent = Array.isArray(payload.contentBlocks) ? payload.contentBlocks : [];
+    const publishedContent = [];
+
+    if (requestedContent.length > maximumBlogContentBlocks) {
+      fail(`Blog content can contain at most ${maximumBlogContentBlocks} ordered blocks.`);
+    }
+
+    for (const block of requestedContent) {
+      if (!block || typeof block !== 'object' || Array.isArray(block)) {
+        fail('Blog content contains an invalid block.');
+      }
+
+      if (block.type === 'text') {
+        publishedContent.push({
+          type: 'text',
+          text: cleanMultiline(block.text, maximumBlogBodyLength, 'Blog text block')
+        });
+        continue;
+      }
+
+      if (block.type === 'image') {
+        const mediaIndex = Number(block.attachmentIndex);
+
+        if (!Number.isSafeInteger(mediaIndex) || mediaIndex < 0 || mediaIndex >= publishedMedia.length) {
+          fail('Blog content references an invalid image.');
+        }
+
+        publishedContent.push({ type: 'image', mediaIndex });
+        continue;
+      }
+
+      fail('Blog content contains an unsupported block type.');
+    }
+
+    if (publishedContent.length === 0) {
+      publishedContent.push(
+        { type: 'text', text: body },
+        ...publishedMedia.map((_, mediaIndex) => ({ type: 'image', mediaIndex }))
+      );
+    }
+
+    const contentText = publishedContent
+      .filter((block) => block.type === 'text')
+      .map((block) => block.text)
+      .join('\n\n');
+    const referencedImages = publishedContent
+      .filter((block) => block.type === 'image')
+      .map((block) => block.mediaIndex);
+
+    if (contentText !== body) {
+      fail('Ordered Blog text does not match the approved article body.');
+    }
+
+    if (
+      referencedImages.length !== publishedMedia.length ||
+      new Set(referencedImages).size !== publishedMedia.length ||
+      referencedImages.some((mediaIndex) => mediaIndex < 0 || mediaIndex >= publishedMedia.length)
+    ) {
+      fail('Every approved Blog image must appear exactly once in the ordered article content.');
+    }
+
     const operationAt = new Date().toISOString();
     const wordCount = body.split(/\s+/).filter(Boolean).length;
     blogPost = {
@@ -502,6 +565,7 @@ if (contentType === 'blog') {
       title,
       excerpt,
       body,
+      content: publishedContent,
       category,
       author,
       submittedAt: existingPost?.submittedAt || submittedAt.toISOString(),

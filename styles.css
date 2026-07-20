@@ -762,7 +762,8 @@
 
 .blog-post-media-1 { grid-template-columns: minmax(0, 1fr); }
 
-.blog-post-media figure {
+.blog-post-media figure,
+.blog-inline-media {
   min-width: 0;
   margin: 0;
   overflow: hidden;
@@ -771,7 +772,10 @@
   background: rgba(5, 9, 22, 0.82);
 }
 
-.blog-post-media img {
+.blog-inline-media { margin: 1.6rem 0; }
+
+.blog-post-media img,
+.blog-inline-media img {
   display: block;
   width: 100%;
   height: auto;
