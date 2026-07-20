@@ -12,11 +12,11 @@ const navigationSections = {
       ['guild-secura.html', 'Life on Secura', 'Discover Lumina'],
       ['guild-members.html', 'Members', 'Discover Lumina'],
       ['guild-leadership.html', 'Leadership', 'Discover Lumina'],
-      ['guild-community.html', 'Community', 'Guild Life'],
+      ['blog.html', 'Blog', 'Guild Life'],
       ['guild-activities.html', 'Activities', 'Guild Life'],
+      ['guild-community.html', 'Community', 'Guild Life'],
       ['gallery.html', 'Gallery', 'Guild Life'],
       ['guild-roleplay.html', 'Roleplay', 'Guild Life'],
-      ['blog.html', 'Blog', 'Guild Life'],
       ['guild-join.html', 'Join Lumina', 'Become a Member'],
       ['guild-faq.html', 'Candidate FAQ', 'Become a Member'],
       ['guild-rules.html', 'Rules', 'Become a Member']
@@ -1185,13 +1185,36 @@ document.querySelectorAll('.button').forEach((button) => {
   button.classList.add('button-with-action-icon');
 });
 
+let mobileNavigationScrollY = 0;
+
+const setMobileNavigationScrollLock = (isLocked) => {
+  const body = document.body;
+  if (!body) return;
+
+  if (isLocked) {
+    if (body.classList.contains('nav-open')) return;
+    mobileNavigationScrollY = window.scrollY;
+    body.style.top = `-${mobileNavigationScrollY}px`;
+    body.classList.add('nav-open');
+    return;
+  }
+
+  if (!body.classList.contains('nav-open')) return;
+  body.classList.remove('nav-open');
+  body.style.removeProperty('top');
+  const previousScrollBehavior = document.documentElement.style.scrollBehavior;
+  document.documentElement.style.scrollBehavior = 'auto';
+  window.scrollTo(0, mobileNavigationScrollY);
+  document.documentElement.style.scrollBehavior = previousScrollBehavior;
+};
+
 if (navToggle && navLinks) {
   navToggle.addEventListener('click', () => {
     const isOpen = navLinks.classList.toggle('open');
     const isMobile = window.matchMedia('(max-width: 1040px)').matches;
     navToggle.setAttribute('aria-expanded', String(isOpen));
     navToggle.setAttribute('aria-label', isOpen ? 'Close navigation' : 'Open navigation');
-    document.body.classList.toggle('nav-open', isOpen && isMobile);
+    setMobileNavigationScrollLock(isOpen && isMobile);
 
     if (isOpen && isMobile) {
       resetMobileNavigation();
@@ -1329,7 +1352,7 @@ document.addEventListener('click', (event) => {
     navLinks.classList.remove('open');
     navToggle?.setAttribute('aria-expanded', 'false');
     navToggle?.setAttribute('aria-label', 'Open navigation');
-    document.body.classList.remove('nav-open');
+    setMobileNavigationScrollLock(false);
     resetMobileNavigation();
   }
 
@@ -1337,7 +1360,7 @@ document.addEventListener('click', (event) => {
     navLinks?.classList.remove('open');
     navToggle?.setAttribute('aria-expanded', 'false');
     navToggle?.setAttribute('aria-label', 'Open navigation');
-    document.body.classList.remove('nav-open');
+    setMobileNavigationScrollLock(false);
     resetMobileNavigation();
   }
 });
@@ -1348,7 +1371,7 @@ document.addEventListener('keydown', (event) => {
   navLinks?.classList.remove('open');
   navToggle?.setAttribute('aria-expanded', 'false');
   navToggle?.setAttribute('aria-label', 'Open navigation');
-  document.body.classList.remove('nav-open');
+  setMobileNavigationScrollLock(false);
   resetMobileNavigation();
 });
 
@@ -1357,7 +1380,7 @@ window.addEventListener('resize', () => {
     navLinks?.classList.remove('open');
     navToggle?.setAttribute('aria-expanded', 'false');
     navToggle?.setAttribute('aria-label', 'Open navigation');
-    document.body.classList.remove('nav-open');
+    setMobileNavigationScrollLock(false);
     resetMobileNavigation();
   }
 });
