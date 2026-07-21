@@ -16,6 +16,10 @@ function report(file, message) {
   errors.push(`${file}: ${message}`);
 }
 
+const manifest = JSON.parse(fs.readFileSync(path.join(root, 'site.webmanifest'), 'utf8'));
+if (manifest.background_color !== '#090d19') report('site.webmanifest', 'background color must match the shared canvas edge');
+if (manifest.theme_color !== '#090d19') report('site.webmanifest', 'theme color must match the shared canvas edge');
+
 function stripFragment(value) {
   return value.split('#')[0].split('?')[0];
 }

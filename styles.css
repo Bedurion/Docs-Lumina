@@ -1,5 +1,6 @@
 :root {
   color-scheme: dark;
+  --canvas-edge: #090d19;
   --bg: #070a13;
   --bg-soft: #0b1020;
   --surface: rgba(18, 24, 43, 0.82);
@@ -1001,7 +1002,7 @@ html {
   overflow-x: clip;
   scroll-behavior: smooth;
   scroll-padding-top: 96px;
-  background-color: #090d19;
+  background-color: var(--canvas-edge);
 }
 
 body {
@@ -1013,10 +1014,18 @@ body {
   color: var(--text);
   font-family: var(--font);
   line-height: 1.65;
-  background:
+  background-color: var(--canvas-edge);
+  background-image:
+    linear-gradient(180deg, var(--canvas-edge) 0, rgba(9, 13, 25, 0.96) 4rem, transparent 14rem),
     radial-gradient(circle at 12% -8%, rgba(139, 92, 246, 0.24), transparent 32rem),
     radial-gradient(circle at 94% 2%, rgba(86, 199, 245, 0.11), transparent 28rem),
-    linear-gradient(180deg, #090d19 0%, var(--bg) 32rem, #080b14 100%);
+    linear-gradient(
+      180deg,
+      var(--canvas-edge) 0,
+      var(--bg) 32rem,
+      var(--bg) calc(100% - 18rem),
+      var(--canvas-edge) 100%
+    );
 }
 
 body::before {
