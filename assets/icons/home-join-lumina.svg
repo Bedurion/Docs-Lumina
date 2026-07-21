@@ -1,6 +1,32 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
-  <defs><linearGradient id="a" x1="10" y1="7" x2="55" y2="57" gradientUnits="userSpaceOnUse"><stop stop-color="#F7D66F"/><stop offset="1" stop-color="#58E0A4"/></linearGradient></defs>
-  <path d="M32 7 51 14v15c0 12.4-7.8 22.9-19 28-11.2-5.1-19-15.6-19-28V14L32 7Z" stroke="url(#a)" stroke-width="3" stroke-linejoin="round"/>
-  <path d="M23 33h18M32 24v18" stroke="url(#a)" stroke-width="3.2" stroke-linecap="round"/>
-  <circle cx="32" cy="33" r="12" stroke="url(#a)" stroke-width="2" opacity=".55"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72" fill="none">
+  <defs>
+    <linearGradient id="discord" x1="10" y1="12" x2="58" y2="58" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF0A8"/>
+      <stop offset=".28" stop-color="#CDA7FF"/>
+      <stop offset=".58" stop-color="#7785FF"/>
+      <stop offset="1" stop-color="#59E1D0"/>
+    </linearGradient>
+    <linearGradient id="orbit" x1="6" y1="10" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFD86C"/>
+      <stop offset=".35" stop-color="#FF7897"/>
+      <stop offset=".68" stop-color="#9A7BFF"/>
+      <stop offset="1" stop-color="#55E0C5"/>
+    </linearGradient>
+    <linearGradient id="invite" x1="47" y1="43" x2="66" y2="63" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFE17A"/>
+      <stop offset="1" stop-color="#62E6C3"/>
+    </linearGradient>
+  </defs>
+  <path d="M11 39C8 20 24 8 40 10c11 1 20 8 24 18" stroke="url(#orbit)" stroke-width="2" stroke-linecap="round" opacity=".7"/>
+  <path d="M13 47c8 13 26 17 40 9" stroke="url(#orbit)" stroke-width="1.5" stroke-linecap="round" opacity=".48"/>
+  <circle cx="11" cy="39" r="2.3" fill="#FFD86C"/>
+  <circle cx="64" cy="28" r="2.3" fill="#9A7BFF"/>
+  <path d="M51.5 17.5v7m-3.5-3.5h7" stroke="#FF8DA6" stroke-width="1.8" stroke-linecap="round"/>
+  <g transform="matrix(.74 0 0 .74 -.26 -.63)">
+    <path d="M65 33a45 45 0 0 0-11-4l-1.5 3a42 42 0 0 0-9 0L42 29a45 45 0 0 0-11 4c-7 10-9 20-8 30a45 45 0 0 0 14 7l3-5a27 27 0 0 1-5-2l1-2c9 4 17 4 26 0l1 2a27 27 0 0 1-5 2l3 5a45 45 0 0 0 14-7c1-10-1-20-8-30Z" fill="url(#discord)"/>
+    <circle cx="39" cy="50" r="4" fill="#11162E"/>
+    <circle cx="57" cy="50" r="4" fill="#11162E"/>
+  </g>
+  <circle cx="56" cy="55" r="10.5" fill="#0B1228" stroke="url(#invite)" stroke-width="2.2"/>
+  <path d="M50.5 55h11m-4-4 4 4-4 4" stroke="url(#invite)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
