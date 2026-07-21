@@ -37,6 +37,8 @@ for (const file of htmlFiles) {
 
   if (!title) report(file, 'missing title');
   if (!/<meta\s+name="viewport"/i.test(source)) report(file, 'missing viewport');
+  if (!/<meta\s+name="viewport"\s+content="[^"]*viewport-fit=cover[^"]*"/i.test(source)) report(file, 'viewport must cover mobile safe areas');
+  if (!/<meta\s+name="theme-color"\s+content="#090d19"/i.test(source)) report(file, 'missing shared mobile browser color');
   if (!description) report(file, 'missing meta description');
   if (!/<h1(?:\s[^>]*)?>[\s\S]*?<\/h1>/i.test(source)) report(file, 'missing h1');
   if (!/data-nav-links/.test(source)) report(file, 'missing shared navigation mount');

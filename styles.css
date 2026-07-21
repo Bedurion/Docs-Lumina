@@ -996,13 +996,17 @@
 }
 
 html {
+  min-height: 100%;
   max-width: 100%;
   overflow-x: clip;
   scroll-behavior: smooth;
   scroll-padding-top: 96px;
+  background-color: #090d19;
 }
 
 body {
+  min-height: 100vh;
+  min-height: 100dvh;
   min-width: 320px;
   margin: 0;
   overflow-x: clip;

@@ -314,6 +314,8 @@ function addEnhancementBlock(source, page) {
 
 function updateHead(source, page) {
   let output = source;
+  output = replaceMeta(output, 'name', 'viewport', 'width=device-width, initial-scale=1, viewport-fit=cover');
+  output = replaceMeta(output, 'name', 'theme-color', '#090d19');
   output = replaceMeta(output, 'property', 'og:image', page.socialUrl);
   output = replaceMeta(output, 'property', 'og:image:secure_url', page.socialUrl);
   output = replaceMeta(output, 'property', 'og:image:type', 'image/png');
@@ -522,7 +524,9 @@ async function main() {
   const notFoundPath = path.join(root, '404.html');
   if (fs.existsSync(notFoundPath)) {
     const source = fs.readFileSync(notFoundPath, 'utf8');
-    fs.writeFileSync(notFoundPath, ensureLink(source, 'manifest', 'site.webmanifest'));
+    let output = replaceMeta(source, 'name', 'viewport', 'width=device-width, initial-scale=1, viewport-fit=cover');
+    output = replaceMeta(output, 'name', 'theme-color', '#090d19');
+    fs.writeFileSync(notFoundPath, ensureLink(output, 'manifest', 'site.webmanifest'));
   }
 
   buildSitemap(pages);
