@@ -168,7 +168,7 @@ if (siteFooter) {
   const copyrightYears = currentYear > 2025 ? `2025–${currentYear}` : '2025';
   siteFooter.innerHTML = `
     <a class="footer-brand" href="index.html" aria-label="Lumina home">
-      <img src="assets/brand/seal-dark-web.png" alt="" aria-hidden="true">
+      <img src="assets/brand/seal-dark-nav.svg?v=20260722-5" alt="" aria-hidden="true">
       <span><strong>Lumina Guild</strong><small>A Tibia Guild on Secura</small></span>
     </a>
     <nav class="footer-links" aria-label="Footer navigation">
