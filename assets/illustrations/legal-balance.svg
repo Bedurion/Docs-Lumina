@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 520" role="img" aria-labelledby="title description">
+  <title id="title">Balanced legal framework</title>
+  <desc id="description">A luminous document, shield and balanced scales representing clear terms and privacy.</desc>
+  <defs>
+    <linearGradient id="frame" x1="114" y1="72" x2="526" y2="456" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#52d7ff"/>
+      <stop offset=".5" stop-color="#a971ff"/>
+      <stop offset="1" stop-color="#f7c84b"/>
+    </linearGradient>
+    <linearGradient id="paper" x1="238" y1="116" x2="408" y2="388" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#172241"/>
+      <stop offset="1" stop-color="#0a1021"/>
+    </linearGradient>
+    <radialGradient id="aura" cx="0" cy="0" r="1" gradientTransform="translate(321 264) rotate(90) scale(236)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8b5cf6" stop-opacity=".24"/>
+      <stop offset=".5" stop-color="#52d7ff" stop-opacity=".09"/>
+      <stop offset="1" stop-color="#050814" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <ellipse cx="320" cy="265" rx="286" ry="242" fill="url(#aura)"/>
+  <circle cx="320" cy="260" r="206" fill="none" stroke="url(#frame)" stroke-opacity=".22" stroke-width="1.4"/>
+  <circle cx="320" cy="260" r="160" fill="none" stroke="#a971ff" stroke-opacity=".15" stroke-dasharray="5 11"/>
+  <path d="M94 260h452M320 34v452" stroke="#52d7ff" stroke-opacity=".08"/>
+  <g opacity=".7">
+    <circle cx="116" cy="128" r="4" fill="#f7c84b"/>
+    <circle cx="512" cy="154" r="3" fill="#52d7ff"/>
+    <circle cx="102" cy="390" r="3" fill="#a971ff"/>
+    <circle cx="532" cy="374" r="4" fill="#63e6a6"/>
+  </g>
+  <path d="M218 102h178l48 48v256a16 16 0 0 1-16 16H218a16 16 0 0 1-16-16V118a16 16 0 0 1 16-16Z" fill="url(#paper)" stroke="url(#frame)" stroke-width="3"/>
+  <path d="M396 103v48h48" fill="#111a35" stroke="url(#frame)" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M244 188h146M244 218h122M244 248h98" fill="none" stroke="#dbe7ff" stroke-opacity=".48" stroke-width="8" stroke-linecap="round"/>
+  <g transform="translate(320 300)" filter="url(#glow)">
+    <path d="M0-61V58M-82-37H82" fill="none" stroke="#f7c84b" stroke-width="7" stroke-linecap="round"/>
+    <path d="M-82-37-116 23h68l-34-60Zm164 0L48 23h68L82-37Z" fill="#0b1226" stroke="#52d7ff" stroke-width="5" stroke-linejoin="round"/>
+    <path d="M-103 23c8 18 34 26 49 0M61 23c8 18 34 26 49 0" fill="none" stroke="#a971ff" stroke-width="5" stroke-linecap="round"/>
+    <path d="M-45 67H45M-66 82H66" fill="none" stroke="#f7c84b" stroke-width="7" stroke-linecap="round"/>
+    <path d="M0-20c22 0 40 12 40 12v35c0 31-40 48-40 48S-40 58-40 27V-8S-22-20 0-20Z" fill="#0b132a" stroke="url(#frame)" stroke-width="5"/>
+    <path d="m-15 24 11 11 22-27" fill="none" stroke="#63e6a6" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <path d="M190 450c78 26 182 26 260 0" fill="none" stroke="url(#frame)" stroke-opacity=".32" stroke-width="2"/>
+</svg>

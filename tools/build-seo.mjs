@@ -29,7 +29,8 @@ const familyThemes = {
   docs: { label: 'LUMINOX DOCS', primary: '#52d7ff', secondary: '#a971ff', footer: 'GUIDES · SETUP · REFERENCE' },
   pricing: { label: 'LUMINOX PLANS', primary: '#f7c84b', secondary: '#ff6c8f', footer: 'FREE · CORE · GROWTH · SCALE' },
   blog: { label: 'LUMINA JOURNAL', primary: '#ff6c8f', secondary: '#f7c84b', footer: 'NEWS · STORIES · COMMUNITY' },
-  contact: { label: 'TALK WITH US', primary: '#52d7ff', secondary: '#63e6a6', footer: 'GUILD · PRODUCT · SUPPORT' }
+  contact: { label: 'TALK WITH US', primary: '#52d7ff', secondary: '#63e6a6', footer: 'GUILD · PRODUCT · SUPPORT' },
+  legal: { label: 'LUMINA LEGAL', primary: '#52d7ff', secondary: '#f7c84b', footer: 'TERMS · PRIVACY · COOKIES' }
 };
 
 const planOffers = [
@@ -94,6 +95,7 @@ function socialFileFor(file) {
 function classify(file) {
   if (file === 'index.html') return 'home';
   if (file === 'contact.html') return 'contact';
+  if (file === 'legal.html') return 'legal';
   if (file === 'pricing.html' || file === 'pricing-faq.html' || file === 'guarantee.html') return 'pricing';
   if (file === 'blog.html') return 'blog';
   if (file === 'gallery.html' || file === 'guild.html' || file.startsWith('guild-')) return 'guild';
@@ -113,7 +115,8 @@ function labelFor(file, title, h1) {
     'commands.html': 'Command Reference',
     'setup.html': 'Installation',
     'changelog.html': 'Changelog',
-    'roadmap.html': 'Roadmap'
+    'roadmap.html': 'Roadmap',
+    'legal.html': 'Legal'
   };
   if (fixed[file]) return fixed[file];
   const candidate = plainText(title)
@@ -133,7 +136,8 @@ function breadcrumbsFor(page) {
     docs: { name: 'Documentation', item: `${siteUrl}/docs.html` },
     pricing: { name: 'Pricing', item: `${siteUrl}/pricing.html` },
     blog: { name: 'Guild', item: `${siteUrl}/guild.html` },
-    contact: null
+    contact: null,
+    legal: null
   }[page.family];
 
   if (familyRoot && familyRoot.item !== page.canonical) crumbs.push(familyRoot);
@@ -280,6 +284,7 @@ function enhancedSchema(page) {
   }
 
   if (page.family === 'contact') graph.push(organizationSchema(), applicationSchema());
+  if (page.family === 'legal') graph.push(organizationSchema(), applicationSchema());
 
   return {
     '@context': 'https://schema.org',

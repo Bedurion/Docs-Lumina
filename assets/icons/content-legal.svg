@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-labelledby="title">
+  <title id="title">Legal documents</title>
+  <defs>
+    <linearGradient id="legalStroke" x1="18" y1="14" x2="78" y2="82" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#52d7ff"/>
+      <stop offset="0.52" stop-color="#a971ff"/>
+      <stop offset="1" stop-color="#f7c84b"/>
+    </linearGradient>
+    <filter id="legalGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="2.4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <path d="M26 15.5h31l13 13V78a4.5 4.5 0 0 1-4.5 4.5h-39A4.5 4.5 0 0 1 22 78V20a4.5 4.5 0 0 1 4-4.5Z" fill="#0a1020" stroke="url(#legalStroke)" stroke-width="2.6"/>
+  <path d="M57 16v13h13" fill="none" stroke="url(#legalStroke)" stroke-width="2.6" stroke-linejoin="round"/>
+  <path d="M33 39h26M33 48h21M33 57h15" fill="none" stroke="#dbe7ff" stroke-opacity=".76" stroke-width="3" stroke-linecap="round"/>
+  <g transform="translate(49 51)" filter="url(#legalGlow)">
+    <path d="M10 3v20M1 8h18" fill="none" stroke="#f7c84b" stroke-width="2.7" stroke-linecap="round"/>
+    <path d="m1 8-6 11h12L1 8Zm18 0-6 11h12L19 8Z" fill="#0a1020" stroke="#52d7ff" stroke-width="2.2" stroke-linejoin="round"/>
+    <path d="M3 27h14" fill="none" stroke="#a971ff" stroke-width="2.7" stroke-linecap="round"/>
+  </g>
+</svg>

@@ -174,7 +174,7 @@ if (siteFooter) {
     <nav class="footer-links" aria-label="Footer navigation">
       <a href="guild.html">Guild</a><a href="features.html">Bot</a><a href="docs.html">Docs</a><a href="pricing.html">Pricing</a><a href="contact.html">Contact</a>
     </nav>
-    <span class="footer-copyright">© ${copyrightYears} Lumina</span>
+    <div class="footer-meta"><span class="footer-copyright">© ${copyrightYears} Lumina</span><span class="footer-meta-separator" aria-hidden="true">·</span><a class="footer-legal" href="legal.html">Legal</a></div>
     <a class="footer-top" href="#top"><span aria-hidden="true">↑</span> Top</a>`;
 }
 
@@ -274,6 +274,7 @@ const pagePresentations = {
   'bot-automation.html': { family: 'product', variant: 'constellation', accent: 'green', code: 'Staff 04', icon: 'content-automation.svg', label: 'Server automation', summary: 'Refresh public information and clean temporary content without constant staff work.', tags: ['Refresh', 'Expire', 'Clean'] },
   'bot-website.html': { family: 'product', variant: 'support', accent: 'blue', code: 'Staff 05', icon: 'content-website.svg', label: 'Website publishing', summary: 'Collect media and articles in Discord, review them privately and publish safely.', tags: ['Submit', 'Review', 'Publish'] },
   'security.html': { family: 'product', variant: 'trust', accent: 'blue', code: 'Trust model', icon: 'content-security.svg', label: 'Trust & safety', summary: 'Understand permissions, staff review, automatic cleanup and what remains in Discord.', tags: ['Controlled', 'Reviewable', 'Clear'] },
+  'legal.html': { family: 'legal', variant: 'legal', accent: 'blue', code: 'Legal centre', icon: 'content-legal.svg', label: 'Clear terms', summary: 'Terms, privacy, cookies, publishing and billing rules in one accessible place.', tags: ['Terms', 'Privacy', 'Control'] },
   'guild.html': { family: 'guild', variant: 'manifesto', accent: 'gold', code: 'Secura', icon: 'content-guild.svg', label: 'The guild', summary: 'An international Tibia community where structure protects the social experience.', tags: ['Trust', 'Respect', 'Together'] },
   'guild-history.html': { family: 'guild', variant: 'legacy', accent: 'gold', code: 'Our story', icon: 'content-blog.svg', label: 'Built together', summary: 'The needs, principles and people that shaped Lumina from a guild roster into a lasting community.', tags: ['Belong', 'Build', 'Preserve'] },
   'guild-secura.html': { family: 'guild', variant: 'world', accent: 'blue', code: 'Our world', icon: 'content-journey.svg', label: 'Life on Secura', summary: 'One shared Tibia world gives an international community a clear in-game identity and reputation.', tags: ['Tibia', 'Secura', 'Respect'] },
@@ -353,6 +354,7 @@ const pageArtworkByPage = Object.freeze({
   'bot-automation.html': 'product-network.svg',
   'bot-website.html': 'blog-journal.svg',
   'security.html': 'trust-vault.svg',
+  'legal.html': 'legal-balance.svg',
   'guild-community.html': 'guild-fellowship.svg',
   'guild-members.html': 'guild-fellowship.svg',
   'guild-history.html': 'guild-legacy.svg',
@@ -445,6 +447,7 @@ const pageOpeningTitles = {
   'guarantee.html': 'Purchase Clarity',
   'roadmap.html': 'Product Roadmap',
   'security.html': 'Built for Trust',
+  'legal.html': 'Legal Centre',
   'setup.html': 'Safe Installation',
   'systems.html': 'Efficient by Design',
   'use-cases.html': 'Solve Real Friction'
@@ -602,6 +605,7 @@ const openingLayoutGroups = {
     'commands.html',
     'features-events.html',
     'security.html',
+    'legal.html',
     'guild-community.html',
     'guild-members.html',
     'guild-history.html',
@@ -1106,6 +1110,7 @@ const buttonActionIconByPage = Object.freeze({
   'pricing.html': 'action-pricing.svg',
   'roadmap.html': 'content-roadmap.svg',
   'security.html': 'content-security.svg',
+  'legal.html': 'content-legal.svg',
   'setup.html': 'content-setup.svg',
   'systems.html': 'content-systems.svg',
   'use-cases.html': 'content-usecases.svg'
