@@ -7,10 +7,11 @@
     </linearGradient>
   </defs>
   <path d="M48 15v12M39 15h18" fill="none" stroke="url(#botGold)" stroke-width="6" stroke-linecap="round"/>
-  <rect x="18" y="27" width="60" height="51" rx="17" fill="#101321" stroke="url(#botGold)" stroke-width="6"/>
+  <rect x="18" y="27" width="60" height="51" rx="17" fill="url(#botGold)" stroke="#704006" stroke-width="3"/>
+  <path d="M29 34h38" fill="none" stroke="#FFF4AE" stroke-width="3" stroke-linecap="round" opacity="0.72"/>
   <path d="M12 46v18m72-18v18" fill="none" stroke="url(#botGold)" stroke-width="6" stroke-linecap="round"/>
-  <circle cx="37" cy="50" r="5" fill="#FFF0A6" stroke="#704006" stroke-width="2"/>
-  <circle cx="59" cy="50" r="5" fill="#FFF0A6" stroke="#704006" stroke-width="2"/>
-  <path d="M35 65h26" fill="none" stroke="url(#botGold)" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="37" cy="50" r="5" fill="#171321" stroke="#FFF0A6" stroke-width="2"/>
+  <circle cx="59" cy="50" r="5" fill="#171321" stroke="#FFF0A6" stroke-width="2"/>
+  <path d="M35 65h26" fill="none" stroke="#171321" stroke-width="5" stroke-linecap="round"/>
   <path d="m69 25 4-7 4 7 7 4-7 4-4 7-4-7-7-4Z" fill="#FFF0A6" stroke="#9B6510" stroke-width="2" stroke-linejoin="round"/>
 </svg>
