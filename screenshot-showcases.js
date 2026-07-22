@@ -203,6 +203,48 @@
         ]
       }
     },
+    "editions.html": {
+      eyebrow: "Real panels, different context",
+      title: "The shared interface stays familiar.",
+      summary: "Universal and Community use the same panel-first language. Community panels add Tibia-aware data where a game-independent workflow would not need it.",
+      tone: "violet",
+      layout: "overview",
+      anchor: ".edition-comparison-section",
+      position: "after",
+      items: [],
+      gallery: {
+        slides: [
+          {
+            file: "bot-support-01.png", width: 604, height: 465, tone: "cyan",
+            kicker: "Shared foundation", title: "Private Support belongs in both editions.",
+            lead: "The workflow is useful without game-specific data.",
+            caption: "Members open the right private route from a permanent panel while responsible staff continue inside Discord.",
+            alt: "Luminox Private Support panel available to Universal and Community editions.", href: "bot-support.html", linkLabel: "Explore Support"
+          },
+          {
+            file: "bot-events-01.png", width: 599, height: 242, tone: "green",
+            kicker: "Shared foundation", title: "General event organization works anywhere.",
+            lead: "Buttons, schedules, participants and archives are Discord-native.",
+            caption: "Community can add specialized Tibia team rules while Universal keeps the event model game-independent.",
+            alt: "Luminox Hunt Board demonstrating the shared event panel pattern.", href: "bot-events.html", linkLabel: "Explore Events"
+          },
+          {
+            file: "bot-watchlists-02.png", width: 617, height: 293, tone: "red",
+            kicker: "Community context", title: "Live enemy intelligence understands Tibia.",
+            lead: "Character, world, bounty and blacklist context stay connected.",
+            caption: "This Community capability depends on Tibia-specific identity and live world information that Universal deliberately does not require.",
+            alt: "Luminox Enemies Online panel available in Community Edition.", href: "bot-watchlists.html", linkLabel: "Explore Online Lists"
+          },
+          {
+            file: "bot-guildbank-01.png", width: 560, height: 479, tone: "gold",
+            kicker: "Community operations", title: "GuildBank connects Tibia economy and review.",
+            lead: "Contribution rules, balance and staff controls share one panel.",
+            caption: "Community adds this specialized guild workflow alongside Loot Split, Recruitment, Guards and other Tibia-aware systems.",
+            alt: "Luminox GuildBank Control Panel available in Community Edition.", href: "bot-guildbank.html", linkLabel: "Explore GuildBank"
+          }
+        ]
+      }
+    },
     "features.html": {
       eyebrow: "The product in Discord",
       title: "See Luminox at work.",

@@ -27,6 +27,7 @@ const navigationSections = {
     icon: 'nav-bot.svg',
     pages: [
       ['features.html', 'Bot Overview', 'Start'],
+      ['editions.html', 'Editions', 'Start'],
       ['systems.html', 'How It Works', 'Start'],
       ['use-cases.html', 'Use Cases', 'Start'],
       ['security.html', 'Trust & Safety', 'Start'],
@@ -209,6 +210,7 @@ const documentationCatalog = [
   ['roadmap.html', 'Product Roadmap', 'The public delivery path, release principles and priorities shaping future Luminox work.', 'roadmap development future releases'],
   ['changelog.html', 'Changelog', 'A curated history of meaningful Luminox releases and documentation milestones.', 'changelog updates releases history'],
   ['use-cases.html', 'Use Cases', 'Choose the smallest Luminox setup for the problem your guild needs to solve.', 'use cases buying evaluation setup guild problems'],
+  ['editions.html', 'Luminox Editions', 'Compare the game-independent Universal Edition with the Tibia-focused Community Edition.', 'editions universal community Tibia game guild compare'],
   ['security.html', 'Trust & Safety', 'Permissions, data boundaries, retention and honest platform limits.', 'security trust privacy permissions retention']
 ];
 
@@ -246,6 +248,7 @@ const pagePresentations = {
   'systems.html': { family: 'reference', variant: 'architecture', accent: 'violet', code: 'Guide 25', icon: 'content-systems.svg', label: 'How it works', summary: 'Luminox reuses current information, refreshes panels by need and cleans temporary detail.', tags: ['Collect once', 'Reuse', 'Clean'] },
   'docs-faq.html': { family: 'reference', variant: 'questions', accent: 'blue', code: 'Guide 26', icon: 'content-support.svg', label: 'FAQ', summary: 'Fast answers with direct routes to the complete setup guides.', tags: ['Ask', 'Answer', 'Continue'] },
   'features.html': { family: 'product', variant: 'constellation', accent: 'violet', code: 'Discord guild bot', icon: 'content-systems.svg', label: 'Choose a function', summary: 'Administrators configure and publish each function; members use guided controls while Luminox keeps current information and history organized.', tags: ['Configure', 'Publish', 'Operate'] },
+  'editions.html': { family: 'product', variant: 'editions', accent: 'violet', code: 'Two public editions', icon: 'edition-universal.svg', label: 'Choose your context', summary: 'Universal works for any game or community. Community adds purpose-built Tibia identity, intelligence and guild operations.', tags: ['Universal', 'Community', 'Your choice'] },
   'use-cases.html': { family: 'product', variant: 'usecases', accent: 'gold', code: 'Problem → outcome', icon: 'content-usecases.svg', label: 'Use cases', summary: 'Start with one repeated guild problem and enable only the features that remove it.', tags: ['Identify', 'Implement', 'Measure'] },
   'features-identity.html': { family: 'product', variant: 'identity', accent: 'blue', code: '01', icon: 'content-identity.svg', label: 'Verified identity', summary: 'Make the person, Discord account, characters, main and guild rank agree.', tags: ['Account', 'Character', 'Role'] },
   'features-economy.html': { family: 'product', variant: 'economy', accent: 'gold', code: '02', icon: 'content-economy.svg', label: 'Guild economy', summary: 'Turn loot and contributions into reviewed records instead of private assumptions.', tags: ['Split', 'Accumulate', 'Approve'] },
@@ -403,6 +406,7 @@ const pageOpeningTitles = {
   'docs-watchlists.html': 'Live Watchlists',
   'docs-website.html': 'Website Publishing',
   'features.html': 'Meet Luminox',
+  'editions.html': 'Choose Your Edition',
   'features-economy.html': 'Guild Economy',
   'features-events.html': 'Better Events',
   'features-finder.html': 'Find Your Team',
@@ -457,12 +461,12 @@ const editionBadgeDefinitions = Object.freeze({
   universal: {
     label: 'Universal',
     icon: 'edition-universal.svg',
-    href: 'pricing.html?edition=universal#premium-tiers'
+    href: 'editions.html#universal-edition'
   },
   community: {
     label: 'Community',
     icon: 'edition-community.svg',
-    href: 'pricing.html?edition=community#premium-tiers'
+    href: 'editions.html#community-edition'
   }
 });
 
@@ -484,6 +488,7 @@ const bothEditionPages = [
   'docs-troubleshooting.html',
   'docs-website.html',
   'features.html',
+  'editions.html',
   'features-events.html',
   'features-support.html',
   'bot-loyalty.html',
@@ -630,6 +635,7 @@ const openingLayoutGroups = {
   'gallery-wall': ['gallery.html'],
   'roleplay-cover': ['guild-roleplay.html'],
   'feature-map': ['features.html'],
+  'edition-choice': ['editions.html'],
   'pricing-tiers': ['pricing.html'],
   'contact-paths': ['contact.html']
 };
@@ -770,6 +776,19 @@ const renderFeatureMap = () => {
   return visual;
 };
 
+const renderEditionChoice = () => {
+  const visual = document.createElement('aside');
+  visual.className = 'opening-edition-choice';
+  visual.setAttribute('aria-label', 'Universal and Community edition paths');
+  visual.innerHTML = `
+    <figure class="opening-edition-art" aria-hidden="true"><img src="assets/illustrations/editions-gateway.svg" alt=""></figure>
+    <div class="opening-edition-options">
+      <a href="#universal-edition"><img src="assets/icons/edition-universal.svg" alt="" aria-hidden="true"><span><small>Any game or community</small><strong>Universal Edition</strong></span><b aria-hidden="true">↘</b></a>
+      <a href="#community-edition"><img src="assets/icons/edition-community.svg" alt="" aria-hidden="true"><span><small>Purpose-built for Tibia</small><strong>Community Edition</strong></span><b aria-hidden="true">↙</b></a>
+    </div>`;
+  return visual;
+};
+
 const renderPricingTiers = () => {
   const visual = document.createElement('aside');
   visual.className = 'opening-pricing-tiers';
@@ -801,6 +820,7 @@ const customOpeningRenderers = {
   'gallery-wall': renderGalleryWall,
   'roleplay-cover': renderRoleplayCover,
   'feature-map': renderFeatureMap,
+  'edition-choice': renderEditionChoice,
   'pricing-tiers': renderPricingTiers,
   'contact-paths': renderContactPaths
 };
@@ -827,7 +847,7 @@ const addEditionAvailability = (copy) => {
     badge.className = `edition-availability-badge edition-availability-${edition}`;
     badge.href = definition.href;
     badge.title = `Available in ${definition.label} Edition`;
-    badge.setAttribute('aria-label', `View ${definition.label} Edition plans`);
+    badge.setAttribute('aria-label', `Learn about ${definition.label} Edition`);
     badge.innerHTML = `<img src="assets/icons/${definition.icon}" alt="" aria-hidden="true"><span>${definition.label}</span>`;
     badges.append(badge);
   });
@@ -921,6 +941,29 @@ const applyPagePresentation = () => {
 };
 
 applyPagePresentation();
+
+const alignCurrentHashTarget = () => {
+  if (!window.location.hash) return;
+
+  let targetId;
+  try {
+    targetId = decodeURIComponent(window.location.hash.slice(1));
+  } catch {
+    return;
+  }
+
+  const target = document.getElementById(targetId);
+  if (!target) return;
+
+  window.requestAnimationFrame(() => {
+    window.requestAnimationFrame(() => target.scrollIntoView({ block: 'start' }));
+  });
+};
+
+alignCurrentHashTarget();
+window.addEventListener('load', alignCurrentHashTarget, { once: true });
+window.addEventListener('hashchange', alignCurrentHashTarget);
+document.fonts?.ready.then(alignCurrentHashTarget);
 
 const mainContent = document.querySelector('main');
 if (mainContent) {

@@ -4039,12 +4039,25 @@ pre {
   margin: 0.35rem 0 0;
 }
 
-.pricing-edition-choice-copy p:last-child,
+.pricing-edition-choice-copy p:last-of-type,
 .pricing-plan-heading p:last-child {
   margin: 0.75rem 0 0;
   color: var(--muted);
   line-height: 1.68;
 }
+
+.pricing-edition-guide {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.65rem;
+  color: #c9b8ff;
+  font-size: 0.82rem;
+  font-weight: 880;
+  text-decoration: none;
+}
+
+.pricing-edition-guide:hover { color: #e5dcff; }
 
 .pricing-edition-controls {
   display: grid;

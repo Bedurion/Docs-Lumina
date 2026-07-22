@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 460" fill="none">
+  <defs>
+    <linearGradient id="ecw-line" x1="87" y1="55" x2="532" y2="413" gradientUnits="userSpaceOnUse"><stop stop-color="#F6D46F"/><stop offset=".48" stop-color="#5EE19D"/><stop offset="1" stop-color="#56C7F5"/></linearGradient>
+    <radialGradient id="ecw-aura" cx="0" cy="0" r="1" gradientTransform="translate(310 227) rotate(90) scale(211 273)" gradientUnits="userSpaceOnUse"><stop stop-color="#4FD29A" stop-opacity=".22"/><stop offset=".62" stop-color="#56C7F5" stop-opacity=".06"/><stop offset="1" stop-color="#4FD29A" stop-opacity="0"/></radialGradient>
+    <filter id="ecw-shadow" x="-35%" y="-35%" width="170%" height="185%"><feDropShadow dx="0" dy="22" stdDeviation="19" flood-color="#000" flood-opacity=".48"/></filter>
+  </defs>
+  <ellipse cx="310" cy="227" rx="273" ry="211" fill="url(#ecw-aura)"/>
+  <g opacity=".32" stroke="#77D9B0"><ellipse cx="310" cy="228" rx="238" ry="171"/><ellipse cx="310" cy="228" rx="189" ry="136" stroke-dasharray="7 10"/><path d="M72 228h476M310 57v342" stroke-opacity=".34"/></g>
+  <path d="M310 228 150 114M310 228l160-114M310 228 153 350M310 228l157 122" stroke="url(#ecw-line)" stroke-opacity=".44" stroke-width="2.5"/>
+  <g filter="url(#ecw-shadow)">
+    <path d="m310 86 112 41v87c0 76-45 134-112 169-67-35-112-93-112-169v-87l112-41Z" fill="#091421" stroke="url(#ecw-line)" stroke-width="3"/>
+    <circle cx="310" cy="190" r="34" stroke="url(#ecw-line)" stroke-width="3"/>
+    <path d="M249 299c7-45 27-68 61-68s54 23 61 68" stroke="#5EE19D" stroke-width="4" stroke-linecap="round"/>
+    <path d="M310 118v31M294 134h32" stroke="#F6D46F" stroke-width="3" stroke-linecap="round"/>
+    <g transform="translate(55 56)"><rect width="142" height="113" rx="29" fill="#091020" stroke="#F6D46F" stroke-width="2.5"/><path d="M34 78V39l37-17 37 17v39" stroke="#F6D46F" stroke-width="2.5" stroke-linejoin="round"/><path d="M51 78V51h40v27M63 78V60h16v18" stroke="#F6D46F" stroke-width="2.5"/></g>
+    <g transform="translate(423 56)"><rect width="142" height="113" rx="29" fill="#091020" stroke="#56C7F5" stroke-width="2.5"/><circle cx="71" cy="57" r="30" stroke="#56C7F5" stroke-width="2.5"/><path d="M41 57h60M71 27c10 9 15 19 15 30S81 78 71 87c-10-9-15-19-15-30s5-21 15-30Z" stroke="#56C7F5" stroke-width="2"/></g>
+    <g transform="translate(55 292)"><rect width="142" height="113" rx="29" fill="#091020" stroke="#A675FF" stroke-width="2.5"/><path d="M31 78h80M39 63l19-19 14 12 26-29" stroke="#A675FF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="58" cy="44" r="5" fill="#F6D46F"/><circle cx="72" cy="56" r="5" fill="#5EE19D"/><circle cx="98" cy="27" r="5" fill="#56C7F5"/></g>
+    <g transform="translate(423 292)"><rect width="142" height="113" rx="29" fill="#091020" stroke="#5EE19D" stroke-width="2.5"/><path d="M29 78h84M41 68V45h20v23M61 68V30h20v38M81 68V51h20v17" stroke="#5EE19D" stroke-width="3" stroke-linejoin="round"/><path d="M36 28h70" stroke="#F6D46F" stroke-width="3" stroke-linecap="round"/></g>
+  </g>
+  <g fill="url(#ecw-line)"><circle cx="221" cy="164" r="5"/><circle cx="399" cy="164" r="5"/><circle cx="221" cy="296" r="5"/><circle cx="399" cy="296" r="5"/></g>
+  <path d="M281 338h58" stroke="#F6D46F" stroke-width="3" stroke-linecap="round"/><circle cx="310" cy="338" r="7" fill="#FB7185"/>
+</svg>
