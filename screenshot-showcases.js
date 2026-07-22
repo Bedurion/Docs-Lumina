@@ -21,19 +21,187 @@
           lead: "Every workflow has a predictable home.",
           caption: "Support, online intelligence, team activities and guild services remain separated, easy to find and ready for their own permanent panel.",
           alt: "Lumina Discord channel list organized into Home, Support, Online, Team and Services categories."
-        },
-        {
-          file: "bot-guildbank-01.png",
-          width: 560,
-          height: 479,
-          tone: "cyan",
-          kicker: "Panel-first workflow",
-          title: "Buttons replace routine commands.",
-          lead: "Members act from one clear control surface.",
-          caption: "The GuildBank panel shows live context, keeps permanent history above it and exposes only the actions each person is allowed to use.",
-          alt: "Luminox GuildBank Control Panel in Discord with balance information and Deposit, Withdraw and Clean buttons."
         }
-      ]
+      ],
+      gallery: {
+        slides: [
+          {
+            file: "bot-events-01.png", width: 599, height: 242, tone: "green",
+            kicker: "Universal event panel", title: "Activities begin from one permanent launcher.",
+            lead: "Members create or understand an event from two clear buttons.",
+            caption: "The same panel-first pattern supports organized activities without asking members to memorize a slash command.",
+            alt: "Luminox Hunt Board with Create hunt and Information buttons.", href: "bot-events.html", linkLabel: "See more about Events"
+          },
+          {
+            file: "bot-support-01.png", width: 604, height: 465, tone: "cyan",
+            kicker: "Universal support panel", title: "Private support starts from one public panel.",
+            lead: "Members open the correct private route without commands.",
+            caption: "Required questions, media rules and ticket history remain inside Discord while only the requester and responsible staff enter the private thread.",
+            alt: "Luminox Private Support panel with Open ticket and My tickets buttons.", href: "bot-support.html", linkLabel: "See more about Support"
+          },
+          {
+            file: "bot-staff-03.png", width: 649, height: 402, tone: "green",
+            kicker: "Applications", title: "Public and private applications stay clearly separated.",
+            lead: "Members choose the route that matches their situation.",
+            caption: "Public applications remain visible to the community, while private requests continue through the protected Support workflow.",
+            alt: "Luminox Applications panel with Public apply and Private apply controls.", href: "bot-staff.html", linkLabel: "See more about Staff systems"
+          },
+          {
+            file: "bot-staff-04.png", width: 612, height: 349, tone: "violet",
+            kicker: "Staff voting", title: "Internal candidacies reveal totals, not individual votes.",
+            lead: "Authorized staff decide from a purpose-built panel.",
+            caption: "Nominations, voting and conclusions remain controlled without publishing who initiated or supported each candidacy.",
+            alt: "Luminox Staff Voting panel with candidacy, vote and conclude controls.", href: "bot-staff.html", linkLabel: "Explore Staff voting"
+          },
+          {
+            file: "bot-automation-01.png", width: 643, height: 642, tone: "red",
+            kicker: "Automatic reconciliation", title: "Connected records react when membership changes.",
+            lead: "Roles, eligibility and rewards remain synchronized.",
+            caption: "Luminox explains the resulting role and Loyalty changes in Discord instead of silently rewriting connected data.",
+            alt: "Luminox automation log reconciling a guild departure and linked rewards.", href: "bot-automation.html", linkLabel: "See more about Automation"
+          },
+          {
+            file: "bot-events-03.png", width: 513, height: 675, tone: "violet",
+            kicker: "Guided event form", title: "Organizers answer only the questions the event needs.",
+            lead: "Structured fields replace improvised chat instructions.",
+            caption: "Discord validates the title, description, timing and duration before Luminox publishes the live event and planning thread.",
+            alt: "Discord form for creating a Luminox event with structured fields.", href: "bot-events.html", linkLabel: "Explore the Event workflow"
+          },
+          {
+            file: "bot-leaderboards-01.png", width: 435, height: 734, tone: "gold",
+            kicker: "Leaderboards", title: "Progress stays visible without external spreadsheets.",
+            lead: "Rankings refresh where members already communicate.",
+            caption: "Multiple categories, movement indicators and navigation keep long competitive lists readable directly in Discord.",
+            alt: "Luminox leaderboard index and ranked Discord panels.", href: "bot-leaderboards.html", linkLabel: "See more about Leaderboards"
+          },
+          {
+            file: "bot-guildbank-01.png", width: 560, height: 479, tone: "gold",
+            kicker: "GuildBank control", title: "Balance and review actions share one accountable surface.",
+            lead: "Members and authorized staff see only the actions they can use.",
+            caption: "Current balance, minimums and pending reviews remain below the permanent transaction history for quick daily operation.",
+            alt: "Luminox GuildBank Control Panel with Deposit, Withdraw and Clean buttons.", href: "bot-guildbank.html", linkLabel: "See more about GuildBank"
+          },
+          {
+            file: "bot-loyalty-03.png", width: 636, height: 843, tone: "violet",
+            kicker: "Loyalty system", title: "Contribution rules and recent rewards remain transparent.",
+            lead: "Members understand eligibility before inspecting their profile.",
+            caption: "Public activity explains important rewards while each account can open a private progression profile from the same panel.",
+            alt: "Luminox Loyalty System panel and recent Loyalty activity.", href: "bot-loyalty.html", linkLabel: "See more about Loyalty"
+          },
+          {
+            file: "bot-loyalty-02.png", width: 613, height: 561, tone: "cyan",
+            kicker: "Server Boost Loyalty", title: "Recurring contributions show current and completed value.",
+            lead: "Active boosters can see what is earned and what remains pending.",
+            caption: "The live panel separates active boosts, completed periods and expected rewards without requiring manual verification.",
+            alt: "Luminox Server Boost Loyalty panel with active boosters and rewards.", href: "bot-loyalty.html", linkLabel: "Explore Loyalty rewards"
+          },
+          {
+            file: "bot-finder-01.png", width: 454, height: 1044, tone: "cyan",
+            kicker: "Finder", title: "Current online data becomes useful team suggestions.",
+            lead: "Members opt into Looking for Team from one live panel.",
+            caption: "Luminox ranks compatible matches using information it already maintains, keeping coordination voluntary and inside Discord.",
+            alt: "Luminox Finder panel showing online characters and ranked matches.", href: "bot-finder.html", linkLabel: "See more about Finder"
+          },
+          {
+            file: "bot-recruitment-01.png", width: 690, height: 683, tone: "green",
+            kicker: "Recruitment panel", title: "Every recruitment claim keeps a visible decision state.",
+            lead: "Registration, review, disputes and approval remain distinct.",
+            caption: "Compact entries identify the character, recruiter and method while staff controls keep the active queue manageable.",
+            alt: "Luminox Recruitment Panel with pending and approved recruitment entries.", href: "bot-recruitment.html", linkLabel: "See more about Recruitment"
+          },
+          {
+            file: "bot-recruitment-02.png", width: 606, height: 777, tone: "cyan",
+            kicker: "Potential recruits", title: "Recruiters receive filtered prospects, not an unverified list.",
+            lead: "Vocation, level, sanctions and previous outreach are considered first.",
+            caption: "Authorized recruiters can coordinate outreach without repeatedly contacting the same unsuitable characters.",
+            alt: "Luminox Potential Recruits panel separated by vocation.", href: "bot-recruitment.html", linkLabel: "Explore Recruitment tools"
+          },
+          {
+            file: "bot-moderation-01.png", width: 618, height: 706, tone: "red",
+            kicker: "Blacklist", title: "Active intelligence stays separate from resolved history.",
+            lead: "Targets retain world, bounty, reason and identity context.",
+            caption: "On-world, transferred and resolved sections preserve the moderation decision without mixing inactive targets into live operations.",
+            alt: "Luminox Blacklist panel with characters, guilds, bounties and reasons.", href: "bot-moderation.html", linkLabel: "See more about Moderation"
+          },
+          {
+            file: "bot-moderation-02.png", width: 631, height: 374, tone: "gold",
+            kicker: "Ban list", title: "Timed and permanent sanctions remain immediately readable.",
+            lead: "The panel records who acted, why and for how long.",
+            caption: "Authorized controls maintain the list while the public result remains compact enough for quick staff verification.",
+            alt: "Luminox Ban List panel showing reasons, executors and expiration.", href: "bot-moderation.html", linkLabel: "Explore Moderation lists"
+          },
+          {
+            file: "bot-guards-01.png", width: 634, height: 459, tone: "red",
+            kicker: "Guards", title: "Guard duty, sightings and battles use different actions.",
+            lead: "The panel explains every report before it starts.",
+            caption: "Authorized members can activate duty or open the appropriate enemy report while automatic expiration prevents stale active states.",
+            alt: "Luminox Guards panel with guard, enemy and battle report controls.", href: "bot-guards.html", linkLabel: "See more about Guards"
+          },
+          {
+            file: "bot-guildhall-01.png", width: 638, height: 328, tone: "gold",
+            kicker: "Guildhall", title: "Rooms and requests stay organized in one property panel.",
+            lead: "Members claim rooms while authorized staff maintain availability.",
+            caption: "Room definitions, occupants and pending requests remain clear without maintaining a separate spreadsheet.",
+            alt: "Luminox Guildhall panel with room management and claim controls.", href: "bot-guildhall.html", linkLabel: "See more about Guildhall"
+          },
+          {
+            file: "bot-loot-02.png", width: 438, height: 233, tone: "gold",
+            kicker: "Loot Split", title: "One button starts the complete split workflow.",
+            lead: "Members paste the analyzer output into a guided private flow.",
+            caption: "The permanent launcher replaces repeated instructions while keeping an explanation available for first-time users.",
+            alt: "Luminox Loot Split panel with Split loot and How it works buttons.", href: "bot-loot.html", linkLabel: "See more about Loot Split"
+          },
+          {
+            file: "bot-loot-03.png", width: 797, height: 830, tone: "green",
+            kicker: "Loot result", title: "Final balances and transfers arrive already structured.",
+            lead: "The result remains understandable after the hunt ends.",
+            caption: "Participants, balances, transfers and optional GuildBank contribution context share one accountable Discord result.",
+            alt: "Luminox final loot split result with balances and transfers.", href: "bot-loot.html", linkLabel: "Explore Loot results"
+          },
+          {
+            file: "bot-watchlists-01.png", width: 420, height: 255, tone: "violet",
+            kicker: "Members online", title: "The guild sees who is active right now.",
+            lead: "Character, session and recent progress remain compact.",
+            caption: "The channel count and live panel use the same cached snapshot so members can coordinate around a consistent roster.",
+            alt: "Luminox Guild Members Online panel.", href: "bot-watchlists.html", linkLabel: "See more about Online lists"
+          },
+          {
+            file: "bot-watchlists-02.png", width: 617, height: 293, tone: "red",
+            kicker: "Enemies online", title: "Threat context appears beside every active target.",
+            lead: "Bounty and blacklist reasons remain visible at a glance.",
+            caption: "Individual targets and tracked guild totals help authorized teams understand current online risk without another dashboard.",
+            alt: "Luminox Enemies Online panel with bounties and blacklist reasons.", href: "bot-watchlists.html", linkLabel: "Explore Watchlists"
+          },
+          {
+            file: "bot-tracker-01.png", width: 639, height: 864, tone: "cyan",
+            kicker: "Identity tracker", title: "Important identity changes become permanent events.",
+            lead: "Transfers, trades and returns remain part of the record.",
+            caption: "Fixed Discord messages preserve what changed while one refreshed panel summarizes the newest activity without duplication.",
+            alt: "Luminox Character Tracker log and recent-event panel.", href: "bot-tracker.html", linkLabel: "See more about Tracker"
+          },
+          {
+            file: "bot-progression-02.png", width: 774, height: 1052, tone: "green",
+            kicker: "Progression", title: "Individual advances stay above one rolling progress panel.",
+            lead: "Daily, monthly and yearly totals remain in the correct order.",
+            caption: "Members can follow current progression while permanent level announcements remain preserved in the same Discord channel.",
+            alt: "Luminox level-up announcements and Daily Level Gains panel.", href: "bot-progression.html", linkLabel: "See more about Progression"
+          },
+          {
+            file: "bot-leaderboards-02.png", width: 363, height: 718, tone: "violet",
+            kicker: "Ranking detail", title: "Long leaderboards remain navigable across multiple messages.",
+            lead: "Navigation links return members to the index or top instantly.",
+            caption: "Luminox keeps large rankings compact and ordered without sacrificing the context behind each position.",
+            alt: "Multi-message Luminox leaderboard with navigation links.", href: "bot-leaderboards.html", linkLabel: "Explore ranking detail"
+          },
+          {
+            file: "bot-loyalty-01.png", width: 607, height: 495, tone: "violet",
+            kicker: "Loyalty activity", title: "Positive rewards and reversals share one clear history.",
+            lead: "Every important point change includes its reason.",
+            caption: "Grouped rewards and proportional reversals remain transparent without flooding the public channel with repetitive entries.",
+            alt: "Luminox Loyalty Activity panel with rewards and a reversal.", href: "bot-loyalty.html", linkLabel: "Explore Loyalty history"
+          }
+        ]
+      }
     },
     "bot-automation.html": {
       eyebrow: "Real Discord output",
@@ -620,8 +788,44 @@
       </figure>`;
   }).join("");
 
+  const gallerySlides = config.gallery?.slides || [];
+  const initialGallerySlide = gallerySlides[0];
+  const galleryCard = initialGallerySlide ? `
+    <article class="discord-screenshot-card discord-screenshot-gallery discord-screenshot-card--${initialGallerySlide.tone || config.tone || "violet"}" data-screenshot-gallery>
+      <header class="discord-screenshot-card__header discord-screenshot-gallery__header">
+        <div>
+          <span class="discord-screenshot-card__kicker" data-gallery-kicker>${initialGallerySlide.kicker}</span>
+          <h3 data-gallery-title>${initialGallerySlide.title}</h3>
+        </div>
+        <span class="discord-screenshot-card__number discord-screenshot-gallery__counter" data-gallery-counter aria-label="Screenshot 1 of ${gallerySlides.length}">01/${String(gallerySlides.length).padStart(2, "0")}</span>
+      </header>
+      <div class="discord-screenshot-gallery__stage" data-gallery-panel role="tabpanel" aria-live="polite" style="--gallery-aspect: ${initialGallerySlide.width} / ${initialGallerySlide.height}; --gallery-stage-width: ${Math.min(900, Math.round((initialGallerySlide.width / initialGallerySlide.height) * 520))}px">
+        <img class="discord-screenshot-gallery__image" data-gallery-image src="assets/screenshots/${initialGallerySlide.file}" width="${initialGallerySlide.width}" height="${initialGallerySlide.height}" decoding="async" fetchpriority="low" alt="${initialGallerySlide.alt}">
+      </div>
+      <div class="discord-screenshot-gallery__detail">
+        <span class="discord-screenshot-gallery__detail-line" aria-hidden="true"></span>
+        <p><strong data-gallery-lead>${initialGallerySlide.lead}</strong><span data-gallery-caption>${initialGallerySlide.caption}</span></p>
+        <a class="discord-screenshot-gallery__link" data-gallery-link href="${initialGallerySlide.href}"><span data-gallery-link-label>${initialGallerySlide.linkLabel}</span><span aria-hidden="true">↗</span></a>
+      </div>
+      <div class="discord-screenshot-gallery__selector">
+        <div class="discord-screenshot-gallery__selector-header">
+          <div><span>Interactive preview</span><strong>Explore ${gallerySlides.length} real panels</strong></div>
+          <div class="discord-screenshot-gallery__controls" aria-label="Screenshot controls">
+            <button type="button" data-gallery-prev aria-label="Previous screenshot">←</button>
+            <button type="button" data-gallery-next aria-label="Next screenshot">→</button>
+          </div>
+        </div>
+        <div class="discord-screenshot-gallery__track" data-gallery-track role="tablist" aria-label="Choose a Discord panel">
+          ${gallerySlides.map((slide, index) => `
+            <button class="discord-screenshot-gallery__thumbnail${index === 0 ? " is-active" : ""}" type="button" role="tab" data-gallery-index="${index}" aria-label="Show ${slide.kicker}" aria-selected="${index === 0 ? "true" : "false"}" tabindex="${index === 0 ? "0" : "-1"}">
+              <img src="assets/screenshots/thumbs/${slide.file.replace(/\.png$/i, ".webp")}" width="180" height="128" decoding="async" alt="">
+            </button>`).join("")}
+        </div>
+      </div>
+    </article>` : "";
+
   const gridClasses = ["discord-screenshot-grid"];
-  if (config.items.length === 1) gridClasses.push("discord-screenshot-grid--single");
+  if (config.items.length + (initialGallerySlide ? 1 : 0) === 1) gridClasses.push("discord-screenshot-grid--single");
   if (config.layout) gridClasses.push(`discord-screenshot-grid--${config.layout}`);
 
   section.innerHTML = `
@@ -632,7 +836,7 @@
       </div>
       <p class="screenshot-showcase-summary"><strong>Real Discord captures.</strong> ${config.summary}</p>
     </div>
-    <div class="${gridClasses.join(" ")}">${cards}</div>`;
+    <div class="${gridClasses.join(" ")}">${cards}${galleryCard}</div>`;
 
   let anchor = config.anchor ? document.querySelector(config.anchor) : null;
   if (anchor && config.anchorClosest) anchor = anchor.closest(config.anchorClosest);
@@ -641,6 +845,88 @@
   if (anchor && config.position === "after") anchor.after(section);
   else if (anchor) anchor.before(section);
   else main.append(section);
+
+  const gallery = section.querySelector("[data-screenshot-gallery]");
+  if (gallery && gallerySlides.length) {
+    const toneValues = {
+      gold: "243, 204, 99",
+      cyan: "86, 199, 245",
+      green: "94, 225, 157",
+      red: "251, 113, 133",
+      violet: "139, 92, 246"
+    };
+    const image = gallery.querySelector("[data-gallery-image]");
+    const stage = gallery.querySelector("[data-gallery-panel]");
+    const kicker = gallery.querySelector("[data-gallery-kicker]");
+    const title = gallery.querySelector("[data-gallery-title]");
+    const lead = gallery.querySelector("[data-gallery-lead]");
+    const caption = gallery.querySelector("[data-gallery-caption]");
+    const link = gallery.querySelector("[data-gallery-link]");
+    const linkLabel = gallery.querySelector("[data-gallery-link-label]");
+    const counter = gallery.querySelector("[data-gallery-counter]");
+    const track = gallery.querySelector("[data-gallery-track]");
+    const tabs = Array.from(gallery.querySelectorAll("[data-gallery-index]"));
+    let selectedIndex = 0;
+    let selectionToken = 0;
+
+    const selectSlide = (nextIndex, moveFocus = false) => {
+      const index = (nextIndex + gallerySlides.length) % gallerySlides.length;
+      const slide = gallerySlides[index];
+      const token = ++selectionToken;
+      selectedIndex = index;
+      gallery.classList.add("is-changing");
+      gallery.style.setProperty("--shot-accent", toneValues[slide.tone] || toneValues.violet);
+      kicker.textContent = slide.kicker;
+      title.textContent = slide.title;
+      lead.textContent = slide.lead;
+      caption.textContent = slide.caption;
+      link.href = slide.href;
+      linkLabel.textContent = slide.linkLabel;
+      counter.textContent = `${String(index + 1).padStart(2, "0")}/${String(gallerySlides.length).padStart(2, "0")}`;
+      counter.setAttribute("aria-label", `Screenshot ${index + 1} of ${gallerySlides.length}`);
+
+      tabs.forEach((tab, tabIndex) => {
+        const active = tabIndex === index;
+        tab.classList.toggle("is-active", active);
+        tab.setAttribute("aria-selected", String(active));
+        tab.tabIndex = active ? 0 : -1;
+      });
+
+      const activeTab = tabs[index];
+      activeTab.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+      if (moveFocus) activeTab.focus({ preventScroll: true });
+
+      const preload = new Image();
+      const applyImage = () => {
+        if (token !== selectionToken) return;
+        image.src = `assets/screenshots/${slide.file}`;
+        image.width = slide.width;
+        image.height = slide.height;
+        image.alt = slide.alt;
+        stage.style.setProperty("--gallery-aspect", `${slide.width} / ${slide.height}`);
+        stage.style.setProperty("--gallery-stage-width", `${Math.min(900, Math.round((slide.width / slide.height) * 520))}px`);
+        gallery.classList.remove("is-changing");
+      };
+      preload.addEventListener("load", applyImage, { once: true });
+      preload.addEventListener("error", applyImage, { once: true });
+      preload.src = `assets/screenshots/${slide.file}`;
+      if (preload.complete) applyImage();
+    };
+
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => selectSlide(Number(tab.dataset.galleryIndex)));
+    });
+    gallery.querySelector("[data-gallery-prev]").addEventListener("click", () => selectSlide(selectedIndex - 1));
+    gallery.querySelector("[data-gallery-next]").addEventListener("click", () => selectSlide(selectedIndex + 1));
+    track.addEventListener("keydown", (event) => {
+      if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+      event.preventDefault();
+      if (event.key === "Home") selectSlide(0, true);
+      else if (event.key === "End") selectSlide(gallerySlides.length - 1, true);
+      else selectSlide(selectedIndex + (event.key === "ArrowRight" ? 1 : -1), true);
+    });
+    gallery.style.setProperty("--shot-accent", toneValues[initialGallerySlide.tone] || toneValues.violet);
+  }
 
   if (window.location.hash === `#${headingId}`) {
     window.requestAnimationFrame(() => section.scrollIntoView({ block: "start" }));
