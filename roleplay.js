@@ -75,7 +75,7 @@ function buildRoleplayMedia(story, className) {
   }
 
   const image = document.createElement('img');
-  image.src = 'assets/illustrations/roleplay-archive-empty.svg';
+  image.src = 'assets/illustrations/roleplay-archive-empty.svg?v=20260723-4';
   image.alt = '';
   image.setAttribute('aria-hidden', 'true');
   media.classList.add('is-placeholder');
@@ -156,7 +156,7 @@ function buildRoleplayLibraryEmpty() {
   const empty = document.createElement('article');
   empty.className = 'roleplay-library-empty';
   const image = document.createElement('img');
-  image.src = 'assets/illustrations/roleplay-archive-empty.svg';
+  image.src = 'assets/illustrations/roleplay-archive-empty.svg?v=20260723-4';
   image.alt = '';
   image.setAttribute('aria-hidden', 'true');
   const copy = document.createElement('div');

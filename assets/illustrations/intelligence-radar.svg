@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 540" fill="none">
+<svg width="2160" height="1620" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 540" fill="none">
   <defs>
     <linearGradient id="ir-line" x1="145" y1="100" x2="575" y2="460" gradientUnits="userSpaceOnUse"><stop stop-color="#FB7185"/><stop offset=".46" stop-color="#A675FF"/><stop offset="1" stop-color="#56C7F5"/></linearGradient>
     <radialGradient id="ir-aura" cx="0" cy="0" r="1" gradientTransform="translate(360 270) rotate(90) scale(250 305)" gradientUnits="userSpaceOnUse"><stop stop-color="#FB7185" stop-opacity=".18"/><stop offset=".55" stop-color="#8B5CF6" stop-opacity=".09"/><stop offset="1" stop-color="#8B5CF6" stop-opacity="0"/></radialGradient>

@@ -53,7 +53,7 @@ function buildMedia(entry, featured = false) {
   if (mediaItems.length === 0) {
     const fallback = document.createElement('div');
     fallback.className = 'gallery-media-fallback';
-    fallback.innerHTML = '<img src="assets/illustrations/gallery-frames.svg" alt="Decorative gallery frames">';
+    fallback.innerHTML = '<img src="assets/illustrations/gallery-frames.svg?v=20260723-4" alt="Decorative gallery frames">';
     media.append(fallback);
     return media;
   }

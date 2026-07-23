@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 540" fill="none">
+<svg width="2160" height="1620" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 540" fill="none">
   <defs>
     <linearGradient id="pp-line" x1="110" y1="410" x2="604" y2="110" gradientUnits="userSpaceOnUse"><stop stop-color="#56C7F5"/><stop offset=".45" stop-color="#5EE19D"/><stop offset="1" stop-color="#F6D46F"/></linearGradient>
     <radialGradient id="pp-aura" cx="0" cy="0" r="1" gradientTransform="translate(360 275) rotate(90) scale(235 305)" gradientUnits="userSpaceOnUse"><stop stop-color="#5EE19D" stop-opacity=".17"/><stop offset=".54" stop-color="#F6D46F" stop-opacity=".08"/><stop offset="1" stop-color="#8B5CF6" stop-opacity="0"/></radialGradient>

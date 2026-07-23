@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 460" fill="none">
+<svg width="1860" height="1380" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 460" fill="none">
   <defs>
     <linearGradient id="ecw-line" x1="87" y1="55" x2="532" y2="413" gradientUnits="userSpaceOnUse"><stop stop-color="#F6D46F"/><stop offset=".48" stop-color="#5EE19D"/><stop offset="1" stop-color="#56C7F5"/></linearGradient>
     <radialGradient id="ecw-aura" cx="0" cy="0" r="1" gradientTransform="translate(310 227) rotate(90) scale(211 273)" gradientUnits="userSpaceOnUse"><stop stop-color="#4FD29A" stop-opacity=".22"/><stop offset=".62" stop-color="#56C7F5" stop-opacity=".06"/><stop offset="1" stop-color="#4FD29A" stop-opacity="0"/></radialGradient>

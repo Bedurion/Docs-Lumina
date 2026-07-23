@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 460" fill="none">
+<svg width="1860" height="1380" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 460" fill="none">
   <defs>
     <linearGradient id="eun-line" x1="73" y1="70" x2="548" y2="398" gradientUnits="userSpaceOnUse"><stop stop-color="#F6D46F"/><stop offset=".42" stop-color="#A675FF"/><stop offset="1" stop-color="#56C7F5"/></linearGradient>
     <radialGradient id="eun-aura" cx="0" cy="0" r="1" gradientTransform="translate(310 230) rotate(90) scale(212 274)" gradientUnits="userSpaceOnUse"><stop stop-color="#8B5CF6" stop-opacity=".28"/><stop offset="1" stop-color="#8B5CF6" stop-opacity="0"/></radialGradient>

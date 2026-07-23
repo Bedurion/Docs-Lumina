@@ -1,6 +1,8 @@
 const navToggle = document.querySelector('.nav-toggle');
 const navLinks = document.querySelector('[data-nav-links]');
 const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+const vectorAssetVersion = '20260723-4';
+const vectorAssetUrl = (path) => `${String(path).split('?')[0]}?v=${vectorAssetVersion}`;
 
 const navigationSections = {
   guild: {
@@ -115,7 +117,7 @@ const navigationSections = {
 };
 
 const sectionContainsPage = (section) => section.pages.some(([href]) => href === currentPage);
-const renderNavIcon = (icon) => `<span class="nav-icon-shell"><img class="nav-icon" src="assets/icons/${icon}?v=20260722-3" alt="" aria-hidden="true"></span>`;
+const renderNavIcon = (icon) => `<span class="nav-icon-shell"><img class="nav-icon" src="${vectorAssetUrl(`assets/icons/${icon}`)}" alt="" aria-hidden="true"></span>`;
 const renderDropdownLinks = (section) => {
   const hasGroups = section.pages.some(([, , group]) => group);
   if (!hasGroups) {
@@ -182,7 +184,7 @@ if (siteFooter) {
   const copyrightYears = currentYear > 2025 ? `2025–${currentYear}` : '2025';
   siteFooter.innerHTML = `
     <a class="footer-brand" href="index.html" aria-label="Lumina home">
-      <img src="assets/brand/seal-dark-nav.svg?v=20260722-5" alt="" aria-hidden="true">
+      <img src="assets/brand/seal-dark-nav.svg?v=20260723-4" alt="" aria-hidden="true">
       <span><strong>Lumina Guild</strong><small>A Tibia Guild on Secura</small></span>
     </a>
     <nav class="footer-links" aria-label="Footer navigation">
@@ -743,7 +745,7 @@ const renderOpeningArtwork = (className = '') => {
   const figure = document.createElement('figure');
   figure.className = `opening-artwork ${className}`.trim();
   figure.setAttribute('aria-hidden', 'true');
-  figure.innerHTML = `<img src="assets/illustrations/${artwork}" alt="" loading="eager" decoding="async">`;
+  figure.innerHTML = `<img src="${vectorAssetUrl(`assets/illustrations/${artwork}`)}" alt="" loading="eager" decoding="async">`;
   return figure;
 };
 
@@ -757,12 +759,12 @@ const renderOpeningAside = (presentation, layout) => {
     ? ''
     : `<p class="opening-summary">${presentation.summary}</p>`;
   const artwork = pageArtworkByPage[currentPage]
-    ? `<figure class="opening-artwork opening-aside-art" aria-hidden="true"><img src="assets/illustrations/${pageArtworkByPage[currentPage]}" alt="" loading="eager" decoding="async"></figure>`
+    ? `<figure class="opening-artwork opening-aside-art" aria-hidden="true"><img src="${vectorAssetUrl(`assets/illustrations/${pageArtworkByPage[currentPage]}`)}" alt="" loading="eager" decoding="async"></figure>`
     : '';
   aside.innerHTML = `
     <div class="opening-aside-top">
       <span class="opening-code">${presentation.code}</span>
-      <span class="opening-icon"><img src="assets/icons/${presentation.icon}" alt="" aria-hidden="true"></span>
+      <span class="opening-icon"><img src="${vectorAssetUrl(`assets/icons/${presentation.icon}`)}" alt="" aria-hidden="true"></span>
     </div>
     ${artwork}
     <div class="opening-aside-body">
@@ -777,7 +779,7 @@ const renderOpeningBand = (presentation) => {
   const band = document.createElement('div');
   band.className = 'opening-band';
   band.innerHTML = `
-    <span class="opening-band-icon"><img src="assets/icons/${presentation.icon}" alt="" aria-hidden="true"></span>
+    <span class="opening-band-icon"><img src="${vectorAssetUrl(`assets/icons/${presentation.icon}`)}" alt="" aria-hidden="true"></span>
     <span class="opening-band-code">${presentation.code}</span>
     <span class="opening-band-label">${presentation.label}</span>
     <span class="opening-band-tags">${presentation.tags.map((tag) => `<span>${tag}</span>`).join('')}</span>`;
@@ -788,7 +790,7 @@ const renderOpeningMark = (presentation, layout) => {
   const mark = document.createElement('div');
   mark.className = `opening-mark opening-mark-${layout}`;
   mark.innerHTML = `
-    <span class="opening-mark-icon"><img src="assets/icons/${presentation.icon}" alt="" aria-hidden="true"></span>
+    <span class="opening-mark-icon"><img src="${vectorAssetUrl(`assets/icons/${presentation.icon}`)}" alt="" aria-hidden="true"></span>
     <span class="opening-mark-code">${presentation.code}</span>
     <span class="opening-mark-label">${presentation.label}</span>
     <span class="opening-mark-tags">${presentation.tags.map((tag) => `<span>${tag}</span>`).join('')}</span>`;
@@ -799,7 +801,7 @@ const renderOpeningBrief = (presentation) => {
   const brief = document.createElement('div');
   brief.className = 'opening-brief';
   const artwork = pageArtworkByPage[currentPage]
-    ? `<figure class="opening-artwork opening-brief-art" aria-hidden="true"><img src="assets/illustrations/${pageArtworkByPage[currentPage]}" alt="" loading="eager" decoding="async"></figure>`
+    ? `<figure class="opening-artwork opening-brief-art" aria-hidden="true"><img src="${vectorAssetUrl(`assets/illustrations/${pageArtworkByPage[currentPage]}`)}" alt="" loading="eager" decoding="async"></figure>`
     : '';
   brief.innerHTML = `
     ${artwork}
@@ -814,7 +816,7 @@ const renderGuildCover = () => {
   visual.className = 'opening-guild-cover';
   visual.setAttribute('aria-label', 'Lumina guild profile');
   visual.innerHTML = `
-    <div class="guild-cover-stage" aria-hidden="true"><img src="assets/illustrations/guild-emblem-stage.svg" alt=""></div>
+    <div class="guild-cover-stage" aria-hidden="true"><img src="assets/illustrations/guild-emblem-stage.svg?v=20260723-4" alt=""></div>
     <div class="guild-cover-kicker"><span>Official guild seal</span><i aria-hidden="true"></i><small>Secura</small></div>
     <div class="guild-cover-seal"><span aria-hidden="true"></span><img src="assets/brand/seal-dark-web.png" alt="Lumina guild seal" loading="eager" decoding="async"></div>
     <div class="guild-cover-identity"><strong>Lumina</strong><span>Tibia guild · Secura</span></div>
@@ -832,7 +834,7 @@ const renderGalleryWall = () => {
   visual.className = 'opening-gallery-wall';
   visual.setAttribute('aria-label', 'Lumina gallery collections');
   visual.innerHTML = `
-    <div class="opening-gallery-art"><img src="assets/illustrations/gallery-frames.svg" alt="Decorative collection of Lumina gallery frames"></div>
+    <div class="opening-gallery-art"><img src="assets/illustrations/gallery-frames.svg?v=20260723-4" alt="Decorative collection of Lumina gallery frames"></div>
     <div class="opening-gallery-key">
       <span><i></i>Adventures</span>
       <span><i></i>Guild life</span>
@@ -846,7 +848,7 @@ const renderRoleplayCover = () => {
   visual.className = 'opening-roleplay-cover';
   visual.setAttribute('aria-label', 'Lumina roleplay chronicle');
   visual.innerHTML = `
-    <div class="opening-roleplay-art"><img src="assets/illustrations/roleplay-chronicle.svg" alt="Open chronicle with roleplay symbols"></div>
+    <div class="opening-roleplay-art"><img src="assets/illustrations/roleplay-chronicle.svg?v=20260723-4" alt="Open chronicle with roleplay symbols"></div>
     <p><span>Characters</span><span>Choices</span><span>Chronicles</span></p>`;
   return visual;
 };
@@ -857,12 +859,12 @@ const renderFeatureMap = () => {
   visual.setAttribute('aria-label', 'Connected Luminox systems');
   visual.innerHTML = `
     <span class="feature-map-core">Luminox</span>
-    <a href="bot-registration.html"><img src="assets/icons/content-identity.svg" alt=""><span>Registration</span></a>
-    <a href="bot-events.html"><img src="assets/icons/content-events.svg" alt=""><span>Events</span></a>
-    <a href="bot-guildbank.html"><img src="assets/icons/content-economy.svg" alt=""><span>GuildBank</span></a>
-    <a href="bot-watchlists.html"><img src="assets/icons/content-intelligence.svg" alt=""><span>Online lists</span></a>
-    <a href="bot-finder.html"><img src="assets/icons/content-finder.svg" alt=""><span>Finder</span></a>
-    <a href="bot-support.html"><img src="assets/icons/content-support.svg" alt=""><span>Support</span></a>`;
+    <a href="bot-registration.html"><img src="assets/icons/content-identity.svg?v=20260723-4" alt=""><span>Registration</span></a>
+    <a href="bot-events.html"><img src="assets/icons/content-events.svg?v=20260723-4" alt=""><span>Events</span></a>
+    <a href="bot-guildbank.html"><img src="assets/icons/content-economy.svg?v=20260723-4" alt=""><span>GuildBank</span></a>
+    <a href="bot-watchlists.html"><img src="assets/icons/content-intelligence.svg?v=20260723-4" alt=""><span>Online lists</span></a>
+    <a href="bot-finder.html"><img src="assets/icons/content-finder.svg?v=20260723-4" alt=""><span>Finder</span></a>
+    <a href="bot-support.html"><img src="assets/icons/content-support.svg?v=20260723-4" alt=""><span>Support</span></a>`;
   return visual;
 };
 
@@ -871,10 +873,10 @@ const renderEditionChoice = () => {
   visual.className = 'opening-edition-choice';
   visual.setAttribute('aria-label', 'Universal and Community edition paths');
   visual.innerHTML = `
-    <figure class="opening-edition-art" aria-hidden="true"><img src="assets/illustrations/editions-gateway.svg" alt=""></figure>
+    <figure class="opening-edition-art" aria-hidden="true"><img src="assets/illustrations/editions-gateway.svg?v=20260723-4" alt=""></figure>
     <div class="opening-edition-options">
-      <a href="#universal-edition"><img src="assets/icons/edition-universal.svg" alt="" aria-hidden="true"><span><small>Any game or community</small><strong>Universal Edition</strong></span><b aria-hidden="true">↘</b></a>
-      <a href="#community-edition"><img src="assets/icons/edition-community.svg" alt="" aria-hidden="true"><span><small>Purpose-built for Tibia</small><strong>Community Edition</strong></span><b aria-hidden="true">↙</b></a>
+      <a href="#universal-edition"><img src="assets/icons/edition-universal.svg?v=20260723-4" alt="" aria-hidden="true"><span><small>Any game or community</small><strong>Universal Edition</strong></span><b aria-hidden="true">↘</b></a>
+      <a href="#community-edition"><img src="assets/icons/edition-community.svg?v=20260723-4" alt="" aria-hidden="true"><span><small>Purpose-built for Tibia</small><strong>Community Edition</strong></span><b aria-hidden="true">↙</b></a>
     </div>`;
   return visual;
 };
@@ -885,11 +887,11 @@ const renderPricingTiers = () => {
   visual.setAttribute('aria-label', 'Luminox plan paths');
   visual.innerHTML = `
     <div class="opening-tier-stack">
-      <a class="opening-tier opening-tier-free" href="#free-plan"><span><img src="assets/icons/plan-free.svg" alt=""><b>Start</b></span><strong>Free</strong><em>€0</em><small>Build the first reliable setup.</small></a>
-      <a class="opening-tier opening-tier-premium" href="#premium-tiers"><span><img src="assets/icons/plan-premium.svg" alt=""><b>Scale</b></span><strong>Premium</strong><em>From €4,99</em><small>Core, Growth and Scale.</small></a>
-      <a class="opening-tier opening-tier-exclusive" href="#founder-edition"><span><img src="assets/icons/plan-exclusive.svg" alt=""><b>Private</b></span><strong>Exclusive</strong><em>Lumina only</em><small>Discover access to Founder Edition.</small></a>
+      <a class="opening-tier opening-tier-free" href="#free-plan"><span><img src="assets/icons/plan-free.svg?v=20260723-4" alt=""><b>Start</b></span><strong>Free</strong><em>€0</em><small>Build the first reliable setup.</small></a>
+      <a class="opening-tier opening-tier-premium" href="#premium-tiers"><span><img src="assets/icons/plan-premium.svg?v=20260723-4" alt=""><b>Scale</b></span><strong>Premium</strong><em>From €4,99</em><small>Core, Growth and Scale.</small></a>
+      <a class="opening-tier opening-tier-exclusive" href="#founder-edition"><span><img src="assets/icons/plan-exclusive.svg?v=20260723-4" alt=""><b>Private</b></span><strong>Exclusive</strong><em>Lumina only</em><small>Discover access to Founder Edition.</small></a>
     </div>
-    <p><img src="assets/icons/discord.svg" alt="" aria-hidden="true"><span>Monthly subscriptions handled inside <strong>Discord</strong>.</span></p>`;
+    <p><img src="assets/icons/discord.svg?v=20260723-4" alt="" aria-hidden="true"><span>Monthly subscriptions handled inside <strong>Discord</strong>.</span></p>`;
   return visual;
 };
 
@@ -899,9 +901,9 @@ const renderContactPaths = () => {
   visual.setAttribute('aria-label', 'Contact paths');
   visual.innerHTML = `
     <div class="opening-contact-heading"><p>Choose a conversation</p><span>Three routes. One Discord-first experience.</span></div>
-    <a class="opening-contact-route opening-contact-support" href="https://discord.com/channels/1444873714213720318/1513054668748754976" target="_blank" rel="noopener noreferrer"><img src="assets/icons/content-support.svg" alt=""><span><small>Already using Luminox</small><strong>Product support</strong><em>Panels, permissions and errors</em></span><b>↗</b></a>
-    <a class="opening-contact-route opening-contact-product" href="#contact-paths"><img src="assets/icons/content-pricing.svg" alt=""><span><small>Exploring Luminox</small><strong>Product guidance</strong><em>Editions, plans and best fit</em></span><b>↓</b></a>
-    <a class="opening-contact-route opening-contact-guild" href="guild-join.html"><img src="assets/icons/content-guild.svg" alt=""><span><small>Playing on Secura</small><strong>Join Lumina</strong><em>Culture, rules and membership</em></span><b>→</b></a>`;
+    <a class="opening-contact-route opening-contact-support" href="https://discord.com/channels/1444873714213720318/1513054668748754976" target="_blank" rel="noopener noreferrer"><img src="assets/icons/content-support.svg?v=20260723-4" alt=""><span><small>Already using Luminox</small><strong>Product support</strong><em>Panels, permissions and errors</em></span><b>↗</b></a>
+    <a class="opening-contact-route opening-contact-product" href="#contact-paths"><img src="assets/icons/content-pricing.svg?v=20260723-4" alt=""><span><small>Exploring Luminox</small><strong>Product guidance</strong><em>Editions, plans and best fit</em></span><b>↓</b></a>
+    <a class="opening-contact-route opening-contact-guild" href="guild-join.html"><img src="assets/icons/content-guild.svg?v=20260723-4" alt=""><span><small>Playing on Secura</small><strong>Join Lumina</strong><em>Culture, rules and membership</em></span><b>→</b></a>`;
   return visual;
 };
 
@@ -940,7 +942,7 @@ const addEditionAvailability = (copy) => {
       ? `Exclusive to ${definition.label} Edition`
       : `Available in ${definition.label} Edition`;
     badge.setAttribute('aria-label', `Learn about ${definition.label} Edition`);
-    badge.innerHTML = `<img src="assets/icons/${definition.icon}" alt="" aria-hidden="true"><span>${definition.label}</span>`;
+    badge.innerHTML = `<img src="${vectorAssetUrl(`assets/icons/${definition.icon}`)}" alt="" aria-hidden="true"><span>${definition.label}</span>`;
     badges.append(badge);
   });
 
@@ -1360,7 +1362,7 @@ document.querySelectorAll('.button').forEach((button) => {
   if (button.querySelector('img') || button.hasAttribute('data-no-action-icon')) return;
   const icon = document.createElement('img');
   icon.className = 'button-action-icon';
-  icon.src = `assets/icons/${resolveButtonActionIcon(button)}`;
+  icon.src = vectorAssetUrl(`assets/icons/${resolveButtonActionIcon(button)}`);
   icon.alt = '';
   icon.setAttribute('aria-hidden', 'true');
   button.prepend(icon);
@@ -1699,7 +1701,7 @@ if (pricingEditionSelector) {
       const badgeLabel = badge?.querySelector('span');
       badge?.classList.toggle('edition-availability-universal', selectedEdition === 'universal');
       badge?.classList.toggle('edition-availability-community', selectedEdition === 'community');
-      if (badgeIcon) badgeIcon.src = `assets/icons/edition-${selectedEdition}.svg`;
+      if (badgeIcon) badgeIcon.src = vectorAssetUrl(`assets/icons/edition-${selectedEdition}.svg`);
       if (badgeLabel) badgeLabel.textContent = selectedEdition === 'universal' ? 'Universal' : 'Community';
     }
 

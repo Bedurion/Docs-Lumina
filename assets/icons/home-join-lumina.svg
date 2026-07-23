@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72" fill="none">
+<svg width="512" height="512" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72" fill="none">
   <defs>
     <linearGradient id="discord" x1="10" y1="12" x2="58" y2="58" gradientUnits="userSpaceOnUse">
       <stop stop-color="#FFF0A8"/>

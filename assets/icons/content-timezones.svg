@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+<svg width="512" height="512" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
   <defs><linearGradient id="time-a" x1="7" y1="9" x2="57" y2="56" gradientUnits="userSpaceOnUse"><stop stop-color="#56C7F5"/><stop offset=".5" stop-color="#B58CFF"/><stop offset="1" stop-color="#F7D66F"/></linearGradient></defs>
   <circle cx="30" cy="32" r="23" stroke="url(#time-a)" stroke-width="3"/>
   <path d="M7 32h46M30 9c7 6.4 10.5 14 10.5 23S37 48.6 30 55M30 9c-7 6.4-10.5 14-10.5 23S23 48.6 30 55" stroke="url(#time-a)" stroke-width="2.5" stroke-linecap="round"/>

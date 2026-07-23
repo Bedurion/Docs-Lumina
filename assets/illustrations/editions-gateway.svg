@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 560" fill="none">
+<svg width="2280" height="1680" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 560" fill="none">
   <defs>
     <linearGradient id="eg-core" x1="250" y1="118" x2="510" y2="438" gradientUnits="userSpaceOnUse"><stop stop-color="#F6D46F"/><stop offset=".35" stop-color="#B58AFF"/><stop offset=".68" stop-color="#56C7F5"/><stop offset="1" stop-color="#5EE19D"/></linearGradient>
     <linearGradient id="eg-universal" x1="76" y1="126" x2="316" y2="430" gradientUnits="userSpaceOnUse"><stop stop-color="#F6D46F"/><stop offset=".5" stop-color="#A675FF"/><stop offset="1" stop-color="#56C7F5"/></linearGradient>
