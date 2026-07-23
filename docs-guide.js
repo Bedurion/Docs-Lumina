@@ -34,6 +34,14 @@
       audience: 'Every member registering characters and administrators publishing or repairing the Registration panel.',
       outcome: 'Understand the verification-code flow, the world boundary, main-character behaviour and what Luminox synchronizes after registration.'
     },
+    'docs-inactive-characters.html': {
+      label: 'Inactive characters explained',
+      title: 'Separate verified identity from current guild eligibility.',
+      introduction: 'Luminox treats a registered character and an active guild member as related but different states. A character can leave the configured Tibia guild without losing its verified ownership record, while guild-only access, Loyalty and connected rewards must still follow the account’s current roster status.',
+      solves: 'It prevents transient roster errors from removing access and prevents confirmed departures from remaining active across roles, rankings, Loyalty and recruitment.',
+      audience: 'Community and Founder administrators reviewing membership automation, role changes or a departure that remained pending.',
+      outcome: 'Understand how departures are detected, verified, retried, grouped by Discord account and reconciled without deleting useful identity history.'
+    },
     'docs-nicknames.html': {
       label: 'Automatic nicknames explained',
       title: 'Turn each member’s game identity into one readable Discord name.',

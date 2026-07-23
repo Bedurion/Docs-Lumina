@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="inactive-character-a" x1="9" y1="8" x2="55" y2="57" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#61DCF7"/>
+      <stop offset=".48" stop-color="#A675FF"/>
+      <stop offset="1" stop-color="#FFE38B"/>
+    </linearGradient>
+    <linearGradient id="inactive-character-b" x1="37" y1="35" x2="55" y2="52" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFE38B"/>
+      <stop offset="1" stop-color="#FB7185"/>
+    </linearGradient>
+  </defs>
+  <path d="M31 6 50 13v14c0 12.7-7.4 23.7-19 30-11.6-6.3-19-17.3-19-30V13L31 6Z" stroke="url(#inactive-character-a)" stroke-width="3" stroke-linejoin="round"/>
+  <circle cx="27" cy="24" r="6" stroke="url(#inactive-character-a)" stroke-width="2.8"/>
+  <path d="M17.5 41c2.8-5.8 6-8.5 9.5-8.5 3 0 5.7 1.8 8.1 5.4" stroke="url(#inactive-character-a)" stroke-width="2.8" stroke-linecap="round"/>
+  <circle cx="45.5" cy="43.5" r="10.5" fill="#0A1022" stroke="url(#inactive-character-b)" stroke-width="2.6"/>
+  <path d="M40.5 43.5h10M45.5 38.5v10" stroke="url(#inactive-character-b)" stroke-width="2.5" stroke-linecap="round" transform="rotate(45 45.5 43.5)"/>
+</svg>

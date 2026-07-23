@@ -391,10 +391,44 @@
         ]
       }
     },
+    "docs-timezones.html": {
+      eyebrow: "Friend Time in Discord",
+      title: "See the original message and its local conversion together.",
+      summary: "A member writes an explicit time normally. Another member can use the clock reaction or message action, and Luminox compares both saved timezones without sending anyone to an external converter.",
+      tone: "violet",
+      anchor: ".page-hero",
+      position: "after",
+      items: [
+        {
+          file: "bot-timezones-message-01.png",
+          width: 342,
+          height: 99,
+          tone: "gold",
+          variant: "compact",
+          kicker: "Original message",
+          title: "Write the time naturally in conversation.",
+          lead: "No scheduling command interrupts the message.",
+          caption: "The clock reaction tells Luminox which explicit time the reader wants to compare with their own saved timezone.",
+          alt: "Discord message from Sacrel saying We meet tomorrow at 10:00 with one clock reaction."
+        },
+        {
+          file: "bot-timezones-conversion-01.png",
+          width: 458,
+          height: 235,
+          tone: "violet",
+          variant: "compact",
+          kicker: "Friend Time result",
+          title: "Luminox explains both sides of the conversion.",
+          lead: "Author time and reader time remain visibly distinct.",
+          caption: "The response identifies the original message, both configured timezones and whether the written hour already matches the reader's local time.",
+          alt: "Luminox Friend Time response comparing the author's Europe Madrid timezone with the reader's Europe Madrid timezone."
+        }
+      ]
+    },
     "docs-events.html": {
       eyebrow: "Event workflow in Discord",
-      title: "Compare the launcher, activity type and guided creation form.",
-      summary: "Events share one predictable panel-first workflow while Hunt, Boss, Quest and general Event boards keep their own team and eligibility rules.",
+      title: "Follow an event from its permanent launcher to its archived thread.",
+      summary: "Real captures show the guided setup, schedule decision, live participant panel, channel counter and dedicated discussion thread used by Hunt, Boss, Quest and general Event boards.",
       tone: "green",
       anchor: ".doc-layout",
       position: "before",
@@ -423,11 +457,32 @@
             alt: "Discord modal for creating a Luminox event.", href: "docs-events.html#create", linkLabel: "Follow event creation"
           },
           {
-            file: "bot-events-thread-01.png", width: 300, height: 268, tone: "green",
+            file: "bot-events-scheduling-01.png", width: 775, height: 290, tone: "gold",
+            kicker: "Scheduling choice", title: "Leadership decides how the final date will be selected.",
+            lead: "Set it immediately, conclude a participant vote or allow safe automatic scheduling.",
+            caption: "The availability section explains proposal ranges, voting, tie protection and the conditions required before Luminox can publish a winning schedule automatically.",
+            alt: "Luminox scheduling choice showing Set date now, Vote Leadership decides and Vote Automatic.", href: "docs-events.html#availability", linkLabel: "Understand schedule voting"
+          },
+          {
+            file: "bot-events-active-hunt-01.png", width: 781, height: 813, tone: "violet",
+            kicker: "Live hunt panel", title: "One message keeps the complete event state readable.",
+            lead: "Composition, Leadership, attendance and moderation controls remain together.",
+            caption: "The live panel exposes the selected schedule, party rules, participant status, thread link and every action available to Leadership or authorized staff.",
+            alt: "Active Luminox Yalahar team hunt panel with schedule, vocation composition, Leadership and event controls.", href: "docs-events.html#join", linkLabel: "Read participant states"
+          },
+          {
+            file: "bot-events-thread-02.png", width: 300, height: 337, tone: "green",
             kicker: "Channel and thread", title: "The active count and planning space remain connected.",
-            lead: "Members can identify the current boss event before opening the channel.",
-            caption: "The nested thread contains coordination and notifications; the permanent launcher remains available for the next activity.",
-            alt: "Discord channel list showing bosses with one active event and the Raid for final boss thread.", href: "docs-events.html#threads", linkLabel: "Understand channel and thread structure"
+            lead: "Members can identify the current Hunt before opening the channel.",
+            caption: "The nested thread stays visible beneath hunts·1 while the permanent board channel remains clean and reusable.",
+            alt: "Discord channel list showing hunts with one active Yalahar team hunt discussion thread.", href: "docs-events.html#threads", linkLabel: "Understand channel and thread structure"
+          },
+          {
+            file: "bot-events-discussion-01.png", width: 482, height: 310, tone: "cyan",
+            kicker: "Discussion thread", title: "Every participant receives the same coordination space.",
+            lead: "Invitations, schedule updates and final outcomes remain attached to the event.",
+            caption: "The thread accepts normal discussion during the activity, then Luminox locks and archives it after the documented visibility period.",
+            alt: "Luminox Yalahar team hunt discussion thread showing a participant added to the thread.", href: "docs-events.html#notifications", linkLabel: "Read thread notifications"
           }
         ]
       }
@@ -443,7 +498,7 @@
       gallery: {
         slides: [
           {
-            file: "bot-recruitment-01.png", width: 690, height: 683, tone: "green",
+            file: "bot-recruitment-panel-03.png", width: 718, height: 678, tone: "green",
             kicker: "Recruitment Panel", title: "Every report exposes its current review state.",
             lead: "Waiting, disputed and approved entries remain distinct.",
             caption: "The guide explains reporting, ownership changes, staff review, disputes, provisional rewards and final protection.",
@@ -550,7 +605,32 @@
           caption: "The guide explains characters, guilds, bounties, the entry manager, Tracker outcomes, Enemies Online and Guards.",
           alt: "Luminox Community Blacklist with current characters, guilds and resolved sections."
         }
-      ]
+      ],
+      gallery: {
+        slides: [
+          {
+            file: "bot-blacklist-on-world-04.png", width: 622, height: 730, tone: "red",
+            kicker: "On This World", title: "Current threats keep the context staff need.",
+            lead: "Characters and guilds retain bounty, reason and live-world status.",
+            caption: "The active section remains operational while reviewed edits and management controls stay attached to the same source list.",
+            alt: "Luminox Blacklist On This World panel with active characters, guilds, bounties and management controls.", href: "#sections", linkLabel: "Read active blacklist records"
+          },
+          {
+            file: "bot-blacklist-out-world-02.png", width: 625, height: 353, tone: "cyan",
+            kicker: "Out of This World", title: "Transferred targets leave live intelligence without losing history.",
+            lead: "The new world and identity state remain visible.",
+            caption: "World transfers no longer pollute Enemies Online, but the reviewed blacklist decision and navigation remain available.",
+            alt: "Luminox Blacklist Out of This World panel showing a transferred character and destination world.", href: "#sections", linkLabel: "Understand world-state separation"
+          },
+          {
+            file: "bot-blacklist-resolved-03.png", width: 462, height: 513, tone: "gold",
+            kicker: "Resolved history", title: "Paid, deleted and disbanded outcomes remain explicit.",
+            lead: "Empty sections are visible instead of silently disappearing.",
+            caption: "Resolved records preserve the audit structure while keeping current operational lists focused on active targets.",
+            alt: "Luminox Blacklist Resolved, Disbanded and Deleted panel with separate historical sections.", href: "#sections", linkLabel: "Read resolved outcomes"
+          }
+        ]
+      }
     },
     "docs-progression.html": {
       eyebrow: "Progression output",
@@ -568,6 +648,13 @@
             lead: "Character, level and account context stay attached.",
             caption: "The guide explains which characters are eligible, when announcements are created and how guild membership affects display.",
             alt: "Luminox level-up announcement in Discord.", href: "docs-progression.html#levels", linkLabel: "Read progression announcements"
+          },
+          {
+            file: "bot-deaths-01.png", width: 777, height: 542, tone: "red",
+            kicker: "Death history", title: "Every genuine Tibia death becomes one permanent announcement.",
+            lead: "Character context, killer and rolling totals stay together.",
+            caption: "Official Tibia death records are deduplicated before publishing, so the channel preserves a readable history without repeating the same event.",
+            alt: "Luminox Discord death announcements with characters, killers and rolling monthly and yearly totals.", href: "docs-progression.html#deaths", linkLabel: "Read death tracking"
           },
           {
             file: "bot-progression-02.png", width: 774, height: 1052, tone: "green",
@@ -673,7 +760,7 @@
             alt: "Discord Support category showing the help channel and a nested Complaint about user thread.", href: "#threads", linkLabel: "Review the thread structure"
           },
           {
-            file: "bot-support-04.png", width: 600, height: 298, tone: "violet",
+            file: "bot-support-history-05.png", width: 663, height: 308, tone: "violet",
             kicker: "My Support Tickets", title: "Members and staff recover the right history from one private view.",
             lead: "Opened, Staff and Joined keep each relationship understandable.",
             caption: "Pagination remains inside the same private response, and resolved entries link back to their archived Discord threads.",
@@ -696,6 +783,14 @@
           lead: "Balance and minimums remain visible before any action begins.",
           caption: "The guide below explains setup, accumulated deposits, confirmation, denial, withdrawals, Loyalty rewards and safe record deletion.",
           alt: "Luminox GuildBank Control Panel with balance and action buttons."
+        },
+        {
+          file: "bot-guildbank-deposit-assignment-01.png", width: 562, height: 163, tone: "violet",
+          variant: "compact",
+          kicker: "Deposit ownership", title: "A deposit can be assigned before it enters review.",
+          lead: "Members choose themselves or another registered account.",
+          caption: "This private step keeps contribution and Loyalty attribution accurate without asking staff to repair ownership later.",
+          alt: "Luminox GuildBank deposit prompt with Myself, Another user and Cancel buttons."
         }
       ]
     },
@@ -713,6 +808,14 @@
           lead: "Availability, claims and staff actions share one predictable destination.",
           caption: "The guide below explains specialist permissions, up to 100 rooms, ordering, registered-character claims and permanent Discord logs.",
           alt: "Luminox Guildhall panel with room and claim controls."
+        },
+        {
+          file: "bot-guildhall-unavailable-02.png", width: 686, height: 354, tone: "violet",
+          variant: "compact",
+          kicker: "Before configuration", title: "The empty state still guides members and staff.",
+          lead: "Availability remains honest while setup and review controls stay reachable.",
+          caption: "The panel communicates that no guildhall is configured, shows zero capacity and preserves the actions needed to report or prepare one.",
+          alt: "Luminox Guildhall Not available panel with zero rooms and guildhall management controls."
         }
       ]
     },
@@ -747,6 +850,13 @@
           lead: "Fixed events preserve the old and new state.",
           caption: "The guide below explains detection, Blacklist movement, important Guild Chat alerts, retries and duplicate prevention.",
           alt: "Luminox Character Tracker log and recent-event panel."
+        },
+        {
+          file: "bot-tracker-transfers-02.png", width: 646, height: 898, tone: "violet", variant: "tall",
+          kicker: "Transfer history", title: "Fixed events remain above one refreshed recent-events panel.",
+          lead: "Each transfer records the character, origin, destination and time.",
+          caption: "The permanent Discord messages preserve evidence while the final panel summarizes only the newest events and links back to the complete log.",
+          alt: "Luminox Character Tracker showing two permanent world-transfer messages above the refreshed tracker log panel."
         }
       ]
     },
@@ -764,6 +874,60 @@
           lead: "Roles, eligibility and rewards stay synchronized and auditable.",
           caption: "The guide below explains Autodelete, stable panels, private-response lifetimes, refresh levels, backups and sustainable retention.",
           alt: "Luminox automation log reconciling a guild departure and linked rewards."
+        }
+      ]
+    },
+    "docs-inactive-characters.html": {
+      eyebrow: "Membership lifecycle in practice",
+      title: "One confirmed departure produces one explainable account outcome.",
+      summary: "Luminox records the departed character, remaining eligibility, managed Discord access and reward changes while preserving the verified identity record.",
+      tone: "red",
+      anchor: ".doc-layout",
+      position: "before",
+      items: [
+        {
+          file: "bot-inactive-characters-01.png",
+          width: 786,
+          height: 993,
+          tone: "red",
+          variant: "tall",
+          kicker: "Automatic departure reconciliation",
+          title: "Connected systems receive the same verified membership result.",
+          lead: "Roles, Loyalty and recruitment remain synchronized and auditable.",
+          caption: "The guide below explains safe verification, account-level decisions, retained character history and every connected consequence.",
+          alt: "Luminox Discord log showing a partially vested recruitment reward, a member leaving the guild, a role change to Guest and a new character registration."
+        }
+      ]
+    },
+    "bot-timezones.html": {
+      eyebrow: "One reaction, local context",
+      title: "Friend Time answers where the conversation already happens.",
+      summary: "Members write explicit hours normally. Luminox reads the author and viewer timezone settings, then returns a clear comparison directly inside Discord.",
+      tone: "violet",
+      items: [
+        {
+          file: "bot-timezones-conversion-01.png",
+          width: 458,
+          height: 235,
+          tone: "violet",
+          variant: "compact",
+          kicker: "Friend Time conversion",
+          title: "The reader sees both local interpretations.",
+          lead: "No external timezone website is required.",
+          caption: "Luminox links back to the original message, identifies both account timezones and clearly states when no conversion is necessary.",
+          alt: "Luminox Friend Time response comparing the author's Europe Madrid timezone with the reader's Europe Madrid timezone."
+        },
+        {
+          file: "bot-timezones-message-01.png",
+          width: 342,
+          height: 99,
+          tone: "gold",
+          variant: "compact",
+          kicker: "Natural conversation",
+          title: "One clock reaction starts the comparison.",
+          lead: "Members keep writing times in ordinary messages.",
+          caption: "The reaction provides a lightweight entry point while the saved account timezone supplies the context Luminox needs.",
+          alt: "Discord message from Sacrel saying We meet tomorrow at 10:00 with one clock reaction."
         }
       ]
     },
@@ -786,62 +950,98 @@
         }
       ]
     },
-    "bot-events.html": {
-      eyebrow: "From board to creation",
-      title: "Every event starts from a guided Discord flow.",
-      summary: "Permanent boards keep creation easy to find. The organizer then completes a focused form instead of constructing an event manually in chat.",
-      tone: "green",
+    "bot-inactive-characters.html": {
+      eyebrow: "Verified membership outcome",
+      title: "A guild departure updates every connected system once.",
+      summary: "Luminox explains why an account changed, what access was reconciled and how much Loyalty or protected recruitment value was affected.",
+      tone: "red",
       items: [
         {
-          file: "bot-events-01.png",
-          width: 599,
-          height: 242,
-          tone: "green",
-          variant: "compact",
-          kicker: "Hunt board",
-          title: "Create hunts from a permanent panel.",
-          lead: "The channel always ends with the correct starting point.",
-          caption: "Members can open the hunt suite or read its information without memorizing a command or searching through old messages.",
-          alt: "Luminox Hunt Board in Discord with Create hunt and Information buttons."
-        },
+          file: "bot-inactive-characters-01.png",
+          width: 786,
+          height: 993,
+          tone: "red",
+          variant: "tall",
+          kicker: "Membership reconciliation",
+          title: "The Discord log keeps the complete account transition readable.",
+          lead: "Departed characters, roles and rewards share one outcome.",
+          caption: "The verified registration remains stored while current guild eligibility and connected systems follow the official roster.",
+          alt: "Luminox Discord log showing a recruitment reward adjustment, a member departure, managed Discord roles and a later character registration."
+        }
+      ]
+    },
+    "bot-events.html": {
+      eyebrow: "The complete event lifecycle",
+      title: "See planning, participation and coordination inside Discord.",
+      summary: "A permanent board starts the workflow, guided controls publish a structured event and every participant continues inside one connected discussion thread.",
+      tone: "green",
+      additionalPreviewPlacements: [
+        { previewIndex: 1, collection: "items", itemIndex: 1 }
+      ],
+      items: [
         {
-          file: "bot-events-02.png",
-          width: 595,
-          height: 239,
-          tone: "gold",
-          variant: "compact",
-          kicker: "Boss board",
-          title: "Each activity keeps its own context.",
-          lead: "Boss events use a dedicated board with the same familiar pattern.",
-          caption: "Separate Hunt, Boss, Quest and general Event channels make the system predictable while preserving type-specific questions and rules.",
-          alt: "Luminox Boss Board in Discord with Create boss and Information buttons."
-        },
-        {
-          file: "bot-events-03.png",
-          width: 513,
-          height: 675,
+          file: "bot-events-active-hunt-01.png",
+          width: 781,
+          height: 813,
           tone: "violet",
-          variant: "portrait",
-          wide: true,
-          kicker: "Guided form",
-          title: "The organizer answers only the necessary questions.",
-          lead: "Title, description, timing and duration stay structured.",
-          caption: "Discord validates required fields before Luminox publishes the live event card and opens the connected planning thread.",
-          alt: "Discord modal for creating a Luminox hunt with title, description, start time and duration fields."
+          kicker: "Live hunt panel",
+          title: "The whole event remains visible in one message.",
+          lead: "Schedule, team composition, attendance and controls stay connected.",
+          caption: "Members understand who joined, which places remain and where to coordinate without reconstructing the event from chat messages.",
+          alt: "Active Luminox Yalahar team hunt panel with schedule, vocation composition, Leadership and event controls."
         },
         {
-          file: "bot-events-thread-01.png",
+          file: "bot-events-thread-02.png",
           width: 300,
-          height: 268,
+          height: 337,
           tone: "green",
           variant: "compact",
           kicker: "Channel and thread",
           title: "The channel list shows the active event and its discussion.",
-          lead: "One active boss appears as bosses·1 with its linked thread beneath it.",
+          lead: "One active Hunt appears as hunts·1 with its linked thread beneath it.",
           caption: "Members find the planning space immediately while the permanent board channel remains clean for future activities.",
-          alt: "Discord channel list showing bosses with one active event and the Raid for final boss planning thread."
+          alt: "Discord channel list showing hunts with one active Yalahar team hunt discussion thread."
         }
-      ]
+      ],
+      gallery: {
+        slides: [
+          {
+            file: "bot-events-01.png", width: 599, height: 242, tone: "green",
+            kicker: "Permanent launcher", title: "Members always know where a new Hunt begins.",
+            lead: "Create and Information remain available at the bottom of the board channel.",
+            caption: "The launcher keeps the public channel reusable while every active activity receives its own panel and thread.",
+            alt: "Luminox Hunt Board with Create hunt and Information buttons.", href: "docs-events.html#setup", linkLabel: "See board setup"
+          },
+          {
+            file: "bot-events-02.png", width: 595, height: 239, tone: "gold",
+            kicker: "Dedicated activity boards", title: "Each event type preserves the context it needs.",
+            lead: "The pattern stays familiar while its team rules change.",
+            caption: "Hunts, Bosses, Quests and general Events share one workflow without losing their specialized composition or eligibility rules.",
+            alt: "Luminox Boss Board with Create boss and Information buttons.", href: "docs-events.html#types", linkLabel: "Compare event types"
+          },
+          {
+            file: "bot-events-03.png", width: 513, height: 675, tone: "violet",
+            kicker: "Guided creation", title: "Required details are collected before publication.",
+            lead: "Structured fields replace improvised event instructions.",
+            caption: "The organizer defines the purpose, schedule and duration before Luminox creates the live card and its coordination thread.",
+            alt: "Discord modal for creating a Luminox event with structured fields.", href: "docs-events.html#create", linkLabel: "Follow event creation"
+          },
+          {
+            file: "bot-events-scheduling-01.png", width: 775, height: 290, tone: "gold",
+            kicker: "Flexible scheduling", title: "Choose an immediate date, a vote or guarded automation.",
+            lead: "Leadership keeps control without doing every scheduling step manually.",
+            caption: "Automatic scheduling acts only when every participant has voted and one safe option satisfies the required team.",
+            alt: "Luminox scheduling choice showing Set date now, Vote Leadership decides and Vote Automatic.", href: "docs-events.html#availability", linkLabel: "Explore scheduling"
+          },
+          {
+            file: "bot-events-discussion-01.png", width: 482, height: 310, tone: "cyan",
+            kicker: "Dedicated discussion", title: "Coordination stays attached to the event.",
+            lead: "Participants receive thread access as soon as they join or are invited.",
+            caption: "Updates, conversation and the final archived outcome remain inside Discord instead of creating a second external workspace.",
+            alt: "Luminox Yalahar team hunt discussion thread showing a participant added to the thread.", href: "docs-events.html#notifications", linkLabel: "See thread notifications"
+          }
+        ]
+      }
     },
     "bot-finder.html": {
       eyebrow: "Live team intelligence",
@@ -910,6 +1110,18 @@
           lead: "Large balances, minimums and review status remain easy to scan.",
           caption: "Members use Deposit, while authorized treasurers or administrators receive the additional Withdraw and Clean controls defined by server configuration.",
           alt: "Luminox GuildBank Control Panel showing balance, review deadline, minimums and Deposit, Withdraw and Clean buttons."
+        },
+        {
+          file: "bot-guildbank-deposit-assignment-01.png",
+          width: 562,
+          height: 163,
+          tone: "violet",
+          variant: "compact",
+          kicker: "Deposit ownership",
+          title: "Contribution is attributed before review begins.",
+          lead: "Members can record a deposit for themselves or another registered account.",
+          caption: "The guided private choice prevents ambiguous ownership and keeps GuildBank totals and Loyalty rewards connected to the correct member.",
+          alt: "Luminox GuildBank deposit prompt with Myself, Another user and Cancel controls."
         }
       ]
     },
@@ -920,16 +1132,16 @@
       tone: "green",
       items: [
         {
-          file: "bot-guildhall-01.png",
-          width: 638,
-          height: 328,
+          file: "bot-guildhall-unavailable-02.png",
+          width: 686,
+          height: 354,
           tone: "green",
           variant: "compact",
           kicker: "Guildhall panel",
           title: "Availability remains visible before the first room exists.",
           lead: "The empty state is operational, not a dead end.",
           caption: "The panel still exposes reporting and staff controls, shows configured capacity and becomes the entry point for future room claims.",
-          alt: "Luminox Guildhall panel showing no property configured, room totals and Guildhall action buttons."
+          alt: "Luminox Guildhall Not available panel showing zero rooms and Guildhall action buttons."
         }
       ]
     },
@@ -1047,7 +1259,25 @@
           caption: "The panel separates active boosts, total completed periods and expected rewards so members can understand what is earned now and what remains pending.",
           alt: "Luminox Server Boost Loyalty panel with active boosters, attributed boosts and reward information."
         }
-      ]
+      ],
+      gallery: {
+        slides: [
+          {
+            file: "bot-loyalty-profile-01.png", width: 604, height: 1093, tone: "gold",
+            kicker: "Private Loyalty Profile", title: "Every contribution source remains explainable.",
+            lead: "Balance, level, rank, boosts, streaming and recent activity share one private view.",
+            caption: "Members can inspect earned, pending and reversed value without exposing their complete account history publicly.",
+            alt: "Private Luminox Loyalty Profile showing balance, level, boost rewards, stream Loyalty and recent account activity.", href: "docs-loyalty.html#profile", linkLabel: "Understand the private profile"
+          },
+          {
+            file: "bot-loyalty-activity-02.png", width: 722, height: 854, tone: "violet",
+            kicker: "Public Loyalty Activity", title: "Rewards and proportional reversals remain in one readable history.",
+            lead: "Grouped entries explain why the balance changed.",
+            caption: "Boost periods, recruitment rewards and unvested reversals keep their reason and amount while pagination protects long-term readability.",
+            alt: "Luminox Loyalty System information and paginated Loyalty Activity with rewards and reversals.", href: "docs-loyalty.html#history", linkLabel: "Read Loyalty history"
+          }
+        ]
+      }
     },
     "bot-boosts.html": {
       eyebrow: "Continuous support in Discord",
@@ -1065,6 +1295,18 @@
           lead: "Every active unit has a visible next reward.",
           caption: "Contributors can see active boosts, Total Boosts, expected points and the next continuous period while unattributed units remain honestly separated.",
           alt: "Luminox Server Boost Loyalty panel showing active contributors, completed boosts and expected rewards."
+        },
+        {
+          file: "bot-boosts-tracking-01.png",
+          width: 471,
+          height: 248,
+          tone: "cyan",
+          variant: "compact",
+          kicker: "Boost tracking begins",
+          title: "Every active unit starts a visible continuous reward period.",
+          lead: "Member, reward and requirement are recorded immediately.",
+          caption: "The fixed message shows the 5,000-point reward and 30 continuous days required before the unit becomes completed contribution.",
+          alt: "Luminox Boost tracking started message showing the member, 5,000 Loyalty Point reward and 30 continuous day requirement."
         }
       ]
     },
@@ -1088,7 +1330,25 @@
           caption: "Members see eligibility, private-profile guidance and the first page of meaningful guild rewards in one consistent Discord destination.",
           alt: "Luminox Loyalty System information and Loyalty Activity history in Discord."
         }
-      ]
+      ],
+      gallery: {
+        slides: [
+          {
+            file: "bot-loyalty-profile-01.png", width: 604, height: 1093, tone: "gold",
+            kicker: "Private account view", title: "The profile separates current, earned and pending value.",
+            lead: "Account progress and every recurring source remain inspectable.",
+            caption: "The guide maps each profile section to eligibility, levels, boosts, stream sessions, retention and recent activity.",
+            alt: "Private Luminox Loyalty Profile showing account balance, level, rank, boosts, streaming and recent activity.", href: "#profile", linkLabel: "Read the profile fields"
+          },
+          {
+            file: "bot-loyalty-activity-02.png", width: 722, height: 854, tone: "violet",
+            kicker: "Public account history", title: "Important rewards and reversals keep their reason.",
+            lead: "Pagination prevents the activity record from becoming unreadable.",
+            caption: "The guide explains grouping, retention and why proportional recruitment reversals appear beside positive rewards.",
+            alt: "Luminox Loyalty Activity panel with positive rewards, recruitment reversals and pagination.", href: "#history", linkLabel: "Read activity history"
+          }
+        ]
+      }
     },
     "docs-boosts.html": {
       eyebrow: "What members can verify",
@@ -1108,6 +1368,18 @@
           lead: "Current support and completed history are not the same number.",
           caption: "The panel keeps active units, lifetime completed periods and expected rewards separate so the technical guide maps directly to what members see.",
           alt: "Luminox Server Boost Loyalty panel used as the visual reference for boost configuration."
+        },
+        {
+          file: "bot-boosts-tracking-01.png",
+          width: 471,
+          height: 248,
+          tone: "cyan",
+          variant: "compact",
+          kicker: "Tracking record",
+          title: "The first fixed message explains the full reward condition.",
+          lead: "One boost unit starts one independent continuous period.",
+          caption: "The member, point value, minimum duration and starting time remain visible before the live panel summarizes the account.",
+          alt: "Luminox Boost tracking started message showing reward value, required activity and starting time."
         }
       ]
     },
@@ -1169,7 +1441,32 @@
           caption: "The same records feed Enemies Online, Tracker, Guards and recruitment safeguards while historical outcomes remain above the live controls.",
           alt: "Luminox Community Blacklist showing current characters, guilds and resolved history."
         }
-      ]
+      ],
+      gallery: {
+        slides: [
+          {
+            file: "bot-blacklist-on-world-04.png", width: 622, height: 730, tone: "red",
+            kicker: "On This World", title: "Active targets remain ready for connected workflows.",
+            lead: "Characters, guilds, bounty and reason stay together.",
+            caption: "The current-world section is the reviewed source used by enemy monitoring, Guards and recruitment safeguards.",
+            alt: "Luminox Blacklist On This World panel with active characters, guilds, bounties and controls.", href: "docs-blacklist.html#sections", linkLabel: "See active records"
+          },
+          {
+            file: "bot-blacklist-out-world-02.png", width: 625, height: 353, tone: "cyan",
+            kicker: "Out of This World", title: "Transferred targets stop appearing as local threats.",
+            lead: "The blacklist decision remains preserved with the destination world.",
+            caption: "Tracker can move the record automatically without deleting its history or continuing to show it in the configured world's live enemy list.",
+            alt: "Luminox Blacklist Out of This World panel showing a transferred target.", href: "docs-blacklist.html#sections", linkLabel: "See world-state handling"
+          },
+          {
+            file: "bot-blacklist-resolved-03.png", width: 462, height: 513, tone: "gold",
+            kicker: "Resolved history", title: "Paid, deleted and disbanded outcomes leave the active list.",
+            lead: "Historical sections stay explicit and navigable.",
+            caption: "The panel keeps completed outcomes auditable without mixing them with characters and guilds that still require attention.",
+            alt: "Luminox Blacklist Resolved, Disbanded and Deleted history panel.", href: "docs-blacklist.html#sections", linkLabel: "See resolved states"
+          }
+        ]
+      }
     },
     "bot-progression.html": {
       eyebrow: "Guild progress in context",
@@ -1200,6 +1497,17 @@
           lead: "Individual advances remain above the refreshed daily list.",
           caption: "Members see the latest level messages and a complete rolling panel with daily, monthly and yearly progress without losing the permanent channel history.",
           alt: "Luminox Discord level-up announcements followed by Daily Level Gains panels."
+        },
+        {
+          file: "bot-deaths-01.png",
+          width: 777,
+          height: 542,
+          tone: "red",
+          kicker: "Death announcements",
+          title: "Genuine deaths remain visible without duplicate noise.",
+          lead: "The character, killer and rolling totals appear in one line.",
+          caption: "Luminox checks official Tibia death records and publishes each new event once, creating a permanent Discord history that members can understand immediately.",
+          alt: "Luminox Discord death announcements with character links, killers and monthly and yearly death totals."
         }
       ]
     },
@@ -1210,9 +1518,9 @@
       tone: "green",
       items: [
         {
-          file: "bot-recruitment-01.png",
-          width: 690,
-          height: 683,
+          file: "bot-recruitment-panel-03.png",
+          width: 718,
+          height: 678,
           tone: "green",
           variant: "portrait",
           kicker: "Recruitment Panel",
@@ -1254,9 +1562,9 @@
           alt: "Luminox Applications panel with Public apply, Private apply, Vote and Conclude buttons."
         },
         {
-          file: "bot-staff-04.png",
-          width: 612,
-          height: 349,
+          file: "bot-staff-voting-05.png",
+          width: 615,
+          height: 360,
           tone: "violet",
           variant: "compact",
           kicker: "Staff Voting",
@@ -1298,6 +1606,18 @@
           lead: "Public and private routes remain clearly separated.",
           caption: "Members see who can vote and what remains anonymous, while authorized staff receive the controls needed to conclude the process.",
           alt: "Luminox Applications panel explaining public applications, private applications and anonymous guild voting."
+        },
+        {
+          file: "bot-staff-voting-05.png",
+          width: 615,
+          height: 360,
+          tone: "violet",
+          variant: "compact",
+          kicker: "Private staff voting",
+          title: "Candidate totals are visible without exposing individual voters.",
+          lead: "Only configured moderators and administrators can act.",
+          caption: "The guide explains nomination eligibility, anonymous voting, duplicate prevention and the administrator conclusion flow.",
+          alt: "Luminox Staff Voting panel with no active candidacies and Start candidacy, Vote and Conclude controls."
         }
       ]
     },
@@ -1306,6 +1626,9 @@
       title: "The public panel opens a private support conversation.",
       summary: "Members choose a category and complete its required questions from one permanent entry point. Luminox then creates a private thread for the requester and responsible staff.",
       tone: "cyan",
+      additionalPreviewPlacements: [
+        { previewIndex: 1, collection: "gallery", itemIndex: 2 }
+      ],
       items: [
         {
           file: "bot-support-01.png",
@@ -1343,7 +1666,7 @@
             alt: "Discord Support category showing the help channel and a nested Complaint about user thread.", href: "docs-support.html#threads", linkLabel: "See the channel and thread model"
           },
           {
-            file: "bot-support-04.png", width: 600, height: 298, tone: "violet",
+            file: "bot-support-history-05.png", width: 663, height: 308, tone: "violet",
             kicker: "My Support Tickets", title: "Private history distinguishes creator, staff and invited participation.",
             lead: "One paginated response returns the viewer to the right active or archived case.",
             caption: "The relationship, category, state and latest activity remain readable without exposing ticket history publicly.",
@@ -1369,6 +1692,60 @@
           lead: "Fixed event messages preserve what changed and when.",
           caption: "The recent-event panel below them stays updated without rewriting old evidence or creating duplicate historical messages.",
           alt: "Luminox Character Tracker Log with world transfer events and a refreshed recent events panel."
+        },
+        {
+          file: "bot-tracker-transfers-02.png",
+          width: 646,
+          height: 898,
+          tone: "violet",
+          variant: "tall",
+          kicker: "Permanent transfer history",
+          title: "Every world move remains fixed above the live summary.",
+          lead: "Character, origin, destination and timestamp remain traceable.",
+          caption: "The final tracker panel summarizes recent events and links to the complete log without duplicating the permanent messages above it.",
+          alt: "Luminox Character Tracker showing permanent transfer messages and a refreshed recent event panel."
+        }
+      ]
+    },
+    "bot-website.html": {
+      eyebrow: "Founder publishing in Discord",
+      title: "The live editorial panel keeps every action understandable.",
+      summary: "Gallery submissions, multi-message Blog drafts, website status and staff review remain together inside Lumina's private Founder workflow.",
+      tone: "violet",
+      items: [
+        {
+          file: "bot-website-panel-01.png",
+          width: 687,
+          height: 721,
+          tone: "violet",
+          variant: "portrait",
+          kicker: "Lumina Website",
+          title: "Publishing starts and remains reviewable inside Discord.",
+          lead: "Members submit screenshots while authorized authors and staff manage Blog content.",
+          caption: "Website status, supported files, publishing queues and the copyright period remain visible beside the actions that open each secure review flow.",
+          alt: "Luminox Lumina Website panel showing website status, screenshot and blog publishing instructions, and staff review controls."
+        }
+      ]
+    },
+    "docs-website.html": {
+      eyebrow: "Founder publishing in practice",
+      title: "The panel maps directly to the secured publishing workflow.",
+      summary: "Administrators can compare the technical guide with the exact Discord controls used for Gallery media, Blog drafts, staff review and live-site status.",
+      tone: "violet",
+      anchor: ".doc-layout",
+      position: "before",
+      items: [
+        {
+          file: "bot-website-panel-01.png",
+          width: 687,
+          height: 721,
+          tone: "violet",
+          variant: "portrait",
+          kicker: "Founder Website panel",
+          title: "Every publishing route explains its own boundary.",
+          lead: "Allowed files, private threads, review queues and live status remain visible.",
+          caption: "The guide below documents how each button creates a validated draft or staff review without allowing arbitrary repository access from Discord.",
+          alt: "Luminox Founder Website panel showing Gallery and Blog publishing instructions, website health and review controls."
         }
       ]
     },
@@ -1435,19 +1812,17 @@
 
   if (!config || !main || main.querySelector("[data-screenshot-showcase]")) return;
 
-  const headingId = `discord-showcase-${pageName.replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "")}`;
-  const section = document.createElement("section");
-  section.className = `section product-screenshot-showcase product-screenshot-showcase--${config.tone || "violet"}`;
-  section.dataset.screenshotShowcase = pageName;
-  section.setAttribute("aria-labelledby", headingId);
-
-  const cards = config.items.map((item, index) => {
+  const allItems = config.items || [];
+  const allGallerySlides = config.gallery?.slides || [];
+  const renderScreenshotCard = (item, index, { intro = false } = {}) => {
     const classes = ["discord-screenshot-card", `discord-screenshot-card--${item.tone || config.tone || "violet"}`];
     if (item.variant) classes.push(`discord-screenshot-card--${item.variant}`);
-    if (item.wide) classes.push("discord-screenshot-card--wide");
+    if (item.wide && !intro) classes.push("discord-screenshot-card--wide");
+    if (intro) classes.push("discord-screenshot-card--intro");
+    if (intro && item.height / item.width > 1.45) classes.push("discord-screenshot-card--intro-cropped");
 
     return `
-      <figure class="${classes.join(" ")}">
+      <figure class="${classes.join(" ")}"${intro ? ` data-screenshot-preview="${item.file}"` : ""}>
         <header class="discord-screenshot-card__header">
           <div>
             <span class="discord-screenshot-card__kicker">${item.kicker}</span>
@@ -1456,15 +1831,56 @@
           <span class="discord-screenshot-card__number" aria-hidden="true">${String(index + 1).padStart(2, "0")}</span>
         </header>
         <div class="discord-screenshot-card__media">
-          <img class="discord-screenshot-card__image" src="assets/screenshots/${item.file}" width="${item.width}" height="${item.height}" loading="lazy" decoding="async" alt="${item.alt}">
+          <img class="discord-screenshot-card__image" src="assets/screenshots/${item.file}" width="${item.width}" height="${item.height}" loading="${intro ? "eager" : "lazy"}" decoding="async" alt="${item.alt}">
         </div>
         <figcaption class="discord-screenshot-card__caption">
           <p><strong>${item.lead}</strong><span>${item.caption}</span></p>
         </figcaption>
       </figure>`;
-  }).join("");
+  };
 
-  const gallerySlides = config.gallery?.slides || [];
+  const usedItemIndexes = new Set();
+  const usedGalleryIndexes = new Set();
+  if (pageName.startsWith("bot-") && allItems.length) {
+    const placements = [
+      { previewIndex: 0, collection: "items", itemIndex: 0 },
+      ...(config.additionalPreviewPlacements || [])
+    ];
+    const previews = Array.from(main.querySelectorAll(".product-preview"));
+
+    placements.forEach((placement, placementIndex) => {
+      const preview = previews[placement.previewIndex];
+      const collection = placement.collection === "gallery" ? allGallerySlides : allItems;
+      const item = collection[placement.itemIndex];
+      if (!preview || !item) return;
+
+      const template = document.createElement("template");
+      template.innerHTML = renderScreenshotCard(item, placementIndex, { intro: true }).trim();
+      const card = template.content.firstElementChild;
+      const parentSection = preview.closest(".section.split");
+
+      preview.replaceWith(card);
+      if (parentSection) {
+        parentSection.classList.add(placement.previewIndex === 0 ? "bot-visual-intro" : "bot-visual-proof");
+      }
+
+      const keepDetailedCapture = item.height / item.width > 1.45;
+      if (!keepDetailedCapture && placement.collection === "gallery") usedGalleryIndexes.add(placement.itemIndex);
+      else if (!keepDetailedCapture) usedItemIndexes.add(placement.itemIndex);
+    });
+  }
+
+  const remainingItems = allItems.filter((item, index) => !usedItemIndexes.has(index));
+  const gallerySlides = allGallerySlides.filter((item, index) => !usedGalleryIndexes.has(index));
+  if (!remainingItems.length && !gallerySlides.length) return;
+
+  const headingId = `discord-showcase-${pageName.replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "")}`;
+  const section = document.createElement("section");
+  section.className = `section product-screenshot-showcase product-screenshot-showcase--${config.tone || "violet"}`;
+  section.dataset.screenshotShowcase = pageName;
+  section.setAttribute("aria-labelledby", headingId);
+
+  const cards = remainingItems.map((item, index) => renderScreenshotCard(item, index)).join("");
   const initialGallerySlide = gallerySlides[0];
   const galleryCard = initialGallerySlide ? `
     <article class="discord-screenshot-card discord-screenshot-gallery discord-screenshot-card--${initialGallerySlide.tone || config.tone || "violet"}" data-screenshot-gallery>
@@ -1501,7 +1917,7 @@
     </article>` : "";
 
   const gridClasses = ["discord-screenshot-grid"];
-  if (config.items.length + (initialGallerySlide ? 1 : 0) === 1) gridClasses.push("discord-screenshot-grid--single");
+  if (remainingItems.length + (initialGallerySlide ? 1 : 0) === 1) gridClasses.push("discord-screenshot-grid--single");
   if (config.layout) gridClasses.push(`discord-screenshot-grid--${config.layout}`);
 
   section.innerHTML = `
