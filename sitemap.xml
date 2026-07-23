@@ -54,7 +54,7 @@
   </url>
   <url>
     <loc>https://guildlumina.com/bot-events.html</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-07-23</lastmod>
     <image:image>
       <image:loc>https://guildlumina.com/assets/social/bot-events.png</image:loc>
       <image:title>Discord Event Boards for Gaming Guilds social preview</image:title>
@@ -129,11 +129,15 @@
     <lastmod>2026-07-23</lastmod>
     <image:image>
       <image:loc>https://guildlumina.com/assets/social/bot-nicknames.png</image:loc>
-      <image:title>Automatic Tibia Nicknames for Discord Guilds social preview</image:title>
+      <image:title>Automatic Discord Nicknames for Gaming Communities social preview</image:title>
     </image:image>
     <image:image>
       <image:loc>https://guildlumina.com/assets/screenshots/bot-nicknames-01.png</image:loc>
-      <image:title>Discord message showing Sacrel with the synchronized nickname Sacrel RP394 L9</image:title>
+      <image:title>Community Edition Discord nickname Sacrel RP394 L9</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://guildlumina.com/assets/screenshots/bot-nicknames-universal-01.png</image:loc>
+      <image:title>Universal Edition Discord nickname Sacrel L9</image:title>
     </image:image>
   </url>
   <url>
@@ -186,7 +190,7 @@
   </url>
   <url>
     <loc>https://guildlumina.com/bot-support.html</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-07-23</lastmod>
     <image:image>
       <image:loc>https://guildlumina.com/assets/social/bot-support.png</image:loc>
       <image:title>Private Support Tickets for Discord Guilds social preview</image:title>
@@ -242,7 +246,7 @@
   </url>
   <url>
     <loc>https://guildlumina.com/contact.html</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-07-23</lastmod>
     <image:image>
       <image:loc>https://guildlumina.com/assets/social/contact.png</image:loc>
       <image:title>Contact Lumina &amp; Luminox | Discord Support social preview</image:title>
@@ -290,7 +294,7 @@
   </url>
   <url>
     <loc>https://guildlumina.com/docs-events.html</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-07-23</lastmod>
     <image:image>
       <image:loc>https://guildlumina.com/assets/social/docs-events.png</image:loc>
       <image:title>Luminox Event Boards Guide | Hunts, Bosses &amp; Quests social preview</image:title>
@@ -381,11 +385,15 @@
     <lastmod>2026-07-23</lastmod>
     <image:image>
       <image:loc>https://guildlumina.com/assets/social/docs-nicknames.png</image:loc>
-      <image:title>Lumina · Automatic Discord Nicknames social preview</image:title>
+      <image:title>Lumina · Automatic Nicknames by Edition social preview</image:title>
     </image:image>
     <image:image>
       <image:loc>https://guildlumina.com/assets/screenshots/bot-nicknames-01.png</image:loc>
-      <image:title>Discord message showing the automatic nickname Sacrel RP394 L9</image:title>
+      <image:title>Community Edition automatic nickname Sacrel RP394 L9</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://guildlumina.com/assets/screenshots/bot-nicknames-universal-01.png</image:loc>
+      <image:title>Universal Edition automatic nickname Sacrel L9</image:title>
     </image:image>
   </url>
   <url>
@@ -446,7 +454,7 @@
   </url>
   <url>
     <loc>https://guildlumina.com/docs-support.html</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-07-23</lastmod>
     <image:image>
       <image:loc>https://guildlumina.com/assets/social/docs-support.png</image:loc>
       <image:title>Luminox Support Tickets Guide | Private Discord Help social preview</image:title>
@@ -502,7 +510,7 @@
   </url>
   <url>
     <loc>https://guildlumina.com/editions.html</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-07-23</lastmod>
     <image:image>
       <image:loc>https://guildlumina.com/assets/social/editions.png</image:loc>
       <image:title>Universal vs Community · Luminox Editions social preview</image:title>

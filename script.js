@@ -31,7 +31,7 @@ const navigationSections = {
       ['systems.html', 'How It Works', 'Start'],
       ['use-cases.html', 'Use Cases', 'Start'],
       ['security.html', 'Trust & Safety', 'Start'],
-      ['bot-nicknames.html', 'Tibia Nicknames', 'Members'],
+      ['bot-nicknames.html', 'Nicknames', 'Members'],
       ['bot-registration.html', 'Character Registration', 'Members'],
       ['bot-ranks.html', 'Guild Rank Sync', 'Members'],
       ['bot-loyalty.html', 'Loyalty', 'Members'],
@@ -69,7 +69,7 @@ const navigationSections = {
       ['commands.html', 'Command Reference', 'Start'],
       ['docs-panels.html', 'Panel Setup', 'Start'],
       ['docs-registration.html', 'Character Registration', 'Member systems'],
-      ['docs-nicknames.html', 'Tibia Nicknames', 'Member systems'],
+      ['docs-nicknames.html', 'Nicknames', 'Member systems'],
       ['docs-ranks.html', 'Guild Rank Sync', 'Member systems'],
       ['docs-loyalty.html', 'Loyalty', 'Member systems'],
       ['docs-boosts.html', 'Server Boost Loyalty', 'Member systems'],
@@ -196,7 +196,7 @@ const documentationCatalog = [
   ['commands.html', 'Command Reference', 'Every active slash command, context command and access level.', 'commands admin everyone moderator'],
   ['docs-panels.html', 'Panel Setup', 'Every public control panel and the command that publishes it.', 'panels channels setup configuration'],
   ['docs-registration.html', 'Character Registration', 'Verification codes, account ownership, mains and world restrictions.', 'register character verification ownership main world'],
-  ['docs-nicknames.html', 'Automatic Tibia Nicknames', 'Tracked main, vocation, level, Loyalty notation, refresh triggers and Discord permissions.', 'nickname tibia vocation level loyalty main discord sync'],
+  ['docs-nicknames.html', 'Automatic Nicknames', 'Universal game-name profiles, verified Community Tibia mains, Loyalty notation, refresh triggers and Discord permissions.', 'nickname universal game name community tibia vocation level loyalty main discord sync'],
   ['docs-ranks.html', 'Guild Rank & Promotion Sync', 'Tibia rank mappings, automatic Discord roles, Guest access and hierarchy safeguards.', 'ranks promotions demotions discord roles guest mapping'],
   ['docs-loyalty.html', 'Loyalty System', 'Rewards, levels, profiles, boosts and account eligibility.', 'loyalty points levels boosts rewards'],
   ['docs-boosts.html', 'Server Boost Loyalty', 'Continuous 30-day boost periods, multiple units, pending registration and lifecycle logs.', 'boost server boost loyalty 30 days pending attributed'],
@@ -241,7 +241,7 @@ const pagePresentations = {
   'setup.html': { family: 'reference', variant: 'blueprint', accent: 'gold', code: 'Guide 02', icon: 'content-setup.svg', label: 'Installation', summary: 'A non-destructive route from an empty server to correctly published panels.', tags: ['Audit', 'Configure', 'Publish'] },
   'docs-panels.html': { family: 'reference', variant: 'directory', accent: 'violet', code: 'Guide 03', icon: 'content-docs.svg', label: 'Panel directory', summary: 'Every public control surface, its channel and its prerequisite configuration.', tags: ['Channel', 'Command', 'Audience'] },
   'docs-registration.html': { family: 'reference', variant: 'identity', accent: 'blue', code: 'Guide 04', icon: 'content-registration.svg', label: 'Registration', summary: 'The verified ownership link between a Discord account, its Tibia characters and guild access.', tags: ['Verify', 'Main', 'Trust'] },
-  'docs-nicknames.html': { family: 'reference', variant: 'identity', accent: 'violet', code: 'Guide 04A', icon: 'content-nickname.svg', label: 'Tibia nicknames', summary: 'Build one current Discord identity from the tracked main, vocation, level and account Loyalty Level.', tags: ['Main', 'Format', 'Refresh'] },
+  'docs-nicknames.html': { family: 'reference', variant: 'identity', accent: 'violet', code: 'Guide 04A', icon: 'content-nickname.svg', label: 'Automatic nicknames', summary: 'Use a simple game-name profile in Universal or a verified Tibia main in Community, always with account Loyalty.', tags: ['Game name', 'Format', 'Refresh'] },
   'docs-ranks.html': { family: 'reference', variant: 'roles', accent: 'green', code: 'Guide 04B', icon: 'content-ranks.svg', label: 'Guild rank sync', summary: 'Map verified Tibia guild ranks to managed Discord roles and Guest access.', tags: ['Map', 'Promote', 'Protect'] },
   'docs-loyalty.html': { family: 'reference', variant: 'progress', accent: 'gold', code: 'Guide 05', icon: 'content-loyalty.svg', label: 'Loyalty', summary: 'Account-wide rewards, levels, eligibility and transparent reward history.', tags: ['Earn', 'Level', 'Review'] },
   'docs-boosts.html': { family: 'reference', variant: 'cycle', accent: 'violet', code: 'Guide 05A', icon: 'content-boosts.svg', label: 'Server Boost Loyalty', summary: 'Independent 30-day boost cycles, attribution, pending rewards and permanent logs.', tags: ['Track', 'Complete', 'Reward'] },
@@ -278,7 +278,7 @@ const pagePresentations = {
   'features-intelligence.html': { family: 'product', variant: 'intelligence', accent: 'red', code: '04', icon: 'content-intelligence.svg', label: 'Live monitoring', summary: 'Connect online members, enemy risk and character changes without duplicate scans.', tags: ['Observe', 'Track', 'Alert'] },
   'features-finder.html': { family: 'product', variant: 'finder', accent: 'blue', code: '05', icon: 'content-finder.svg', label: 'Team discovery', summary: 'Use current activity and compatible vocations to surface playable groups.', tags: ['Signal', 'Score', 'Match'] },
   'features-support.html': { family: 'product', variant: 'support', accent: 'violet', code: '06', icon: 'content-support.svg', label: 'Private support', summary: 'Route every request to the correct people without exposing it publicly.', tags: ['Route', 'Resolve', 'Archive'] },
-  'bot-nicknames.html': { family: 'product', variant: 'identity', accent: 'violet', code: 'Member 01', icon: 'content-nickname.svg', label: 'Tibia nicknames', summary: 'Show the tracked main, vocation, current level and account Loyalty Level in one clean Discord nickname.', tags: ['Main', 'Current', 'Readable'] },
+  'bot-nicknames.html': { family: 'product', variant: 'identity', accent: 'violet', code: 'Member 01', icon: 'content-nickname.svg', label: 'Automatic nicknames', summary: 'Give every member a recognizable game identity, from Universal game names to verified Community Tibia mains.', tags: ['Identity', 'Loyalty', 'Readable'] },
   'bot-registration.html': { family: 'product', variant: 'identity', accent: 'blue', code: 'Member 02', icon: 'content-registration.svg', label: 'Character registration', summary: 'Verify who owns each character and use one trusted identity across the server.', tags: ['Verify', 'Main', 'Trust'] },
   'bot-ranks.html': { family: 'product', variant: 'roles', accent: 'green', code: 'Member 02B', icon: 'content-ranks.svg', label: 'Guild rank sync', summary: 'Keep Discord guild access aligned with verified Tibia promotions and demotions.', tags: ['Map', 'Sync', 'Guest'] },
   'bot-loyalty.html': { family: 'product', variant: 'progress', accent: 'gold', code: 'Member 03', icon: 'content-loyalty.svg', label: 'Loyalty progression', summary: 'Turn useful guild activity into transparent account-wide progress and rewards.', tags: ['Earn', 'Level', 'Explain'] },
@@ -437,7 +437,7 @@ const pageOpeningTitles = {
   'docs-progression.html': 'Guild Progression',
   'docs-recruitment.html': 'Recruitment Rewards',
   'docs-registration.html': 'Character Registration',
-  'docs-nicknames.html': 'Tibia Nicknames',
+  'docs-nicknames.html': 'Automatic Nicknames',
   'docs-ranks.html': 'Guild Rank Sync',
   'docs-staff.html': 'Staff Access',
   'docs-streaming.html': 'Stream Loyalty',
@@ -455,7 +455,7 @@ const pageOpeningTitles = {
   'features-identity.html': 'Verified Members',
   'features-intelligence.html': 'Live Monitoring',
   'features-support.html': 'Private Support',
-  'bot-nicknames.html': 'Tibia Nicknames',
+  'bot-nicknames.html': 'Automatic Nicknames',
   'bot-registration.html': 'Character Registration',
   'bot-ranks.html': 'Guild Rank Sync',
   'bot-loyalty.html': 'Loyalty Progression',
@@ -540,6 +540,7 @@ const bothEditionPages = [
   'docs-support.html',
   'docs-moderation.html',
   'docs-banlist.html',
+  'docs-nicknames.html',
   'docs-timezones.html',
   'docs-troubleshooting.html',
   'features.html',
@@ -555,6 +556,7 @@ const bothEditionPages = [
   'bot-support.html',
   'bot-moderation.html',
   'bot-banlist.html',
+  'bot-nicknames.html',
   'bot-staff.html',
   'bot-automation.html',
   'security.html',
@@ -575,7 +577,6 @@ const communityEditionPages = [
   'docs-progression.html',
   'docs-recruitment.html',
   'docs-registration.html',
-  'docs-nicknames.html',
   'docs-ranks.html',
   'docs-tracker.html',
   'docs-watchlists.html',
@@ -583,7 +584,6 @@ const communityEditionPages = [
   'features-finder.html',
   'features-identity.html',
   'features-intelligence.html',
-  'bot-nicknames.html',
   'bot-registration.html',
   'bot-ranks.html',
   'bot-blacklist.html',
@@ -1109,10 +1109,10 @@ const conversionCopyByPage = {
   },
   'docs-nicknames.html': {
     eyebrow: 'Make identity readable',
-    title: 'Let the verified main stay visible wherever members speak.',
-    text: 'One compact nickname can show the tracked character, vocation, current level and account Loyalty Level without manual rewrites.',
+    title: 'Give every member one recognizable game identity.',
+    text: 'Universal uses a member-provided game name and Loyalty Level; Community adds the verified Tibia main, vocation and current level.',
     primary: ['bot-nicknames.html', 'See the member experience'],
-    secondary: ['docs-registration.html', 'Review registration']
+    secondary: ['editions.html', 'Compare editions']
   },
   'docs-ranks.html': {
     eyebrow: 'Keep access aligned',
@@ -1722,6 +1722,59 @@ if (pricingEditionSelector) {
   const initialEdition = new URL(window.location.href).searchParams.get('edition');
   selectPricingEdition(initialEdition, false);
 }
+
+document.querySelectorAll('[data-nickname-comparison]').forEach((comparison, comparisonIndex) => {
+  const tabs = [...comparison.querySelectorAll('[data-nickname-mode]')];
+  const panels = [...comparison.querySelectorAll('[data-nickname-panel]')];
+
+  if (tabs.length === 0 || panels.length === 0) return;
+
+  const selectNicknameMode = (requestedMode, moveFocus = false) => {
+    const selectedTab = tabs.find((tab) => tab.dataset.nicknameMode === requestedMode) || tabs[0];
+    const selectedMode = selectedTab.dataset.nicknameMode;
+
+    tabs.forEach((tab, tabIndex) => {
+      const panel = panels.find((entry) => entry.dataset.nicknamePanel === tab.dataset.nicknameMode);
+      const selected = tab === selectedTab;
+      const tabId = `nickname-tab-${comparisonIndex + 1}-${tabIndex + 1}`;
+      const panelId = `nickname-panel-${comparisonIndex + 1}-${tabIndex + 1}`;
+
+      tab.id = tabId;
+      tab.setAttribute('aria-controls', panelId);
+      tab.setAttribute('aria-selected', String(selected));
+      tab.tabIndex = selected ? 0 : -1;
+      tab.classList.toggle('is-active', selected);
+
+      if (panel) {
+        panel.id = panelId;
+        panel.setAttribute('aria-labelledby', tabId);
+        panel.hidden = !selected;
+      }
+    });
+
+    comparison.dataset.selectedNicknameMode = selectedMode;
+    if (moveFocus) selectedTab.focus();
+  };
+
+  tabs.forEach((tab, tabIndex) => {
+    tab.addEventListener('click', () => selectNicknameMode(tab.dataset.nicknameMode));
+    tab.addEventListener('keydown', (event) => {
+      if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+      event.preventDefault();
+
+      const nextIndex = event.key === 'Home'
+        ? 0
+        : event.key === 'End'
+          ? tabs.length - 1
+          : (tabIndex + (event.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
+
+      selectNicknameMode(tabs[nextIndex].dataset.nicknameMode, true);
+    });
+  });
+
+  const initialTab = tabs.find((tab) => tab.getAttribute('aria-selected') === 'true') || tabs[0];
+  selectNicknameMode(initialTab.dataset.nicknameMode);
+});
 
 const commandSearch = document.querySelector('[data-command-search]');
 if (commandSearch) {

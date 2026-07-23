@@ -35,12 +35,12 @@
       outcome: 'Understand the verification-code flow, the world boundary, main-character behaviour and what Luminox synchronizes after registration.'
     },
     'docs-nicknames.html': {
-      label: 'Tibia nicknames explained',
-      title: 'Turn verified character data into one readable Discord identity.',
-      introduction: 'Automatic Tibia Nicknames use the selected verified main, its current vocation and level, and the Discord account’s Loyalty Level to build a compact member name such as Sacrel [RP394 L9]. Registration supplies ownership; scheduled and event-driven refreshes keep the visible result aligned.',
-      solves: 'It prevents staff from rewriting display names after level gains, vocation changes, main changes, Loyalty progression or confirmed character renames.',
-      audience: 'Community Edition administrators checking permissions and members who want to understand what each nickname value means.',
-      outcome: 'Understand the exact format, update triggers, public-plan refresh policies, main-character rules and Discord hierarchy limitations.'
+      label: 'Automatic nicknames explained',
+      title: 'Turn each member’s game identity into one readable Discord name.',
+      introduction: 'Universal Edition stores one member-provided game name per server and formats it as Game Name [L#]. Community and Founder verify the selected Tibia main and add its vocation and level, producing a format such as Sacrel [RP394 L9]. Both formats keep the account Loyalty Level current automatically.',
+      solves: 'It prevents staff from rewriting display names after Loyalty progression and, in Community or Founder, after level gains, main changes or confirmed character renames.',
+      audience: 'Universal administrators publishing simplified member profiles, Community or Founder administrators checking Tibia synchronization, and members who want to understand every nickname value.',
+      outcome: 'Understand both formats, their registration source, update triggers, edition boundaries and Discord hierarchy limitations.'
     },
     'docs-ranks.html': {
       label: 'Guild Rank Sync explained',
