@@ -29,10 +29,26 @@
     'docs-registration.html': {
       label: 'Registration explained',
       title: 'Connect one Discord account to verified game identities.',
-      introduction: 'Registration proves that a Discord member controls a Tibia character. That verified link becomes the identity layer used by main-character selection, world restrictions, guild roles, nicknames, Loyalty, events, recruitment and account ownership checks.',
+      introduction: 'Registration proves that a Discord member controls a Tibia character. That verified link becomes the identity layer used by main-character selection, world restrictions, guild roles, automatic nicknames, Loyalty, events, recruitment and account ownership checks.',
       solves: 'It replaces unverified nicknames and manual role requests with a repeatable ownership check against the configured Tibia world.',
       audience: 'Every member registering characters and administrators publishing or repairing the Registration panel.',
       outcome: 'Understand the verification-code flow, the world boundary, main-character behaviour and what Luminox synchronizes after registration.'
+    },
+    'docs-nicknames.html': {
+      label: 'Tibia nicknames explained',
+      title: 'Turn verified character data into one readable Discord identity.',
+      introduction: 'Automatic Tibia Nicknames use the selected verified main, its current vocation and level, and the Discord account’s Loyalty Level to build a compact member name such as Sacrel [RP394 L9]. Registration supplies ownership; scheduled and event-driven refreshes keep the visible result aligned.',
+      solves: 'It prevents staff from rewriting display names after level gains, vocation changes, main changes, Loyalty progression or confirmed character renames.',
+      audience: 'Community Edition administrators checking permissions and members who want to understand what each nickname value means.',
+      outcome: 'Understand the exact format, update triggers, public-plan refresh policies, main-character rules and Discord hierarchy limitations.'
+    },
+    'docs-ranks.html': {
+      label: 'Guild Rank Sync explained',
+      title: 'Keep verified guild access aligned with Tibia.',
+      introduction: 'Guild Rank Sync maps the current Tibia rank of a verified guild member to one managed Discord role. Promotions and demotions replace obsolete managed ranks, while registered characters outside the guild can receive a separate Guest role without losing their verified identity.',
+      solves: 'It prevents old Discord roles from surviving a Tibia rank change and separates real guild access from registered guest access without touching unrelated community roles.',
+      audience: 'Community Edition administrators configuring rank mappings, Guest access and the Discord role hierarchy.',
+      outcome: 'Understand explicit mappings, exact-name fallback, automatic synchronization, restriction handling and what Luminox deliberately leaves untouched.'
     },
     'docs-loyalty.html': {
       label: 'Loyalty explained',
@@ -41,6 +57,14 @@
       solves: 'It creates a transparent contribution history without splitting progress across every character owned by the same Discord member.',
       audience: 'Members reviewing progression and administrators configuring reward sources or applying a justified manual adjustment.',
       outcome: 'Understand who can earn points, how levels are calculated, where rewards appear and which historical details are eventually cleaned.'
+    },
+    'docs-boosts.html': {
+      label: 'Server Boost Loyalty explained',
+      title: 'Reward every continuously maintained boost transparently.',
+      introduction: 'Server Boost Loyalty tracks every active Discord boost unit independently. A unit earns its configured Loyalty reward only after completing a continuous thirty-day period, then begins the next cycle while its confirmed history remains visible.',
+      solves: 'It avoids instant boost-and-remove abuse, manual monthly counting and unsafe guesses when Discord reports more boosts than Luminox can confidently attribute.',
+      audience: 'Members supporting the Discord server and administrators publishing or reviewing the Server Boost Loyalty channel.',
+      outcome: 'Understand multiple boost units, pending registration, historical reconstruction, unattributed totals, cancellations and permanent lifecycle logs.'
     },
     'docs-streaming.html': {
       label: 'Stream Loyalty explained',
@@ -131,17 +155,33 @@
       outcome: 'Know how to declare a property, configure up to one hundred rooms, approve claims, change occupants and preserve the audit trail.'
     },
     'docs-moderation.html': {
-      label: 'Moderation explained',
-      title: 'Keep sanctions, risk records and access changes connected.',
-      introduction: 'Both public editions can use Automod and the moderation log. Community Edition adds the Tibia-linked Blacklist and Ban List, where account restrictions remove managed guild access and every character, guild and staff action remains attributable.',
-      solves: 'It prevents sanctions from becoming anonymous text lists and stops restricted members from regaining managed guild roles through normal synchronization.',
-      audience: 'Administrators and configured moderators managing safety, access and historical accountability.',
-      outcome: 'Understand the difference between Blacklist and Ban List, how panels replace CRUD commands, how Automod protects channels and where actions are logged.'
+      label: 'Automod explained',
+      title: 'Protect selected channels and preserve the audit trail.',
+      introduction: 'Automod is the game-independent moderation layer available in both public editions. Administrators choose exactly which channels are protected, which additional language is blocked and how long temporary isolation lasts; the moderation log separately records important member, role and staff changes.',
+      solves: 'It removes evasive links and prohibited language without applying one opaque rule to the whole server, while keeping important operational changes reviewable in Discord.',
+      audience: 'Administrators configuring channel protection and staff reviewing permanent moderation history.',
+      outcome: 'Understand channel scope, link detection, blocked words, isolation, Discord permission boundaries and the moderation log.'
+    },
+    'docs-banlist.html': {
+      label: 'Ban List explained',
+      title: 'Record sanctions that staff can understand and reverse.',
+      introduction: 'Ban List is available in Universal and Community Edition. It records a Discord member, or an exact Tibia character in Community, together with the reason, duration, responsible staff account and the controls required to revise or lift the sanction.',
+      solves: 'It replaces anonymous or scattered sanction notes with one readable panel and a stable manager that continues to work when a long list needs pagination.',
+      audience: 'Administrators publishing the panel and configured moderators applying, editing or lifting sanctions.',
+      outcome: 'Understand setup, target selection, duration, Community identity enrichment, pagination, permissions and audit history.'
+    },
+    'docs-blacklist.html': {
+      label: 'Blacklist explained',
+      title: 'Turn reviewed Tibia risk records into connected intelligence.',
+      introduction: 'Blacklist is exclusive to Community Edition and Founder. Staff record exact Tibia characters or guilds with a reason and Tibia Coin bounty, then Luminox reuses that decision in Enemies Online, Identity Tracker, Guards and recruitment exclusions.',
+      solves: 'It prevents the guild from maintaining disconnected enemy names, online lists and battle records that silently disagree after a rename, transfer, trade or resolution.',
+      audience: 'Administrators and configured moderators responsible for Tibia risk intelligence and its connected channels.',
+      outcome: 'Understand setup, character and guild records, bounties, active and historical sections, resolutions, permissions and downstream systems.'
     },
     'docs-tracker.html': {
       label: 'Tracker explained',
       title: 'Follow the identity behind a changing Tibia character.',
-      introduction: 'Tracker monitors stored Blacklist and Ban List identities for renames, trades, transfers, returns and deletion outcomes. Historical Discord embeds remain fixed while the latest summary panel is refreshed separately.',
+      introduction: 'Tracker monitors Community Blacklist identities and character-linked Ban List records for renames, trades, transfers, returns and deletion outcomes. Historical Discord embeds remain fixed while the latest summary panel is refreshed separately.',
       solves: 'It keeps moderation history useful when a target changes name, moves world or changes ownership instead of silently disappearing.',
       audience: 'Moderators reviewing identity risk and administrators configuring the permanent tracker and important-alert channel.',
       outcome: 'Understand each outcome label, the difference between partial and complete defeat, return detection and safe alert retries.'
@@ -189,9 +229,9 @@
     'docs-website.html': {
       label: 'Website publishing explained',
       title: 'Review community content in Discord before publication.',
-      introduction: 'The Website panel handles finished Gallery proposals and long-form Blog drafts inside private Discord threads. Authors write and revise in Discord. Administrators or moderators with both the global Moderator role and specialist Website role review submissions and manage Blog publication; an administrator performs the final publish action for approved Gallery media.',
+      introduction: 'Founder Edition uses the Website panel for finished Gallery proposals and long-form Blog drafts inside private Discord threads. Authors write and revise in Discord. Administrators or moderators with both the global Moderator role and specialist Website role review submissions and manage Blog publication; an administrator performs the final publish action for approved Gallery media.',
       solves: 'It creates a moderated contribution route without giving members repository access or downloading arbitrary files onto the bot host.',
-      audience: 'Members proposing gallery content, moderators reviewing media and administrators publishing approved website content.',
+      audience: 'Founder members proposing Gallery content, authorized Website moderators and Lumina administrators publishing approved content.',
       outcome: 'Understand supported media, private review, panel health, safe credentials and the exact boundary between approval and publication.'
     },
     'docs-troubleshooting.html': {
@@ -291,7 +331,7 @@
     '/automod isolation': command('Automod sanction-duration command.', 'Sets the temporary Discord isolation applied after a restricted-word violation.', 'Choose the duration and verify it with the overview. Luminox uses the stored duration for future eligible violations.'),
     '/blacklist set': panel('Blacklist', 'Assigns the Blacklist channel and publishes current-world, out-of-world, resolved and staff-management sections.'),
     '/blacklist overview': overview('Blacklist', 'Shows the configured channel and stored character or guild records without refreshing Tibia.'),
-    '/banlist set': panel('Ban List', 'Assigns the Ban List channel and publishes timed or unlimited account and character sanctions.'),
+    '/banlist set': panel('Ban List', 'Assigns the Ban List channel and publishes timed or unlimited Discord-member sanctions in both editions, with an additional exact-character route in Community.'),
     '/banlist overview': overview('Ban List', 'Shows channel configuration and current timed or unlimited sanction records.'),
     '/tracker set': panel('Identity Tracker', 'Assigns permanent identity-change logs and the refreshed recent-event summary.'),
     '/support set': panel('Support', 'Publishes the clean ticket-opening panel and private-thread navigation controls.'),

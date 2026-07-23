@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 540" fill="none">
+  <defs>
+    <linearGradient id="registration-proof-line" x1="101" y1="112" x2="623" y2="437" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#61DCF7"/>
+      <stop offset=".48" stop-color="#A675FF"/>
+      <stop offset="1" stop-color="#FFE38B"/>
+    </linearGradient>
+    <radialGradient id="registration-proof-aura" cx="0" cy="0" r="1" gradientTransform="translate(360 275) rotate(90) scale(240 304)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8F75FF" stop-opacity=".23"/>
+      <stop offset=".55" stop-color="#61DCF7" stop-opacity=".08"/>
+      <stop offset="1" stop-color="#61DCF7" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="registration-proof-shadow" x="-35%" y="-35%" width="170%" height="185%">
+      <feDropShadow dx="0" dy="22" stdDeviation="22" flood-color="#000" flood-opacity=".48"/>
+    </filter>
+  </defs>
+  <ellipse cx="360" cy="275" rx="304" ry="238" fill="url(#registration-proof-aura)"/>
+  <path d="M179 270h362" stroke="url(#registration-proof-line)" stroke-opacity=".32" stroke-width="3" stroke-dasharray="8 13"/>
+  <path d="m255 250 45 20-45 20M465 250l-45 20 45 20" stroke="url(#registration-proof-line)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <g filter="url(#registration-proof-shadow)">
+    <rect x="76" y="154" width="184" height="232" rx="34" fill="#0A1022" stroke="#61DCF7" stroke-opacity=".72" stroke-width="3"/>
+    <circle cx="168" cy="226" r="36" fill="#61DCF7" fill-opacity=".11" stroke="#61DCF7" stroke-width="4"/>
+    <path d="M109 326c10-48 34-72 59-72s49 24 59 72" stroke="#61DCF7" stroke-width="6" stroke-linecap="round"/>
+    <path d="M116 353h104" stroke="#61DCF7" stroke-opacity=".55" stroke-width="4" stroke-linecap="round"/>
+  </g>
+  <g filter="url(#registration-proof-shadow)">
+    <rect x="460" y="154" width="184" height="232" rx="34" fill="#0A1022" stroke="#FFE38B" stroke-opacity=".72" stroke-width="3"/>
+    <path d="m552 189 47 28v54l-47 28-47-28v-54l47-28Z" fill="#FFE38B" fill-opacity=".08" stroke="#FFE38B" stroke-width="4"/>
+    <path d="M528 240h48M528 255h48" stroke="#FFE38B" stroke-width="4" stroke-linecap="round"/>
+    <path d="M500 353h104" stroke="#FFE38B" stroke-opacity=".55" stroke-width="4" stroke-linecap="round"/>
+  </g>
+  <g filter="url(#registration-proof-shadow)">
+    <rect x="279" y="193" width="162" height="154" rx="30" fill="#0C132A" stroke="url(#registration-proof-line)" stroke-width="4"/>
+    <path d="M322 240h76" stroke="#A675FF" stroke-width="5" stroke-linecap="round"/>
+    <path d="M322 259h48" stroke="#61DCF7" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="360" cy="300" r="24" fill="#5EE19D" fill-opacity=".13" stroke="#5EE19D" stroke-width="4"/>
+    <path d="m348 300 8 8 17-19" stroke="#FFF4C8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <circle cx="168" cy="119" r="7" fill="#61DCF7"/>
+  <circle cx="552" cy="119" r="7" fill="#FFE38B"/>
+  <circle cx="360" cy="411" r="7" fill="#A675FF"/>
+  <path d="M168 119v21M552 119v21M360 368v43" stroke="url(#registration-proof-line)" stroke-opacity=".7" stroke-width="3" stroke-linecap="round"/>
+</svg>

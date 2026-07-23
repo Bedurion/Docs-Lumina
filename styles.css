@@ -1614,6 +1614,8 @@ pre {
 }
 
 .button {
+  --button-icon-filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.28));
+  --button-icon-hover-filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.38));
   display: inline-flex;
   min-height: 48px;
   align-items: center;
@@ -1637,7 +1639,7 @@ pre {
   height: 24px;
   flex: 0 0 24px;
   object-fit: contain;
-  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.24));
+  filter: var(--button-icon-filter);
 }
 
 .button .button-action-icon {
@@ -1645,20 +1647,33 @@ pre {
   height: 24px;
   flex: 0 0 24px;
   opacity: 1;
-  filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.28));
+  filter: var(--button-icon-filter);
   transition: transform 160ms ease, filter 160ms ease;
 }
 
 .button-with-action-icon:hover .button-action-icon {
   transform: translateX(1px) scale(1.06);
-  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.38));
+  filter: var(--button-icon-hover-filter);
 }
 
 .button-with-action-icon.ghost .button-action-icon {
   opacity: 0.82;
 }
 
-.button.primary {
+.button.primary,
+.button.icon-on-color {
+  --button-icon-filter:
+    brightness(0.44)
+    saturate(1.72)
+    contrast(1.24)
+    drop-shadow(0 1px 0 rgba(255, 255, 255, 0.2))
+    drop-shadow(0 4px 9px rgba(17, 10, 45, 0.3));
+  --button-icon-hover-filter:
+    brightness(0.5)
+    saturate(1.82)
+    contrast(1.28)
+    drop-shadow(0 1px 0 rgba(255, 255, 255, 0.24))
+    drop-shadow(0 5px 11px rgba(17, 10, 45, 0.36));
   color: white;
   background: linear-gradient(135deg, var(--violet), var(--violet-2));
   box-shadow: 0 14px 38px rgba(109, 66, 222, 0.3);
@@ -4370,13 +4385,13 @@ pre {
   width: 28px;
   height: 28px;
   flex: 0 0 28px;
-  filter: drop-shadow(0 7px 14px rgba(0, 0, 0, 0.3));
+  filter: var(--button-icon-filter);
   transition: transform 180ms ease, filter 180ms ease;
 }
 
 .plan-tier-card .plan-start-button:hover .plan-cta-icon {
   transform: translateY(-1px) scale(1.08);
-  filter: drop-shadow(0 9px 18px rgba(0, 0, 0, 0.38));
+  filter: var(--button-icon-hover-filter);
 }
 
 .pricing-scope-note {
@@ -6097,6 +6112,22 @@ body.page-interior .opening-title-row h1 {
 .edition-availability-community:hover {
   border-color: rgba(255, 207, 105, 0.8);
   background: linear-gradient(145deg, rgba(222, 161, 38, 0.32), rgba(50, 37, 21, 0.96));
+}
+
+.edition-availability-founder {
+  border-color: rgba(255, 111, 116, 0.48);
+  color: #ffe7b0;
+  background:
+    linear-gradient(145deg, rgba(203, 57, 70, 0.25), rgba(78, 46, 24, 0.94));
+  box-shadow:
+    0 8px 22px rgba(0, 0, 0, 0.18),
+    inset 0 0 18px rgba(247, 198, 83, 0.07);
+}
+
+.edition-availability-founder:hover {
+  border-color: rgba(255, 148, 118, 0.86);
+  background:
+    linear-gradient(145deg, rgba(226, 68, 80, 0.34), rgba(93, 55, 26, 0.98));
 }
 
 .page-layout-centered .opening-title-row {
@@ -7892,7 +7923,7 @@ body.page-interior .opening-title-row h1 {
   height: 24px;
   flex-basis: 24px;
   opacity: 1;
-  filter: brightness(1.18) drop-shadow(0 4px 10px rgba(0, 0, 0, 0.42));
+  filter: var(--button-icon-filter);
 }
 
 @media (max-width: 900px) {
@@ -10710,7 +10741,7 @@ body.page-interior .opening-title-row h1 {
 }
 
 .rules-page .rules-cta .button-action-icon {
-  filter: drop-shadow(0 5px 12px rgba(0, 0, 0, 0.28));
+  filter: var(--button-icon-filter);
 }
 
 .rules-rulebook-link {
@@ -12419,5 +12450,196 @@ body.page-interior .opening-title-row h1 {
   .roleplay-open-story,
   .roleplay-atlas-card {
     transition: none;
+  }
+}
+
+/* Community identity: verified registration and automatic Tibia nicknames. */
+.nickname-proof-section {
+  display: grid;
+  grid-template-columns: minmax(0, 1.04fr) minmax(360px, 0.96fr);
+  gap: clamp(1.4rem, 4vw, 3.5rem);
+  align-items: center;
+}
+
+.nickname-proof-copy {
+  min-width: 0;
+}
+
+.nickname-proof-copy > p:not(.eyebrow) {
+  max-width: 760px;
+  color: var(--muted);
+}
+
+.nickname-token-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.72rem;
+  margin-top: 1.5rem;
+}
+
+.nickname-token-grid article {
+  min-width: 0;
+  padding: 1rem;
+  border: 1px solid rgba(166, 117, 255, 0.18);
+  border-radius: 14px;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(97, 220, 247, 0.08), transparent 56%),
+    rgba(255, 255, 255, 0.025);
+}
+
+.nickname-token-grid strong {
+  display: block;
+  margin-bottom: 0.28rem;
+  color: #fff0aa;
+  font-size: 1.12rem;
+}
+
+.nickname-token-grid span {
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.nickname-discord-proof {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid rgba(166, 117, 255, 0.32);
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 18% 0%, rgba(97, 220, 247, 0.14), transparent 38%),
+    radial-gradient(circle at 92% 100%, rgba(166, 117, 255, 0.18), transparent 45%),
+    linear-gradient(145deg, rgba(24, 31, 58, 0.96), rgba(8, 13, 29, 0.98));
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.34);
+}
+
+.nickname-discord-proof::before {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(115deg, transparent 18%, rgba(255, 255, 255, 0.035) 42%, transparent 65%);
+  content: "";
+}
+
+.nickname-discord-toolbar {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.92rem 1.05rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.075);
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 850;
+}
+
+.nickname-discord-capture {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  min-height: 164px;
+  place-items: center;
+  padding: clamp(1.2rem, 4vw, 2rem);
+  background:
+    linear-gradient(180deg, rgba(8, 12, 26, 0.24), rgba(8, 12, 26, 0.72)),
+    repeating-linear-gradient(90deg, transparent 0 47px, rgba(255, 255, 255, 0.018) 48px);
+}
+
+.nickname-discord-capture img,
+.nickname-doc-example img {
+  display: block;
+  width: min(323px, 100%);
+  height: auto;
+  border-radius: 7px;
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.42);
+}
+
+.nickname-discord-proof > p {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  padding: 1rem 1.1rem 1.2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.nickname-discord-proof code,
+.nickname-doc-example code {
+  color: #fff0aa;
+}
+
+.nickname-outcomes .card {
+  border-color: rgba(166, 117, 255, 0.18);
+}
+
+.nickname-flow-section {
+  align-items: center;
+}
+
+.nickname-doc-example {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 3vw, 1.8rem);
+  margin: 1.1rem 0 1.3rem;
+  padding: clamp(1rem, 3vw, 1.4rem);
+  overflow: hidden;
+  border: 1px solid rgba(166, 117, 255, 0.24);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 0% 50%, rgba(97, 220, 247, 0.11), transparent 38%),
+    rgba(255, 255, 255, 0.025);
+}
+
+.nickname-doc-example code {
+  min-width: 0;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  font-weight: 900;
+  overflow-wrap: anywhere;
+}
+
+.nickname-code-table {
+  min-width: 580px;
+}
+
+.doc-inline-actions {
+  margin-top: 1.3rem;
+}
+
+@media (max-width: 900px) {
+  .nickname-proof-section {
+    grid-template-columns: 1fr;
+  }
+
+  .nickname-discord-proof {
+    width: min(100%, 620px);
+  }
+}
+
+@media (max-width: 600px) {
+  .nickname-token-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .nickname-discord-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .nickname-discord-capture {
+    min-height: 132px;
+    padding: 1.1rem 0.8rem;
+  }
+
+  .nickname-doc-example {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .nickname-doc-example img {
+    align-self: center;
   }
 }

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-labelledby="title">
+  <title id="title">Terms of Service</title>
+  <defs>
+    <linearGradient id="terms-frame" x1="10" y1="7" x2="55" y2="58" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F7D66F"/>
+      <stop offset=".5" stop-color="#B58CFF"/>
+      <stop offset="1" stop-color="#56C7F5"/>
+    </linearGradient>
+    <linearGradient id="terms-check" x1="34" y1="35" x2="52" y2="53" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7FE2B3"/>
+      <stop offset="1" stop-color="#56C7F5"/>
+    </linearGradient>
+  </defs>
+  <path d="M17 8h23l9 9v35a5 5 0 0 1-5 5H17a5 5 0 0 1-5-5V13a5 5 0 0 1 5-5Z" fill="#0A1020" stroke="url(#terms-frame)" stroke-width="2.8" stroke-linejoin="round"/>
+  <path d="M40 8v10h9" stroke="url(#terms-frame)" stroke-width="2.8" stroke-linejoin="round"/>
+  <path d="M21 25h19M21 33h16M21 41h10" stroke="#FFF4C8" stroke-opacity=".84" stroke-width="2.7" stroke-linecap="round"/>
+  <circle cx="43.5" cy="43.5" r="11.5" fill="#0B1429" stroke="url(#terms-check)" stroke-width="2.6"/>
+  <path d="m38.5 43.5 3.3 3.3 7-7.1" stroke="#7FE2B3" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

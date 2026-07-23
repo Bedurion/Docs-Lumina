@@ -31,8 +31,11 @@ const navigationSections = {
       ['systems.html', 'How It Works', 'Start'],
       ['use-cases.html', 'Use Cases', 'Start'],
       ['security.html', 'Trust & Safety', 'Start'],
-      ['bot-registration.html', 'Registration', 'Members'],
+      ['bot-nicknames.html', 'Tibia Nicknames', 'Members'],
+      ['bot-registration.html', 'Character Registration', 'Members'],
+      ['bot-ranks.html', 'Guild Rank Sync', 'Members'],
       ['bot-loyalty.html', 'Loyalty', 'Members'],
+      ['bot-boosts.html', 'Server Boosts', 'Members'],
       ['bot-streaming.html', 'Stream Rewards', 'Members'],
       ['bot-timezones.html', 'Timezones', 'Members'],
       ['bot-finder.html', 'Finder', 'Members'],
@@ -47,7 +50,9 @@ const navigationSections = {
       ['bot-recruitment.html', 'Recruitment', 'Guild operations'],
       ['bot-guildhall.html', 'Guildhall', 'Guild operations'],
       ['bot-support.html', 'Support Tickets', 'Staff & admin'],
-      ['bot-moderation.html', 'Moderation', 'Staff & admin'],
+      ['bot-moderation.html', 'Automod & Logs', 'Staff & admin'],
+      ['bot-banlist.html', 'Ban List', 'Staff & admin'],
+      ['bot-blacklist.html', 'Blacklist', 'Staff & admin'],
       ['bot-staff.html', 'Staff Tools', 'Staff & admin'],
       ['bot-automation.html', 'Automation', 'Staff & admin'],
       ['bot-website.html', 'Website Publishing', 'Staff & admin']
@@ -59,11 +64,15 @@ const navigationSections = {
     pages: [
       ['docs.html', 'Documentation Home', 'Start'],
       ['docs-getting-started.html', 'Getting Started', 'Start'],
+      ['systems.html', 'How Luminox Works', 'Start'],
       ['setup.html', 'Installation', 'Start'],
       ['commands.html', 'Command Reference', 'Start'],
       ['docs-panels.html', 'Panel Setup', 'Start'],
-      ['docs-registration.html', 'Registration', 'Member systems'],
+      ['docs-registration.html', 'Character Registration', 'Member systems'],
+      ['docs-nicknames.html', 'Tibia Nicknames', 'Member systems'],
+      ['docs-ranks.html', 'Guild Rank Sync', 'Member systems'],
       ['docs-loyalty.html', 'Loyalty', 'Member systems'],
+      ['docs-boosts.html', 'Server Boost Loyalty', 'Member systems'],
       ['docs-streaming.html', 'Stream Loyalty', 'Member systems'],
       ['docs-events.html', 'Events', 'Member systems'],
       ['docs-loot.html', 'Loot Split', 'Member systems'],
@@ -78,13 +87,14 @@ const navigationSections = {
       ['docs-recruitment.html', 'Recruitment', 'Guild operations'],
       ['docs-guildhall.html', 'Guildhall', 'Guild operations'],
       ['docs-support.html', 'Support Tickets', 'Staff & moderation'],
-      ['docs-moderation.html', 'Moderation Lists', 'Staff & moderation'],
+      ['docs-moderation.html', 'Automod & Logs', 'Staff & moderation'],
+      ['docs-banlist.html', 'Ban List', 'Staff & moderation'],
+      ['docs-blacklist.html', 'Blacklist', 'Staff & moderation'],
       ['docs-staff.html', 'Staff Systems', 'Staff & moderation'],
       ['docs-admin.html', 'Admin Guide', 'Administration'],
       ['docs-automation.html', 'Automation & Retention', 'Administration'],
       ['docs-website.html', 'Website Publishing', 'Administration'],
       ['docs-troubleshooting.html', 'Troubleshooting', 'Administration'],
-      ['systems.html', 'How Luminox Works', 'Administration'],
       ['docs-faq.html', 'FAQ', 'Administration'],
       ['legal.html', 'Legal Centre', 'Administration'],
       ['roadmap.html', 'Roadmap', 'Administration'],
@@ -185,8 +195,11 @@ const documentationCatalog = [
   ['setup.html', 'Installation & Wizard', 'Safe installation, edition selection and configuration overview.', 'install wizard overview setup'],
   ['commands.html', 'Command Reference', 'Every active slash command, context command and access level.', 'commands admin everyone moderator'],
   ['docs-panels.html', 'Panel Setup', 'Every public control panel and the command that publishes it.', 'panels channels setup configuration'],
-  ['docs-registration.html', 'Character Registration', 'Verification codes, timezone, mains, roles and world restrictions.', 'register character main nickname roles'],
+  ['docs-registration.html', 'Character Registration', 'Verification codes, account ownership, mains and world restrictions.', 'register character verification ownership main world'],
+  ['docs-nicknames.html', 'Automatic Tibia Nicknames', 'Tracked main, vocation, level, Loyalty notation, refresh triggers and Discord permissions.', 'nickname tibia vocation level loyalty main discord sync'],
+  ['docs-ranks.html', 'Guild Rank & Promotion Sync', 'Tibia rank mappings, automatic Discord roles, Guest access and hierarchy safeguards.', 'ranks promotions demotions discord roles guest mapping'],
   ['docs-loyalty.html', 'Loyalty System', 'Rewards, levels, profiles, boosts and account eligibility.', 'loyalty points levels boosts rewards'],
+  ['docs-boosts.html', 'Server Boost Loyalty', 'Continuous 30-day boost periods, multiple units, pending registration and lifecycle logs.', 'boost server boost loyalty 30 days pending attributed'],
   ['docs-streaming.html', 'Stream Loyalty', 'Eligible screen-share sessions, per-minute rewards, limits and total streamed time.', 'stream streaming screenshare voice loyalty hours'],
   ['docs-events.html', 'Events', 'Hunts, bosses, quests and general events with automatic completion.', 'hunt boss quest event thread'],
   ['docs-loot.html', 'Loot Split', 'Panel flow, transfer confirmer, GuildBank contribution and minimums.', 'loot split transfer looter'],
@@ -201,11 +214,13 @@ const documentationCatalog = [
   ['docs-recruitment.html', 'Recruitment Rewards', 'Claims, reviews, disputes, exponential rewards and retention.', 'recruitment recruit rewards disputes'],
   ['docs-guildhall.html', 'Guildhall', 'Ordered rooms, registered occupants, sale reports, claims and specialist review.', 'guildhall rooms sqm occupant claim reports'],
   ['docs-support.html', 'Support Tickets', 'Private categories, claims, participants, satisfaction and archives.', 'support tickets claims staff archive'],
-  ['docs-moderation.html', 'Moderation Lists', 'Blacklist, Ban List, moderation log and Guild Chat alerts.', 'blacklist banlist moderation log'],
+  ['docs-moderation.html', 'Automod & Moderation Logs', 'Channel-scoped link and word protection, isolation, permissions and permanent audit history.', 'automod blocked words links isolation moderation log'],
+  ['docs-banlist.html', 'Ban List', 'Timed or unlimited Discord sanctions with guided targets, responsible staff and reversible controls.', 'banlist ban sanctions duration lift discord member'],
+  ['docs-blacklist.html', 'Tibia Blacklist', 'Community Edition characters, guilds, bounties, Tracker outcomes and connected enemy intelligence.', 'blacklist tibia characters guilds bounty tracker enemies'],
   ['docs-staff.html', 'Staff Systems', 'Moderator roles, private voting and public applications.', 'staff moderator voting applications'],
   ['docs-admin.html', 'Administrator Guide', 'Role hierarchy, refresh strategy, backups and safe maintenance.', 'admin roles refresh backup'],
   ['docs-automation.html', 'Automation & Retention', 'Autodelete, panel refresh, private response expiry and local backups.', 'automation autodelete retention backups ephemeral'],
-  ['docs-website.html', 'Website Publishing', 'Private Discord proposals, staff review and safe publication of approved media.', 'website gallery media publish review security'],
+  ['docs-website.html', 'Website Publishing', 'Founder-only Discord proposals, staff review and safe publication of approved media.', 'founder website gallery media publish review security'],
   ['docs-troubleshooting.html', 'Troubleshooting', 'Permissions, missing panels, failed interactions and sync issues.', 'errors permissions missing interaction'],
   ['docs-faq.html', 'FAQ', 'Short answers to common member and staff questions.', 'faq questions help'],
   ['legal.html', 'Legal Centre', 'Terms, privacy, cookies, publishing and Discord-managed billing conditions.', 'legal terms privacy cookies publishing billing'],
@@ -225,8 +240,11 @@ const pagePresentations = {
   'docs-getting-started.html': { family: 'reference', variant: 'steps', accent: 'green', code: 'Guide 01', icon: 'content-journey.svg', label: 'Start here', summary: 'Edition-aware paths explain what members, staff and administrators should do first.', tags: ['Choose role', 'Follow path', 'Verify'] },
   'setup.html': { family: 'reference', variant: 'blueprint', accent: 'gold', code: 'Guide 02', icon: 'content-setup.svg', label: 'Installation', summary: 'A non-destructive route from an empty server to correctly published panels.', tags: ['Audit', 'Configure', 'Publish'] },
   'docs-panels.html': { family: 'reference', variant: 'directory', accent: 'violet', code: 'Guide 03', icon: 'content-docs.svg', label: 'Panel directory', summary: 'Every public control surface, its channel and its prerequisite configuration.', tags: ['Channel', 'Command', 'Audience'] },
-  'docs-registration.html': { family: 'reference', variant: 'identity', accent: 'blue', code: 'Guide 04', icon: 'content-identity.svg', label: 'Registration', summary: 'The verified link between a Discord account, its Tibia characters and guild access.', tags: ['Verify', 'Main', 'Synchronize'] },
+  'docs-registration.html': { family: 'reference', variant: 'identity', accent: 'blue', code: 'Guide 04', icon: 'content-registration.svg', label: 'Registration', summary: 'The verified ownership link between a Discord account, its Tibia characters and guild access.', tags: ['Verify', 'Main', 'Trust'] },
+  'docs-nicknames.html': { family: 'reference', variant: 'identity', accent: 'violet', code: 'Guide 04A', icon: 'content-nickname.svg', label: 'Tibia nicknames', summary: 'Build one current Discord identity from the tracked main, vocation, level and account Loyalty Level.', tags: ['Main', 'Format', 'Refresh'] },
+  'docs-ranks.html': { family: 'reference', variant: 'roles', accent: 'green', code: 'Guide 04B', icon: 'content-ranks.svg', label: 'Guild rank sync', summary: 'Map verified Tibia guild ranks to managed Discord roles and Guest access.', tags: ['Map', 'Promote', 'Protect'] },
   'docs-loyalty.html': { family: 'reference', variant: 'progress', accent: 'gold', code: 'Guide 05', icon: 'content-loyalty.svg', label: 'Loyalty', summary: 'Account-wide rewards, levels, eligibility and transparent reward history.', tags: ['Earn', 'Level', 'Review'] },
+  'docs-boosts.html': { family: 'reference', variant: 'cycle', accent: 'violet', code: 'Guide 05A', icon: 'content-boosts.svg', label: 'Server Boost Loyalty', summary: 'Independent 30-day boost cycles, attribution, pending rewards and permanent logs.', tags: ['Track', 'Complete', 'Reward'] },
   'docs-streaming.html': { family: 'reference', variant: 'broadcast', accent: 'red', code: 'Guide 06', icon: 'content-streaming.svg', label: 'Stream Loyalty', summary: 'Event-driven screen-share tracking with proportional rewards and healthy limits.', tags: ['10 min', 'Per minute', '6h cap'] },
   'docs-events.html': { family: 'reference', variant: 'schedule', accent: 'green', code: 'Guide 07', icon: 'content-events.svg', label: 'Events', summary: 'General Discord events in both editions, with specialized Tibia boards in Community.', tags: ['Create', 'Join', 'Complete'] },
   'docs-loot.html': { family: 'reference', variant: 'calculator', accent: 'gold', code: 'Guide 08', icon: 'content-loot.svg', label: 'Loot Split', summary: 'A guided analyzer flow from pasted session data to fair transfers and contributions.', tags: ['Paste', 'Calculate', 'Confirm'] },
@@ -241,11 +259,13 @@ const pagePresentations = {
   'docs-recruitment.html': { family: 'reference', variant: 'growth', accent: 'green', code: 'Guide 17', icon: 'content-recruitment.svg', label: 'Recruitment', summary: 'Pre-registration claims, specialist review, disputes and retention-aware rewards for real new members.', tags: ['Claim', 'Review', 'Protect'] },
   'docs-guildhall.html': { family: 'reference', variant: 'ledger', accent: 'violet', code: 'Guild ops', icon: 'content-guildhall.svg', label: 'Guildhall', summary: 'Ordered rooms, registered occupants and reviewed member requests with permanent Discord logs.', tags: ['Configure', 'Assign', 'Audit'] },
   'docs-support.html': { family: 'reference', variant: 'inbox', accent: 'blue', code: 'Guide 18', icon: 'content-support.svg', label: 'Support', summary: 'Private role-aware tickets with required questions, optional media intake and archived Discord history.', tags: ['Open', 'Claim', 'Archive'] },
-  'docs-moderation.html': { family: 'reference', variant: 'shield', accent: 'red', code: 'Guide 19', icon: 'content-moderation.svg', label: 'Moderation', summary: 'Automod and permanent logs for both editions, with Tibia-linked sanctions in Community.', tags: ['Restrict', 'Protect', 'Audit'] },
+  'docs-moderation.html': { family: 'reference', variant: 'shield', accent: 'red', code: 'Guide 19', icon: 'content-moderation.svg', label: 'Automod & logs', summary: 'Channel-scoped content protection and permanent audit history in both public editions.', tags: ['Detect', 'Isolate', 'Audit'] },
+  'docs-banlist.html': { family: 'reference', variant: 'ledger', accent: 'gold', code: 'Sanctions Guide', icon: 'content-banlist.svg', label: 'Ban List', summary: 'Timed or unlimited Discord sanctions with guided targets, clear ownership and reversible controls.', tags: ['Add', 'Review', 'Lift'] },
+  'docs-blacklist.html': { family: 'reference', variant: 'trace', accent: 'red', code: 'Community Guide', icon: 'content-blacklist.svg', label: 'Tibia Blacklist', summary: 'Characters, guilds, bounties and resolved identity history connected to live intelligence.', tags: ['Record', 'Track', 'Resolve'] },
   'docs-staff.html': { family: 'reference', variant: 'roles', accent: 'violet', code: 'Guide 20', icon: 'content-guild.svg', label: 'Staff systems', summary: 'Global moderators, specialist roles, private voting and public applications.', tags: ['Roles', 'Access', 'Decisions'] },
   'docs-admin.html': { family: 'reference', variant: 'control', accent: 'gold', code: 'Guide 21', icon: 'content-setup.svg', label: 'Administration', summary: 'Configuration boundaries, maintenance tools and safe administrator decisions.', tags: ['Configure', 'Inspect', 'Maintain'] },
   'docs-automation.html': { family: 'reference', variant: 'cycle', accent: 'green', code: 'Guide 22', icon: 'content-automation.svg', label: 'Automation', summary: 'Refresh panels, clean temporary messages, expire private responses and keep backups.', tags: ['Refresh', 'Clean', 'Back up'] },
-  'docs-website.html': { family: 'reference', variant: 'publish', accent: 'blue', code: 'Guide 23', icon: 'content-website.svg', label: 'Website publishing', summary: 'A reviewed path from a private Discord proposal to approved public media.', tags: ['Submit', 'Review', 'Publish'] },
+  'docs-website.html': { family: 'reference', variant: 'publish', accent: 'blue', code: 'Founder Guide', icon: 'content-website.svg', label: 'Website publishing', summary: 'The Founder-only path from a private Discord proposal to approved public media.', tags: ['Configure', 'Review', 'Publish'] },
   'docs-troubleshooting.html': { family: 'reference', variant: 'diagnostic', accent: 'red', code: 'Guide 24', icon: 'content-troubleshooting.svg', label: 'Troubleshooting', summary: 'Diagnose permissions and configuration before forcing expensive synchronization.', tags: ['Observe', 'Isolate', 'Recover'] },
   'systems.html': { family: 'reference', variant: 'architecture', accent: 'violet', code: 'Guide 25', icon: 'content-systems.svg', label: 'How it works', summary: 'Luminox reuses current information, refreshes panels by need and cleans temporary detail.', tags: ['Collect once', 'Reuse', 'Clean'] },
   'docs-faq.html': { family: 'reference', variant: 'questions', accent: 'blue', code: 'Guide 26', icon: 'content-support.svg', label: 'FAQ', summary: 'Fast answers with direct routes to the complete setup guides.', tags: ['Ask', 'Answer', 'Continue'] },
@@ -258,11 +278,14 @@ const pagePresentations = {
   'features-intelligence.html': { family: 'product', variant: 'intelligence', accent: 'red', code: '04', icon: 'content-intelligence.svg', label: 'Live monitoring', summary: 'Connect online members, enemy risk and character changes without duplicate scans.', tags: ['Observe', 'Track', 'Alert'] },
   'features-finder.html': { family: 'product', variant: 'finder', accent: 'blue', code: '05', icon: 'content-finder.svg', label: 'Team discovery', summary: 'Use current activity and compatible vocations to surface playable groups.', tags: ['Signal', 'Score', 'Match'] },
   'features-support.html': { family: 'product', variant: 'support', accent: 'violet', code: '06', icon: 'content-support.svg', label: 'Private support', summary: 'Route every request to the correct people without exposing it publicly.', tags: ['Route', 'Resolve', 'Archive'] },
-  'bot-registration.html': { family: 'product', variant: 'identity', accent: 'blue', code: 'Member 01', icon: 'content-identity.svg', label: 'Character registration', summary: 'Verify who owns each character and use one trusted identity across the server.', tags: ['Verify', 'Main', 'Roles'] },
-  'bot-loyalty.html': { family: 'product', variant: 'progress', accent: 'gold', code: 'Member 02', icon: 'content-loyalty.svg', label: 'Loyalty progression', summary: 'Turn useful guild activity into transparent account-wide progress and rewards.', tags: ['Earn', 'Level', 'Explain'] },
-  'bot-streaming.html': { family: 'product', variant: 'broadcast', accent: 'red', code: 'Member 03', icon: 'content-streaming.svg', label: 'Stream rewards', summary: 'Reward eligible Discord screen-share time without asking staff to count sessions.', tags: ['Detect', 'Qualify', 'Reward'] },
-  'bot-timezones.html': { family: 'product', variant: 'clock', accent: 'violet', code: 'Member 04', icon: 'content-timezones.svg', label: 'Timezone conversion', summary: 'Let every member read shared times correctly in their own local timezone.', tags: ['Save', 'Convert', 'Display'] },
-  'bot-finder.html': { family: 'product', variant: 'finder', accent: 'blue', code: 'Member 05', icon: 'content-finder.svg', label: 'Team finder', summary: 'Turn current online data into playable team suggestions and voluntary group posts.', tags: ['Online', 'Match', 'Team'] },
+  'bot-nicknames.html': { family: 'product', variant: 'identity', accent: 'violet', code: 'Member 01', icon: 'content-nickname.svg', label: 'Tibia nicknames', summary: 'Show the tracked main, vocation, current level and account Loyalty Level in one clean Discord nickname.', tags: ['Main', 'Current', 'Readable'] },
+  'bot-registration.html': { family: 'product', variant: 'identity', accent: 'blue', code: 'Member 02', icon: 'content-registration.svg', label: 'Character registration', summary: 'Verify who owns each character and use one trusted identity across the server.', tags: ['Verify', 'Main', 'Trust'] },
+  'bot-ranks.html': { family: 'product', variant: 'roles', accent: 'green', code: 'Member 02B', icon: 'content-ranks.svg', label: 'Guild rank sync', summary: 'Keep Discord guild access aligned with verified Tibia promotions and demotions.', tags: ['Map', 'Sync', 'Guest'] },
+  'bot-loyalty.html': { family: 'product', variant: 'progress', accent: 'gold', code: 'Member 03', icon: 'content-loyalty.svg', label: 'Loyalty progression', summary: 'Turn useful guild activity into transparent account-wide progress and rewards.', tags: ['Earn', 'Level', 'Explain'] },
+  'bot-boosts.html': { family: 'product', variant: 'cycle', accent: 'violet', code: 'Member 03A', icon: 'content-boosts.svg', label: 'Server Boost Loyalty', summary: 'Reward every continuously maintained Discord boost with transparent account progress.', tags: ['30 days', 'Per boost', 'Logged'] },
+  'bot-streaming.html': { family: 'product', variant: 'broadcast', accent: 'red', code: 'Member 04', icon: 'content-streaming.svg', label: 'Stream rewards', summary: 'Reward eligible Discord screen-share time without asking staff to count sessions.', tags: ['Detect', 'Qualify', 'Reward'] },
+  'bot-timezones.html': { family: 'product', variant: 'clock', accent: 'violet', code: 'Member 05', icon: 'content-timezones.svg', label: 'Timezone conversion', summary: 'Let every member read shared times correctly in their own local timezone.', tags: ['Save', 'Convert', 'Display'] },
+  'bot-finder.html': { family: 'product', variant: 'finder', accent: 'blue', code: 'Member 06', icon: 'content-finder.svg', label: 'Team finder', summary: 'Turn current online data into playable team suggestions and voluntary group posts.', tags: ['Online', 'Match', 'Team'] },
   'bot-events.html': { family: 'product', variant: 'events', accent: 'green', code: 'Activity 01', icon: 'content-events.svg', label: 'Event boards', summary: 'Create, fill, schedule and archive guild activities from guided Discord panels.', tags: ['Create', 'Join', 'Complete'] },
   'bot-loot.html': { family: 'product', variant: 'economy', accent: 'gold', code: 'Activity 02', icon: 'content-loot.svg', label: 'Loot split', summary: 'Transform pasted hunt analyzer data into clear transfers and optional contributions.', tags: ['Paste', 'Calculate', 'Share'] },
   'bot-progression.html': { family: 'product', variant: 'events', accent: 'green', code: 'Activity 03', icon: 'content-progression.svg', label: 'Guild progression', summary: 'Publish level and death activity while keeping rolling guild summaries current.', tags: ['Detect', 'Announce', 'Summarize'] },
@@ -274,10 +297,12 @@ const pagePresentations = {
   'bot-recruitment.html': { family: 'product', variant: 'finder', accent: 'green', code: 'Guild ops 05', icon: 'content-recruitment.svg', label: 'Recruitment records', summary: 'Record real recruitment, review ownership disputes and protect rewards from abuse.', tags: ['Report', 'Review', 'Retain'] },
   'bot-guildhall.html': { family: 'product', variant: 'economy', accent: 'violet', code: 'Guild ops 06', icon: 'content-guildhall.svg', label: 'Guildhall rooms', summary: 'Publish available rooms and review member claims through one permanent panel.', tags: ['Rooms', 'Claims', 'Occupants'] },
   'bot-support.html': { family: 'product', variant: 'support', accent: 'blue', code: 'Staff 01', icon: 'content-support.svg', label: 'Private support', summary: 'Route each request into a private Discord thread with the responsible staff.', tags: ['Open', 'Claim', 'Archive'] },
-  'bot-moderation.html': { family: 'product', variant: 'trust', accent: 'red', code: 'Staff 02', icon: 'content-moderation.svg', label: 'Moderation tools', summary: 'Protect configured channels and keep restrictions and staff actions clearly recorded.', tags: ['Prevent', 'Restrict', 'Audit'] },
-  'bot-staff.html': { family: 'product', variant: 'support', accent: 'violet', code: 'Staff 03', icon: 'content-guild.svg', label: 'Staff tools', summary: 'Separate general authority from specialist responsibilities and structured decisions.', tags: ['Roles', 'Vote', 'Apply'] },
-  'bot-automation.html': { family: 'product', variant: 'constellation', accent: 'green', code: 'Staff 04', icon: 'content-automation.svg', label: 'Server automation', summary: 'Refresh public information and clean temporary content without constant staff work.', tags: ['Refresh', 'Expire', 'Clean'] },
-  'bot-website.html': { family: 'product', variant: 'support', accent: 'blue', code: 'Staff 05', icon: 'content-website.svg', label: 'Website publishing', summary: 'Collect media and articles in Discord, review them privately and publish safely.', tags: ['Submit', 'Review', 'Publish'] },
+  'bot-moderation.html': { family: 'product', variant: 'trust', accent: 'red', code: 'Staff 02', icon: 'content-moderation.svg', label: 'Automod & audit', summary: 'Protect configured channels and preserve important identity, role and staff actions.', tags: ['Prevent', 'Isolate', 'Audit'] },
+  'bot-banlist.html': { family: 'product', variant: 'ledger', accent: 'gold', code: 'Staff 03', icon: 'content-banlist.svg', label: 'Ban control', summary: 'Keep timed and unlimited Discord sanctions readable, attributable and reversible.', tags: ['Reason', 'Duration', 'Owner'] },
+  'bot-blacklist.html': { family: 'product', variant: 'intelligence', accent: 'red', code: 'Community Intelligence', icon: 'content-blacklist.svg', label: 'Risk intelligence', summary: 'Turn Tibia characters, guilds and bounties into connected live enemy awareness.', tags: ['Blacklist', 'Track', 'Respond'] },
+  'bot-staff.html': { family: 'product', variant: 'support', accent: 'violet', code: 'Staff 04', icon: 'content-guild.svg', label: 'Staff tools', summary: 'Separate general authority from specialist responsibilities and structured decisions.', tags: ['Roles', 'Vote', 'Apply'] },
+  'bot-automation.html': { family: 'product', variant: 'constellation', accent: 'green', code: 'Staff 05', icon: 'content-automation.svg', label: 'Server automation', summary: 'Refresh public information and clean temporary content without constant staff work.', tags: ['Refresh', 'Expire', 'Clean'] },
+  'bot-website.html': { family: 'product', variant: 'support', accent: 'blue', code: 'Founder Exclusive', icon: 'content-website.svg', label: 'Website publishing', summary: 'Lumina turns Discord drafts into reviewed website content through its private Founder workflow.', tags: ['Founder', 'Review', 'Publish'] },
   'security.html': { family: 'product', variant: 'trust', accent: 'blue', code: 'Trust model', icon: 'content-security.svg', label: 'Trust & safety', summary: 'Understand permissions, staff review, automatic cleanup and what remains in Discord.', tags: ['Controlled', 'Reviewable', 'Clear'] },
   'legal.html': { family: 'legal', variant: 'legal', accent: 'blue', code: 'Legal centre', icon: 'content-legal.svg', label: 'Clear terms', summary: 'Terms, privacy, cookies, publishing and billing rules in one accessible place.', tags: ['Terms', 'Privacy', 'Control'] },
   'guild.html': { family: 'guild', variant: 'manifesto', accent: 'gold', code: 'Secura', icon: 'content-guild.svg', label: 'The guild', summary: 'An international Tibia community where structure protects the social experience.', tags: ['Trust', 'Respect', 'Together'] },
@@ -307,8 +332,11 @@ const pageArtworkByPage = Object.freeze({
   'docs-getting-started.html': 'docs-library.svg',
   'setup.html': 'docs-library.svg',
   'docs-panels.html': 'product-network.svg',
-  'docs-registration.html': 'identity-orbit.svg',
+  'docs-registration.html': 'registration-proof.svg',
+  'docs-nicknames.html': 'nickname-sync.svg',
+  'docs-ranks.html': 'rank-sync.svg',
   'docs-loyalty.html': 'progression-path.svg',
+  'docs-boosts.html': 'boost-cycle.svg',
   'docs-streaming.html': 'progression-path.svg',
   'docs-events.html': 'events-calendar.svg',
   'docs-loot.html': 'economy-ledger.svg',
@@ -324,6 +352,8 @@ const pageArtworkByPage = Object.freeze({
   'docs-guildhall.html': 'guild-citadel.svg',
   'docs-support.html': 'support-threads.svg',
   'docs-moderation.html': 'intelligence-radar.svg',
+  'docs-banlist.html': 'banlist-ledger.svg',
+  'docs-blacklist.html': 'blacklist-command.svg',
   'docs-staff.html': 'support-threads.svg',
   'docs-admin.html': 'trust-vault.svg',
   'docs-automation.html': 'product-network.svg',
@@ -338,8 +368,11 @@ const pageArtworkByPage = Object.freeze({
   'features-intelligence.html': 'intelligence-radar.svg',
   'features-finder.html': 'finder-party.svg',
   'features-support.html': 'support-threads.svg',
-  'bot-registration.html': 'identity-orbit.svg',
+  'bot-nicknames.html': 'nickname-sync.svg',
+  'bot-registration.html': 'registration-proof.svg',
+  'bot-ranks.html': 'rank-sync.svg',
   'bot-loyalty.html': 'loyalty-orbit.svg',
+  'bot-boosts.html': 'boost-cycle.svg',
   'bot-streaming.html': 'stream-signal.svg',
   'bot-timezones.html': 'timezone-dial.svg',
   'bot-finder.html': 'finder-party.svg',
@@ -355,6 +388,8 @@ const pageArtworkByPage = Object.freeze({
   'bot-guildhall.html': 'guildhall-rooms.svg',
   'bot-support.html': 'support-threads.svg',
   'bot-moderation.html': 'moderation-shield.svg',
+  'bot-banlist.html': 'banlist-ledger.svg',
+  'bot-blacklist.html': 'blacklist-command.svg',
   'bot-staff.html': 'support-threads.svg',
   'bot-automation.html': 'product-network.svg',
   'bot-website.html': 'blog-journal.svg',
@@ -394,11 +429,16 @@ const pageOpeningTitles = {
   'docs-leaderboards.html': 'Leaderboard Guide',
   'docs-loot.html': 'Loot Splitting',
   'docs-loyalty.html': 'Loyalty System',
-  'docs-moderation.html': 'Moderation Lists',
+  'docs-boosts.html': 'Server Boost Loyalty',
+  'docs-moderation.html': 'Automod & Logs',
+  'docs-banlist.html': 'Ban List Guide',
+  'docs-blacklist.html': 'Blacklist Guide',
   'docs-panels.html': 'Panel Directory',
   'docs-progression.html': 'Guild Progression',
   'docs-recruitment.html': 'Recruitment Rewards',
-  'docs-registration.html': 'Verified Identity',
+  'docs-registration.html': 'Character Registration',
+  'docs-nicknames.html': 'Tibia Nicknames',
+  'docs-ranks.html': 'Guild Rank Sync',
   'docs-staff.html': 'Staff Access',
   'docs-streaming.html': 'Stream Loyalty',
   'docs-support.html': 'Private Support',
@@ -415,8 +455,11 @@ const pageOpeningTitles = {
   'features-identity.html': 'Verified Members',
   'features-intelligence.html': 'Live Monitoring',
   'features-support.html': 'Private Support',
+  'bot-nicknames.html': 'Tibia Nicknames',
   'bot-registration.html': 'Character Registration',
+  'bot-ranks.html': 'Guild Rank Sync',
   'bot-loyalty.html': 'Loyalty Progression',
+  'bot-boosts.html': 'Server Boost Loyalty',
   'bot-streaming.html': 'Stream Rewards',
   'bot-timezones.html': 'Shared Time',
   'bot-finder.html': 'Team Finder',
@@ -432,6 +475,8 @@ const pageOpeningTitles = {
   'bot-guildhall.html': 'Guildhall Rooms',
   'bot-support.html': 'Support Tickets',
   'bot-moderation.html': 'Safer Channels',
+  'bot-banlist.html': 'Ban Control',
+  'bot-blacklist.html': 'Risk Intelligence',
   'bot-staff.html': 'Staff Tools',
   'bot-automation.html': 'Automatic Upkeep',
   'bot-website.html': 'Website Publishing',
@@ -469,6 +514,12 @@ const editionBadgeDefinitions = Object.freeze({
     label: 'Community',
     icon: 'edition-community.svg',
     href: 'editions.html#community-edition'
+  },
+  founder: {
+    label: 'Founder',
+    icon: 'edition-founder.svg',
+    href: 'pricing.html#founder-edition',
+    exclusive: true
   }
 });
 
@@ -482,27 +533,30 @@ const bothEditionPages = [
   'docs-getting-started.html',
   'docs-leaderboards.html',
   'docs-loyalty.html',
+  'docs-boosts.html',
   'docs-panels.html',
   'docs-staff.html',
   'docs-streaming.html',
   'docs-support.html',
+  'docs-moderation.html',
+  'docs-banlist.html',
   'docs-timezones.html',
   'docs-troubleshooting.html',
-  'docs-website.html',
   'features.html',
   'editions.html',
   'features-events.html',
   'features-support.html',
   'bot-loyalty.html',
+  'bot-boosts.html',
   'bot-streaming.html',
   'bot-timezones.html',
   'bot-events.html',
   'bot-leaderboards.html',
   'bot-support.html',
   'bot-moderation.html',
+  'bot-banlist.html',
   'bot-staff.html',
   'bot-automation.html',
-  'bot-website.html',
   'security.html',
   'setup.html',
   'systems.html',
@@ -517,17 +571,22 @@ const communityEditionPages = [
   'docs-guildbank.html',
   'docs-guildhall.html',
   'docs-loot.html',
-  'docs-moderation.html',
+  'docs-blacklist.html',
   'docs-progression.html',
   'docs-recruitment.html',
   'docs-registration.html',
+  'docs-nicknames.html',
+  'docs-ranks.html',
   'docs-tracker.html',
   'docs-watchlists.html',
   'features-economy.html',
   'features-finder.html',
   'features-identity.html',
   'features-intelligence.html',
+  'bot-nicknames.html',
   'bot-registration.html',
+  'bot-ranks.html',
+  'bot-blacklist.html',
   'bot-finder.html',
   'bot-loot.html',
   'bot-progression.html',
@@ -539,9 +598,15 @@ const communityEditionPages = [
   'bot-guildhall.html'
 ];
 
+const founderEditionPages = [
+  'docs-website.html',
+  'bot-website.html'
+];
+
 const editionAvailabilityByPage = new Map([
   ...bothEditionPages.map((page) => [page, ['universal', 'community']]),
-  ...communityEditionPages.map((page) => [page, ['community']])
+  ...communityEditionPages.map((page) => [page, ['community']]),
+  ...founderEditionPages.map((page) => [page, ['founder']])
 ]);
 
 const openingLayoutGroups = {
@@ -554,6 +619,7 @@ const openingLayoutGroups = {
     'use-cases.html',
     'roadmap.html',
     'bot-loyalty.html',
+    'bot-boosts.html',
     'pricing-faq.html'
   ],
   band: [
@@ -574,10 +640,12 @@ const openingLayoutGroups = {
     'docs-finder.html',
     'docs-leaderboards.html',
     'docs-guards.html',
+    'docs-blacklist.html',
     'docs-website.html',
     'bot-streaming.html',
     'bot-leaderboards.html',
     'bot-guards.html',
+    'bot-banlist.html',
     'bot-website.html'
   ],
   brief: [
@@ -604,7 +672,9 @@ const openingLayoutGroups = {
     'guild-join.html',
     'guild-faq.html',
     'guarantee.html',
+    'bot-nicknames.html',
     'bot-registration.html',
+    'bot-ranks.html',
     'bot-loot.html',
     'bot-guildhall.html'
   ],
@@ -619,16 +689,21 @@ const openingLayoutGroups = {
     'guild-leadership.html',
     'blog.html',
     'bot-finder.html',
-    'bot-tracker.html'
+    'bot-tracker.html',
+    'bot-blacklist.html'
   ],
   chapter: [
     'docs-registration.html',
+    'docs-nicknames.html',
+    'docs-ranks.html',
     'docs-loyalty.html',
+    'docs-boosts.html',
     'docs-loot.html',
     'docs-guildbank.html',
     'docs-tracker.html',
     'docs-guildhall.html',
     'docs-moderation.html',
+    'docs-banlist.html',
     'docs-staff.html',
     'docs-admin.html',
     'guild-rules.html'
@@ -841,14 +916,16 @@ const addEditionAvailability = (copy) => {
 
   const badges = document.createElement('nav');
   badges.className = 'edition-availability';
-  badges.setAttribute('aria-label', 'Available Luminox editions');
+  badges.setAttribute('aria-label', 'Luminox edition availability');
 
   editions.forEach((edition) => {
     const definition = editionBadgeDefinitions[edition];
     const badge = document.createElement('a');
     badge.className = `edition-availability-badge edition-availability-${edition}`;
     badge.href = definition.href;
-    badge.title = `Available in ${definition.label} Edition`;
+    badge.title = definition.exclusive
+      ? `Exclusive to ${definition.label} Edition`
+      : `Available in ${definition.label} Edition`;
     badge.setAttribute('aria-label', `Learn about ${definition.label} Edition`);
     badge.innerHTML = `<img src="assets/icons/${definition.icon}" alt="" aria-hidden="true"><span>${definition.label}</span>`;
     badges.append(badge);
@@ -1026,9 +1103,30 @@ const conversionCopyByPage = {
   'docs-registration.html': {
     eyebrow: 'Build trusted identity first',
     title: 'Connect characters, accounts and roles before adding automation.',
-    text: 'A verified Registration panel gives every later Luminox feature a reliable member identity.',
+    text: 'A verified Registration panel gives every later Community feature a reliable member identity.',
     primary: ['setup.html', 'Configure registration'],
-    secondary: ['features-identity.html', 'See verified identity']
+    secondary: ['docs-nicknames.html', 'Configure nicknames']
+  },
+  'docs-nicknames.html': {
+    eyebrow: 'Make identity readable',
+    title: 'Let the verified main stay visible wherever members speak.',
+    text: 'One compact nickname can show the tracked character, vocation, current level and account Loyalty Level without manual rewrites.',
+    primary: ['bot-nicknames.html', 'See the member experience'],
+    secondary: ['docs-registration.html', 'Review registration']
+  },
+  'docs-ranks.html': {
+    eyebrow: 'Keep access aligned',
+    title: 'Map verified Tibia ranks before relying on guild channels.',
+    text: 'Explicit mappings and a deliberate Guest role let promotions, demotions and guild departures update only the Discord roles Luminox is responsible for.',
+    primary: ['bot-ranks.html', 'See Guild Rank Sync'],
+    secondary: ['docs-registration.html', 'Review registration']
+  },
+  'docs-boosts.html': {
+    eyebrow: 'Reward continuous support',
+    title: 'Publish one honest view of active and completed boosts.',
+    text: 'Independent 30-day cycles, registration-aware rewards and lifecycle logs let members understand exactly what their ongoing Server Boosts have earned.',
+    primary: ['bot-boosts.html', 'See Server Boosts'],
+    secondary: ['docs-loyalty.html', 'Review Loyalty']
   },
   'docs-events.html': {
     eyebrow: 'Launch one event board',
@@ -1059,10 +1157,24 @@ const conversionCopyByPage = {
     secondary: ['docs-staff.html', 'Review staff access']
   },
   'docs-moderation.html': {
-    eyebrow: 'Keep restrictions recorded',
-    title: 'Connect moderation lists with identity history and live awareness.',
-    text: 'Automod protects selected channels in both editions. Community adds Blacklist, Ban List and Tracker so Tibia-linked restrictions and identity changes remain attributable.',
-    primary: ['features-intelligence.html', 'Explore live monitoring'],
+    eyebrow: 'Protect only where intended',
+    title: 'Configure Automod and permanent audit as separate responsibilities.',
+    text: 'Enable channel-scoped content rules, verify permission-aware enforcement and keep important staff and member changes in a readable Discord log.',
+    primary: ['bot-moderation.html', 'Explore Automod & logs'],
+    secondary: ['security.html', 'Review safety']
+  },
+  'docs-banlist.html': {
+    eyebrow: 'Publish accountable sanctions',
+    title: 'Give staff one guided place to add, revise and lift bans.',
+    text: 'Ban List works in both public editions, using Discord identity everywhere and optional Tibia character context in Community.',
+    primary: ['bot-banlist.html', 'Explore Ban List'],
+    secondary: ['docs-moderation.html', 'Configure the audit log']
+  },
+  'docs-blacklist.html': {
+    eyebrow: 'Build connected Tibia intelligence',
+    title: 'Record each target once, then reuse that decision safely.',
+    text: 'Community Blacklist connects reviewed characters, guilds, reasons and bounties to Enemies Online, Tracker, Guards and historical outcomes.',
+    primary: ['bot-blacklist.html', 'Explore Blacklist'],
     secondary: ['docs-tracker.html', 'Review Tracker']
   },
   'docs-recruitment.html': {
@@ -1073,11 +1185,11 @@ const conversionCopyByPage = {
     secondary: ['docs-loyalty.html', 'Review Loyalty rules']
   },
   'docs-website.html': {
-    eyebrow: 'Publish with a review boundary',
-    title: 'Keep community media in Discord until staff approves it.',
-    text: 'The Website panel separates proposals, moderation and final publication without exposing local secrets.',
+    eyebrow: 'Configure Founder publishing',
+    title: 'Operate Lumina’s reviewed publishing workflow safely.',
+    text: 'This technical guide documents the Founder-only Website panel, its permissions, review states and isolated publication boundary.',
     primary: ['security.html', 'Review the security model'],
-    secondary: ['contact.html', 'Ask about publishing']
+    secondary: ['pricing.html#founder-edition', 'Understand Founder access']
   }
 };
 
@@ -1453,7 +1565,7 @@ const pricingEditionContent = {
         fit: 'For smaller Tibia guilds starting with verified identity, core guild visibility and guided operations.',
         features: [
           'Verified Tibia guild, world, characters, ranks and Guild List.',
-          'Levels, deaths, Hunt Board, general Events, Support and moderation tools.',
+          'Levels, deaths, Hunt Board, general Events, Support, Automod, Ban List and moderation logs.',
           'Up to 3 active events, 3 Support categories and 3 Automod channels.',
           '15-minute eligible external policy, 5-minute cached panels and 1-year history.'
         ]
@@ -1479,7 +1591,7 @@ const pricingEditionContent = {
       scale: {
         fit: 'For established Tibia communities operating Luminox as a core guild platform.',
         features: [
-          'Website publishing panel plus every public Community feature.',
+          'Every public Community feature operating at Scale capacity.',
           'Up to 100 active events, 25 Support categories and 100 Automod channels.',
           '2-minute eligible external policy and 1-minute cached panels.',
           '10-year useful history and priority setup support.'
@@ -1488,7 +1600,7 @@ const pricingEditionContent = {
     },
     comparison: {
       bestFit: ['First Tibia setup', 'Small Tibia guild', 'Growing Tibia guild', 'Established Tibia guild'],
-      access: ['Identity + guild basics', 'Loyalty + specialized events + live risk', 'Economy + recruitment + live monitoring', 'Website publishing + all Community features']
+      access: ['Identity + guild basics', 'Loyalty + specialized events + live risk', 'Economy + recruitment + live monitoring', 'All public Community features at maximum capacity']
     }
   },
   universal: {
@@ -1499,7 +1611,7 @@ const pricingEditionContent = {
       free: {
         fit: 'For gaming communities starting with private Support, general Events or channel automation.',
         features: [
-          'Private Support, general Events, Timezones and moderation log.',
+          'Private Support, general Events, Timezones, Ban List and moderation logs.',
           'Automod and Autodelete for selected channels.',
           'Up to 3 active events, 3 Support categories and 3 Automod channels.',
           '15-minute eligible external policy, 5-minute cached panels and 1-year history.'
@@ -1526,7 +1638,7 @@ const pricingEditionContent = {
       scale: {
         fit: 'For established gaming communities relying on Luminox as a daily platform.',
         features: [
-          'Website publishing panel plus every Universal Core module.',
+          'Every public Universal module operating at Scale capacity.',
           'Up to 100 active events, 25 Support categories and 100 Automod channels.',
           '2-minute eligible external policy and 1-minute cached panels.',
           '10-year useful history and priority setup support.'
@@ -1535,7 +1647,7 @@ const pricingEditionContent = {
     },
     comparison: {
       bestFit: ['First Discord setup', 'Small gaming community', 'Growing community', 'Established gaming community'],
-      access: ['Support + Events + automation', 'Progression + staff systems', 'Core access at higher capacity', 'Website publishing + highest Universal capacity']
+      access: ['Support + Events + automation', 'Progression + staff systems', 'Core access at higher capacity', 'All public Universal features at maximum capacity']
     }
   }
 };
@@ -1632,6 +1744,7 @@ if (docsSearch && docsSearchResults) {
   const compactDocsSearch = window.matchMedia('(max-width: 760px)');
   const compactFeaturedGuides = new Set([
     'docs-registration.html',
+    'docs-nicknames.html',
     'docs-events.html',
     'docs-guildbank.html',
     'docs-support.html'

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 540" fill="none">
+  <defs>
+    <linearGradient id="nickname-sync-line" x1="97" y1="91" x2="625" y2="461" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#61DCF7"/>
+      <stop offset=".46" stop-color="#A675FF"/>
+      <stop offset="1" stop-color="#FFE38B"/>
+    </linearGradient>
+    <radialGradient id="nickname-sync-aura" cx="0" cy="0" r="1" gradientTransform="translate(360 268) rotate(90) scale(238 310)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A675FF" stop-opacity=".24"/>
+      <stop offset=".56" stop-color="#61DCF7" stop-opacity=".08"/>
+      <stop offset="1" stop-color="#61DCF7" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="nickname-sync-shadow" x="-35%" y="-40%" width="170%" height="190%">
+      <feDropShadow dx="0" dy="22" stdDeviation="22" flood-color="#000" flood-opacity=".5"/>
+    </filter>
+  </defs>
+  <ellipse cx="360" cy="268" rx="310" ry="238" fill="url(#nickname-sync-aura)"/>
+  <ellipse cx="360" cy="268" rx="260" ry="177" stroke="url(#nickname-sync-line)" stroke-opacity=".28" stroke-width="3" stroke-dasharray="8 13"/>
+  <path d="M167 176 291 227M553 176 429 227M167 360l124-51M553 360l-124-51" stroke="url(#nickname-sync-line)" stroke-opacity=".38" stroke-width="3"/>
+  <g filter="url(#nickname-sync-shadow)">
+    <rect x="193" y="187" width="334" height="166" rx="34" fill="#0A1022" stroke="url(#nickname-sync-line)" stroke-width="4"/>
+    <circle cx="254" cy="270" r="34" fill="#61DCF7" fill-opacity=".12" stroke="#61DCF7" stroke-width="4"/>
+    <path d="M218 313c7-31 20-47 36-47s29 16 36 47" stroke="#61DCF7" stroke-width="5" stroke-linecap="round"/>
+    <text x="310" y="263" fill="#F8FAFF" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="800">Sacrel</text>
+    <text x="310" y="304" fill="#FFE38B" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="800">[RP394 L9]</text>
+  </g>
+  <g filter="url(#nickname-sync-shadow)">
+    <rect x="88" y="111" width="146" height="102" rx="25" fill="#0A1022" stroke="#61DCF7" stroke-opacity=".72" stroke-width="3"/>
+    <circle cx="126" cy="161" r="18" stroke="#61DCF7" stroke-width="3"/>
+    <path d="M154 150h51M154 166h35" stroke="#61DCF7" stroke-width="3.5" stroke-linecap="round"/>
+  </g>
+  <g filter="url(#nickname-sync-shadow)">
+    <rect x="486" y="111" width="146" height="102" rx="25" fill="#0A1022" stroke="#A675FF" stroke-opacity=".72" stroke-width="3"/>
+    <text x="511" y="175" fill="#D7C4FF" font-family="Inter, Arial, sans-serif" font-size="32" font-weight="850">RP394</text>
+  </g>
+  <g filter="url(#nickname-sync-shadow)">
+    <rect x="88" y="327" width="146" height="102" rx="25" fill="#0A1022" stroke="#FFE38B" stroke-opacity=".72" stroke-width="3"/>
+    <path d="m161 345 14 9v17l-14 9-14-9v-17l14-9Z" stroke="#FFE38B" stroke-width="3"/>
+    <path d="M127 399h68" stroke="#FFE38B" stroke-width="4" stroke-linecap="round"/>
+  </g>
+  <g filter="url(#nickname-sync-shadow)">
+    <rect x="486" y="327" width="146" height="102" rx="25" fill="#0A1022" stroke="#5EE19D" stroke-opacity=".72" stroke-width="3"/>
+    <path d="M523 372h72" stroke="#5EE19D" stroke-width="4" stroke-linecap="round"/>
+    <path d="m568 352 22 20-22 20" stroke="#5EE19D" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

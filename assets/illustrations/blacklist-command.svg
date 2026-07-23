@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 540" fill="none">
+  <defs>
+    <linearGradient id="bk-line" x1="124" y1="80" x2="596" y2="472" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FB7185"/>
+      <stop offset=".5" stop-color="#A675FF"/>
+      <stop offset="1" stop-color="#56C7F5"/>
+    </linearGradient>
+    <radialGradient id="bk-aura" cx="0" cy="0" r="1" gradientTransform="translate(360 270) rotate(90) scale(252 310)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FB7185" stop-opacity=".16"/>
+      <stop offset=".54" stop-color="#8B5CF6" stop-opacity=".1"/>
+      <stop offset="1" stop-color="#8B5CF6" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="bk-shadow" x="-28%" y="-28%" width="156%" height="176%">
+      <feDropShadow dx="0" dy="26" stdDeviation="25" flood-color="#000" flood-opacity=".52"/>
+    </filter>
+  </defs>
+  <ellipse cx="360" cy="270" rx="315" ry="246" fill="url(#bk-aura)"/>
+  <g filter="url(#bk-shadow)">
+    <circle cx="329" cy="270" r="196" fill="#091020" stroke="url(#bk-line)" stroke-width="4"/>
+    <circle cx="329" cy="270" r="142" stroke="#56C7F5" stroke-opacity=".24" stroke-width="2"/>
+    <circle cx="329" cy="270" r="82" stroke="#A675FF" stroke-opacity=".32" stroke-width="2"/>
+    <path d="M133 270h392M329 74v392" stroke="#56C7F5" stroke-opacity=".18" stroke-width="2"/>
+    <path d="M329 270 459 128A196 196 0 0 1 525 270Z" fill="url(#bk-line)" fill-opacity=".13"/>
+    <path d="M329 270 459 128" stroke="url(#bk-line)" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="329" cy="270" r="13" fill="#F6D46F"/>
+    <circle cx="434" cy="166" r="12" fill="#FB7185"/>
+    <circle cx="230" cy="344" r="10" fill="#56C7F5"/>
+    <circle cx="387" cy="394" r="9" fill="#A675FF"/>
+    <g transform="translate(435 305)">
+      <path d="M68 0 132 37v73c0 55-33 91-64 112-31-21-64-57-64-112V37L68 0Z" fill="#0A1022" stroke="url(#bk-line)" stroke-width="4"/>
+      <circle cx="68" cy="76" r="24" stroke="#F6D46F" stroke-width="5"/>
+      <path d="M28 142c11-26 30-39 40-39s29 13 40 39" stroke="#56C7F5" stroke-width="6" stroke-linecap="round"/>
+      <path d="M45 173h46" stroke="#FB7185" stroke-width="6" stroke-linecap="round"/>
+    </g>
+  </g>
+</svg>

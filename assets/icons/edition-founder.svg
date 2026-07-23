@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="gold" x1="12" y1="8" x2="50" y2="57" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF0A6"/>
+      <stop offset=".52" stop-color="#F7C653"/>
+      <stop offset="1" stop-color="#D98B32"/>
+    </linearGradient>
+    <linearGradient id="ruby" x1="25" y1="42" x2="40" y2="58" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF8A82"/>
+      <stop offset="1" stop-color="#E33853"/>
+    </linearGradient>
+  </defs>
+  <path d="M32 6.5 51 13.8v14.6c0 12.8-7.7 23.1-19 29.1-11.3-6-19-16.3-19-29.1V13.8L32 6.5Z" stroke="url(#gold)" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M24 18v20h16M24 18h9" stroke="url(#gold)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="m32 43 7 6-7 6-7-6 7-6Z" fill="url(#ruby)" stroke="#FFD878" stroke-width="1.8" stroke-linejoin="round"/>
+</svg>

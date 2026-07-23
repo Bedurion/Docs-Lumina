@@ -93,7 +93,7 @@
             kicker: "Server Boost Loyalty", title: "Recurring contributions show current and completed value.",
             lead: "Active boosters can see what is earned and what remains pending.",
             caption: "The live panel separates active boosts, completed periods and expected rewards without requiring manual verification.",
-            alt: "Luminox Server Boost Loyalty panel with active boosters and rewards.", href: "bot-loyalty.html", linkLabel: "Explore Loyalty rewards"
+            alt: "Luminox Server Boost Loyalty panel with active boosters and rewards.", href: "bot-boosts.html", linkLabel: "Explore Server Boosts"
           },
           {
             file: "bot-finder-01.png", width: 454, height: 1044, tone: "cyan",
@@ -117,18 +117,18 @@
             alt: "Luminox Potential Recruits panel separated by vocation.", href: "bot-recruitment.html", linkLabel: "Explore Recruitment tools"
           },
           {
-            file: "bot-moderation-01.png", width: 618, height: 706, tone: "red",
+            file: "bot-blacklist-01.png", width: 618, height: 706, tone: "red",
             kicker: "Blacklist", title: "Active intelligence stays separate from resolved history.",
             lead: "Targets retain world, bounty, reason and identity context.",
             caption: "On-world, transferred and resolved sections preserve the moderation decision without mixing inactive targets into live operations.",
-            alt: "Luminox Blacklist panel with characters, guilds, bounties and reasons.", href: "bot-moderation.html", linkLabel: "See more about Moderation"
+            alt: "Luminox Blacklist panel with characters, guilds, bounties and reasons.", href: "bot-blacklist.html", linkLabel: "See more about Blacklist"
           },
           {
-            file: "bot-moderation-02.png", width: 631, height: 374, tone: "gold",
+            file: "bot-banlist-01.png", width: 609, height: 368, tone: "gold",
             kicker: "Ban list", title: "Timed and permanent sanctions remain immediately readable.",
             lead: "The panel records who acted, why and for how long.",
             caption: "Authorized controls maintain the list while the public result remains compact enough for quick staff verification.",
-            alt: "Luminox Ban List panel showing reasons, executors and expiration.", href: "bot-moderation.html", linkLabel: "Explore Moderation lists"
+            alt: "Luminox Ban List panel showing reasons, executors and expiration.", href: "bot-banlist.html", linkLabel: "Explore Ban List"
           },
           {
             file: "bot-guards-01.png", width: 634, height: 459, tone: "red",
@@ -251,7 +251,7 @@
       summary: "This curated tour shows the real member and staff experience: permanent launchers, guided actions, private workflows, live information and readable history without an external dashboard.",
       tone: "violet",
       layout: "overview",
-      anchor: ".feature-first-look",
+      anchor: ".thread-native-overview",
       position: "after",
       items: [],
       gallery: {
@@ -264,11 +264,25 @@
             alt: "Luminox Hunt Board with Create hunt and Information buttons.", href: "bot-events.html", linkLabel: "Explore Events"
           },
           {
+            file: "bot-events-thread-01.png", width: 300, height: 268, tone: "green",
+            kicker: "Thread-native events", title: "Active work is visible directly from the channel list.",
+            lead: "The board count and linked thread make the current activity easy to find.",
+            caption: "Planning stays inside the event thread while the permanent board channel remains clean and reusable.",
+            alt: "Discord channel list showing one active boss event and its linked Raid for final boss thread.", href: "bot-events.html", linkLabel: "See how event threads work"
+          },
+          {
             file: "bot-support-01.png", width: 604, height: 465, tone: "cyan",
             kicker: "Private workflows", title: "One public panel opens the correct private support route.",
             lead: "Required information is collected before the thread opens.",
             caption: "The requester and responsible staff continue inside Discord while archived conversations remain available through My tickets.",
             alt: "Luminox Private Support panel with Open ticket and My tickets buttons.", href: "bot-support.html", linkLabel: "Explore Support"
+          },
+          {
+            file: "bot-support-thread-01.png", width: 296, height: 90, tone: "cyan",
+            kicker: "Protected conversations", title: "A private ticket remains visually attached to Support.",
+            lead: "Authorized people see the thread beneath the permanent help channel.",
+            caption: "The channel list stays understandable without exposing the complaint or its evidence to unrelated members.",
+            alt: "Discord Support category showing the help channel and a nested Complaint about user thread.", href: "bot-support.html", linkLabel: "See how Support threads work"
           },
           {
             file: "bot-loyalty-03.png", width: 636, height: 843, tone: "violet",
@@ -361,11 +375,11 @@
             alt: "Luminox GuildBank Control Panel in Discord.", href: "docs-guildbank.html", linkLabel: "Read the GuildBank guide"
           },
           {
-            file: "bot-moderation-01.png", width: 618, height: 706, tone: "red",
-            kicker: "Moderation records", title: "Active targets and resolved history remain clearly separated.",
+            file: "bot-blacklist-01.png", width: 618, height: 706, tone: "red",
+            kicker: "Blacklist intelligence", title: "Active targets and resolved history remain clearly separated.",
             lead: "Buttons replace scattered list-management commands.",
-            caption: "The Moderation guide explains permissions, sanctions, identity changes, role effects and permanent Discord logs.",
-            alt: "Luminox Blacklist panel with active and resolved sections.", href: "docs-moderation.html", linkLabel: "Read the Moderation guide"
+            caption: "The Blacklist guide explains permissions, bounties, identity changes, active-world filtering and permanent Discord logs.",
+            alt: "Luminox Blacklist panel with active and resolved sections.", href: "docs-blacklist.html", linkLabel: "Read the Blacklist guide"
           },
           {
             file: "bot-automation-01.png", width: 643, height: 642, tone: "violet",
@@ -407,6 +421,13 @@
             lead: "Title, description, schedule and duration stay structured.",
             caption: "The complete creation flow also covers invitations, team requirements, schedule voting and final review.",
             alt: "Discord modal for creating a Luminox event.", href: "docs-events.html#create", linkLabel: "Follow event creation"
+          },
+          {
+            file: "bot-events-thread-01.png", width: 300, height: 268, tone: "green",
+            kicker: "Channel and thread", title: "The active count and planning space remain connected.",
+            lead: "Members can identify the current boss event before opening the channel.",
+            caption: "The nested thread contains coordination and notifications; the permanent launcher remains available for the next activity.",
+            alt: "Discord channel list showing bosses with one active event and the Raid for final boss thread.", href: "docs-events.html#threads", linkLabel: "Understand channel and thread structure"
           }
         ]
       }
@@ -466,31 +487,70 @@
       }
     },
     "docs-moderation.html": {
-      eyebrow: "Moderation surfaces",
-      title: "Compare active intelligence with direct Discord sanctions.",
-      summary: "Blacklist records preserve game-aware intelligence, while the Ban List communicates timed or permanent server sanctions with clear ownership.",
+      eyebrow: "Permanent moderation structure",
+      title: "Keep prevention, current controls and audit history in clear places.",
+      summary: "Automod protects only the channels administrators select. Separate staff spaces and fixed log messages keep important decisions readable after the live state changes.",
       tone: "red",
       anchor: ".doc-layout",
       position: "before",
-      items: [],
-      gallery: {
-        slides: [
-          {
-            file: "bot-moderation-01.png", width: 618, height: 706, tone: "red",
-            kicker: "Blacklist", title: "Current, transferred and resolved records stay separated.",
-            lead: "World, bounty, reason and identity context remain visible.",
-            caption: "The guide explains adding, editing, resolving, restoring and linking Blacklist records to Tracker and Guards.",
-            alt: "Luminox Blacklist panel with characters, guilds and resolved sections.", href: "docs-moderation.html#blacklist", linkLabel: "Read Blacklist management"
-          },
-          {
-            file: "bot-moderation-02.png", width: 631, height: 374, tone: "gold",
-            kicker: "Ban List", title: "Timed and permanent sanctions stay immediately readable.",
-            lead: "Every entry identifies its reason, executor and duration.",
-            caption: "The guide explains permissions, role effects, linked characters, removal and the permanent audit trail.",
-            alt: "Luminox Ban List panel with reasons and expiration.", href: "docs-moderation.html#banlist", linkLabel: "Read Ban List management"
-          }
-        ]
-      }
+      items: [
+        {
+          file: "bot-staff-01.png",
+          width: 291,
+          height: 345,
+          tone: "red",
+          variant: "portrait",
+          kicker: "Purpose-specific staff spaces",
+          title: "Protection and history do not compete in one channel.",
+          lead: "Automod rules, list panels and permanent logs remain distinct.",
+          caption: "The guide explains exactly which commands configure channel protection and which destination receives the fixed moderation audit history.",
+          alt: "Discord staff category with separate channels for changes, guides, staff, logs, bans and promotions."
+        }
+      ]
+    },
+    "docs-banlist.html": {
+      eyebrow: "Sanctions in practice",
+      title: "Every active ban remains readable at a glance.",
+      summary: "The panel preserves the target, reason, responsible staff member and duration while private controls handle additions and revisions.",
+      tone: "gold",
+      anchor: ".doc-layout",
+      position: "before",
+      items: [
+        {
+          file: "bot-banlist-01.png",
+          width: 609,
+          height: 368,
+          tone: "gold",
+          variant: "compact",
+          kicker: "Ban List panel",
+          title: "Timed and unlimited sanctions share one accountable view.",
+          lead: "Authorized controls add, edit or lift records without exposing management forms publicly.",
+          caption: "The guide covers Universal Discord targets, Community Tibia character targets, duration changes, pagination and the audit trail.",
+          alt: "Luminox Ban List panel showing active bans, reasons, responsible staff and duration."
+        }
+      ]
+    },
+    "docs-blacklist.html": {
+      eyebrow: "Tibia intelligence in practice",
+      title: "Current threats and resolved history remain visibly separate.",
+      summary: "Characters and guilds retain their reason, bounty and identity state while connected systems reuse the same reviewed record.",
+      tone: "red",
+      anchor: ".doc-layout",
+      position: "before",
+      items: [
+        {
+          file: "bot-blacklist-01.png",
+          width: 618,
+          height: 706,
+          tone: "red",
+          variant: "portrait",
+          kicker: "Community Blacklist",
+          title: "On-world, transferred and resolved records keep their context.",
+          lead: "Live intelligence stays focused without deleting historical decisions.",
+          caption: "The guide explains characters, guilds, bounties, the entry manager, Tracker outcomes, Enemies Online and Guards.",
+          alt: "Luminox Community Blacklist with current characters, guilds and resolved sections."
+        }
+      ]
     },
     "docs-progression.html": {
       eyebrow: "Progression output",
@@ -604,6 +664,20 @@
             lead: "Every required field and initial attachment is collected first.",
             caption: "Category settings define the questions, accepted media and file count so the private thread begins with useful context instead of another information request.",
             alt: "Luminox Support complaint form with required questions and required media upload.", href: "#categories", linkLabel: "Review category settings"
+          },
+          {
+            file: "bot-support-thread-01.png", width: 296, height: 90, tone: "cyan",
+            kicker: "Channel and private thread", title: "The active case stays easy to locate without becoming public.",
+            lead: "Discord nests the protected conversation beneath the permanent Support channel.",
+            caption: "Only the requester, responsible staff and invited participants can enter the ticket while the server keeps a clean channel structure.",
+            alt: "Discord Support category showing the help channel and a nested Complaint about user thread.", href: "#threads", linkLabel: "Review the thread structure"
+          },
+          {
+            file: "bot-support-04.png", width: 600, height: 298, tone: "violet",
+            kicker: "My Support Tickets", title: "Members and staff recover the right history from one private view.",
+            lead: "Opened, Staff and Joined keep each relationship understandable.",
+            caption: "Pagination remains inside the same private response, and resolved entries link back to their archived Discord threads.",
+            alt: "Luminox My Support Tickets private view showing a resolved staff ticket and navigation buttons.", href: "#history", linkLabel: "Understand private ticket history"
           }
         ]
       }
@@ -754,6 +828,18 @@
           lead: "Title, description, timing and duration stay structured.",
           caption: "Discord validates required fields before Luminox publishes the live event card and opens the connected planning thread.",
           alt: "Discord modal for creating a Luminox hunt with title, description, start time and duration fields."
+        },
+        {
+          file: "bot-events-thread-01.png",
+          width: 300,
+          height: 268,
+          tone: "green",
+          variant: "compact",
+          kicker: "Channel and thread",
+          title: "The channel list shows the active event and its discussion.",
+          lead: "One active boss appears as bosses·1 with its linked thread beneath it.",
+          caption: "Members find the planning space immediately while the permanent board channel remains clean for future activities.",
+          alt: "Discord channel list showing bosses with one active event and the Raid for final boss planning thread."
         }
       ]
     },
@@ -963,6 +1049,25 @@
         }
       ]
     },
+    "bot-boosts.html": {
+      eyebrow: "Continuous support in Discord",
+      title: "Every completed boost period remains visible.",
+      summary: "The live panel distinguishes active boosts, lifetime completed contribution, expected rewards and attribution limits without requiring a manual monthly review.",
+      tone: "cyan",
+      items: [
+        {
+          file: "bot-loyalty-02.png",
+          width: 613,
+          height: 561,
+          tone: "cyan",
+          kicker: "Server Boost Loyalty",
+          title: "Current and historical support share one panel.",
+          lead: "Every active unit has a visible next reward.",
+          caption: "Contributors can see active boosts, Total Boosts, expected points and the next continuous period while unattributed units remain honestly separated.",
+          alt: "Luminox Server Boost Loyalty panel showing active contributors, completed boosts and expected rewards."
+        }
+      ]
+    },
     "docs-loyalty.html": {
       eyebrow: "What members read first",
       title: "The Loyalty panel explains eligibility before showing rewards.",
@@ -985,35 +1090,84 @@
         }
       ]
     },
+    "docs-boosts.html": {
+      eyebrow: "What members can verify",
+      title: "The Discord panel explains the full reward state.",
+      summary: "Administrators configure one channel; members can then distinguish current boost units, completed contribution, the next reward and any attribution gap directly in Discord.",
+      tone: "cyan",
+      anchor: ".doc-layout",
+      position: "before",
+      items: [
+        {
+          file: "bot-loyalty-02.png",
+          width: 613,
+          height: 561,
+          tone: "cyan",
+          kicker: "Live boost panel",
+          title: "Multiple boosts remain independently understandable.",
+          lead: "Current support and completed history are not the same number.",
+          caption: "The panel keeps active units, lifetime completed periods and expected rewards separate so the technical guide maps directly to what members see.",
+          alt: "Luminox Server Boost Loyalty panel used as the visual reference for boost configuration."
+        }
+      ]
+    },
     "bot-moderation.html": {
-      eyebrow: "Visible moderation records",
-      title: "Blacklist intelligence and server bans remain distinct.",
-      summary: "Each list communicates a different risk model while preserving the target, reason, executor, duration and authorized controls needed to maintain it.",
+      eyebrow: "Discord-native moderation",
+      title: "Staff protection and permanent history stay purpose-specific.",
+      summary: "Automod is configured per channel, while important member, role and staff actions remain available in fixed Discord log messages.",
       tone: "red",
       items: [
         {
-          file: "bot-moderation-01.png",
+          file: "bot-staff-01.png",
+          width: 291,
+          height: 345,
+          tone: "red",
+          variant: "portrait",
+          kicker: "Structured staff area",
+          title: "Rules, active controls and audit records use separate channels.",
+          lead: "The right people can find the right surface without mixing every moderation task.",
+          caption: "Administrators configure Automod and log destinations; moderators operate connected panels through role-aware controls.",
+          alt: "Discord staff category with separate changes, guides, staff, log, bans and promotions channels."
+        }
+      ]
+    },
+    "bot-banlist.html": {
+      eyebrow: "Readable sanctions",
+      title: "The panel shows every fact staff need before acting.",
+      summary: "Targets, reasons, responsible accounts and durations remain visible while add, edit and lift controls stay restricted to authorized staff.",
+      tone: "gold",
+      items: [
+        {
+          file: "bot-banlist-01.png",
+          width: 609,
+          height: 368,
+          tone: "gold",
+          variant: "compact",
+          kicker: "Ban List",
+          title: "Timed and unlimited records remain compact.",
+          lead: "One glance explains who, why, by whom and until when.",
+          caption: "Universal uses Discord members directly. Community can additionally identify an exact Tibia character and enrich linked account context.",
+          alt: "Luminox Ban List panel with active bans, reasons, responsible staff and expiration."
+        }
+      ]
+    },
+    "bot-blacklist.html": {
+      eyebrow: "Connected Tibia intelligence",
+      title: "One reviewed record can power every enemy workflow.",
+      summary: "Blacklist keeps active characters, hostile guilds, transferred targets and resolved history organized without duplicating the source decision.",
+      tone: "red",
+      items: [
+        {
+          file: "bot-blacklist-01.png",
           width: 618,
           height: 706,
           tone: "red",
           variant: "portrait",
-          kicker: "Blacklist",
-          title: "Characters and guilds retain live Tibia context.",
-          lead: "World, bounty, reason and identity state stay visible.",
-          caption: "On-world, transferred and resolved sections keep active intelligence separate without deleting the historical moderation decision.",
-          alt: "Luminox Blacklist panel in Discord listing blacklisted characters and guilds with bounty and reasons."
-        },
-        {
-          file: "bot-moderation-02.png",
-          width: 631,
-          height: 374,
-          tone: "gold",
-          variant: "compact",
-          kicker: "Ban List",
-          title: "Timed and unlimited bans are immediately readable.",
-          lead: "The record explains who applied the sanction and for how long.",
-          caption: "Authorized controls add, edit or lift a ban while the public panel remains compact enough for quick staff verification.",
-          alt: "Luminox Ban List panel showing active bans, reasons, executors and expiration."
+          kicker: "Community Blacklist",
+          title: "Risk context survives world and identity changes.",
+          lead: "World, bounty, reason and current state stay visible.",
+          caption: "The same records feed Enemies Online, Tracker, Guards and recruitment safeguards while historical outcomes remain above the live controls.",
+          alt: "Luminox Community Blacklist showing current characters, guilds and resolved history."
         }
       ]
     },
@@ -1180,6 +1334,20 @@
             lead: "The form adapts to the selected category instead of asking everyone the same questions.",
             caption: "Configurable fields and initial media requirements help responsible staff receive the facts they need from the first message.",
             alt: "Luminox Support complaint form with required questions and required media upload.", href: "docs-support.html#categories", linkLabel: "See category configuration"
+          },
+          {
+            file: "bot-support-thread-01.png", width: 296, height: 90, tone: "cyan",
+            kicker: "Protected thread", title: "The private case remains attached to its public entry point.",
+            lead: "The requester sees the ticket beneath #help without exposing it to the server.",
+            caption: "Discord's native channel structure keeps active support easy to locate while role-aware access protects the complete conversation.",
+            alt: "Discord Support category showing the help channel and a nested Complaint about user thread.", href: "docs-support.html#threads", linkLabel: "See the channel and thread model"
+          },
+          {
+            file: "bot-support-04.png", width: 600, height: 298, tone: "violet",
+            kicker: "My Support Tickets", title: "Private history distinguishes creator, staff and invited participation.",
+            lead: "One paginated response returns the viewer to the right active or archived case.",
+            caption: "The relationship, category, state and latest activity remain readable without exposing ticket history publicly.",
+            alt: "Luminox My Support Tickets private view showing a resolved staff ticket and pagination controls.", href: "docs-support.html#history", linkLabel: "See how My Tickets works"
           }
         ]
       }

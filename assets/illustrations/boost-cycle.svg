@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 540" fill="none">
+  <defs>
+    <linearGradient id="boost-cycle-line" x1="104" y1="82" x2="620" y2="464" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF8E9E"/>
+      <stop offset=".48" stop-color="#A675FF"/>
+      <stop offset="1" stop-color="#56C7F5"/>
+    </linearGradient>
+    <radialGradient id="boost-cycle-aura" cx="0" cy="0" r="1" gradientTransform="translate(360 270) rotate(90) scale(236 302)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A675FF" stop-opacity=".23"/>
+      <stop offset=".6" stop-color="#56C7F5" stop-opacity=".07"/>
+      <stop offset="1" stop-color="#56C7F5" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="boost-cycle-shadow" x="-40%" y="-40%" width="180%" height="190%">
+      <feDropShadow dx="0" dy="24" stdDeviation="22" flood-color="#000" flood-opacity=".5"/>
+    </filter>
+  </defs>
+  <ellipse cx="360" cy="270" rx="304" ry="236" fill="url(#boost-cycle-aura)"/>
+  <circle cx="360" cy="270" r="176" stroke="url(#boost-cycle-line)" stroke-opacity=".24" stroke-width="3" stroke-dasharray="9 14"/>
+  <circle cx="360" cy="270" r="128" stroke="url(#boost-cycle-line)" stroke-opacity=".14" stroke-width="2"/>
+  <path d="M202 202a176 176 0 0 1 310-18" stroke="url(#boost-cycle-line)" stroke-width="5" stroke-linecap="round"/>
+  <path d="m507 164 11 25-27-3" stroke="#56C7F5" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M518 338a176 176 0 0 1-310 18" stroke="url(#boost-cycle-line)" stroke-width="5" stroke-linecap="round"/>
+  <path d="m213 376-11-25 27 3" stroke="#FF8E9E" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <g filter="url(#boost-cycle-shadow)">
+    <path d="m360 130 87 87-87 87-87-87 87-87Z" fill="#0B1228" stroke="url(#boost-cycle-line)" stroke-width="5"/>
+    <path d="m360 159 58 58-58 58-58-58 58-58Z" fill="#A675FF" fill-opacity=".12" stroke="#FFF4C8" stroke-opacity=".75" stroke-width="3"/>
+    <path d="m360 178 39 39-39 39-39-39 39-39Z" fill="#FFF4C8" fill-opacity=".92"/>
+    <path d="m360 189 28 28-28 28-28-28 28-28Z" fill="#A675FF"/>
+  </g>
+  <g filter="url(#boost-cycle-shadow)">
+    <rect x="92" y="104" width="150" height="88" rx="24" fill="#0A1022" stroke="#FF8E9E" stroke-width="3"/>
+    <path d="m129 131 16 16-16 16-16-16 16-16Z" stroke="#FF8E9E" stroke-width="3"/>
+    <path d="M164 137h50M164 155h34" stroke="#FFF4C8" stroke-opacity=".8" stroke-width="4" stroke-linecap="round"/>
+  </g>
+  <g filter="url(#boost-cycle-shadow)">
+    <rect x="478" y="104" width="150" height="88" rx="24" fill="#0A1022" stroke="#56C7F5" stroke-width="3"/>
+    <circle cx="516" cy="148" r="17" stroke="#56C7F5" stroke-width="3"/>
+    <path d="M511 148h10M516 143v10M550 137h50M550 155h34" stroke="#FFF4C8" stroke-opacity=".8" stroke-width="4" stroke-linecap="round"/>
+  </g>
+  <g filter="url(#boost-cycle-shadow)">
+    <rect x="250" y="382" width="220" height="94" rx="28" fill="#0A1022" stroke="url(#boost-cycle-line)" stroke-width="3"/>
+    <circle cx="297" cy="429" r="20" fill="#5EE19D" fill-opacity=".12" stroke="#5EE19D" stroke-width="3"/>
+    <path d="m286 429 8 8 16-18" stroke="#FFF4C8" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M334 415h96M334 438h68" stroke="#FFF4C8" stroke-opacity=".8" stroke-width="4" stroke-linecap="round"/>
+  </g>
+  <circle cx="184" cy="270" r="7" fill="#FF8E9E"/>
+  <circle cx="536" cy="270" r="7" fill="#56C7F5"/>
+</svg>

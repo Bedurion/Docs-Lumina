@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-labelledby="title">
+  <title id="title">Legal and privacy contact</title>
+  <defs>
+    <linearGradient id="contact-bubble" x1="8" y1="9" x2="55" y2="55" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#56C7F5"/>
+      <stop offset=".52" stop-color="#B58CFF"/>
+      <stop offset="1" stop-color="#F7D66F"/>
+    </linearGradient>
+  </defs>
+  <path d="M10 12h44v31H31l-12 9v-9h-9V12Z" fill="#091224" stroke="url(#contact-bubble)" stroke-width="2.8" stroke-linejoin="round"/>
+  <path d="M32 20v17M20 25h24" stroke="#F7D66F" stroke-width="2.6" stroke-linecap="round"/>
+  <path d="m20 25-6 11h12l-6-11Zm24 0-6 11h12l-6-11Z" fill="#0A1020" stroke="#56C7F5" stroke-width="2.2" stroke-linejoin="round"/>
+  <path d="M26 39h12" stroke="#B58CFF" stroke-width="2.6" stroke-linecap="round"/>
+</svg>

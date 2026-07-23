@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://guildlumina.com/</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-07-23</lastmod>
     <image:image>
       <image:loc>https://guildlumina.com/assets/social/home.png</image:loc>
       <image:title>Lumina · Guild &amp; Luminox Discord Bot social preview</image:title>
@@ -29,6 +29,30 @@
     </image:image>
   </url>
   <url>
+    <loc>https://guildlumina.com/bot-banlist.html</loc>
+    <lastmod>2026-07-23</lastmod>
+    <image:image>
+      <image:loc>https://guildlumina.com/assets/social/bot-banlist.png</image:loc>
+      <image:title>Luminox Ban List for Discord Communities social preview</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://guildlumina.com/bot-blacklist.html</loc>
+    <lastmod>2026-07-23</lastmod>
+    <image:image>
+      <image:loc>https://guildlumina.com/assets/social/bot-blacklist.png</image:loc>
+      <image:title>Luminox Tibia Blacklist Intelligence social preview</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://guildlumina.com/bot-boosts.html</loc>
+    <lastmod>2026-07-23</lastmod>
+    <image:image>
+      <image:loc>https://guildlumina.com/assets/social/bot-boosts.png</image:loc>
+      <image:title>Discord Server Boost Loyalty Rewards | Luminox social preview</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://guildlumina.com/bot-events.html</loc>
     <lastmod>2026-07-22</lastmod>
     <image:image>
@@ -46,7 +70,7 @@
   </url>
   <url>
     <loc>https://guildlumina.com/bot-guards.html</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-07-23</lastmod>
     <image:image>
       <image:loc>https://guildlumina.com/assets/social/bot-guards.png</image:loc>
       <image:title>Guard Alerts for Tibia Guilds social preview</image:title>
@@ -86,7 +110,7 @@
   </url>
   <url>
     <loc>https://guildlumina.com/bot-loyalty.html</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-07-23</lastmod>
     <image:image>
       <image:loc>https://guildlumina.com/assets/social/bot-loyalty.png</image:loc>
       <image:title>Luminox Loyalty System for Discord Guilds social preview</image:title>
@@ -94,10 +118,22 @@
   </url>
   <url>
     <loc>https://guildlumina.com/bot-moderation.html</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-07-23</lastmod>
     <image:image>
       <image:loc>https://guildlumina.com/assets/social/bot-moderation.png</image:loc>
-      <image:title>Moderation Tools for Discord Guilds social preview</image:title>
+      <image:title>Luminox Automod and Moderation Logs social preview</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://guildlumina.com/bot-nicknames.html</loc>
+    <lastmod>2026-07-23</lastmod>
+    <image:image>
+      <image:loc>https://guildlumina.com/assets/social/bot-nicknames.png</image:loc>
+      <image:title>Automatic Tibia Nicknames for Discord Guilds social preview</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://guildlumina.com/assets/screenshots/bot-nicknames-01.png</image:loc>
+      <image:title>Discord message showing Sacrel with the synchronized nickname Sacrel RP394 L9</image:title>
     </image:image>
   </url>
   <url>
@@ -106,6 +142,14 @@
     <image:image>
       <image:loc>https://guildlumina.com/assets/social/bot-progression.png</image:loc>
       <image:title>Tibia Guild Progression in Discord social preview</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://guildlumina.com/bot-ranks.html</loc>
+    <lastmod>2026-07-23</lastmod>
+    <image:image>
+      <image:loc>https://guildlumina.com/assets/social/bot-ranks.png</image:loc>
+      <image:title>Tibia Guild Rank and Discord Role Sync | Luminox social preview</image:title>
     </image:image>
   </url>
   <url>
@@ -118,7 +162,7 @@
   </url>
   <url>
     <loc>https://guildlumina.com/bot-registration.html</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-07-23</lastmod>
     <image:image>
       <image:loc>https://guildlumina.com/assets/social/bot-registration.png</image:loc>
       <image:title>Luminox Character Registration for Guilds social preview</image:title>
@@ -158,7 +202,7 @@
   </url>
   <url>
     <loc>https://guildlumina.com/bot-tracker.html</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-07-23</lastmod>
     <image:image>
       <image:loc>https://guildlumina.com/assets/social/bot-tracker.png</image:loc>
       <image:title>Tibia Character Identity Tracker social preview</image:title>
@@ -174,10 +218,10 @@
   </url>
   <url>
     <loc>https://guildlumina.com/bot-website.html</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-07-23</lastmod>
     <image:image>
       <image:loc>https://guildlumina.com/assets/social/bot-website.png</image:loc>
-      <image:title>Website Publishing from Discord social preview</image:title>
+      <image:title>Founder Website Publishing from Discord social preview</image:title>
     </image:image>
   </url>
   <url>
@@ -190,7 +234,7 @@
   </url>
   <url>
     <loc>https://guildlumina.com/commands.html</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-07-23</lastmod>
     <image:image>
       <image:loc>https://guildlumina.com/assets/social/commands.png</image:loc>
       <image:title>Lumina · Luminox Command Reference social preview</image:title>
@@ -206,7 +250,7 @@
   </url>
   <url>
     <loc>https://guildlumina.com/docs-admin.html</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-07-23</lastmod>
     <image:image>
       <image:loc>https://guildlumina.com/assets/social/docs-admin.png</image:loc>
       <image:title>Luminox Administrator Guide | Setup &amp; Permissions social preview</image:title>
@@ -218,6 +262,30 @@
     <image:image>
       <image:loc>https://guildlumina.com/assets/social/docs-automation.png</image:loc>
       <image:title>Lumina · Automation &amp; Retention social preview</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://guildlumina.com/docs-banlist.html</loc>
+    <lastmod>2026-07-23</lastmod>
+    <image:image>
+      <image:loc>https://guildlumina.com/assets/social/docs-banlist.png</image:loc>
+      <image:title>Luminox Ban List Documentation social preview</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://guildlumina.com/docs-blacklist.html</loc>
+    <lastmod>2026-07-23</lastmod>
+    <image:image>
+      <image:loc>https://guildlumina.com/assets/social/docs-blacklist.png</image:loc>
+      <image:title>Luminox Tibia Blacklist Documentation social preview</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://guildlumina.com/docs-boosts.html</loc>
+    <lastmod>2026-07-23</lastmod>
+    <image:image>
+      <image:loc>https://guildlumina.com/assets/social/docs-boosts.png</image:loc>
+      <image:title>Luminox Server Boost Loyalty Documentation social preview</image:title>
     </image:image>
   </url>
   <url>
@@ -294,7 +362,7 @@
   </url>
   <url>
     <loc>https://guildlumina.com/docs-loyalty.html</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-07-23</lastmod>
     <image:image>
       <image:loc>https://guildlumina.com/assets/social/docs-loyalty.png</image:loc>
       <image:title>Lumina · Luminox Loyalty Guide social preview</image:title>
@@ -302,15 +370,27 @@
   </url>
   <url>
     <loc>https://guildlumina.com/docs-moderation.html</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-07-23</lastmod>
     <image:image>
       <image:loc>https://guildlumina.com/assets/social/docs-moderation.png</image:loc>
-      <image:title>Lumina · Luminox Moderation social preview</image:title>
+      <image:title>Luminox Automod and Moderation Log Documentation social preview</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://guildlumina.com/docs-nicknames.html</loc>
+    <lastmod>2026-07-23</lastmod>
+    <image:image>
+      <image:loc>https://guildlumina.com/assets/social/docs-nicknames.png</image:loc>
+      <image:title>Lumina · Automatic Discord Nicknames social preview</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://guildlumina.com/assets/screenshots/bot-nicknames-01.png</image:loc>
+      <image:title>Discord message showing the automatic nickname Sacrel RP394 L9</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://guildlumina.com/docs-panels.html</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-07-23</lastmod>
     <image:image>
       <image:loc>https://guildlumina.com/assets/social/docs-panels.png</image:loc>
       <image:title>Lumina · Luminox Panel Directory social preview</image:title>
@@ -325,6 +405,14 @@
     </image:image>
   </url>
   <url>
+    <loc>https://guildlumina.com/docs-ranks.html</loc>
+    <lastmod>2026-07-23</lastmod>
+    <image:image>
+      <image:loc>https://guildlumina.com/assets/social/docs-ranks.png</image:loc>
+      <image:title>Luminox Guild Rank and Promotion Sync Documentation social preview</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://guildlumina.com/docs-recruitment.html</loc>
     <lastmod>2026-07-22</lastmod>
     <image:image>
@@ -334,7 +422,7 @@
   </url>
   <url>
     <loc>https://guildlumina.com/docs-registration.html</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-07-23</lastmod>
     <image:image>
       <image:loc>https://guildlumina.com/assets/social/docs-registration.png</image:loc>
       <image:title>Lumina · Character Registration social preview</image:title>
@@ -374,7 +462,7 @@
   </url>
   <url>
     <loc>https://guildlumina.com/docs-tracker.html</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-07-23</lastmod>
     <image:image>
       <image:loc>https://guildlumina.com/assets/social/docs-tracker.png</image:loc>
       <image:title>Lumina · Luminox Identity Tracker social preview</image:title>
@@ -390,7 +478,7 @@
   </url>
   <url>
     <loc>https://guildlumina.com/docs-watchlists.html</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-07-23</lastmod>
     <image:image>
       <image:loc>https://guildlumina.com/assets/social/docs-watchlists.png</image:loc>
       <image:title>Luminox Watchlists Guide | Members &amp; Enemies Online social preview</image:title>
@@ -398,7 +486,7 @@
   </url>
   <url>
     <loc>https://guildlumina.com/docs-website.html</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-07-23</lastmod>
     <image:image>
       <image:loc>https://guildlumina.com/assets/social/docs-website.png</image:loc>
       <image:title>Lumina · Website Publishing Guide social preview</image:title>
@@ -406,7 +494,7 @@
   </url>
   <url>
     <loc>https://guildlumina.com/docs.html</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-07-23</lastmod>
     <image:image>
       <image:loc>https://guildlumina.com/assets/social/docs.png</image:loc>
       <image:title>Lumina · Luminox Documentation social preview</image:title>
@@ -446,7 +534,7 @@
   </url>
   <url>
     <loc>https://guildlumina.com/features-identity.html</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-07-23</lastmod>
     <image:image>
       <image:loc>https://guildlumina.com/assets/social/features-identity.png</image:loc>
       <image:title>Lumina · Identity &amp; Registration social preview</image:title>
@@ -454,7 +542,7 @@
   </url>
   <url>
     <loc>https://guildlumina.com/features-intelligence.html</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-07-23</lastmod>
     <image:image>
       <image:loc>https://guildlumina.com/assets/social/features-intelligence.png</image:loc>
       <image:title>Lumina · Guild Intelligence social preview</image:title>
@@ -470,7 +558,7 @@
   </url>
   <url>
     <loc>https://guildlumina.com/features.html</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-07-23</lastmod>
     <image:image>
       <image:loc>https://guildlumina.com/assets/social/features.png</image:loc>
       <image:title>Meet Luminox · Discord Guild Bot social preview</image:title>
@@ -550,10 +638,18 @@
   </url>
   <url>
     <loc>https://guildlumina.com/guild-roleplay.html</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-07-23</lastmod>
     <image:image>
       <image:loc>https://guildlumina.com/assets/social/guild-roleplay.png</image:loc>
       <image:title>Lumina Guild Roleplay | Tibia Sessions on Secura social preview</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://guildlumina.com/assets/illustrations/roleplay-story-atlas.svg</image:loc>
+      <image:title>Illustrated story atlas connecting a central Lumina chronicle to chapters, characters and locations</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://guildlumina.com/assets/illustrations/roleplay-archive-empty.svg</image:loc>
+      <image:title>An illuminated but unwritten chronicle waiting for its first story</image:title>
     </image:image>
     <image:image>
       <image:loc>https://guildlumina.com/assets/illustrations/roleplay-chronicle.svg</image:loc>
@@ -586,7 +682,7 @@
   </url>
   <url>
     <loc>https://guildlumina.com/legal.html</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-07-23</lastmod>
     <image:image>
       <image:loc>https://guildlumina.com/assets/social/legal.png</image:loc>
       <image:title>Legal Centre | Lumina Guild &amp; Luminox social preview</image:title>
@@ -594,7 +690,7 @@
   </url>
   <url>
     <loc>https://guildlumina.com/pricing-faq.html</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-07-23</lastmod>
     <image:image>
       <image:loc>https://guildlumina.com/assets/social/pricing-faq.png</image:loc>
       <image:title>Luminox Premium FAQ | Plans, Billing &amp; Upgrades social preview</image:title>
@@ -602,7 +698,7 @@
   </url>
   <url>
     <loc>https://guildlumina.com/pricing.html</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-07-23</lastmod>
     <image:image>
       <image:loc>https://guildlumina.com/assets/social/pricing.png</image:loc>
       <image:title>Lumina · Luminox Free &amp; Premium Pricing social preview</image:title>
@@ -618,7 +714,7 @@
   </url>
   <url>
     <loc>https://guildlumina.com/security.html</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-07-23</lastmod>
     <image:image>
       <image:loc>https://guildlumina.com/assets/social/security.png</image:loc>
       <image:title>Lumina · Luminox Trust &amp; Safety social preview</image:title>

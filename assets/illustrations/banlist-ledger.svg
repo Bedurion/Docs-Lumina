@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 540" fill="none">
+  <defs>
+    <linearGradient id="bl-line" x1="166" y1="80" x2="560" y2="469" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF8E9E"/>
+      <stop offset=".46" stop-color="#F6D46F"/>
+      <stop offset="1" stop-color="#B58CFF"/>
+    </linearGradient>
+    <radialGradient id="bl-aura" cx="0" cy="0" r="1" gradientTransform="translate(360 270) rotate(90) scale(244 304)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FB7185" stop-opacity=".17"/>
+      <stop offset=".56" stop-color="#8B5CF6" stop-opacity=".08"/>
+      <stop offset="1" stop-color="#8B5CF6" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="bl-shadow" x="-30%" y="-30%" width="160%" height="180%">
+      <feDropShadow dx="0" dy="24" stdDeviation="24" flood-color="#000" flood-opacity=".5"/>
+    </filter>
+  </defs>
+  <ellipse cx="360" cy="270" rx="310" ry="242" fill="url(#bl-aura)"/>
+  <g opacity=".25" stroke="#56C7F5">
+    <circle cx="360" cy="270" r="205"/>
+    <circle cx="360" cy="270" r="154"/>
+    <path d="M112 270h496M360 52v436" stroke-dasharray="7 13"/>
+  </g>
+  <g filter="url(#bl-shadow)">
+    <path d="M204 96h245l68 68v282H204V96Z" fill="#091020" stroke="url(#bl-line)" stroke-width="5" stroke-linejoin="round"/>
+    <path d="M449 96v72h68" stroke="url(#bl-line)" stroke-width="5" stroke-linejoin="round"/>
+    <path d="M264 208h190M264 265h145M264 322h118" stroke="#F6D46F" stroke-opacity=".78" stroke-width="8" stroke-linecap="round"/>
+    <path d="M264 379h82" stroke="#B58CFF" stroke-opacity=".8" stroke-width="8" stroke-linecap="round"/>
+    <g transform="translate(407 310)">
+      <circle cx="72" cy="72" r="68" fill="#0A1022" stroke="#FF8E9E" stroke-width="5"/>
+      <path d="M37 72h70" stroke="#FFF4C8" stroke-width="10" stroke-linecap="round"/>
+      <path d="M72 26v14M72 104v14M26 72H12M132 72h-14" stroke="#FF8E9E" stroke-width="4" stroke-linecap="round"/>
+    </g>
+  </g>
+</svg>

@@ -15,22 +15,28 @@ Discord limits used here: SKU name up to 80 characters, SKU description up to 16
 
 **Description**
 
-Add progression and structured staff workflows to any gaming community with Loyalty, leaderboards, rewards, applications, voting and higher limits.
+Turn everyday Discord activity into visible progress with Loyalty, rankings and structured staff participation for growing gaming communities.
 
 **Benefits**
 
-1. **Emoji:** 🏆
-   - **Benefit title:** Loyalty & Leaderboards
-   - **Benefit description:** Reward activity with Loyalty Points, public rankings, Server Boost rewards and Stream rewards.
-2. **Emoji:** 🗳️
-   - **Benefit title:** Staff Participation
-   - **Benefit description:** Run public staff applications and private staff voting through guided Discord panels.
-3. **Emoji:** 📈
+1. **Emoji:** ✅
+   - **Benefit title:** Everything in Universal Free
+   - **Benefit description:** Private Support, general Events, Timezones, Moderation Log, Automod and Autodelete remain included.
+2. **Emoji:** 🏆
+   - **Benefit title:** Loyalty & Rankings
+   - **Benefit description:** Adds Leaderboards, Loyalty Points, Server Boost Loyalty and Streaming Loyalty.
+3. **Emoji:** 🗳️
+   - **Benefit title:** Staff Workflows
+   - **Benefit description:** Adds Public Staff Applications and Private Staff Voting.
+4. **Emoji:** 📊
    - **Benefit title:** Core Capacity
-   - **Benefit description:** Use up to 10 active events, 6 Support categories and 10 Automod channels.
-4. **Emoji:** ⚡
-   - **Benefit title:** Faster Operations
-   - **Benefit description:** Use 10-minute eligible external refreshes, 3-minute cached panels and 2-year history.
+   - **Benefit description:** Up to 10 active events, 6 Support categories and 10 Automod channels.
+5. **Emoji:** ⚡
+   - **Benefit title:** Faster Updates
+   - **Benefit description:** 10-minute eligible external refresh policy and 3-minute cached panel refresh policy.
+6. **Emoji:** 🗄️
+   - **Benefit title:** History & Support
+   - **Benefit description:** Two years of useful history with Premium support.
 
 ## Luminox Universal Growth
 
@@ -41,25 +47,25 @@ Add progression and structured staff workflows to any gaming community with Loya
 
 **Description**
 
-Run every Universal Core system at higher capacity, with faster eligible refreshes, five-year history and more room for events, Support and Automod.
+Give active communities more room to operate with higher capacity, quicker live information and longer retained history.
 
 **Benefits**
 
-1. **Emoji:** ✨
-   - **Benefit title:** Everything in Core
-   - **Benefit description:** Keep every Universal Core module and your existing Discord configuration.
-2. **Emoji:** 📈
+1. **Emoji:** ✅
+   - **Benefit title:** Everything in Universal Core
+   - **Benefit description:** All Universal Core functions and workflows remain included.
+2. **Emoji:** 📊
    - **Benefit title:** Growth Capacity
-   - **Benefit description:** Use up to 30 active events, 15 Support categories and 30 Automod channels.
+   - **Benefit description:** Up to 30 active events, 15 Support categories and 30 Automod channels.
 3. **Emoji:** ⚡
-   - **Benefit title:** Faster Refresh Policy
-   - **Benefit description:** Use 5-minute eligible external refreshes and 2-minute cached panel refreshes.
+   - **Benefit title:** Faster Updates
+   - **Benefit description:** 5-minute eligible external refreshes and 2-minute cached panel refreshes.
 4. **Emoji:** 🗄️
    - **Benefit title:** Five-Year History
-   - **Benefit description:** Retain useful operational history for up to 5 years.
+   - **Benefit description:** Retains useful operational history for up to five years.
 5. **Emoji:** 🧭
    - **Benefit title:** Priority Guidance
-   - **Benefit description:** Receive priority configuration guidance for a smoother rollout.
+   - **Benefit description:** Includes priority configuration guidance for a smoother rollout.
 
 ## Luminox Universal Scale
 
@@ -70,25 +76,25 @@ Run every Universal Core system at higher capacity, with faster eligible refresh
 
 **Description**
 
-Operate Luminox as a daily platform with website publishing, the highest Universal limits, fastest public refresh policy and ten-year history.
+Run every public Universal feature at maximum capacity with the fastest updates, long-term history and priority rollout support.
 
 **Benefits**
 
-1. **Emoji:** 🌐
-   - **Benefit title:** Website Publishing
-   - **Benefit description:** Collect, review and publish approved website content directly from Discord.
-2. **Emoji:** 🚀
+1. **Emoji:** ✅
+   - **Benefit title:** Everything in Universal Growth
+   - **Benefit description:** All Universal Growth functions, workflows and Premium access remain included.
+2. **Emoji:** 📊
    - **Benefit title:** Maximum Capacity
-   - **Benefit description:** Use up to 100 active events, 25 Support categories and 100 Automod channels.
+   - **Benefit description:** Up to 100 active events, 25 Support categories and 100 Automod channels.
 3. **Emoji:** ⚡
-   - **Benefit title:** Fastest Public Policy
-   - **Benefit description:** Use 2-minute eligible external refreshes and 1-minute cached panel refreshes.
+   - **Benefit title:** Fastest Updates
+   - **Benefit description:** 2-minute eligible external refreshes and 1-minute cached panel refreshes.
 4. **Emoji:** 🗄️
    - **Benefit title:** Ten-Year History
-   - **Benefit description:** Retain useful operational history for up to 10 years.
+   - **Benefit description:** Retains useful operational history for up to ten years.
 5. **Emoji:** 🛠️
    - **Benefit title:** Priority Setup Support
-   - **Benefit description:** Receive priority setup support for large or established communities.
+   - **Benefit description:** Includes priority setup support for large or established communities.
 
 ## Luminox Community Core
 
@@ -99,25 +105,28 @@ Operate Luminox as a daily platform with website publishing, the highest Univers
 
 **Description**
 
-Add Loyalty, specialized Tibia events and live risk awareness with Boss and Quest boards, Watchlists, Blacklist and Enemies Online.
+Reward Tibia guild activity and strengthen world awareness with advanced events, Loyalty and live risk monitoring.
 
 **Benefits**
 
-1. **Emoji:** 👁️
-   - **Benefit title:** Tibia Risk Intelligence
-   - **Benefit description:** Unlock Watchlists, Blacklist and Enemies Online monitoring for your configured world.
-2. **Emoji:** ⚔️
-   - **Benefit title:** Boss & Quest Events
-   - **Benefit description:** Add dedicated Boss and Quest event workflows to Hunts and general Events.
-3. **Emoji:** 🏆
+1. **Emoji:** ✅
+   - **Benefit title:** Everything in Community Free
+   - **Benefit description:** Verified Tibia identity, Guild List, levels, deaths, Hunts, general Events, Support and moderation remain included.
+2. **Emoji:** 🏆
    - **Benefit title:** Loyalty & Staff Systems
-   - **Benefit description:** Unlock Loyalty, Boost and Stream rewards, staff applications and private voting.
-4. **Emoji:** 📈
+   - **Benefit description:** Adds Leaderboards, Loyalty, Boost and Stream rewards, Staff Applications and Staff Voting.
+3. **Emoji:** ⚔️
+   - **Benefit title:** Advanced Tibia Events
+   - **Benefit description:** Adds dedicated Boss and Quest event boards.
+4. **Emoji:** 👁️
+   - **Benefit title:** Risk Intelligence
+   - **Benefit description:** Adds Tibia Watchlists, Blacklist and Enemies Online monitoring for the configured world.
+5. **Emoji:** 📊
    - **Benefit title:** Core Capacity
-   - **Benefit description:** Use up to 10 active events, 6 Support categories and 10 Automod channels.
-5. **Emoji:** ⚡
-   - **Benefit title:** Faster Operations
-   - **Benefit description:** Use 10-minute eligible external refreshes, 3-minute cached panels and 2-year history.
+   - **Benefit description:** Up to 10 active events, 6 Support categories and 10 Automod channels.
+6. **Emoji:** ⚡
+   - **Benefit title:** Refresh, History & Support
+   - **Benefit description:** 10-minute external refreshes, 3-minute cached panels, two-year history and Premium support.
 
 ## Luminox Community Growth
 
@@ -128,25 +137,28 @@ Add Loyalty, specialized Tibia events and live risk awareness with Boss and Ques
 
 **Description**
 
-Run a connected Tibia guild platform with Recruitment, Tracker, Guards, Finder, GuildBank, Loot Split, Guildhall and higher limits.
+Connect recruitment, enemy intelligence, guild economy, loot and housing in one complete Tibia guild workflow.
 
 **Benefits**
 
-1. **Emoji:** 🧭
-   - **Benefit title:** Recruitment & Identity
-   - **Benefit description:** Unlock recruitment rewards and the Tibia character identity tracker.
-2. **Emoji:** 🛡️
-   - **Benefit title:** Guards & Finder
-   - **Benefit description:** Coordinate enemy alerts, battle tracking and Tibia team finding.
-3. **Emoji:** 💰
-   - **Benefit title:** Guild Economy
-   - **Benefit description:** Unlock GuildBank, Loot Split and Guildhall room management.
-4. **Emoji:** 📈
+1. **Emoji:** ✅
+   - **Benefit title:** Everything in Community Core
+   - **Benefit description:** All Community Core functions, Tibia systems and workflows remain included.
+2. **Emoji:** 🧭
+   - **Benefit title:** Recruitment & Intelligence
+   - **Benefit description:** Adds Recruitment, Identity Tracker and Finder.
+3. **Emoji:** 🛡️
+   - **Benefit title:** Guards & Enemy Operations
+   - **Benefit description:** Adds Guards and connected enemy-battle tracking workflows.
+4. **Emoji:** 💰
+   - **Benefit title:** Guild Economy & Housing
+   - **Benefit description:** Adds GuildBank, Loot Split and Guildhall room management.
+5. **Emoji:** 📊
    - **Benefit title:** Growth Capacity
-   - **Benefit description:** Use up to 30 active events, 15 Support categories and 30 Automod channels.
-5. **Emoji:** ⚡
-   - **Benefit title:** Faster, Longer History
-   - **Benefit description:** Use 5-minute eligible external refreshes, 2-minute cached panels and 5-year history.
+   - **Benefit description:** Up to 30 active events, 15 Support categories and 30 Automod channels.
+6. **Emoji:** ⚡
+   - **Benefit title:** Refresh, History & Guidance
+   - **Benefit description:** 5-minute external refreshes, 2-minute cached panels, five-year history and priority configuration guidance.
 
 ## Luminox Community Scale
 
@@ -157,23 +169,23 @@ Run a connected Tibia guild platform with Recruitment, Tracker, Guards, Finder, 
 
 **Description**
 
-Unlock every public Community feature, Discord-based website publishing, maximum capacity, fastest public refresh policy and ten-year history.
+Operate every public Tibia guild feature at maximum capacity with the fastest updates, long-term history and priority rollout support.
 
 **Benefits**
 
-1. **Emoji:** 💎
-   - **Benefit title:** Complete Community Suite
-   - **Benefit description:** Use every public Community Edition module in one Discord-native system.
-2. **Emoji:** 🌐
-   - **Benefit title:** Website Publishing
-   - **Benefit description:** Collect, review and publish approved website content directly from Discord.
-3. **Emoji:** 🚀
+1. **Emoji:** ✅
+   - **Benefit title:** Everything in Community Growth
+   - **Benefit description:** Every public Community Growth function and connected Tibia workflow remains included.
+2. **Emoji:** 📊
    - **Benefit title:** Maximum Capacity
-   - **Benefit description:** Use up to 100 active events, 25 Support categories and 100 Automod channels.
-4. **Emoji:** ⚡
-   - **Benefit title:** Fastest Public Policy
-   - **Benefit description:** Use 2-minute eligible external refreshes and 1-minute cached panel refreshes.
-5. **Emoji:** 🗄️
+   - **Benefit description:** Up to 100 active events, 25 Support categories and 100 Automod channels.
+3. **Emoji:** ⚡
+   - **Benefit title:** Fastest Updates
+   - **Benefit description:** 2-minute eligible external refreshes and 1-minute cached panel refreshes.
+4. **Emoji:** 🗄️
    - **Benefit title:** Ten-Year History
-   - **Benefit description:** Retain useful operational history for up to 10 years.
+   - **Benefit description:** Retains useful operational history for up to ten years.
+5. **Emoji:** 🛠️
+   - **Benefit title:** Priority Setup Support
+   - **Benefit description:** Includes priority setup support for large or established guilds.
 
