@@ -1138,8 +1138,15 @@ pre {
   transition: transform 160ms ease;
 }
 
-.skip-link:focus {
+.skip-link:focus-visible {
   transform: translateY(0);
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .skip-link:focus,
+  .skip-link:focus-visible {
+    transform: translateY(-160%);
+  }
 }
 
 .page-shell,
@@ -5953,6 +5960,75 @@ pre {
   border-radius: 4px;
   background: rgba(255, 255, 255, 0.025);
   transform: rotate(-1deg);
+}
+
+body[data-page="guild-art"] .page-opening {
+  grid-template-columns: minmax(0, 1.06fr) minmax(360px, 0.94fr);
+}
+
+body[data-page="guild-art"] .opening-aside {
+  display: grid;
+  align-self: center;
+  gap: 0;
+  padding: 1rem;
+  border-radius: 30px;
+  background:
+    radial-gradient(circle at 88% 12%, rgba(var(--page-accent), 0.14), transparent 32%),
+    linear-gradient(145deg, rgba(19, 25, 47, 0.96), rgba(8, 13, 27, 0.98));
+  transform: none;
+}
+
+body[data-page="guild-art"] .opening-aside-top {
+  margin-bottom: 0.85rem;
+  padding: 0.15rem 0.2rem 0;
+}
+
+body[data-page="guild-art"] .opening-aside-art {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  margin: 0;
+  overflow: hidden;
+  border-radius: 22px;
+  background: rgba(7, 10, 20, 0.8);
+}
+
+body[data-page="guild-art"] .opening-aside-art::before {
+  display: none;
+}
+
+body[data-page="guild-art"] .opening-aside-art::after {
+  position: absolute;
+  z-index: 1;
+  inset: auto 0 0;
+  height: 34%;
+  content: "";
+  background: linear-gradient(180deg, transparent, rgba(8, 13, 27, 0.96));
+}
+
+body[data-page="guild-art"] .opening-aside-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.96) contrast(1.03);
+}
+
+body[data-page="guild-art"] .opening-aside-body {
+  margin-top: -1.6rem;
+  padding: 2.2rem 0.55rem 0.55rem;
+  background:
+    linear-gradient(180deg, rgba(8, 13, 27, 0), rgba(8, 13, 27, 0.96) 1.55rem);
+}
+
+@media (max-width: 900px) {
+  body[data-page="guild-art"] .page-opening {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-page="guild-art"] .opening-aside {
+    width: 100%;
+    min-width: 0;
+  }
 }
 
 .page-variant-journey .opening-aside { border-left-style: dashed; }
@@ -15902,23 +15978,31 @@ img[src*="assets/illustrations/"][src*=".svg?"] {
   .other-games-story figure,
   .other-games-constant figure {
     min-height: clamp(330px, 68vw, 520px);
-    -webkit-mask-image: linear-gradient(180deg, #000 0, #000 78%, transparent 100%);
-    mask-image: linear-gradient(180deg, #000 0, #000 78%, transparent 100%);
+    -webkit-mask-image: linear-gradient(180deg, #000 0, #000 68%, transparent 100%);
+    mask-image: linear-gradient(180deg, #000 0, #000 68%, transparent 100%);
   }
 
   .journal-story figure::after,
   .loyalty-story figure::after,
   .other-games-story figure::after,
   .other-games-constant figure::after {
-    background: linear-gradient(180deg, transparent 60%, rgba(9, 13, 27, 0.94) 100%);
+    background: linear-gradient(180deg, transparent 48%, rgba(9, 13, 27, 0.98) 100%);
   }
 
   .journal-story-copy,
   .loyalty-story > div,
   .other-games-story > div,
   .other-games-constant > div {
-    margin-top: -3rem;
-    padding: 1.7rem clamp(1.35rem, 5vw, 2.5rem) 2.5rem;
+    margin-top: -4rem;
+    padding: 3.7rem clamp(1.35rem, 5vw, 2.5rem) 2.5rem;
+    background:
+      linear-gradient(
+        180deg,
+        rgba(9, 13, 27, 0) 0,
+        rgba(9, 13, 27, 0.86) 2.6rem,
+        rgba(9, 13, 27, 0.99) 4rem,
+        rgba(9, 13, 27, 0.99) 100%
+      );
   }
 
   .journal-heading,

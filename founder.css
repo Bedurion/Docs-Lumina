@@ -179,6 +179,7 @@ body[data-page="founder"] {
   display: grid;
   grid-template-columns: minmax(0, 1.08fr) minmax(380px, 0.92fr);
   min-height: 610px;
+  padding: 0;
   overflow: hidden;
   border: 1px solid rgba(var(--founder-violet), 0.28);
   border-radius: 34px;
@@ -375,6 +376,7 @@ body[data-page="founder"] {
   position: relative;
   display: grid;
   grid-template-columns: minmax(0, 0.88fr) minmax(360px, 0.72fr);
+  padding: 0;
   overflow: hidden;
   border: 1px solid rgba(var(--founder-gold), 0.28);
   border-radius: 34px;
@@ -691,6 +693,7 @@ body[data-page="founder"] {
 .founder-final {
   position: relative;
   min-height: 620px;
+  padding: 0;
   overflow: hidden;
   border: 1px solid rgba(var(--founder-gold), 0.34);
   border-radius: 36px;
@@ -819,8 +822,16 @@ body[data-page="founder"] {
   }
 
   .founder-story-copy {
-    margin-top: -4rem;
-    padding-top: 1.5rem;
+    margin-top: -5rem;
+    padding-top: 3.4rem;
+    background:
+      linear-gradient(
+        180deg,
+        rgba(9, 14, 29, 0) 0,
+        rgba(9, 14, 29, 0.82) 2.6rem,
+        rgba(9, 14, 29, 0.99) 5rem,
+        rgba(9, 14, 29, 0.99) 100%
+      );
   }
 
   .founder-benefits {
@@ -899,7 +910,16 @@ body[data-page="founder"] {
   }
 
   .founder-benefits-copy {
-    margin-top: -4rem;
+    margin-top: -5rem;
+    padding-top: 3.25rem;
+    background:
+      linear-gradient(
+        180deg,
+        rgba(10, 15, 30, 0) 0,
+        rgba(10, 15, 30, 0.84) 2.5rem,
+        rgba(10, 15, 30, 0.99) 5rem,
+        rgba(10, 15, 30, 0.99) 100%
+      );
   }
 
   .founder-benefit-grid article:nth-child(odd) {
@@ -926,7 +946,8 @@ body[data-page="founder"] {
   }
 
   .founder-story-copy {
-    margin-top: -2.5rem;
+    margin-top: -4rem;
+    padding-top: 2.65rem;
     padding-inline: 1.2rem;
   }
 

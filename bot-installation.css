@@ -993,6 +993,16 @@
 
   .installation-hero-copy {
     order: 1;
+    margin-top: -5rem;
+    padding-top: clamp(5.5rem, 12vw, 7rem);
+    background:
+      linear-gradient(
+        180deg,
+        rgba(13, 18, 36, 0) 0,
+        rgba(13, 18, 36, 0.84) 3rem,
+        rgba(9, 13, 27, 0.99) 5rem,
+        rgba(9, 13, 27, 0.99) 100%
+      );
   }
 
   .installation-hero-art {
@@ -1005,7 +1015,14 @@
   }
 
   .installation-hero-art::after {
-    height: 36%;
+    height: 44%;
+    background:
+      linear-gradient(
+        0deg,
+        rgba(9, 13, 27, 1) 0,
+        rgba(9, 13, 27, 0.72) 42%,
+        rgba(9, 13, 27, 0) 100%
+      );
   }
 
   .installation-trust-strip {
@@ -1084,7 +1101,7 @@
   .installation-hero-art figcaption {
     left: 1rem;
     right: 1rem;
-    bottom: 1rem;
+    bottom: 4.5rem;
     justify-content: flex-start;
   }
 
@@ -1094,7 +1111,8 @@
   }
 
   .installation-hero-copy {
-    padding: 1.6rem 1.2rem 2rem;
+    margin-top: -4.25rem;
+    padding: 5.1rem 1.2rem 2rem;
   }
 
   .installation-editions {
