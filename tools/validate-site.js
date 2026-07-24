@@ -291,6 +291,81 @@ if (!fs.existsSync(blogDataPath)) {
   }
 }
 
+const artDataPath = path.join(root, 'data', 'art-entries.json');
+if (!fs.existsSync(artDataPath)) {
+  report('data/art-entries.json', 'missing Art archive data source');
+} else {
+  try {
+    const artData = JSON.parse(fs.readFileSync(artDataPath, 'utf8'));
+    if (!isPlainObject(artData) || !hasExactKeys(artData, ['version', 'entries']) || artData.version !== 1 || !Array.isArray(artData.entries)) {
+      report('data/art-entries.json', 'invalid root schema');
+    } else {
+      const seenIds = new Set();
+      const categories = new Set(['places', 'heroes', 'creatures', 'adversaries', 'guild-life']);
+      const entryKeys = [
+        'id', 'title', 'description', 'category', 'credit',
+        'submittedAt', 'publishedAt', 'media'
+      ];
+
+      artData.entries.forEach((entry, index) => {
+        const label = `entry ${index + 1}`;
+        if (!isPlainObject(entry) || !hasExactKeys(entry, entryKeys)) {
+          report('data/art-entries.json', `${label} has an invalid schema`);
+          return;
+        }
+
+        const validId = /^WS-[A-Z2-9]{8}$/.test(entry.id);
+        if (!validId || seenIds.has(entry.id)) report('data/art-entries.json', `${label} has an invalid or duplicate ID`);
+        seenIds.add(entry.id);
+        if (typeof entry.title !== 'string' || entry.title.length < 3 || entry.title.length > 80) report('data/art-entries.json', `${label} has an invalid title`);
+        if (typeof entry.description !== 'string' || entry.description.length < 20 || entry.description.length > 360) report('data/art-entries.json', `${label} has an invalid description`);
+        if (!categories.has(entry.category)) report('data/art-entries.json', `${label} has an invalid category`);
+        if (typeof entry.credit !== 'string' || entry.credit.length < 1 || entry.credit.length > 100) report('data/art-entries.json', `${label} has an invalid credit`);
+        if (Number.isNaN(Date.parse(entry.submittedAt)) || Number.isNaN(Date.parse(entry.publishedAt))) report('data/art-entries.json', `${label} has an invalid date`);
+
+        const expectedSource = validId ? `assets/community/${entry.id.toLowerCase()}-art.webp` : '';
+        const media = entry.media;
+        if (
+          !isPlainObject(media) ||
+          !hasExactKeys(media, ['type', 'src', 'alt', 'width', 'height']) ||
+          media.type !== 'image' ||
+          media.src !== expectedSource ||
+          typeof media.alt !== 'string' ||
+          media.alt.length < 10 ||
+          media.alt.length > 300 ||
+          !Number.isSafeInteger(media.width) ||
+          !Number.isSafeInteger(media.height) ||
+          media.width < 1 ||
+          media.height < 1 ||
+          media.width > 2400 ||
+          media.height > 2400 ||
+          media.width * media.height > 40_000_000
+        ) {
+          report('data/art-entries.json', `${label} has invalid media`);
+          return;
+        }
+
+        const mediaPath = path.resolve(root, media.src);
+        if (!fs.existsSync(mediaPath)) {
+          report('data/art-entries.json', `${label} references missing media ${media.src}`);
+          return;
+        }
+
+        const signature = fs.readFileSync(mediaPath).subarray(0, 12);
+        if (
+          signature.length < 12 ||
+          signature.subarray(0, 4).toString('ascii') !== 'RIFF' ||
+          signature.subarray(8, 12).toString('ascii') !== 'WEBP'
+        ) {
+          report('data/art-entries.json', `${label} media is not a valid WebP file`);
+        }
+      });
+    }
+  } catch {
+    report('data/art-entries.json', 'contains invalid JSON');
+  }
+}
+
 const roleplayDataPath = path.join(root, 'data', 'roleplay-stories.json');
 if (!fs.existsSync(roleplayDataPath)) {
   report('data/roleplay-stories.json', 'missing Roleplay archive data source');
@@ -437,6 +512,17 @@ if (!fs.existsSync(roleplayScriptPath)) {
     execFileSync(process.execPath, ['--check', roleplayScriptPath], { stdio: 'pipe' });
   } catch {
     report('roleplay.js', 'contains invalid JavaScript');
+  }
+}
+
+const artScriptPath = path.join(root, 'art.js');
+if (!fs.existsSync(artScriptPath)) {
+  report('art.js', 'missing Art archive script');
+} else {
+  try {
+    execFileSync(process.execPath, ['--check', artScriptPath], { stdio: 'pipe' });
+  } catch {
+    report('art.js', 'contains invalid JavaScript');
   }
 }
 

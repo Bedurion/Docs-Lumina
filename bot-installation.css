@@ -6,7 +6,7 @@
 }
 
 .installation-page .page-shell {
-  padding-top: clamp(1.5rem, 4vw, 3.5rem);
+  padding-top: clamp(6.75rem, 8vw, 8.25rem);
 }
 
 .installation-hero {
@@ -37,6 +37,24 @@
   background-size: 72px 72px;
   -webkit-mask-image: linear-gradient(90deg, #000, transparent 72%);
   mask-image: linear-gradient(90deg, #000, transparent 72%);
+}
+
+.installation-hero::after {
+  position: absolute;
+  z-index: 2;
+  inset: 0 auto 0 0;
+  width: 62%;
+  content: "";
+  pointer-events: none;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(13, 18, 36, 0.99) 0,
+      rgba(11, 16, 32, 0.97) 62%,
+      rgba(10, 14, 29, 0.78) 78%,
+      rgba(9, 13, 27, 0.28) 92%,
+      transparent 100%
+    );
 }
 
 .installation-hero-copy {
@@ -122,10 +140,12 @@
 
 .installation-hero-art {
   position: relative;
+  z-index: 1;
   align-self: stretch;
+  width: calc(100% + clamp(12rem, 25vw, 24rem));
   min-width: 0;
   min-height: 620px;
-  margin: 0;
+  margin: 0 0 0 clamp(-24rem, -25vw, -12rem);
   overflow: hidden;
 }
 
@@ -138,9 +158,7 @@
 }
 
 .installation-hero-art::before {
-  inset: 0 auto 0 0;
-  width: 32%;
-  background: linear-gradient(90deg, rgba(9, 13, 26, 1), rgba(9, 13, 26, 0));
+  display: none;
 }
 
 .installation-hero-art::after {
@@ -976,7 +994,7 @@
 
 @media (max-width: 900px) {
   .installation-page .page-shell {
-    padding-top: 1rem;
+    padding-top: calc(6.25rem + env(safe-area-inset-top));
   }
 
   .installation-hero,
@@ -989,6 +1007,10 @@
 
   .installation-hero {
     min-height: 0;
+  }
+
+  .installation-hero::after {
+    display: none;
   }
 
   .installation-hero-copy {
@@ -1007,7 +1029,9 @@
 
   .installation-hero-art {
     order: 0;
+    width: 100%;
     min-height: 440px;
+    margin: 0;
   }
 
   .installation-hero-art::before {
@@ -1015,12 +1039,13 @@
   }
 
   .installation-hero-art::after {
-    height: 44%;
+    height: 48%;
     background:
       linear-gradient(
         0deg,
         rgba(9, 13, 27, 1) 0,
-        rgba(9, 13, 27, 0.72) 42%,
+        rgba(9, 13, 27, 0.82) 36%,
+        rgba(9, 13, 27, 0.28) 72%,
         rgba(9, 13, 27, 0) 100%
       );
   }
@@ -1083,6 +1108,7 @@
 
 @media (max-width: 700px) {
   .installation-page .page-shell {
+    padding-top: calc(5.8rem + env(safe-area-inset-top));
     padding-inline: 0.7rem;
   }
 

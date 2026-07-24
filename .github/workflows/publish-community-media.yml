@@ -101,7 +101,7 @@ jobs:
         run: |
           git config user.name "Luminox Website Publisher"
           git config user.email "luminox-publisher@users.noreply.github.com"
-          git add -- assets/community data/community-media.json data/blog-posts.json
+          git add -- assets/community data/community-media.json data/blog-posts.json data/art-entries.json data/roleplay-stories.json
           if git diff --cached --quiet; then
             echo "No publishable changes were produced."
             exit 1

@@ -422,15 +422,15 @@ const pageArtworkByPage = Object.freeze({
   'guild-members.html': 'guild-fellowship.svg',
   'guild-history.html': 'guild-story-characters.png',
   'guild-secura.html': 'guild-secura-character.png',
-  'guild-other-games.html': '../art/ancient-bridge.webp',
+  'guild-other-games.html': 'guild-adventures.svg',
   'guild-leadership.html': 'guild-leadership.svg',
   'guild-activities.html': 'guild-adventures.svg',
-  'guild-journal.html': '../art/guild-campfire.webp',
+  'guild-journal.html': 'blog-journal.svg',
   'guild-faq.html': 'guild-candidacy.svg',
   'blog.html': 'blog-journal.svg',
-  'guild-art.html': '../art/moonlit-citadel.webp',
+  'guild-art.html': 'gallery-frames.svg',
   'guild-join.html': 'guild-join-characters.png',
-  'guild-loyalty.html': '../art/map-council.webp',
+  'guild-loyalty.html': 'loyalty-orbit.svg',
   'guild-rules.html': 'guild-charter.svg',
   'pricing-faq.html': 'docs-library.svg',
   'guarantee.html': 'trust-vault.svg',
@@ -796,16 +796,23 @@ const renderOpeningArtwork = (className = '') => {
 
 const renderOpeningAside = (presentation, layout) => {
   const aside = document.createElement('aside');
+  const artworkPath = pageArtworkByPage[currentPage] || '';
   const hasCharacterArtwork = characterOpeningArtworkPages.has(currentPage);
-  aside.className = `opening-aside opening-aside-${layout}${hasCharacterArtwork ? ' opening-aside-character' : ''}`;
+  const hasSceneArtwork = /\.(?:avif|jpe?g|png|webp)$/i.test(artworkPath) && !hasCharacterArtwork;
+  aside.className = [
+    'opening-aside',
+    `opening-aside-${layout}`,
+    hasCharacterArtwork ? 'opening-aside-character' : '',
+    hasSceneArtwork ? 'opening-aside-scene' : ''
+  ].filter(Boolean).join(' ');
   aside.setAttribute('aria-label', `${presentation.label} page summary`);
 
   const tags = presentation.tags.map((tag) => `<span>${tag}</span>`).join('');
   const summary = layout === 'spotlight'
     ? ''
     : `<p class="opening-summary">${presentation.summary}</p>`;
-  const artwork = pageArtworkByPage[currentPage]
-    ? `<figure class="${openingArtworkClassName('opening-aside-art')}" aria-hidden="true"><img src="${vectorAssetUrl(`assets/illustrations/${pageArtworkByPage[currentPage]}`)}" alt="" loading="eager" decoding="async"></figure>`
+  const artwork = artworkPath
+    ? `<figure class="${openingArtworkClassName('opening-aside-art')}" aria-hidden="true"><img src="${vectorAssetUrl(`assets/illustrations/${artworkPath}`)}" alt="" loading="eager" decoding="async"></figure>`
     : '';
   aside.innerHTML = `
     <div class="opening-aside-top">

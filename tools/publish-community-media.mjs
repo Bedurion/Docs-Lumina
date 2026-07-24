@@ -9,22 +9,32 @@ import sharp from 'sharp';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const sourceDataPath = path.join(root, 'data', 'community-media.json');
 const sourceBlogDataPath = path.join(root, 'data', 'blog-posts.json');
+const sourceArtDataPath = path.join(root, 'data', 'art-entries.json');
+const sourceRoleplayDataPath = path.join(root, 'data', 'roleplay-stories.json');
 const configuredOutputDirectory = String(process.env.PUBLICATION_OUTPUT_DIR || '.').trim();
 const outputRoot = path.resolve(root, configuredOutputDirectory);
 const outputGalleryDataPath = path.join(outputRoot, 'data', 'community-media-entry.json');
 const outputBlogOperationPath = path.join(outputRoot, 'data', 'blog-operation.json');
+const outputArtDataPath = path.join(outputRoot, 'data', 'art-entry.json');
+const outputRoleplayOperationPath = path.join(outputRoot, 'data', 'roleplay-operation.json');
 const mediaDirectory = path.join(outputRoot, 'assets', 'community');
 const maximumAttachments = 4;
 const maximumBlogBodyLength = 12_000;
 const maximumBlogContentBlocks = 100;
+const maximumRoleplayAttachments = 8;
+const maximumRoleplayBodyLength = 30_000;
+const maximumRoleplayContentBlocks = 200;
 const maximumAttachmentBytes = 10 * 1024 * 1024;
 const maximumTotalBytes = 25 * 1024 * 1024;
+const maximumRoleplayTotalBytes = 50 * 1024 * 1024;
 const maximumInputPixels = 40_000_000;
 const maximumVideoDurationSeconds = 120;
 const maximumVideoWidth = 1920;
 const maximumVideoHeight = 1920;
 const allowedDiscordHosts = new Set(['cdn.discordapp.com', 'media.discordapp.net']);
 const allowedContentTypes = new Set(['image/jpeg', 'image/png', 'video/mp4']);
+const artCategories = new Set(['places', 'heroes', 'creatures', 'adversaries', 'guild-life']);
+const roleplayCategories = new Set(['campaign', 'one-shot', 'character', 'lore']);
 
 if (outputRoot !== root && !outputRoot.startsWith(`${root}${path.sep}`)) {
   throw new Error('PUBLICATION_OUTPUT_DIR must remain inside the checked-out repository.');
@@ -58,7 +68,7 @@ function decryptPayload(value, secret) {
   const tag = Buffer.from(encodedTag, 'base64url');
   const ciphertext = Buffer.from(encodedCiphertext, 'base64url');
 
-  if (iv.length !== 12 || tag.length !== 16 || ciphertext.length === 0 || ciphertext.length > 48_000) {
+  if (iv.length !== 12 || tag.length !== 16 || ciphertext.length === 0 || ciphertext.length > 60_000) {
     fail('Encrypted publication payload has invalid bounds.');
   }
 
@@ -66,7 +76,7 @@ function decryptPayload(value, secret) {
   decipher.setAuthTag(tag);
   const plaintext = Buffer.concat([decipher.update(ciphertext), decipher.final()]);
 
-  if (plaintext.length > 36_000) {
+  if (plaintext.length > 44_000) {
     fail('Decrypted publication payload is too large.');
   }
 
@@ -81,6 +91,19 @@ function cleanSingleLine(value, maximumLength, label) {
 
   if (!text || text.length > maximumLength) {
     fail(`${label} is missing or exceeds ${maximumLength} characters.`);
+  }
+
+  return text;
+}
+
+function cleanOptionalSingleLine(value, maximumLength, label) {
+  const text = String(value || '')
+    .replace(/[\u0000-\u001f\u007f]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  if (text.length > maximumLength) {
+    fail(`${label} exceeds ${maximumLength} characters.`);
   }
 
   return text;
@@ -387,6 +410,42 @@ async function loadBlogData() {
   }
 }
 
+async function loadArtData() {
+  try {
+    const parsed = JSON.parse(await fs.readFile(sourceArtDataPath, 'utf8'));
+
+    if (parsed?.version !== 1 || !Array.isArray(parsed.entries)) {
+      fail('Art data file has an invalid schema.');
+    }
+
+    return parsed;
+  } catch (error) {
+    if (error.code === 'ENOENT') {
+      return { version: 1, entries: [] };
+    }
+
+    throw error;
+  }
+}
+
+async function loadRoleplayData() {
+  try {
+    const parsed = JSON.parse(await fs.readFile(sourceRoleplayDataPath, 'utf8'));
+
+    if (parsed?.version !== 1 || !Array.isArray(parsed.stories)) {
+      fail('Roleplay archive data file has an invalid schema.');
+    }
+
+    return parsed;
+  } catch (error) {
+    if (error.code === 'ENOENT') {
+      return { version: 1, stories: [] };
+    }
+
+    throw error;
+  }
+}
+
 const expectedSubmissionId = cleanSingleLine(process.env.SUBMISSION_ID, 32, 'Submission ID');
 
 if (!/^WS-[A-Z2-9]{8}$/.test(expectedSubmissionId)) {
@@ -402,11 +461,11 @@ if (![1, 2, 3].includes(payload?.version) || payload.submissionId !== expectedSu
 const contentType = cleanSingleLine(payload.contentType || 'gallery', 20, 'Content type');
 const operation = cleanSingleLine(payload.operation || 'create', 30, 'Publication operation');
 
-if (!['gallery', 'blog'].includes(contentType)) {
+if (!['gallery', 'blog', 'art', 'roleplay'].includes(contentType)) {
   fail('Encrypted payload contains an unsupported publication type.');
 }
 
-const title = cleanSingleLine(payload.title, 100, 'Title');
+const title = cleanSingleLine(payload.title, contentType === 'roleplay' ? 120 : 100, 'Title');
 const submittedAt = new Date(payload.submittedAt);
 
 if (Number.isNaN(submittedAt.getTime()) || submittedAt.getTime() > Date.now() + 60_000) {
@@ -571,7 +630,7 @@ if (contentType === 'blog') {
       submittedAt: existingPost?.submittedAt || submittedAt.toISOString(),
       publishedAt: existingPost?.publishedAt || operationAt,
       updatedAt: operationAt,
-      visible: existingPost ? existingPost.visible !== false : true,
+      visible: existingPost ? payload.publishVisible !== false : true,
       readingMinutes: Math.max(1, Math.min(60, Math.ceil(wordCount / 220))),
       views: existingPost?.views ?? 0,
       leadersSelection: existingPost?.leadersSelection === true,
@@ -592,6 +651,285 @@ if (contentType === 'blog') {
   await fs.mkdir(path.dirname(outputBlogOperationPath), { recursive: true });
   await fs.writeFile(outputBlogOperationPath, `${JSON.stringify(blogOperation, null, 2)}\n`, 'utf8');
   console.log(`Validated Blog ${operation} operation for ${expectedSubmissionId}.`);
+} else if (contentType === 'roleplay') {
+  if (!['create', 'update', 'hide', 'unhide', 'delete', 'hide_for_changes'].includes(operation)) {
+    fail('Roleplay publication operation is not supported.');
+  }
+
+  const roleplayData = await loadRoleplayData();
+  const roleplayId = expectedSubmissionId.replace(/^WS-/, 'RP-');
+  const existingStory = roleplayData.stories.find((story) => story.id === roleplayId) || null;
+
+  if (operation === 'create' && existingStory) {
+    fail('This Roleplay story is already published.');
+  }
+
+  if (operation !== 'create' && !existingStory) {
+    fail('The requested Roleplay story does not exist.');
+  }
+
+  let roleplayStory = null;
+  const operationAt = new Date().toISOString();
+
+  if (['create', 'update'].includes(operation)) {
+    const subtitle = cleanOptionalSingleLine(payload.subtitle, 180, 'Roleplay subtitle');
+    const summary = cleanMultiline(payload.summary, 600, 'Roleplay summary');
+    const chapterTitle = cleanSingleLine(payload.chapterTitle, 140, 'Roleplay chapter title');
+    const category = cleanSingleLine(payload.categoryKey || payload.category, 30, 'Roleplay category');
+    const status = cleanSingleLine(payload.storyStatus, 20, 'Roleplay status');
+    const author = cleanSingleLine(payload.author, 100, 'Roleplay author');
+
+    if (summary.length < 20 || !roleplayCategories.has(category) || !['ongoing', 'complete'].includes(status)) {
+      fail('Roleplay publication fields do not satisfy the Lumina Chronicles requirements.');
+    }
+
+    if (!Array.isArray(payload.attachments) || payload.attachments.length > maximumRoleplayAttachments) {
+      fail(`Roleplay payload can contain at most ${maximumRoleplayAttachments} image attachments.`);
+    }
+
+    const attachments = payload.attachments.map(validateDiscordAttachment);
+
+    if (attachments.some((attachment) => !['image/jpeg', 'image/png'].includes(attachment.contentType))) {
+      fail('Roleplay publications accept only JPG and PNG images.');
+    }
+
+    const declaredTotalBytes = attachments.reduce((sum, attachment) => sum + attachment.size, 0);
+
+    if (declaredTotalBytes > maximumRoleplayTotalBytes) {
+      fail('Roleplay images exceed the maximum combined size.');
+    }
+
+    await fs.mkdir(mediaDirectory, { recursive: true });
+    const publishedMedia = [];
+
+    for (const [index, attachment] of attachments.entries()) {
+      const downloaded = await downloadAttachment(attachment);
+      const outputName = `${expectedSubmissionId.toLowerCase()}-roleplay-${index + 1}.webp`;
+      const outputPath = path.join(mediaDirectory, outputName);
+      const { data, info } = await sharp(downloaded.input, {
+        failOn: 'warning',
+        limitInputPixels: maximumInputPixels,
+        sequentialRead: true
+      })
+        .rotate()
+        .resize({
+          width: 2400,
+          height: 2400,
+          fit: 'inside',
+          withoutEnlargement: true
+        })
+        .webp({
+          quality: 88,
+          effort: 4,
+          smartSubsample: true
+        })
+        .toBuffer({ resolveWithObject: true });
+
+      if (info.width < 1 || info.height < 1 || info.width * info.height > maximumInputPixels) {
+        fail('Sanitized Roleplay image dimensions are invalid.');
+      }
+
+      await fs.writeFile(outputPath, data, { flag: 'wx' });
+      publishedMedia.push({
+        type: 'image',
+        src: `assets/community/${outputName}`,
+        alt: cleanSingleLine(attachment.altText || title, 300, 'Roleplay image alternative text'),
+        caption: '',
+        width: info.width,
+        height: info.height
+      });
+    }
+
+    if (!Array.isArray(payload.contentBlocks) || payload.contentBlocks.length < 1) {
+      fail('Roleplay content must contain at least one ordered block.');
+    }
+
+    if (payload.contentBlocks.length > maximumRoleplayContentBlocks) {
+      fail(`Roleplay content can contain at most ${maximumRoleplayContentBlocks} ordered blocks.`);
+    }
+
+    const publishedContent = [];
+    const referencedImages = [];
+
+    for (const block of payload.contentBlocks) {
+      if (!block || typeof block !== 'object' || Array.isArray(block)) {
+        fail('Roleplay content contains an invalid block.');
+      }
+
+      if (block.type === 'text') {
+        publishedContent.push({
+          type: 'paragraph',
+          text: cleanMultiline(block.text, 12_000, 'Roleplay text block')
+        });
+        continue;
+      }
+
+      if (block.type === 'image') {
+        const mediaIndex = Number(block.attachmentIndex);
+
+        if (!Number.isSafeInteger(mediaIndex) || mediaIndex < 0 || mediaIndex >= publishedMedia.length) {
+          fail('Roleplay content references an invalid image.');
+        }
+
+        publishedContent.push({ ...publishedMedia[mediaIndex] });
+        referencedImages.push(mediaIndex);
+        continue;
+      }
+
+      fail('Roleplay content contains an unsupported block type.');
+    }
+
+    const body = publishedContent
+      .filter((block) => block.type === 'paragraph')
+      .map((block) => block.text)
+      .join('\n\n');
+
+    if (body.length < 200 || body.length > maximumRoleplayBodyLength) {
+      fail(`Roleplay story body must contain between 200 and ${maximumRoleplayBodyLength} characters.`);
+    }
+
+    if (
+      referencedImages.length !== publishedMedia.length ||
+      new Set(referencedImages).size !== publishedMedia.length
+    ) {
+      fail('Every approved Roleplay image must appear exactly once in the ordered chapter content.');
+    }
+
+    const wordCount = body.split(/\s+/).filter(Boolean).length;
+    const chapterSummary = summary.length <= 400
+      ? summary
+      : `${summary.slice(0, 399).trimEnd()}…`;
+    const firstImage = publishedMedia[0] || null;
+
+    roleplayStory = {
+      id: roleplayId,
+      slug: roleplayId.toLowerCase(),
+      title,
+      subtitle,
+      summary,
+      category,
+      status,
+      featured: existingStory?.featured === true,
+      visible: existingStory ? payload.publishVisible !== false : true,
+      author,
+      publishedAt: existingStory?.publishedAt || operationAt,
+      updatedAt: operationAt,
+      readingMinutes: Math.max(1, Math.min(600, Math.ceil(wordCount / 220))),
+      cover: firstImage
+        ? {
+            src: firstImage.src,
+            alt: firstImage.alt,
+            width: firstImage.width,
+            height: firstImage.height
+          }
+        : null,
+      chapters: [{
+        id: 'chapter-one',
+        title: chapterTitle,
+        summary: chapterSummary,
+        publishedAt: existingStory?.chapters?.[0]?.publishedAt || operationAt,
+        visible: true,
+        content: publishedContent
+      }]
+    };
+  } else if (!Array.isArray(payload.attachments) || payload.attachments.length !== 0) {
+    fail('This Roleplay management operation cannot contain attachments.');
+  }
+
+  const roleplayOperation = {
+    version: 1,
+    operation,
+    submissionId: expectedSubmissionId,
+    operationAt,
+    story: roleplayStory
+  };
+
+  await fs.mkdir(path.dirname(outputRoleplayOperationPath), { recursive: true });
+  await fs.writeFile(outputRoleplayOperationPath, `${JSON.stringify(roleplayOperation, null, 2)}\n`, 'utf8');
+  console.log(`Validated Roleplay ${operation} operation for ${expectedSubmissionId}.`);
+} else if (contentType === 'art') {
+  if (operation !== 'create') {
+    fail('Art entries support only the create operation.');
+  }
+
+  if (title.length > 80) {
+    fail('Artwork title exceeds 80 characters.');
+  }
+
+  const description = cleanMultiline(payload.description, 360, 'Artwork description');
+  const altText = cleanSingleLine(payload.altText, 300, 'Artwork alternative text');
+  const credit = cleanSingleLine(payload.credit, 100, 'Artwork credit');
+  const category = cleanSingleLine(payload.categoryKey || payload.category, 30, 'Artwork category');
+
+  if (description.length < 20 || altText.length < 10 || !artCategories.has(category)) {
+    fail('Artwork fields do not satisfy the public Art archive requirements.');
+  }
+
+  if (!Array.isArray(payload.attachments) || payload.attachments.length !== 1) {
+    fail('Artwork payload must contain exactly one image.');
+  }
+
+  const attachment = validateDiscordAttachment(payload.attachments[0]);
+
+  if (!['image/jpeg', 'image/png'].includes(attachment.contentType)) {
+    fail('Art publications accept only JPG and PNG images.');
+  }
+
+  const artData = await loadArtData();
+
+  if (artData.entries.some((entry) => entry.id === expectedSubmissionId)) {
+    fail('This Art submission is already published.');
+  }
+
+  const downloaded = await downloadAttachment(attachment);
+  const outputName = `${expectedSubmissionId.toLowerCase()}-art.webp`;
+  const outputPath = path.join(mediaDirectory, outputName);
+  const { data, info } = await sharp(downloaded.input, {
+    failOn: 'warning',
+    limitInputPixels: maximumInputPixels,
+    sequentialRead: true
+  })
+    .rotate()
+    .resize({
+      width: 2400,
+      height: 2400,
+      fit: 'inside',
+      withoutEnlargement: true
+    })
+    .webp({
+      quality: 88,
+      effort: 4,
+      smartSubsample: true
+    })
+    .toBuffer({ resolveWithObject: true });
+
+  if (info.width < 1 || info.height < 1 || info.width * info.height > maximumInputPixels) {
+    fail('Sanitized Art image dimensions are invalid.');
+  }
+
+  await fs.mkdir(mediaDirectory, { recursive: true });
+  await fs.mkdir(path.dirname(outputArtDataPath), { recursive: true });
+  await fs.writeFile(outputPath, data, { flag: 'wx' });
+
+  const artEntry = {
+    id: expectedSubmissionId,
+    title,
+    description,
+    category,
+    credit,
+    submittedAt: submittedAt.toISOString(),
+    publishedAt: new Date().toISOString(),
+    media: {
+      type: 'image',
+      src: `assets/community/${outputName}`,
+      alt: altText,
+      width: info.width,
+      height: info.height
+    }
+  };
+
+  await fs.writeFile(outputArtDataPath, `${JSON.stringify({ version: 1, entry: artEntry }, null, 2)}\n`, 'utf8');
+  console.log(`Sanitized approved Art image for ${expectedSubmissionId}.`);
 } else {
   if (operation !== 'create') {
     fail('Gallery entries support only the create operation.');
