@@ -278,6 +278,51 @@
   width: 100%;
 }
 
+.discord-screenshot-card--vertical-tour .discord-screenshot-card__media {
+  --vertical-tour-window: clamp(380px, 34vw, 440px);
+  width: min(calc(100% - clamp(1.1rem, 3.2vw, 2rem)), 294px);
+  height: var(--vertical-tour-window);
+  aspect-ratio: auto;
+  align-items: start;
+}
+
+.discord-screenshot-card--vertical-tour .discord-screenshot-card__media::after {
+  background:
+    linear-gradient(180deg, rgba(9, 12, 22, 0.32), transparent 8%, transparent 92%, rgba(9, 12, 22, 0.38)),
+    linear-gradient(90deg, rgba(9, 12, 22, 0.18), transparent 7%, transparent 93%, rgba(9, 12, 22, 0.18));
+  box-shadow:
+    inset 0 0 18px rgba(8, 12, 23, 0.28),
+    inset 0 0 56px rgba(var(--shot-accent), 0.035);
+}
+
+.discord-screenshot-card--vertical-tour .discord-screenshot-card__image {
+  position: absolute;
+  inset: 0 0 auto;
+  width: 100%;
+  height: auto;
+  max-height: none;
+  object-fit: initial;
+  will-change: transform;
+  animation: discord-screenshot-vertical-tour 17s cubic-bezier(0.62, 0, 0.38, 1) 900ms infinite alternate;
+}
+
+.discord-screenshot-card--vertical-tour:hover .discord-screenshot-card__image,
+.discord-screenshot-card--vertical-tour:focus-within .discord-screenshot-card__image {
+  animation-play-state: paused;
+}
+
+@keyframes discord-screenshot-vertical-tour {
+  0%,
+  13% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  87%,
+  100% {
+    transform: translate3d(0, calc(var(--vertical-tour-window) - 100%), 0);
+  }
+}
+
 .discord-screenshot-card__caption {
   display: grid;
   grid-template-columns: 3px minmax(0, 1fr);
@@ -759,6 +804,11 @@
     border-radius: 18px;
   }
 
+  .discord-screenshot-card--vertical-tour .discord-screenshot-card__media {
+    --vertical-tour-window: 330px;
+    width: min(calc(100% - 0.9rem), 294px);
+  }
+
   .discord-screenshot-card__caption {
     gap: 0.75rem;
     padding: 1rem 1rem 1.2rem;
@@ -819,6 +869,10 @@
     padding-inline: 0.9rem;
   }
 
+  .discord-screenshot-card--vertical-tour .discord-screenshot-card__media {
+    --vertical-tour-window: 300px;
+  }
+
   .discord-screenshot-gallery__counter {
     min-width: 3.65rem;
     padding-inline: 0.5rem;
@@ -845,6 +899,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .discord-screenshot-card--vertical-tour .discord-screenshot-card__image {
+    animation: none;
+  }
+
   .discord-screenshot-gallery__image,
   .discord-screenshot-gallery__stage,
   .discord-screenshot-gallery__link,

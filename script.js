@@ -1,7 +1,7 @@
 const navToggle = document.querySelector('.nav-toggle');
 const navLinks = document.querySelector('[data-nav-links]');
 const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-const vectorAssetVersion = '20260723-4';
+const vectorAssetVersion = '20260724-4';
 const vectorAssetUrl = (path) => `${String(path).split('?')[0]}?v=${vectorAssetVersion}`;
 
 const navigationSections = {
@@ -404,20 +404,33 @@ const pageArtworkByPage = Object.freeze({
   'bot-website.html': 'blog-journal.svg',
   'security.html': 'trust-vault.svg',
   'legal.html': 'legal-balance.svg',
-  'guild-community.html': 'guild-fellowship.svg',
+  'guild-community.html': 'guild-community-characters.png',
   'guild-members.html': 'guild-fellowship.svg',
-  'guild-history.html': 'guild-legacy.svg',
-  'guild-secura.html': 'secura-compass.svg',
+  'guild-history.html': 'guild-story-characters.png',
+  'guild-secura.html': 'guild-secura-character.png',
   'guild-leadership.html': 'guild-leadership.svg',
   'guild-activities.html': 'guild-adventures.svg',
   'guild-faq.html': 'guild-candidacy.svg',
   'blog.html': 'blog-journal.svg',
-  'guild-join.html': 'guild-fellowship.svg',
+  'guild-join.html': 'guild-join-characters.png',
   'guild-rules.html': 'guild-charter.svg',
   'pricing-faq.html': 'docs-library.svg',
   'guarantee.html': 'trust-vault.svg',
   'roadmap.html': 'progression-path.svg'
 });
+
+const characterOpeningArtworkPages = new Set([
+  'guild-community.html',
+  'guild-history.html',
+  'guild-join.html',
+  'guild-secura.html'
+]);
+
+const openingArtworkClassName = (className = '') => [
+  'opening-artwork',
+  className,
+  characterOpeningArtworkPages.has(currentPage) ? 'opening-character-art' : ''
+].filter(Boolean).join(' ');
 
 const pageOpeningTitles = {
   'index.html': 'Run Guilds Better',
@@ -743,7 +756,7 @@ const renderOpeningArtwork = (className = '') => {
   if (!artwork) return null;
 
   const figure = document.createElement('figure');
-  figure.className = `opening-artwork ${className}`.trim();
+  figure.className = openingArtworkClassName(className);
   figure.setAttribute('aria-hidden', 'true');
   figure.innerHTML = `<img src="${vectorAssetUrl(`assets/illustrations/${artwork}`)}" alt="" loading="eager" decoding="async">`;
   return figure;
@@ -751,7 +764,8 @@ const renderOpeningArtwork = (className = '') => {
 
 const renderOpeningAside = (presentation, layout) => {
   const aside = document.createElement('aside');
-  aside.className = `opening-aside opening-aside-${layout}`;
+  const hasCharacterArtwork = characterOpeningArtworkPages.has(currentPage);
+  aside.className = `opening-aside opening-aside-${layout}${hasCharacterArtwork ? ' opening-aside-character' : ''}`;
   aside.setAttribute('aria-label', `${presentation.label} page summary`);
 
   const tags = presentation.tags.map((tag) => `<span>${tag}</span>`).join('');
@@ -759,7 +773,7 @@ const renderOpeningAside = (presentation, layout) => {
     ? ''
     : `<p class="opening-summary">${presentation.summary}</p>`;
   const artwork = pageArtworkByPage[currentPage]
-    ? `<figure class="opening-artwork opening-aside-art" aria-hidden="true"><img src="${vectorAssetUrl(`assets/illustrations/${pageArtworkByPage[currentPage]}`)}" alt="" loading="eager" decoding="async"></figure>`
+    ? `<figure class="${openingArtworkClassName('opening-aside-art')}" aria-hidden="true"><img src="${vectorAssetUrl(`assets/illustrations/${pageArtworkByPage[currentPage]}`)}" alt="" loading="eager" decoding="async"></figure>`
     : '';
   aside.innerHTML = `
     <div class="opening-aside-top">
@@ -801,7 +815,7 @@ const renderOpeningBrief = (presentation) => {
   const brief = document.createElement('div');
   brief.className = 'opening-brief';
   const artwork = pageArtworkByPage[currentPage]
-    ? `<figure class="opening-artwork opening-brief-art" aria-hidden="true"><img src="${vectorAssetUrl(`assets/illustrations/${pageArtworkByPage[currentPage]}`)}" alt="" loading="eager" decoding="async"></figure>`
+    ? `<figure class="${openingArtworkClassName('opening-brief-art')}" aria-hidden="true"><img src="${vectorAssetUrl(`assets/illustrations/${pageArtworkByPage[currentPage]}`)}" alt="" loading="eager" decoding="async"></figure>`
     : '';
   brief.innerHTML = `
     ${artwork}
@@ -853,18 +867,17 @@ const renderRoleplayCover = () => {
   return visual;
 };
 
-const renderFeatureMap = () => {
+const renderBotOverviewCharacter = () => {
   const visual = document.createElement('aside');
-  visual.className = 'opening-feature-map';
-  visual.setAttribute('aria-label', 'Connected Luminox systems');
+  visual.className = 'opening-bot-character';
+  visual.setAttribute('aria-label', 'Luminox, the Lumina guild management robot');
   visual.innerHTML = `
-    <span class="feature-map-core">Luminox</span>
-    <a href="bot-registration.html"><img src="assets/icons/content-identity.svg?v=20260723-4" alt=""><span>Registration</span></a>
-    <a href="bot-events.html"><img src="assets/icons/content-events.svg?v=20260723-4" alt=""><span>Events</span></a>
-    <a href="bot-guildbank.html"><img src="assets/icons/content-economy.svg?v=20260723-4" alt=""><span>GuildBank</span></a>
-    <a href="bot-watchlists.html"><img src="assets/icons/content-intelligence.svg?v=20260723-4" alt=""><span>Online lists</span></a>
-    <a href="bot-finder.html"><img src="assets/icons/content-finder.svg?v=20260723-4" alt=""><span>Finder</span></a>
-    <a href="bot-support.html"><img src="assets/icons/content-support.svg?v=20260723-4" alt=""><span>Support</span></a>`;
+    <figure aria-hidden="true"><img src="${vectorAssetUrl('assets/illustrations/luminox-robot-character.png')}" alt="" loading="eager" decoding="async"></figure>
+    <div class="opening-bot-character-key">
+      <span>Panels</span>
+      <span>Threads</span>
+      <span>Automation</span>
+    </div>`;
   return visual;
 };
 
@@ -873,7 +886,7 @@ const renderEditionChoice = () => {
   visual.className = 'opening-edition-choice';
   visual.setAttribute('aria-label', 'Universal and Community edition paths');
   visual.innerHTML = `
-    <figure class="opening-edition-art" aria-hidden="true"><img src="assets/illustrations/editions-gateway.svg?v=20260723-4" alt=""></figure>
+    <figure class="opening-edition-art" aria-hidden="true"><img src="assets/illustrations/editions-gateway.svg?v=20260724-4" alt=""></figure>
     <div class="opening-edition-options">
       <a href="#universal-edition"><img src="assets/icons/edition-universal.svg?v=20260723-4" alt="" aria-hidden="true"><span><small>Any game or community</small><strong>Universal Edition</strong></span><b aria-hidden="true">↘</b></a>
       <a href="#community-edition"><img src="assets/icons/edition-community.svg?v=20260723-4" alt="" aria-hidden="true"><span><small>Purpose-built for Tibia</small><strong>Community Edition</strong></span><b aria-hidden="true">↙</b></a>
@@ -911,7 +924,7 @@ const customOpeningRenderers = {
   'guild-cover': renderGuildCover,
   'gallery-wall': renderGalleryWall,
   'roleplay-cover': renderRoleplayCover,
-  'feature-map': renderFeatureMap,
+  'feature-map': renderBotOverviewCharacter,
   'edition-choice': renderEditionChoice,
   'pricing-tiers': renderPricingTiers,
   'contact-paths': renderContactPaths
@@ -983,6 +996,9 @@ const applyPagePresentation = () => {
     `page-variant-${presentation.variant}`,
     `page-layout-${layout}`
   );
+  if (characterOpeningArtworkPages.has(currentPage)) {
+    opening.classList.add('page-opening-character');
+  }
   opening.classList.add('page-opening');
 
   const copy = document.createElement('div');
@@ -1261,6 +1277,632 @@ const enhanceContentRhythm = () => {
 };
 
 enhanceContentRhythm();
+
+const narrativeStory = (asset, title, text, href, linkLabel, options = {}) => ({
+  asset,
+  title,
+  text,
+  href,
+  linkLabel,
+  ...options
+});
+
+const narrativeStoriesByPage = Object.freeze({
+  'guild.html': [
+    narrativeStory(
+      'lumina-guild-overview.webp',
+      'A guild is a world people choose to return to.',
+      'Lumina brings international Tibia players into one trusted home on Secura: a place to progress, organize difficult content, ask for help and build a shared reputation over time.',
+      'guild-community.html',
+      'Discover the community behind Lumina',
+      { eyebrow: 'One guild, one shared home', meta: ['Tibia · Secura', 'International'], tone: 'home', after: 0, alt: 'Lumina adventurers gathering inside a gothic guild hall overlooking a living fantasy city' }
+    )
+  ],
+  'guild-secura.html': [
+    narrativeStory(
+      'lumina-secura-world.webp',
+      'Our name travels farther than our Discord.',
+      'Every hunt, claim and conversation happens inside a world shared with many other players. Lumina treats reputation on Secura as part of membership, not as an external concern.',
+      'guild-rules.html',
+      'See the standards we carry into Secura',
+      { eyebrow: 'A living shared world', meta: ['Secura', 'Reputation'], tone: 'bot', after: 0, layout: 'reverse', alt: 'Lumina adventurers overlooking a vast inhabited fantasy world at sunrise' }
+    )
+  ],
+  'guild-members.html': [
+    narrativeStory(
+      'lumina-membership.webp',
+      'Membership should make participation easier.',
+      'A member gains more than a role: verified identity, organized activities, visible contribution, private support and a community that remembers the person behind every character.',
+      'guild-join.html',
+      'Follow the path to membership',
+      { eyebrow: 'Belonging with practical value', meta: ['Members', 'Shared progress'], tone: 'community', after: 0, alt: 'Lumina members helping one another and planning adventures inside their guild hall' }
+    )
+  ],
+  'guild-leadership.html': [
+    narrativeStory(
+      'lumina-leadership-council.webp',
+      'Authority works best when responsibility is visible.',
+      'Lumina separates long-term direction, moderation and specialist duties so members know who can help, staff know what they own and important decisions can be reviewed with context.',
+      'guild-rules.html',
+      'Read the standards leadership protects',
+      { eyebrow: 'Leadership through responsibility', meta: ['Listen', 'Explain'], tone: 'history', after: 0, layout: 'reverse', alt: 'A diverse Lumina leadership council reviewing evidence around an illuminated table' }
+    )
+  ],
+  'guild-faq.html': [
+    narrativeStory(
+      'lumina-candidate-guidance.webp',
+      'Good applications begin before the form.',
+      'The strongest candidates understand the game world, the guild standards and what membership actually means. Questions are welcome before anyone commits to the process.',
+      'guild-join.html',
+      'Review the complete joining path',
+      { eyebrow: 'Clarity before commitment', meta: ['Candidates', 'Questions welcome'], tone: 'join', after: 0, alt: 'A prospective adventurer speaking with welcoming Lumina members beside an open guide and map' }
+    )
+  ],
+  'guild-rules.html': [
+    narrativeStory(
+      'lumina-shared-charter.webp',
+      'Standards protect the people who follow them.',
+      'Lumina rules are a shared promise: respect other players, preserve context when something goes wrong and resolve serious problems through evidence and the correct private route.',
+      '#official-rulebook',
+      'Open the official rulebook',
+      { eyebrow: 'A shared community promise', meta: ['Respect', 'Fair resolution'], tone: 'history', after: 1, layout: 'reverse', alt: 'Lumina members placing personal tokens beside a shared guild charter while a disagreement is calmly mediated' }
+    )
+  ],
+  'editions.html': [
+    narrativeStory(
+      'editions-decision-path.svg',
+      'One foundation. Two different kinds of context.',
+      'Universal keeps the workflows game-independent. Community understands Tibia characters, worlds and guild operations. The interface remains familiar while the available context changes.',
+      '#edition-paths',
+      'Compare Universal and Community',
+      { eyebrow: 'Choose by context', meta: ['Universal', 'Community'], tone: 'bot', after: 0, visual: 'gateway' }
+    )
+  ],
+  'use-cases.html': [
+    narrativeStory(
+      'editions-shared-core.svg',
+      'The best setup begins with friction everyone already feels.',
+      'Start with one repeated problem—identity, support, events, economy or live awareness—then enable the smallest group of Luminox systems that removes it.',
+      'features.html',
+      'Explore every Luminox function',
+      { eyebrow: 'Problem first, feature second', meta: ['Identify', 'Solve'], tone: 'history', after: 0, layout: 'reverse', visual: 'network' }
+    )
+  ],
+  'features-identity.html': [
+    narrativeStory(
+      'registration-proof.svg',
+      'Identity turns every later action into something trustworthy.',
+      'When the account, character, main and role agree, nicknames stay readable, permissions remain current and every connected record has a reliable owner.',
+      'bot-registration.html',
+      'Explore Character Registration',
+      { eyebrow: 'One verified foundation', meta: ['Account', 'Identity'], tone: 'bot', after: 0, visual: 'identity' }
+    )
+  ],
+  'features-economy.html': [
+    narrativeStory(
+      'guildhall-rooms.svg',
+      'Shared value needs records everyone can understand.',
+      'Loot, deposits and reviewed balances become useful only when participants can see the result, staff can verify it and the final history remains accountable.',
+      'bot-guildbank.html',
+      'Explore GuildBank',
+      { eyebrow: 'Transparent guild economy', meta: ['Calculate', 'Review'], tone: 'home', after: 0, layout: 'reverse', visual: 'ledger' }
+    )
+  ],
+  'features-events.html': [
+    narrativeStory(
+      'guild-adventures.svg',
+      'An event succeeds when coordination stops being the hard part.',
+      'Luminox keeps participants, roles, scheduling, invitations, discussion threads and completion in one guided journey instead of scattered messages.',
+      'bot-events.html',
+      'Explore Event Boards',
+      { eyebrow: 'From idea to shared activity', meta: ['Schedule', 'Participate'], tone: 'community', after: 0, visual: 'schedule' }
+    )
+  ],
+  'features-intelligence.html': [
+    narrativeStory(
+      'blacklist-command.svg',
+      'Current information matters only when it arrives with context.',
+      'Online activity, risk records and identity changes stay connected so staff and members can understand what changed without comparing separate lists.',
+      'bot-watchlists.html',
+      'Explore Live Online Lists',
+      { eyebrow: 'Awareness without noise', meta: ['Observe', 'Connect'], tone: 'activities', after: 0, layout: 'reverse', visual: 'signal' }
+    )
+  ],
+  'features-finder.html': [
+    narrativeStory(
+      'recruitment-path.svg',
+      'Activity becomes a team when availability is readable.',
+      'Finder turns current online information and voluntary intent into compatible group suggestions without forcing members into an external matching service.',
+      'bot-finder.html',
+      'Explore Finder',
+      { eyebrow: 'From online to organized', meta: ['Available', 'Compatible'], tone: 'bot', after: 0, visual: 'network' }
+    )
+  ],
+  'features-support.html': [
+    narrativeStory(
+      'trust-vault.svg',
+      'Private help should feel simple to request and safe to continue.',
+      'One public entry point can route the member, required context and responsible staff into a protected Discord thread that remains useful after closure.',
+      'bot-support.html',
+      'Explore Support Tickets',
+      { eyebrow: 'A protected route to help', meta: ['Private', 'Role-aware'], tone: 'join', after: 0, layout: 'reverse', visual: 'shield' }
+    )
+  ],
+  'systems.html': [
+    narrativeStory(
+      'editions-shared-core.svg',
+      'One action can update many views without repeating the work.',
+      'Luminox separates collection, rules, presentation and history. Shared information is reused where safe, while Discord keeps the complete conversations it already hosts.',
+      'docs-panels.html',
+      'See how panels use the shared foundation',
+      { eyebrow: 'A small operational core', meta: ['Reuse', 'Refresh'], tone: 'bot', after: 0, visual: 'network' }
+    )
+  ],
+  'bot-nicknames.html': [
+    narrativeStory(
+      'identity-orbit.svg',
+      'A readable name removes friction from every channel.',
+      'Universal shows a chosen game name with Loyalty. Community adds the verified Tibia main, vocation and level—kept current without asking staff to rewrite nicknames.',
+      'docs-nicknames.html',
+      'Read the Nickname guide',
+      { eyebrow: 'Identity at a glance', meta: ['Readable', 'Automatic'], tone: 'bot', after: 1, visual: 'identity' }
+    )
+  ],
+  'bot-registration.html': [
+    narrativeStory(
+      'nickname-sync.svg',
+      'One proof creates a trusted identity for the whole server.',
+      'Community verifies character ownership once, connects every registered character to one Discord account and lets the selected main drive the systems that need public identity.',
+      'docs-registration.html',
+      'Read the Registration guide',
+      { eyebrow: 'Verify once, reuse safely', meta: ['Ownership', 'Main'], tone: 'bot', after: 1, layout: 'reverse', visual: 'identity' }
+    )
+  ],
+  'bot-inactive-characters.html': [
+    narrativeStory(
+      'rank-sync.svg',
+      'Leaving the guild changes access, not history.',
+      'Confirmed departures reconcile managed roles, active views and reward eligibility while preserving verified identity and the records needed to explain what changed.',
+      'docs-inactive-characters.html',
+      'Read the lifecycle guide',
+      { eyebrow: 'A complete member lifecycle', meta: ['Reconcile', 'Preserve'], tone: 'activities', after: 1, visual: 'cycle' }
+    )
+  ],
+  'bot-ranks.html': [
+    narrativeStory(
+      'guild-fellowship.svg',
+      'Roles should follow verified membership—not staff memory.',
+      'Promotions, demotions and guild departures update only the roles Luminox is configured to manage, while unrelated Discord roles remain untouched.',
+      'docs-ranks.html',
+      'Read the Guild Rank guide',
+      { eyebrow: 'Access that follows reality', meta: ['Map', 'Synchronize'], tone: 'community', after: 1, layout: 'reverse', visual: 'roles' }
+    )
+  ],
+  'bot-loyalty.html': [
+    narrativeStory(
+      'progression-path.svg',
+      'Contribution feels meaningful when every point has a reason.',
+      'Loyalty keeps account-wide progress, levels, ranking and recent activity together so members can understand what they earned and what changed.',
+      'docs-loyalty.html',
+      'Read the Loyalty guide',
+      { eyebrow: 'Progress with an explanation', meta: ['Earn', 'Understand'], tone: 'home', after: 1, visual: 'progress' }
+    )
+  ],
+  'bot-boosts.html': [
+    narrativeStory(
+      'loyalty-orbit.svg',
+      'Continuous support deserves a transparent reward cycle.',
+      'Each active Server Boost follows its own qualifying period, expected reward and attribution state instead of collapsing every supporter into one monthly guess.',
+      'docs-boosts.html',
+      'Read the Server Boost guide',
+      { eyebrow: 'Every boost has its own cycle', meta: ['Track', 'Reward'], tone: 'bot', after: 1, layout: 'reverse', visual: 'cycle' }
+    )
+  ],
+  'bot-streaming.html': [
+    narrativeStory(
+      'product-network.svg',
+      'Reward shared activity without counting it by hand.',
+      'Eligible Discord screen-share sessions qualify after the minimum duration, accumulate by minute and respect clear rolling limits before Loyalty is awarded.',
+      'docs-streaming.html',
+      'Read the Stream Loyalty guide',
+      { eyebrow: 'Participation measured fairly', meta: ['Qualify', 'Reward'], tone: 'activities', after: 1, visual: 'signal' }
+    )
+  ],
+  'bot-timezones.html': [
+    narrativeStory(
+      'events-calendar.svg',
+      'One proposed hour. Everyone sees their own local time.',
+      'Members save a timezone once, then Luminox turns shared planning into Discord timestamps that display correctly for every participant.',
+      'docs-timezones.html',
+      'Read the Timezone guide',
+      { eyebrow: 'Local time without confusion', meta: ['Save once', 'Convert'], tone: 'bot', after: 1, layout: 'reverse', visual: 'schedule' }
+    )
+  ],
+  'bot-finder.html': [
+    narrativeStory(
+      'editions-universal-network.svg',
+      'Turn the current online list into a playable group.',
+      'Finder reuses activity already known to Luminox, adds voluntary Looking for Team intent and highlights compatible members without another scan or external service.',
+      'docs-finder.html',
+      'Read the Finder guide',
+      { eyebrow: 'Useful matches from current data', meta: ['Online', 'Compatible'], tone: 'bot', after: 1, visual: 'network' }
+    )
+  ],
+  'bot-events.html': [
+    narrativeStory(
+      'guild-adventures.svg',
+      'From idea to archived event, the whole journey stays in Discord.',
+      'Creators can define teams, invite registered members, vote on schedules and coordinate in a dedicated thread before Luminox records the final outcome.',
+      'docs-events.html',
+      'Read the complete Event guide',
+      { eyebrow: 'A complete activity journey', meta: ['Invite', 'Coordinate'], tone: 'community', after: 2, layout: 'reverse', visual: 'schedule' }
+    )
+  ],
+  'bot-loot.html': [
+    narrativeStory(
+      'guildhall-rooms.svg',
+      'A complex split becomes one understandable result.',
+      'Members paste the analyzer output once. Luminox calculates balances, presents transfers, keeps the confirmer visible and can connect the result to GuildBank.',
+      'docs-loot.html',
+      'Read the Loot Split guide',
+      { eyebrow: 'From analyzer to clear transfers', meta: ['Calculate', 'Confirm'], tone: 'home', after: 1, visual: 'ledger' }
+    )
+  ],
+  'bot-progression.html': [
+    narrativeStory(
+      'loyalty-orbit.svg',
+      'Progress stays visible without rebuilding yesterday’s history.',
+      'Current level, deaths and rolling daily, monthly and yearly totals remain ordered while permanent announcements preserve the moments behind the numbers.',
+      'docs-progression.html',
+      'Read the Progression guide',
+      { eyebrow: 'A living guild timeline', meta: ['Track', 'Remember'], tone: 'community', after: 1, layout: 'reverse', visual: 'progress' }
+    )
+  ],
+  'bot-leaderboards.html': [
+    narrativeStory(
+      'rank-sync.svg',
+      'Rankings motivate when movement and context stay readable.',
+      'Multiple categories, position changes, compact pages and clear navigation keep long leaderboards useful without turning the channel into a spreadsheet.',
+      'docs-leaderboards.html',
+      'Read the Leaderboard guide',
+      { eyebrow: 'Competition without clutter', meta: ['Rank', 'Navigate'], tone: 'bot', after: 1, visual: 'progress' }
+    )
+  ],
+  'bot-guildbank.html': [
+    narrativeStory(
+      'economy-ledger.svg',
+      'Every contribution passes through the same accountable ledger.',
+      'Members submit deposits, authorized staff review protected actions and the confirmed balance remains separate from requests that are still pending.',
+      'docs-guildbank.html',
+      'Read the GuildBank guide',
+      { eyebrow: 'One transparent guild balance', meta: ['Deposit', 'Review'], tone: 'home', after: 1, layout: 'reverse', visual: 'ledger' }
+    )
+  ],
+  'bot-watchlists.html': [
+    narrativeStory(
+      'finder-party.svg',
+      'Live lists answer the first question: who is active now?',
+      'Guild members and connected risk targets use the same latest valid snapshot, keeping channel counters, sessions and visible context aligned.',
+      'docs-watchlists.html',
+      'Read the Watchlist guide',
+      { eyebrow: 'Current activity, one source', meta: ['Online', 'Consistent'], tone: 'activities', after: 1, visual: 'signal' }
+    )
+  ],
+  'bot-tracker.html': [
+    narrativeStory(
+      'blacklist-command.svg',
+      'Names change. Identity history should not disappear.',
+      'Tracker connects renames, trades, transfers, returns and deletions to the same reviewed record, then separates permanent events from the refreshed summary panel.',
+      'docs-tracker.html',
+      'Read the Identity Tracker guide',
+      { eyebrow: 'Continuity through every change', meta: ['Detect', 'Record'], tone: 'activities', after: 1, layout: 'reverse', visual: 'trace' }
+    )
+  ],
+  'bot-guards.html': [
+    narrativeStory(
+      'moderation-shield.svg',
+      'Fast coordination needs clear starts, shared context and automatic endings.',
+      'Guard duty, enemy sightings and active battles use distinct actions, dedicated threads and inactivity rules that prevent yesterday’s alert from looking current.',
+      'docs-guards.html',
+      'Read the Guards guide',
+      { eyebrow: 'Urgency without stale alerts', meta: ['Report', 'Coordinate'], tone: 'activities', after: 1, visual: 'shield' }
+    )
+  ],
+  'bot-recruitment.html': [
+    narrativeStory(
+      'guild-fellowship.svg',
+      'Growth becomes fair when every claim can be reviewed.',
+      'Recruitment preserves who reported the arrival, who owns the claim, what staff approved and how long the reward remains exposed to a real early departure.',
+      'docs-recruitment.html',
+      'Read the Recruitment guide',
+      { eyebrow: 'Verified growth, visible decisions', meta: ['Claim', 'Protect'], tone: 'community', after: 1, layout: 'reverse', visual: 'growth' }
+    )
+  ],
+  'bot-guildhall.html': [
+    narrativeStory(
+      'guild-citadel.svg',
+      'Shared rooms stay manageable when availability has one source.',
+      'Room order, size, description, occupant and pending request remain connected to the same panel while staff decisions stay visible in permanent Discord logs.',
+      'docs-guildhall.html',
+      'Read the Guildhall guide',
+      { eyebrow: 'A living shared property', meta: ['Rooms', 'Requests'], tone: 'bot', after: 1, visual: 'ledger' }
+    )
+  ],
+  'bot-support.html': [
+    narrativeStory(
+      'trust-vault.svg',
+      'A public button can open a genuinely private conversation.',
+      'Required questions collect useful context first, then the member, invited participants and responsible staff continue inside one protected and archivable thread.',
+      'docs-support.html',
+      'Read the Support Ticket guide',
+      { eyebrow: 'Private by design', meta: ['Route', 'Archive'], tone: 'bot', after: 2, layout: 'reverse', visual: 'shield' }
+    )
+  ],
+  'bot-moderation.html': [
+    narrativeStory(
+      'banlist-ledger.svg',
+      'Protection works best when enforcement and audit are visible.',
+      'Channel-scoped Automod handles prohibited content while the permanent log explains role, membership and staff changes that deserve a durable record.',
+      'docs-moderation.html',
+      'Read the Automod and Logs guide',
+      { eyebrow: 'Controlled enforcement', meta: ['Protect', 'Explain'], tone: 'activities', after: 1, visual: 'shield' }
+    )
+  ],
+  'bot-banlist.html': [
+    narrativeStory(
+      'moderation-shield.svg',
+      'A sanction should always show who, why and for how long.',
+      'Ban List gives authorized staff guided add, edit and lift controls while the visible record keeps duration, reason and responsible identity immediately readable.',
+      'docs-banlist.html',
+      'Read the Ban List guide',
+      { eyebrow: 'Reversible, accountable sanctions', meta: ['Record', 'Review'], tone: 'activities', after: 1, layout: 'reverse', visual: 'ledger' }
+    )
+  ],
+  'bot-blacklist.html': [
+    narrativeStory(
+      'intelligence-radar.svg',
+      'One reviewed decision can power every connected risk view.',
+      'Community Blacklist links characters, guilds, reasons and bounties to online awareness, Tracker outcomes, Guards and resolved history without duplicating the target.',
+      'docs-blacklist.html',
+      'Read the Blacklist guide',
+      { eyebrow: 'Connected Tibia intelligence', meta: ['Review', 'Reuse'], tone: 'activities', after: 1, visual: 'signal' }
+    )
+  ],
+  'bot-staff.html': [
+    narrativeStory(
+      'guild-leadership.svg',
+      'Sensitive decisions need the right people—not the loudest channel.',
+      'Global moderators, specialist roles, private voting and member applications keep responsibility focused while preserving understandable outcomes.',
+      'docs-staff.html',
+      'Read the Staff Systems guide',
+      { eyebrow: 'Authority matched to purpose', meta: ['Roles', 'Decisions'], tone: 'bot', after: 1, layout: 'reverse', visual: 'roles' }
+    )
+  ],
+  'bot-automation.html': [
+    narrativeStory(
+      'boost-cycle.svg',
+      'The best maintenance is visible only when something changes.',
+      'Panel refreshes, temporary cleanup, membership reconciliation and retention rules keep Discord current without making staff manually rebuild the same information.',
+      'docs-automation.html',
+      'Read the Automation guide',
+      { eyebrow: 'Quiet operational upkeep', meta: ['Refresh', 'Reconcile'], tone: 'community', after: 1, visual: 'cycle' }
+    )
+  ],
+  'bot-website.html': [
+    narrativeStory(
+      'blog-journal.svg',
+      'Publishing starts in Discord and reaches the web only after review.',
+      'Founder authors draft screenshots and articles in private threads, while authorized staff can request revisions, approve, hide or remove public content from the same workflow.',
+      'docs-website.html',
+      'Read the Website Publishing guide',
+      { eyebrow: 'A reviewed publishing bridge', meta: ['Founder', 'Controlled'], tone: 'bot', after: 1, layout: 'reverse', visual: 'publish' }
+    )
+  ],
+  'security.html': [
+    narrativeStory(
+      'moderation-shield.svg',
+      'Trust begins with knowing exactly who can act.',
+      'Discord permissions, configured moderator roles and specialist responsibilities define authority openly instead of relying on a hidden administrator list.',
+      '#permissions',
+      'Review the permission model',
+      { eyebrow: 'Visible authority boundaries', meta: ['Roles', 'Control'], tone: 'activities', after: 0, visual: 'shield' }
+    ),
+    narrativeStory(
+      'trust-vault.svg',
+      'Keep complete conversations where they already belong.',
+      'Support and event discussions remain in Discord threads. Luminox stores only the compact operational information needed to find, update and explain those workflows.',
+      '#data',
+      'Review the data boundaries',
+      { eyebrow: 'Minimal operational storage', meta: ['Discord', 'Retention'], tone: 'bot', after: 2, layout: 'reverse', visual: 'vault' }
+    )
+  ],
+  'pricing.html': [
+    narrativeStory(
+      'editions-shared-core.svg',
+      'Choose the smallest plan that removes a real constraint.',
+      'Edition decides the context Luminox understands. Plan decides capacity, eligible access, refresh policy and service depth. Keeping those choices separate prevents overbuying.',
+      '#premium-tiers',
+      'Compare the four service levels',
+      { eyebrow: 'Scale only when value is clear', meta: ['Edition', 'Plan'], tone: 'home', after: 1, visual: 'network' }
+    ),
+    narrativeStory(
+      'trust-vault.svg',
+      'Billing stays inside Discord, where the subscription is managed.',
+      'Core, Growth and Scale use Discord’s official Premium App subscription flow so purchase, renewal, cancellation and billing support remain in one familiar account.',
+      'guarantee.html',
+      'Review purchase and refund guidance',
+      { eyebrow: 'Discord-managed subscription', meta: ['Official billing', 'Control'], tone: 'bot', after: 4, layout: 'reverse', visual: 'vault' }
+    )
+  ],
+  'pricing-faq.html': [
+    narrativeStory(
+      'docs-library.svg',
+      'A clear purchase decision separates edition, plan and billing.',
+      'The FAQ answers each layer independently so a first-time buyer can understand product fit before comparing capacity or opening Discord’s payment flow.',
+      '#choosing',
+      'Start with edition and plan questions',
+      { eyebrow: 'Answers before checkout', meta: ['Choose', 'Understand'], tone: 'bot', after: 0, visual: 'library' }
+    )
+  ],
+  'guarantee.html': [
+    narrativeStory(
+      'legal-balance.svg',
+      'Know the difference between cancelling and requesting a refund.',
+      'Cancellation stops future renewal. A refund request asks Discord to review an eligible completed purchase under its current policy. They are related, but not the same action.',
+      '#top',
+      'Review the complete purchase guidance',
+      { eyebrow: 'Clear options after purchase', meta: ['Cancel', 'Request'], tone: 'community', after: 1, layout: 'reverse', visual: 'balance' }
+    )
+  ],
+  'docs.html': [
+    narrativeStory(
+      'docs-library.svg',
+      'The manual should tell every role where to begin.',
+      'Members, staff and administrators can choose a task, understand the required configuration and continue through the exact guide without reading the entire documentation first.',
+      'docs-getting-started.html',
+      'Choose your guided starting path',
+      { eyebrow: 'Documentation built for action', meta: ['Search', 'Follow'], tone: 'bot', after: 0, visual: 'library' }
+    )
+  ],
+  'contact.html': [
+    narrativeStory(
+      'support-threads.svg',
+      'The right route gets the right context to the right people.',
+      'Product questions, existing-server support and Lumina membership each need different information. One Discord-first contact path keeps the conversation focused and private where necessary.',
+      '#contact-paths',
+      'Choose the correct conversation',
+      { eyebrow: 'Start with the real goal', meta: ['Product', 'Guild'], tone: 'bot', after: 0, layout: 'reverse', visual: 'portal' }
+    )
+  ]
+});
+
+const narrativeToneClasses = Object.freeze({
+  home: 'narrative-showcase--home',
+  bot: 'narrative-showcase--bot',
+  history: 'narrative-showcase--history',
+  community: 'narrative-showcase--community',
+  activities: 'narrative-showcase--activities',
+  join: 'narrative-showcase--join'
+});
+
+const narrativeVisualFamilies = Object.freeze({
+  identity: 'identity',
+  cycle: 'cycle',
+  roles: 'roles',
+  progress: 'progress',
+  schedule: 'schedule',
+  ledger: 'ledger',
+  signal: 'signal',
+  trace: 'signal',
+  shield: 'shield',
+  vault: 'shield',
+  growth: 'network',
+  network: 'network',
+  gateway: 'gateway',
+  publish: 'publish',
+  library: 'library',
+  balance: 'balance',
+  portal: 'portal'
+});
+
+const isNarrativeMediaSection = (section) => Boolean(
+  section?.matches?.('.product-screenshot-showcase, .narrative-showcase, .bot-visual-intro, .bot-visual-proof') ||
+  section?.querySelector?.('[data-screenshot-gallery], .discord-screenshot-card, .product-preview, .nickname-comparison, .home-story-card')
+);
+
+const isNarrativeClosingSection = (section) => Boolean(
+  section?.matches?.('.contextual-conversion, [data-page-conversion]') ||
+  section?.querySelector?.(
+    '.conversion-cta, .pricing-conversion, .guarantee-conversion, .edition-final-cta, .contact-final-cta, .home-final-cta, .legal-closing, .rules-final-cta, .roleplay-final-cta'
+  )
+);
+
+const findNarrativeAnchor = (main, preferredAfter = 1, usedAnchors = new Set()) => {
+  const sections = [...main.children].filter((element) =>
+    element.matches?.('section.section') &&
+    !element.matches('.narrative-showcase, .contextual-conversion, [data-page-conversion]')
+  );
+  if (sections.length === 0) return null;
+
+  const boundedIndex = Math.max(0, Math.min(Number(preferredAfter) || 0, sections.length - 1));
+  const indexes = sections
+    .map((_, index) => index)
+    .sort((left, right) => Math.abs(left - boundedIndex) - Math.abs(right - boundedIndex));
+
+  const suitable = indexes.find((index) => {
+    const current = sections[index];
+    const next = sections[index + 1];
+    return (
+      !usedAnchors.has(current) &&
+      !isNarrativeMediaSection(current) &&
+      !isNarrativeMediaSection(next) &&
+      !isNarrativeClosingSection(current)
+    );
+  });
+  const textFallback = indexes.find((index) => {
+    const current = sections[index];
+    return !usedAnchors.has(current) && !isNarrativeMediaSection(current) && !isNarrativeClosingSection(current);
+  });
+  const fallback = indexes.find((index) =>
+    !usedAnchors.has(sections[index]) && !isNarrativeClosingSection(sections[index])
+  ) ?? boundedIndex;
+  return sections[suitable ?? textFallback ?? fallback] || null;
+};
+
+const renderNarrativeStory = (story, storyIndex) => {
+  const presentation = pagePresentations[currentPage] || {};
+  const vector = /\.svg$/i.test(story.asset);
+  const toneClass = narrativeToneClasses[story.tone || presentation.accent] || 'narrative-showcase--bot';
+  const layoutClass = story.layout === 'reverse' ? ' narrative-card--reverse' : '';
+  const visual = story.visual || narrativeVisualFamilies[presentation.variant] || 'network';
+  const meta = story.meta || (presentation.tags || []).slice(0, 2);
+  const section = document.createElement('section');
+  const headingId = `narrative-${currentPage.replace(/\.html$/i, '')}-${storyIndex + 1}`;
+
+  section.className = `section narrative-showcase ${toneClass} narrative-showcase--generated`;
+  section.dataset.narrativeStory = currentPage;
+  section.setAttribute('aria-labelledby', headingId);
+  section.innerHTML = `
+    <article class="narrative-card narrative-card--generated${vector ? ' narrative-card--vector' : ''}${layoutClass}" data-narrative-visual="${visual}">
+      <div class="narrative-media">
+        ${vector
+          ? `<div class="narrative-vector-stage" aria-hidden="true"><span class="narrative-vector-orbit"></span><span class="narrative-vector-node narrative-vector-node--one"></span><span class="narrative-vector-node narrative-vector-node--two"></span><img src="${vectorAssetUrl(`assets/illustrations/${story.asset}`)}" alt="" loading="eager" decoding="async"></div>`
+          : `<img src="assets/illustrations/${story.asset}" width="1536" height="1024" loading="lazy" decoding="async" alt="${story.alt || ''}">`}
+      </div>
+      <div class="narrative-copy">
+        ${meta.length ? `<div class="narrative-meta">${meta.map((item) => `<span>${item}</span>`).join('')}</div>` : ''}
+        <p class="eyebrow">${story.eyebrow || `${presentation.label || 'Luminox'} in practice`}</p>
+        <h2 id="${headingId}">${story.title}</h2>
+        <p>${story.text}</p>
+        <a class="text-link" href="${story.href}">${story.linkLabel} →</a>
+      </div>
+    </article>`;
+  return section;
+};
+
+const injectNarrativeStories = () => {
+  const stories = narrativeStoriesByPage[currentPage];
+  const main = document.querySelector('main');
+  if (!stories?.length || !main) return;
+
+  const usedAnchors = new Set();
+  stories.forEach((story, storyIndex) => {
+    const anchor = findNarrativeAnchor(main, story.after ?? (storyIndex + 1), usedAnchors);
+    const section = renderNarrativeStory(story, storyIndex);
+    if (anchor) {
+      anchor.after(section);
+      usedAnchors.add(anchor);
+    } else {
+      main.append(section);
+    }
+  });
+};
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', injectNarrativeStories, { once: true });
+} else {
+  injectNarrativeStories();
+}
 
 const buttonActionIconByPage = Object.freeze({
   '404.html': 'action-home.svg',

@@ -32,10 +32,11 @@
       <path d="M595 182v31M580 197h30" stroke="#F6D46F" stroke-width="3" stroke-linecap="round"/>
     </g>
     <g>
-      <path d="m380 174 101 58v116l-101 58-101-58V232l101-58Z" fill="#080D1B" stroke="url(#eg-core)" stroke-width="4"/>
-      <path d="M347 234v108h79" stroke="#F6D46F" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
-      <circle cx="427" cy="342" r="11" fill="#FB7185"/>
-      <circle cx="380" cy="290" r="79" stroke="#A675FF" stroke-opacity=".15"/>
+      <path d="m380 160 112 64v128l-112 64-112-64V224l112-64Z" fill="#080D1B" stroke="url(#eg-core)" stroke-width="4"/>
+      <path d="m380 184 91 52v104l-91 52-91-52V236l91-52Z" stroke="#F6D46F" stroke-opacity=".14" stroke-width="2"/>
+      <path d="M345 232v105h78" stroke="#F6D46F" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="424" cy="337" r="9" fill="#FB7185"/>
+      <circle cx="380" cy="288" r="82" stroke="#A675FF" stroke-opacity=".13"/>
     </g>
   </g>
   <g fill="#F6D46F"><circle cx="309" cy="277" r="5"/><circle cx="451" cy="277" r="5"/></g>

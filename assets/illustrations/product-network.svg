@@ -8,8 +8,9 @@
   <path d="M177 138 360 270l183-132M177 402l183-132 183 132M177 138v264M543 138v264" stroke="url(#pn-line)" stroke-opacity=".3" stroke-width="3"/>
   <g filter="url(#pn-shadow)">
     <path d="m360 141 112 65v129l-112 65-112-65V206l112-65Z" fill="#0A1022" stroke="url(#pn-line)" stroke-width="3"/>
-    <path d="M324 217v105h83" stroke="#F6D46F" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
-    <circle cx="408" cy="321" r="11" fill="#FB7185"/>
+    <path d="m360 166 91 53v103l-91 53-91-53V219l91-53Z" stroke="#F6D46F" stroke-opacity=".13" stroke-width="2"/>
+    <path d="M327 220v98h75" stroke="#F6D46F" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="403" cy="318" r="9" fill="#FB7185"/>
     <g transform="translate(102 73)"><rect width="150" height="130" rx="34" fill="#0B1228" stroke="#F6D46F" stroke-width="3"/><circle cx="75" cy="65" r="27" stroke="#F6D46F" stroke-width="3"/><path d="M75 38v54M48 65h54" stroke="#F6D46F" stroke-width="3"/></g>
     <g transform="translate(468 73)"><rect width="150" height="130" rx="34" fill="#0B1228" stroke="#56C7F5" stroke-width="3"/><path d="M42 39h66v52H42z" stroke="#56C7F5" stroke-width="3"/><path d="M52 52h46M52 65h32" stroke="#56C7F5" stroke-width="3" stroke-linecap="round"/></g>
     <g transform="translate(102 337)"><rect width="150" height="130" rx="34" fill="#0B1228" stroke="#5EE19D" stroke-width="3"/><path d="m75 31 36 21v42l-36 21-36-21V52l36-21Z" stroke="#5EE19D" stroke-width="3"/><path d="m57 74 12 12 25-29" stroke="#5EE19D" stroke-width="5" stroke-linecap="round"/></g>

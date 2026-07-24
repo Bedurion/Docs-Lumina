@@ -16,6 +16,7 @@
           height: 1107,
           tone: "gold",
           variant: "channel",
+          motion: "vertical-tour",
           kicker: "Server structure",
           title: "One Discord, clearly organized.",
           lead: "Every workflow has a predictable home.",
@@ -1837,6 +1838,7 @@
     const geometry = getScreenshotGeometry(item);
     const classes = ["discord-screenshot-card", `discord-screenshot-card--${item.tone || config.tone || "violet"}`];
     if (item.variant) classes.push(`discord-screenshot-card--${item.variant}`);
+    if (item.motion) classes.push(`discord-screenshot-card--${item.motion}`);
     if (item.wide && !intro) classes.push("discord-screenshot-card--wide");
     if (intro) classes.push("discord-screenshot-card--intro");
     if (geometry.cropTop) classes.push("discord-screenshot-card--crop-top");

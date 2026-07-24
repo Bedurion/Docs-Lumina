@@ -114,10 +114,10 @@
   </g>
 
   <g filter="url(#gwb-shadow)">
-    <path d="M600 180L744 261V438C744 558 677 639 600 689C523 639 456 558 456 438V261L600 180Z" fill="url(#gwb-night)" stroke="url(#gwb-spectrum)" stroke-width="5"/>
-    <path d="M600 206L718 273V431C718 534 662 602 600 646C538 602 482 534 482 431V273L600 206Z" stroke="#F3CC63" stroke-opacity=".22" stroke-width="2"/>
-    <path d="M547 291H601V493H692V548H547V291Z" fill="url(#gwb-gold)" stroke="#FFF3C1" stroke-opacity=".58" stroke-width="3" stroke-linejoin="round"/>
-    <path d="M561 309H582V474H675V493H561V309Z" fill="#FFF2B8" fill-opacity=".28"/>
+    <path d="M600 176L758 266V438C758 562 683 646 600 696C517 646 442 562 442 438V266L600 176Z" fill="url(#gwb-night)" stroke="url(#gwb-spectrum)" stroke-width="5"/>
+    <path d="M600 207L730 281V430C730 535 668 606 600 651C532 606 470 535 470 430V281L600 207Z" stroke="#F3CC63" stroke-opacity=".22" stroke-width="2"/>
+    <path d="M538 299H596V480H679V532H538V299Z" fill="url(#gwb-gold)" stroke="#FFF3C1" stroke-opacity=".58" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M554 316H578V463H662V482H554V316Z" fill="#FFF2B8" fill-opacity=".28"/>
     <path d="M600 176V120M574 146H626" stroke="#F3CC63" stroke-width="3" stroke-linecap="round"/>
     <path d="M600 114L612 136L600 158L588 136L600 114Z" fill="#F3CC63" fill-opacity=".2" stroke="url(#gwb-gold)" stroke-width="3"/>
     <g filter="url(#gwb-glow-red)">
