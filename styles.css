@@ -17621,16 +17621,16 @@ body[data-page="guild-art"] .opening-aside-scene .opening-aside-body {
 }
 
 @media (hover: hover) and (pointer: fine) {
-  html.has-lumina-cursor,
-  html.has-lumina-cursor body,
-  html.has-lumina-cursor body * {
+  html,
+  html body,
+  html body * {
     cursor: none !important;
   }
 
-  html.has-lumina-cursor input:not([type="button"]):not([type="submit"]):not([type="reset"]),
-  html.has-lumina-cursor textarea,
-  html.has-lumina-cursor [contenteditable="true"],
-  html.has-lumina-cursor [data-native-cursor] {
+  html input:not([type="button"]):not([type="submit"]):not([type="reset"]),
+  html textarea,
+  html [contenteditable="true"],
+  html [data-native-cursor] {
     cursor: text !important;
   }
 
@@ -17733,5 +17733,419 @@ body[data-page="guild-art"] .opening-aside-scene .opening-aside-body {
   .lumina-cursor__ring,
   .lumina-cursor__dot {
     transition: none !important;
+  }
+}
+
+/* Event Boards · Universal template builder */
+body[data-page="bot-events"] .universal-event-feature {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: minmax(0, 0.88fr) minmax(430px, 1.12fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  overflow: hidden;
+  padding: clamp(2rem, 5vw, 5rem);
+  border: 1px solid rgba(139, 92, 246, 0.46);
+  border-radius: clamp(24px, 3vw, 38px);
+  background:
+    radial-gradient(circle at 8% 10%, rgba(139, 92, 246, 0.2), transparent 32%),
+    radial-gradient(circle at 95% 88%, rgba(86, 199, 245, 0.13), transparent 36%),
+    linear-gradient(145deg, rgba(20, 17, 48, 0.98), rgba(8, 13, 29, 0.98) 52%, rgba(7, 20, 33, 0.98));
+  box-shadow:
+    0 30px 90px rgba(0, 0, 0, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+body[data-page="bot-events"] .event-signature-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  max-width: 760px;
+  margin-top: 1.2rem;
+  padding: 0.75rem 0.95rem;
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 14px;
+  color: #cfc3ff;
+  background: linear-gradient(110deg, rgba(139, 92, 246, 0.1), rgba(86, 199, 245, 0.055));
+  font-size: 0.84rem;
+  text-decoration: none;
+  transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
+}
+
+body[data-page="bot-events"] .event-signature-link span {
+  color: #f6d76d;
+}
+
+body[data-page="bot-events"] .event-signature-link:hover {
+  border-color: rgba(86, 199, 245, 0.5);
+  background: linear-gradient(110deg, rgba(139, 92, 246, 0.16), rgba(86, 199, 245, 0.1));
+  transform: translateY(-2px);
+}
+
+body[data-page="bot-events"] .universal-event-feature::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(139, 92, 246, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(86, 199, 245, 0.035) 1px, transparent 1px);
+  background-size: 48px 48px;
+  content: "";
+  mask-image: linear-gradient(120deg, #000, transparent 78%);
+}
+
+body[data-page="bot-events"] .universal-event-feature__halo {
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  right: clamp(3rem, 10vw, 9rem);
+  width: clamp(260px, 36vw, 520px);
+  aspect-ratio: 1;
+  border: 1px solid rgba(139, 92, 246, 0.14);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 42px rgba(86, 199, 245, 0.025),
+    0 0 100px rgba(139, 92, 246, 0.12);
+  transform: translateY(-50%);
+}
+
+body[data-page="bot-events"] .universal-event-feature__intro {
+  align-self: center;
+}
+
+body[data-page="bot-events"] .universal-event-feature__label {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 1.4rem;
+}
+
+body[data-page="bot-events"] .universal-event-feature__label span,
+body[data-page="bot-events"] .universal-event-feature__label strong {
+  padding: 0.54rem 0.78rem;
+  border: 1px solid rgba(139, 92, 246, 0.35);
+  border-radius: 999px;
+  color: #d8ccff;
+  background: rgba(139, 92, 246, 0.1);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+body[data-page="bot-events"] .universal-event-feature__label strong {
+  border-color: rgba(86, 199, 245, 0.28);
+  color: #a9ecff;
+  background: rgba(86, 199, 245, 0.08);
+}
+
+body[data-page="bot-events"] .universal-event-feature h2 {
+  max-width: 780px;
+  margin-bottom: 1.25rem;
+  font-size: clamp(2.35rem, 5vw, 5.2rem);
+  line-height: 0.94;
+  letter-spacing: -0.058em;
+}
+
+body[data-page="bot-events"] .universal-event-feature__lead {
+  max-width: 700px;
+  color: var(--muted);
+  font-size: clamp(1rem, 1.45vw, 1.16rem);
+  line-height: 1.78;
+}
+
+body[data-page="bot-events"] .universal-event-feature__metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.72rem;
+  margin: 1.65rem 0;
+}
+
+body[data-page="bot-events"] .universal-event-feature__metrics div {
+  padding: 1rem;
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  border-radius: 16px;
+  background: rgba(8, 11, 27, 0.54);
+}
+
+body[data-page="bot-events"] .universal-event-feature__metrics strong {
+  display: block;
+  color: #f6d76d;
+  font-size: clamp(1.5rem, 2.4vw, 2.2rem);
+  line-height: 1;
+}
+
+body[data-page="bot-events"] .universal-event-feature__metrics span {
+  display: block;
+  margin-top: 0.42rem;
+  color: var(--muted);
+  font-size: 0.76rem;
+  font-weight: 760;
+}
+
+body[data-page="bot-events"] .universal-event-feature__checks {
+  margin-top: 1.5rem;
+}
+
+body[data-page="bot-events"] .universal-event-feature__actions {
+  margin-top: 1.8rem;
+}
+
+body[data-page="bot-events"] .universal-event-feature__actions .primary {
+  border-color: rgba(110, 232, 255, 0.52);
+  background: linear-gradient(112deg, #7448ed, #526de9 46%, #209aae);
+  box-shadow: 0 15px 38px rgba(78, 89, 229, 0.25);
+}
+
+body[data-page="bot-events"] .universal-event-feature__builder {
+  align-self: center;
+  overflow: hidden;
+  padding: clamp(1rem, 2vw, 1.35rem);
+  border: 1px solid rgba(154, 120, 255, 0.35);
+  border-radius: 28px;
+  background:
+    linear-gradient(160deg, rgba(26, 28, 62, 0.96), rgba(8, 12, 27, 0.97));
+  box-shadow:
+    0 28px 80px rgba(0, 0, 0, 0.4),
+    0 0 55px rgba(116, 72, 237, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+body[data-page="bot-events"] .universal-event-feature__builder-head,
+body[data-page="bot-events"] .universal-event-feature__command {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+body[data-page="bot-events"] .universal-event-feature__builder-head {
+  padding: 0.5rem 0.3rem 1.15rem;
+}
+
+body[data-page="bot-events"] .universal-event-feature__builder-head div {
+  display: grid;
+  gap: 0.25rem;
+}
+
+body[data-page="bot-events"] .universal-event-feature__builder-head div span,
+body[data-page="bot-events"] .universal-event-feature__command span {
+  color: #8edfff;
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+body[data-page="bot-events"] .universal-event-feature__builder-head div strong {
+  font-size: 1.32rem;
+}
+
+body[data-page="bot-events"] .universal-event-feature__saved {
+  padding: 0.48rem 0.68rem;
+  border: 1px solid rgba(91, 229, 165, 0.28);
+  border-radius: 999px;
+  color: #8aebbb;
+  background: rgba(50, 192, 126, 0.08);
+  font-size: 0.7rem;
+  font-weight: 850;
+}
+
+body[data-page="bot-events"] .universal-event-feature__template-tabs {
+  display: flex;
+  gap: 0.42rem;
+  overflow-x: auto;
+  padding: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 15px;
+  background: rgba(4, 7, 18, 0.52);
+  scrollbar-width: none;
+}
+
+body[data-page="bot-events"] .universal-event-feature__template-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+body[data-page="bot-events"] .universal-event-feature__template-tabs span {
+  flex: 0 0 auto;
+  padding: 0.54rem 0.72rem;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 10px;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 820;
+}
+
+body[data-page="bot-events"] .universal-event-feature__template-tabs .is-active {
+  border-color: rgba(139, 92, 246, 0.48);
+  color: #fff;
+  background: linear-gradient(115deg, rgba(139, 92, 246, 0.34), rgba(86, 199, 245, 0.13));
+}
+
+body[data-page="bot-events"] .universal-event-feature__slot-list {
+  display: grid;
+  gap: 0.65rem;
+  margin: 0.8rem 0;
+}
+
+body[data-page="bot-events"] .universal-event-feature__slot {
+  display: grid;
+  grid-template-columns: auto minmax(90px, 1fr) auto auto auto;
+  align-items: center;
+  gap: 0.72rem;
+  padding: 0.84rem;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 14px;
+  background: rgba(13, 18, 39, 0.78);
+}
+
+body[data-page="bot-events"] .universal-event-feature__slot-icon {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border: 1px solid rgba(139, 92, 246, 0.24);
+  border-radius: 11px;
+  background: rgba(139, 92, 246, 0.08);
+}
+
+body[data-page="bot-events"] .universal-event-feature__slot div {
+  display: grid;
+  gap: 0.15rem;
+}
+
+body[data-page="bot-events"] .universal-event-feature__slot small,
+body[data-page="bot-events"] .universal-event-feature__slot > span:not(.universal-event-feature__slot-icon) {
+  color: var(--muted);
+  font-size: 0.7rem;
+}
+
+body[data-page="bot-events"] .universal-event-feature__slot > span:not(.universal-event-feature__slot-icon) {
+  padding: 0.43rem 0.55rem;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+body[data-page="bot-events"] .universal-event-feature__slot b {
+  color: #fff;
+}
+
+body[data-page="bot-events"] .universal-event-feature__slot em {
+  padding: 0.42rem 0.55rem;
+  border: 1px solid rgba(246, 215, 109, 0.2);
+  border-radius: 9px;
+  color: #f6d76d;
+  background: rgba(246, 215, 109, 0.06);
+  font-size: 0.68rem;
+  font-style: normal;
+  font-weight: 850;
+}
+
+body[data-page="bot-events"] .universal-event-feature__snapshot {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.9rem;
+  border: 1px solid rgba(80, 223, 165, 0.18);
+  border-radius: 14px;
+  background: linear-gradient(110deg, rgba(36, 171, 118, 0.09), rgba(86, 199, 245, 0.05));
+}
+
+body[data-page="bot-events"] .universal-event-feature__snapshot > span {
+  color: #68e4b0;
+}
+
+body[data-page="bot-events"] .universal-event-feature__snapshot div {
+  display: grid;
+  gap: 0.18rem;
+}
+
+body[data-page="bot-events"] .universal-event-feature__snapshot small {
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+body[data-page="bot-events"] .universal-event-feature__command {
+  margin-top: 0.8rem;
+  padding: 0.78rem 0.25rem 0.1rem;
+}
+
+body[data-page="bot-events"] .universal-event-feature__command code {
+  padding: 0.55rem 0.7rem;
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 10px;
+  color: #e5dcff;
+  background: rgba(139, 92, 246, 0.09);
+}
+
+body[data-page="bot-events"] .event-channel-thread {
+  margin-top: clamp(2.5rem, 7vw, 6rem);
+}
+
+@media (max-width: 980px) {
+  body[data-page="bot-events"] .universal-event-feature {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-page="bot-events"] .universal-event-feature__builder {
+    width: 100%;
+  }
+}
+
+@media (max-width: 680px) {
+  body[data-page="bot-events"] .universal-event-feature {
+    gap: 1.8rem;
+    padding: 1.15rem;
+    border-radius: 24px;
+  }
+
+  body[data-page="bot-events"] .universal-event-feature h2 {
+    font-size: clamp(2.25rem, 12vw, 3.65rem);
+  }
+
+  body[data-page="bot-events"] .universal-event-feature__metrics {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-page="bot-events"] .universal-event-feature__metrics div {
+    display: grid;
+    grid-template-columns: 58px 1fr;
+    align-items: center;
+    gap: 0.7rem;
+  }
+
+  body[data-page="bot-events"] .universal-event-feature__metrics span {
+    margin-top: 0;
+  }
+
+  body[data-page="bot-events"] .universal-event-feature__builder {
+    padding: 0.8rem;
+    border-radius: 20px;
+  }
+
+  body[data-page="bot-events"] .universal-event-feature__builder-head,
+  body[data-page="bot-events"] .universal-event-feature__command {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  body[data-page="bot-events"] .universal-event-feature__slot {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  body[data-page="bot-events"] .universal-event-feature__slot > span:not(.universal-event-feature__slot-icon) {
+    grid-column: 2;
+    justify-self: start;
+  }
+
+  body[data-page="bot-events"] .universal-event-feature__slot em {
+    grid-column: 2;
+    justify-self: start;
+  }
+
+  body[data-page="bot-events"] .event-signature-link {
+    align-items: flex-start;
+    line-height: 1.5;
   }
 }

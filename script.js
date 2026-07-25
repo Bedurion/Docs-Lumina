@@ -2752,6 +2752,17 @@ if (precisePointer.matches) {
     cursor.classList.remove('is-visible', 'is-pressed', 'is-interactive', 'is-native');
   };
 
+  const restoreCursor = () => {
+    if (cursorX < 0 || cursorY < 0) return;
+
+    cursorTarget = document.elementFromPoint(cursorX, cursorY);
+    updateCursorTarget(cursorTarget);
+    showCursor();
+
+    if (cursorFrame) window.cancelAnimationFrame(cursorFrame);
+    renderCursor();
+  };
+
   window.addEventListener('pointermove', (event) => {
     if (event.pointerType && event.pointerType !== 'mouse') return;
 
@@ -2768,12 +2779,26 @@ if (precisePointer.matches) {
   }, { passive: true });
 
   window.addEventListener('pointerdown', (event) => {
-    if (!event.pointerType || event.pointerType === 'mouse') cursor.classList.add('is-pressed');
-  }, { passive: true });
+    if (event.pointerType && event.pointerType !== 'mouse') return;
 
-  window.addEventListener('pointerup', () => {
+    cursorX = event.clientX;
+    cursorY = event.clientY;
+    cursorTarget = event.target;
+    updateCursorTarget(cursorTarget);
+    showCursor();
+    renderCursor();
+
+    if (event.button === 0) cursor.classList.add('is-pressed');
+  }, { passive: true, capture: true });
+
+  window.addEventListener('pointerup', (event) => {
+    if (event.pointerType && event.pointerType !== 'mouse') return;
     cursor.classList.remove('is-pressed');
-  }, { passive: true });
+    restoreCursor();
+  }, { passive: true, capture: true });
+
+  window.addEventListener('pageshow', restoreCursor);
+  window.addEventListener('focus', restoreCursor);
 
   document.documentElement.addEventListener('mouseleave', hideCursor);
   window.addEventListener('blur', hideCursor);
