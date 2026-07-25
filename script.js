@@ -1,7 +1,7 @@
 const navToggle = document.querySelector('.nav-toggle');
 const navLinks = document.querySelector('[data-nav-links]');
 const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-const vectorAssetVersion = '20260724-4';
+const vectorAssetVersion = '20260725-1';
 const vectorAssetUrl = (path) => `${String(path).split('?')[0]}?v=${vectorAssetVersion}`;
 
 const navigationSections = {
