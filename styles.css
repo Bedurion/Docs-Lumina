@@ -1138,14 +1138,18 @@ pre {
   transition: transform 160ms ease;
 }
 
-.skip-link:focus-visible {
+html.keyboard-navigation .skip-link:focus-visible {
+  top: calc(env(safe-area-inset-top, 0px) + 0.65rem);
   transform: translateY(0);
 }
 
 @media (hover: none) and (pointer: coarse) {
-  .skip-link:focus,
-  .skip-link:focus-visible {
+  .skip-link:focus {
     transform: translateY(-160%);
+  }
+
+  html.keyboard-navigation .skip-link:focus-visible {
+    transform: translateY(0);
   }
 }
 

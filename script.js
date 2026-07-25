@@ -1131,6 +1131,27 @@ window.addEventListener('load', alignCurrentHashTarget, { once: true });
 window.addEventListener('hashchange', alignCurrentHashTarget);
 document.fonts?.ready.then(alignCurrentHashTarget);
 
+const keyboardNavigationClass = 'keyboard-navigation';
+const disableKeyboardNavigation = () => {
+  document.documentElement.classList.remove(keyboardNavigationClass);
+};
+
+document.addEventListener(
+  'keydown',
+  (event) => {
+    if (event.key === 'Tab') {
+      document.documentElement.classList.add(keyboardNavigationClass);
+    }
+  },
+  true
+);
+document.addEventListener('pointerdown', disableKeyboardNavigation, true);
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) disableKeyboardNavigation();
+});
+window.addEventListener('pagehide', disableKeyboardNavigation);
+window.addEventListener('pageshow', disableKeyboardNavigation);
+
 const mainContent = document.querySelector('main');
 if (mainContent) {
   mainContent.id ||= 'main-content';
