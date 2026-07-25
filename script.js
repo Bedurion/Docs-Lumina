@@ -2665,3 +2665,98 @@ if (tocLinks.length > 0 && 'IntersectionObserver' in window) {
     if (section) observer.observe(section);
   });
 }
+
+const precisePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+
+if (precisePointer.matches) {
+  const cursor = document.createElement('div');
+  cursor.className = 'lumina-cursor';
+  cursor.setAttribute('aria-hidden', 'true');
+  cursor.innerHTML = `
+    <span class="lumina-cursor__visual">
+      <span class="lumina-cursor__ring"></span>
+      <span class="lumina-cursor__dot"></span>
+    </span>
+  `;
+
+  document.body.append(cursor);
+  document.documentElement.classList.add('has-lumina-cursor');
+
+  const interactiveSelector = [
+    'a[href]',
+    'button:not([disabled])',
+    'summary',
+    'select:not([disabled])',
+    'label[for]',
+    '[role="button"]',
+    '[role="link"]',
+    '[data-cursor-interactive]',
+    '[tabindex]:not([tabindex="-1"])'
+  ].join(',');
+  const nativeCursorSelector = [
+    'input:not([type="button"]):not([type="submit"]):not([type="reset"])',
+    'textarea',
+    '[contenteditable="true"]',
+    '[data-native-cursor]'
+  ].join(',');
+
+  let cursorFrame = 0;
+  let cursorX = -100;
+  let cursorY = -100;
+  let cursorTarget = null;
+  let cursorVisible = false;
+
+  const renderCursor = () => {
+    cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0)`;
+    cursorFrame = 0;
+  };
+
+  const updateCursorTarget = (target) => {
+    const nativeCursorTarget = target instanceof Element && target.closest(nativeCursorSelector);
+    const interactiveTarget = target instanceof Element && target.closest(interactiveSelector);
+
+    cursor.classList.toggle('is-native', Boolean(nativeCursorTarget));
+    cursor.classList.toggle('is-interactive', !nativeCursorTarget && Boolean(interactiveTarget));
+  };
+
+  const showCursor = () => {
+    if (cursorVisible) return;
+    cursorVisible = true;
+    cursor.classList.add('is-visible');
+  };
+
+  const hideCursor = () => {
+    cursorVisible = false;
+    cursorTarget = null;
+    cursor.classList.remove('is-visible', 'is-pressed', 'is-interactive', 'is-native');
+  };
+
+  window.addEventListener('pointermove', (event) => {
+    if (event.pointerType && event.pointerType !== 'mouse') return;
+
+    cursorX = event.clientX;
+    cursorY = event.clientY;
+    showCursor();
+
+    if (event.target !== cursorTarget) {
+      cursorTarget = event.target;
+      updateCursorTarget(cursorTarget);
+    }
+
+    if (!cursorFrame) cursorFrame = window.requestAnimationFrame(renderCursor);
+  }, { passive: true });
+
+  window.addEventListener('pointerdown', (event) => {
+    if (!event.pointerType || event.pointerType === 'mouse') cursor.classList.add('is-pressed');
+  }, { passive: true });
+
+  window.addEventListener('pointerup', () => {
+    cursor.classList.remove('is-pressed');
+  }, { passive: true });
+
+  document.documentElement.addEventListener('mouseleave', hideCursor);
+  window.addEventListener('blur', hideCursor);
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) hideCursor();
+  });
+}
