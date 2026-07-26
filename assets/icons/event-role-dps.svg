@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-label="Damage role" shape-rendering="geometricPrecision">
+  <defs>
+    <linearGradient id="dps-left" x1="16" y1="12" x2="76" y2="83" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF8A72"/>
+      <stop offset=".5" stop-color="#FF4D8D"/>
+      <stop offset="1" stop-color="#9A6CFF"/>
+    </linearGradient>
+    <linearGradient id="dps-right" x1="80" y1="12" x2="20" y2="84" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFE17A"/>
+      <stop offset=".48" stop-color="#FF7C4D"/>
+      <stop offset="1" stop-color="#EF3E75"/>
+    </linearGradient>
+    <filter id="dps-glow" x="-35%" y="-35%" width="170%" height="170%">
+      <feGaussianBlur stdDeviation="2.2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <circle cx="48" cy="48" r="36" fill="#120A20" stroke="#5B4B8E" stroke-width="3"/>
+  <path d="m22 18 21 16-9 9-16-21 4-4Zm12 25 8 8-15 21-9 6 6-9 10-26Z" fill="url(#dps-left)" stroke="#FFD8E5" stroke-width="2"/>
+  <path d="m74 18-21 16 9 9 16-21-4-4ZM62 43l-8 8 15 21 9 6-6-9-10-26Z" fill="url(#dps-right)" stroke="#FFF0B7" stroke-width="2"/>
+  <path d="m48 36 12 12-12 12-12-12 12-12Z" fill="#090D1B" stroke="#FFF4C4" stroke-width="3" filter="url(#dps-glow)"/>
+  <circle cx="48" cy="48" r="4.5" fill="#FF557E"/>
+</svg>

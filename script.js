@@ -2726,6 +2726,62 @@ if (precisePointer.matches) {
   let cursorY = -100;
   let cursorTarget = null;
   let cursorVisible = false;
+  const cursorPositionStorageKey = 'luminaCursorPosition';
+  const cursorPositionWindowNamePrefix = '__luminox_cursor__:';
+
+  const saveCursorPosition = () => {
+    const position = JSON.stringify({
+      x: cursorX,
+      y: cursorY,
+      timestamp: Date.now()
+    });
+
+    try {
+      window.sessionStorage.setItem(cursorPositionStorageKey, position);
+    } catch {
+      // Local file previews can block storage; window.name keeps the same tab covered.
+    }
+
+    const retainedWindowName = window.name
+      .split('|')
+      .filter((part) => part && !part.startsWith(cursorPositionWindowNamePrefix));
+    retainedWindowName.push(`${cursorPositionWindowNamePrefix}${position}`);
+    window.name = retainedWindowName.join('|');
+  };
+
+  const readCursorPosition = () => {
+    let savedPosition = null;
+
+    try {
+      savedPosition = window.sessionStorage.getItem(cursorPositionStorageKey);
+    } catch {
+      // Fall through to window.name for local file previews.
+    }
+
+    if (!savedPosition) {
+      const windowNamePosition = window.name
+        .split('|')
+        .find((part) => part.startsWith(cursorPositionWindowNamePrefix));
+      savedPosition = windowNamePosition?.slice(cursorPositionWindowNamePrefix.length) || null;
+    }
+
+    if (!savedPosition) return null;
+
+    try {
+      const position = JSON.parse(savedPosition);
+      if (
+        !Number.isFinite(position.x)
+        || !Number.isFinite(position.y)
+        || !Number.isFinite(position.timestamp)
+        || Date.now() - position.timestamp > 5000
+      ) {
+        return null;
+      }
+      return position;
+    } catch {
+      return null;
+    }
+  };
 
   const renderCursor = () => {
     cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0)`;
@@ -2788,7 +2844,10 @@ if (precisePointer.matches) {
     showCursor();
     renderCursor();
 
-    if (event.button === 0) cursor.classList.add('is-pressed');
+    if (event.button === 0) {
+      saveCursorPosition();
+      cursor.classList.add('is-pressed');
+    }
   }, { passive: true, capture: true });
 
   window.addEventListener('pointerup', (event) => {
@@ -2799,6 +2858,13 @@ if (precisePointer.matches) {
 
   window.addEventListener('pageshow', restoreCursor);
   window.addEventListener('focus', restoreCursor);
+
+  const restoredCursorPosition = readCursorPosition();
+  if (restoredCursorPosition) {
+    cursorX = Math.min(Math.max(restoredCursorPosition.x, 0), window.innerWidth - 1);
+    cursorY = Math.min(Math.max(restoredCursorPosition.y, 0), window.innerHeight - 1);
+    restoreCursor();
+  }
 
   document.documentElement.addEventListener('mouseleave', hideCursor);
   window.addEventListener('blur', hideCursor);

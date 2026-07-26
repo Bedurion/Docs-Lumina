@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-label="Healing role" shape-rendering="geometricPrecision">
+  <defs>
+    <linearGradient id="heal-ring" x1="15" y1="14" x2="82" y2="82" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#83F7D0"/>
+      <stop offset=".52" stop-color="#50D9F5"/>
+      <stop offset="1" stop-color="#8B7CFF"/>
+    </linearGradient>
+    <linearGradient id="heal-core" x1="35" y1="29" x2="64" y2="68" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF4A6"/>
+      <stop offset="1" stop-color="#66E6B1"/>
+    </linearGradient>
+    <filter id="heal-glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="2.6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <circle cx="48" cy="48" r="37" fill="#081724" stroke="url(#heal-ring)" stroke-width="4"/>
+  <path d="M19 48c8-3 14-8 18-15 2 8 6 13 11 15-5 3-9 8-11 15-4-7-10-12-18-15Zm58 0c-8-3-14-8-18-15-2 8-6 13-11 15 5 3 9 8 11 15 4-7 10-12 18-15Z" fill="none" stroke="#79EBCB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity=".8"/>
+  <path d="M43 25h10v16h16v14H53v16H43V55H27V41h16V25Z" fill="url(#heal-core)" stroke="#F3FFF8" stroke-width="2" filter="url(#heal-glow)"/>
+  <circle cx="48" cy="48" r="5" fill="#F9FFD0"/>
+</svg>

@@ -17624,7 +17624,30 @@ body[data-page="guild-art"] .opening-aside-scene .opening-aside-body {
   html,
   html body,
   html body * {
-    cursor: none !important;
+    cursor: url("assets/cursors/cursor-transparent.png") 0 0, none !important;
+  }
+
+  html body a[href],
+  html body a[href]:hover,
+  html body a[href]:active,
+  html body button,
+  html body button:hover,
+  html body button:active,
+  html body summary,
+  html body summary:hover,
+  html body summary:active,
+  html body [role="button"],
+  html body [role="button"]:hover,
+  html body [role="button"]:active,
+  html body [role="link"],
+  html body [role="link"]:hover,
+  html body [role="link"]:active {
+    cursor: url("assets/cursors/cursor-transparent.png") 0 0, none !important;
+  }
+
+  html body a[href],
+  html body a[href] img {
+    -webkit-user-drag: none;
   }
 
   html input:not([type="button"]):not([type="submit"]):not([type="reset"]),
@@ -17743,9 +17766,10 @@ body[data-page="bot-events"] .universal-event-feature {
   display: grid;
   grid-template-columns: minmax(0, 0.88fr) minmax(430px, 1.12fr);
   gap: clamp(2rem, 5vw, 5rem);
+  margin-top: clamp(2.5rem, 6vw, 5rem);
   overflow: hidden;
   padding: clamp(2rem, 5vw, 5rem);
-  border: 1px solid rgba(139, 92, 246, 0.46);
+  border: 0;
   border-radius: clamp(24px, 3vw, 38px);
   background:
     radial-gradient(circle at 8% 10%, rgba(139, 92, 246, 0.2), transparent 32%),
@@ -17753,6 +17777,7 @@ body[data-page="bot-events"] .universal-event-feature {
     linear-gradient(145deg, rgba(20, 17, 48, 0.98), rgba(8, 13, 29, 0.98) 52%, rgba(7, 20, 33, 0.98));
   box-shadow:
     0 30px 90px rgba(0, 0, 0, 0.34),
+    inset 0 0 0 1px rgba(139, 92, 246, 0.46),
     inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
@@ -17782,13 +17807,19 @@ body[data-page="bot-events"] .event-signature-link:hover {
   transform: translateY(-2px);
 }
 
+body[data-page="bot-events"] .page-hero::after {
+  display: none;
+}
+
 body[data-page="bot-events"] .universal-event-feature::before {
   position: absolute;
   z-index: -1;
-  inset: 0;
+  inset: 1px;
+  border-radius: inherit;
   background-image:
     linear-gradient(rgba(139, 92, 246, 0.045) 1px, transparent 1px),
     linear-gradient(90deg, rgba(86, 199, 245, 0.035) 1px, transparent 1px);
+  background-position: 24px 24px;
   background-size: 48px 48px;
   content: "";
   mask-image: linear-gradient(120deg, #000, transparent 78%);
@@ -18010,6 +18041,13 @@ body[data-page="bot-events"] .universal-event-feature__slot-icon {
   background: rgba(139, 92, 246, 0.08);
 }
 
+body[data-page="bot-events"] .universal-event-feature__slot-icon img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.32));
+}
+
 body[data-page="bot-events"] .universal-event-feature__slot div {
   display: grid;
   gap: 0.15rem;
@@ -18083,6 +18121,10 @@ body[data-page="bot-events"] .event-channel-thread {
   margin-top: clamp(2.5rem, 7vw, 6rem);
 }
 
+body[data-page="bot-events"] .universal-event-feature + .bot-visual-intro {
+  padding-top: clamp(5.5rem, 7vw, 7rem);
+}
+
 @media (max-width: 980px) {
   body[data-page="bot-events"] .universal-event-feature {
     grid-template-columns: 1fr;
@@ -18090,6 +18132,10 @@ body[data-page="bot-events"] .event-channel-thread {
 
   body[data-page="bot-events"] .universal-event-feature__builder {
     width: 100%;
+  }
+
+  body[data-page="bot-events"] .universal-event-feature + .bot-visual-intro {
+    padding-top: 4.5rem;
   }
 }
 
@@ -18147,5 +18193,9 @@ body[data-page="bot-events"] .event-channel-thread {
   body[data-page="bot-events"] .event-signature-link {
     align-items: flex-start;
     line-height: 1.5;
+  }
+
+  body[data-page="bot-events"] .universal-event-feature + .bot-visual-intro {
+    padding-top: 3.5rem;
   }
 }

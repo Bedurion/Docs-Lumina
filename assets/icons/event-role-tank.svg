@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-label="Tank role" shape-rendering="geometricPrecision">
+  <defs>
+    <linearGradient id="tank-shell" x1="18" y1="13" x2="78" y2="84" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8CEBFF"/>
+      <stop offset=".48" stop-color="#7C7BFF"/>
+      <stop offset="1" stop-color="#A855F7"/>
+    </linearGradient>
+    <linearGradient id="tank-core" x1="29" y1="24" x2="67" y2="72" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF1A3"/>
+      <stop offset="1" stop-color="#E7A92D"/>
+    </linearGradient>
+    <filter id="tank-glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="2.4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <path d="M48 8 79 20v24c0 20.1-11.9 34.5-31 44C28.9 78.5 17 64.1 17 44V20L48 8Z" fill="#091124" stroke="url(#tank-shell)" stroke-width="5"/>
+  <path d="M48 19 68 27v17c0 13.4-7.1 23.8-20 31-12.9-7.2-20-17.6-20-31V27l20-8Z" fill="none" stroke="url(#tank-core)" stroke-width="4" opacity=".92"/>
+  <path d="M48 26v39M32 38h32M36 56h24" fill="none" stroke="#DDF8FF" stroke-width="4" stroke-linecap="round" opacity=".78"/>
+  <path d="m48 32 8 8-8 8-8-8 8-8Z" fill="url(#tank-core)" filter="url(#tank-glow)"/>
+</svg>
