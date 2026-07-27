@@ -1,4 +1,21 @@
 {
   "version": 1,
-  "entries": []
+  "entries": [
+    {
+      "id": "WS-JHD54DWD",
+      "title": "Test",
+      "description": "This is a test for the website.",
+      "category": "places",
+      "credit": "Lumina community",
+      "submittedAt": "2026-07-27T19:38:11.304Z",
+      "publishedAt": "2026-07-27T21:52:45.512Z",
+      "media": {
+        "type": "image",
+        "src": "assets/community/ws-jhd54dwd-art.webp",
+        "alt": "Test for the web.",
+        "width": 1672,
+        "height": 941
+      }
+    }
+  ]
 }
