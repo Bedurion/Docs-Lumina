@@ -33,6 +33,22 @@ const categoryLabels = new Map([
 let artCards = [];
 let visibleCards = [];
 let activeCard = null;
+let dialogCursorHost = null;
+
+const mountCursorInDialog = () => {
+  const cursor = document.querySelector('.lumina-cursor');
+  if (!dialog || !cursor || cursor.parentElement === dialog) return;
+  dialogCursorHost = cursor.parentElement;
+  dialog.append(cursor);
+};
+
+const restoreCursorFromDialog = () => {
+  const cursor = document.querySelector('.lumina-cursor');
+  if (!cursor || cursor.parentElement !== dialog) return;
+  const cursorHost = dialogCursorHost?.isConnected ? dialogCursorHost : document.body;
+  cursorHost.append(cursor);
+  dialogCursorHost = null;
+};
 
 const cardData = (card) => {
   const tags = (card.dataset.artTags || '').split(',').map((tag) => tag.trim()).filter(Boolean);
@@ -95,7 +111,10 @@ const openDialog = (card) => {
   dialogDescription.textContent = data.description;
   dialogCategory.textContent = data.category;
   renderTags(dialogTags, data.tags);
-  if (typeof dialog.showModal === 'function') dialog.showModal();
+  if (typeof dialog.showModal === 'function') {
+    dialog.showModal();
+    mountCursorInDialog();
+  }
 };
 
 const createPublishedArtCard = (entry) => {
@@ -253,6 +272,7 @@ const initializeArchive = () => {
   dialog?.addEventListener('click', (event) => {
     if (event.target === dialog) dialog.close();
   });
+  dialog?.addEventListener('close', restoreCursorFromDialog);
 
   document.addEventListener('keydown', (event) => {
     if (dialog?.open) return;
