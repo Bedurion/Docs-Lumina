@@ -848,8 +848,8 @@ if (contentType === 'blog') {
   await fs.writeFile(outputRoleplayOperationPath, `${JSON.stringify(roleplayOperation, null, 2)}\n`, 'utf8');
   console.log(`Validated Roleplay ${operation} operation for ${expectedSubmissionId}.`);
 } else if (contentType === 'art') {
-  if (operation !== 'create') {
-    fail('Art entries support only the create operation.');
+  if (!['create', 'update'].includes(operation)) {
+    fail('Art entries support only create and update operations.');
   }
 
   if (title.length > 80) {
@@ -876,9 +876,13 @@ if (contentType === 'blog') {
   }
 
   const artData = await loadArtData();
+  const existingArtEntry = artData.entries.find((entry) => entry.id === expectedSubmissionId) || null;
 
-  if (artData.entries.some((entry) => entry.id === expectedSubmissionId)) {
+  if (operation === 'create' && existingArtEntry) {
     fail('This Art submission is already published.');
+  }
+  if (operation === 'update' && !existingArtEntry) {
+    fail('The requested Art publication does not exist.');
   }
 
   const downloaded = await downloadAttachment(attachment);
@@ -917,8 +921,8 @@ if (contentType === 'blog') {
     description,
     category,
     credit,
-    submittedAt: submittedAt.toISOString(),
-    publishedAt: new Date().toISOString(),
+    submittedAt: existingArtEntry?.submittedAt || submittedAt.toISOString(),
+    publishedAt: existingArtEntry?.publishedAt || new Date().toISOString(),
     media: {
       type: 'image',
       src: `assets/community/${outputName}`,
@@ -928,11 +932,15 @@ if (contentType === 'blog') {
     }
   };
 
-  await fs.writeFile(outputArtDataPath, `${JSON.stringify({ version: 1, entry: artEntry }, null, 2)}\n`, 'utf8');
-  console.log(`Sanitized approved Art image for ${expectedSubmissionId}.`);
+  await fs.writeFile(
+    outputArtDataPath,
+    `${JSON.stringify({ version: 1, operation, entry: artEntry }, null, 2)}\n`,
+    'utf8'
+  );
+  console.log(`Sanitized Art ${operation} image for ${expectedSubmissionId}.`);
 } else {
-  if (operation !== 'create') {
-    fail('Gallery entries support only the create operation.');
+  if (!['create', 'update'].includes(operation)) {
+    fail('Gallery entries support only create and update operations.');
   }
   const description = cleanMultiline(payload.description, 1200, 'Description');
   const altText = cleanSingleLine(payload.altText, 300, 'Alternative text');
@@ -950,9 +958,13 @@ if (contentType === 'blog') {
   }
 
   const galleryData = await loadGalleryData();
+  const existingGalleryEntry = galleryData.entries.find((entry) => entry.id === expectedSubmissionId) || null;
 
-  if (galleryData.entries.some((entry) => entry.id === expectedSubmissionId)) {
+  if (operation === 'create' && existingGalleryEntry) {
     fail('This submission is already published.');
+  }
+  if (operation === 'update' && !existingGalleryEntry) {
+    fail('The requested Gallery publication does not exist.');
   }
 
   await fs.mkdir(mediaDirectory, { recursive: true });
@@ -1017,11 +1029,15 @@ if (contentType === 'blog') {
     title,
     description,
     credit,
-    submittedAt: submittedAt.toISOString(),
-    publishedAt: new Date().toISOString(),
+    submittedAt: existingGalleryEntry?.submittedAt || submittedAt.toISOString(),
+    publishedAt: existingGalleryEntry?.publishedAt || new Date().toISOString(),
     media: publishedMedia
   };
 
-  await fs.writeFile(outputGalleryDataPath, `${JSON.stringify({ version: 1, entry: galleryEntry }, null, 2)}\n`, 'utf8');
-  console.log(`Sanitized ${publishedMedia.length} approved media file(s) for ${expectedSubmissionId}.`);
+  await fs.writeFile(
+    outputGalleryDataPath,
+    `${JSON.stringify({ version: 1, operation, entry: galleryEntry }, null, 2)}\n`,
+    'utf8'
+  );
+  console.log(`Sanitized ${publishedMedia.length} Gallery ${operation} media file(s) for ${expectedSubmissionId}.`);
 }

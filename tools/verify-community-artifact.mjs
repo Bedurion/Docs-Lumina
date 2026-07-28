@@ -591,11 +591,21 @@ if (hasBlogArtifact) {
   if (!isPlainObject(sourceData) || !hasOnlyKeys(sourceData, ['version', 'entries']) || sourceData.version !== 1 || !Array.isArray(sourceData.entries)) {
     fail('Art data schema is invalid.');
   }
-  if (sourceData.entries.some((entry) => entry?.id === submissionId)) {
+  if (
+    !isPlainObject(stagedData) ||
+    !hasOnlyKeys(stagedData, ['version', 'operation', 'entry']) ||
+    stagedData.version !== 1 ||
+    !['create', 'update'].includes(stagedData.operation)
+  ) {
+    fail('Art artifact data schema is invalid.');
+  }
+  const existingIndex = sourceData.entries.findIndex((item) => item?.id === submissionId);
+
+  if (stagedData.operation === 'create' && existingIndex >= 0) {
     fail('Art submission is already present in the repository.');
   }
-  if (!isPlainObject(stagedData) || !hasOnlyKeys(stagedData, ['version', 'entry']) || stagedData.version !== 1) {
-    fail('Art artifact data schema is invalid.');
+  if (stagedData.operation === 'update' && existingIndex < 0) {
+    fail('Art update targets a publication that does not exist.');
   }
 
   const entry = stagedData.entry;
@@ -673,16 +683,38 @@ if (hasBlogArtifact) {
   }
 
   await fs.mkdir(path.join(root, 'assets', 'community'), { recursive: true });
+  const updatedEntries = [...sourceData.entries];
+
+  if (stagedData.operation === 'update') {
+    const storedSource = updatedEntries[existingIndex]?.media?.src;
+
+    if (
+      storedSource !== expectedSource ||
+      !/^assets\/community\/ws-[a-z2-9]{8}-art\.webp$/.test(storedSource)
+    ) {
+      fail('Stored Art media path is unsafe.');
+    }
+
+    await fs.rm(path.join(root, storedSource), { force: true });
+  }
+
   await fs.copyFile(
     path.join(stagingRoot, expectedSource),
     path.join(root, expectedSource),
     fsConstants.COPYFILE_EXCL
   );
+
+  if (stagedData.operation === 'create') {
+    updatedEntries.unshift(entry);
+  } else {
+    updatedEntries[existingIndex] = entry;
+  }
+
   await writeJsonAtomically(artSourcePath, {
     version: 1,
-    entries: [entry, ...sourceData.entries]
+    entries: updatedEntries
   });
-  console.log(`Verified and staged Art publication ${submissionId}.`);
+  console.log(`Verified and applied Art ${stagedData.operation} for ${submissionId}.`);
 } else {
   const [sourceData, stagedData] = await Promise.all([
     readBoundedJson(gallerySourcePath, 'Community media data'),
@@ -692,11 +724,21 @@ if (hasBlogArtifact) {
   if (!isPlainObject(sourceData) || !hasOnlyKeys(sourceData, ['version', 'entries']) || sourceData.version !== 1 || !Array.isArray(sourceData.entries)) {
     fail('Community media data schema is invalid.');
   }
-  if (sourceData.entries.some((entry) => entry?.id === submissionId)) {
+  if (
+    !isPlainObject(stagedData) ||
+    !hasOnlyKeys(stagedData, ['version', 'operation', 'entry']) ||
+    stagedData.version !== 1 ||
+    !['create', 'update'].includes(stagedData.operation)
+  ) {
+    fail('Gallery artifact data schema is invalid.');
+  }
+  const existingIndex = sourceData.entries.findIndex((item) => item?.id === submissionId);
+
+  if (stagedData.operation === 'create' && existingIndex >= 0) {
     fail('Gallery submission is already present in the repository.');
   }
-  if (!isPlainObject(stagedData) || !hasOnlyKeys(stagedData, ['version', 'entry']) || stagedData.version !== 1) {
-    fail('Gallery artifact data schema is invalid.');
+  if (stagedData.operation === 'update' && existingIndex < 0) {
+    fail('Gallery update targets a publication that does not exist.');
   }
 
   const entry = stagedData.entry;
@@ -791,6 +833,23 @@ if (hasBlogArtifact) {
   }
 
   await fs.mkdir(path.join(root, 'assets', 'community'), { recursive: true });
+  const updatedEntries = [...sourceData.entries];
+
+  if (stagedData.operation === 'update') {
+    for (const [index, media] of (updatedEntries[existingIndex]?.media || []).entries()) {
+      const expectedPrefix = `assets/community/${submissionId.toLowerCase()}-${index + 1}.`;
+
+      if (
+        typeof media?.src !== 'string' ||
+        !media.src.startsWith(expectedPrefix) ||
+        !/^assets\/community\/ws-[a-z2-9]{8}-\d+\.(?:webp|mp4)$/.test(media.src)
+      ) {
+        fail('Stored Gallery media path is unsafe.');
+      }
+
+      await fs.rm(path.join(root, media.src), { force: true });
+    }
+  }
 
   for (const media of entry.media) {
     await fs.copyFile(
@@ -800,9 +859,15 @@ if (hasBlogArtifact) {
     );
   }
 
+  if (stagedData.operation === 'create') {
+    updatedEntries.unshift(entry);
+  } else {
+    updatedEntries[existingIndex] = entry;
+  }
+
   await writeJsonAtomically(gallerySourcePath, {
     version: 1,
-    entries: [entry, ...sourceData.entries]
+    entries: updatedEntries
   });
-  console.log(`Verified and staged gallery publication ${submissionId}.`);
+  console.log(`Verified and applied Gallery ${stagedData.operation} for ${submissionId}.`);
 }
