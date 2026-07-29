@@ -39,6 +39,8 @@ The Website workflow accepts only a staff-approved Discord proposal and creates 
 
 Publishing credentials belong only in the private bot environment and GitHub repository secrets. Never commit their values, paste them into Discord or include them in screenshots. Keep repository permissions limited to the actions required by the workflow.
 
+The community publication workflow manages `data/community-media.json`, `data/blog-posts.json`, `data/art-entries.json`, `data/roleplay-stories.json`, `assets/community/` and `.github/community-publication-state.json` as one coordinated state. Do not edit, revert or copy any of those publication files separately. A manual maintenance change must update the affected content and publication ledger together, be reviewed as one atomic commit and preserve every published revision already recorded in the ledger.
+
 ## Browser security on GitHub Pages
 
 `npm run seo` adds a compatible Content Security Policy and a strict referrer policy to every HTML page. The policy keeps scripts, data requests and media on the same origin while allowing the small set of dynamic inline styles used by navigation, galleries and the custom cursor.

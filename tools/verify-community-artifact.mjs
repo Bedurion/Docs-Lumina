@@ -2,10 +2,21 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { constants as fsConstants } from 'node:fs';
 import { fileURLToPath } from 'node:url';
+import {
+  decidePublication,
+  emptyPublicationState,
+  recordAppliedPublication,
+  validatePublicationManifest,
+  validatePublicationState
+} from './community-publication-state.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const stagingRoot = path.resolve(root, process.argv[2] || 'publication');
 const submissionId = String(process.argv[3] || '').trim();
+const expectedDispatchId = String(process.argv[4] || '').trim();
+const expectedWorkflowRunNumber = Number(process.argv[5]);
+const publicationStatePath = path.join(root, '.github', 'community-publication-state.json');
+const stagedManifestPath = path.join(stagingRoot, 'publication-manifest.json');
 const gallerySourcePath = path.join(root, 'data', 'community-media.json');
 const blogSourcePath = path.join(root, 'data', 'blog-posts.json');
 const artSourcePath = path.join(root, 'data', 'art-entries.json');
@@ -120,8 +131,61 @@ async function writeJsonAtomically(filePath, value) {
   await fs.rename(temporaryPath, filePath);
 }
 
+async function loadPublicationState() {
+  try {
+    return validatePublicationState(
+      JSON.parse(await fs.readFile(publicationStatePath, 'utf8'))
+    );
+  } catch (error) {
+    if (error.code === 'ENOENT') return emptyPublicationState();
+    throw error;
+  }
+}
+
+function assertSafeUnusedPublicationFiles(files, manifest) {
+  if (files.length === 0) return;
+  if (manifest.artifactMode !== 'apply') {
+    fail('A replay-only artifact cannot contain publication files.');
+  }
+
+  const names = files.map((file) => file.relativePath);
+  const lowerSubmissionId = manifest.submissionId.toLowerCase();
+  const dataPathByType = {
+    gallery: 'data/community-media-entry.json',
+    blog: 'data/blog-operation.json',
+    art: 'data/art-entry.json',
+    roleplay: 'data/roleplay-operation.json'
+  };
+  const expectedDataPath = dataPathByType[manifest.contentType];
+  const mediaPatterns = {
+    gallery: new RegExp(`^assets/community/${lowerSubmissionId}-\\d+\\.(?:webp|mp4)$`),
+    blog: new RegExp(`^assets/community/${lowerSubmissionId}-blog-\\d+\\.webp$`),
+    art: new RegExp(`^assets/community/${lowerSubmissionId}-art\\.webp$`),
+    roleplay: new RegExp(`^assets/community/${lowerSubmissionId}-roleplay-\\d+\\.webp$`)
+  };
+  const mediaNames = names.filter((name) => name !== expectedDataPath);
+
+  if (
+    names.filter((name) => name === expectedDataPath).length !== 1 ||
+    mediaNames.some((name) => !mediaPatterns[manifest.contentType]?.test(name)) ||
+    (manifest.contentType === 'gallery' && (mediaNames.length < 1 || mediaNames.length > 4)) ||
+    (manifest.contentType === 'blog' && mediaNames.length > 4) ||
+    (manifest.contentType === 'art' && mediaNames.length !== 1) ||
+    (manifest.contentType === 'roleplay' && mediaNames.length > 8)
+  ) {
+    fail('Already-applied publication artifact contains unexpected files.');
+  }
+}
+
+async function main() {
 if (!/^WS-[A-Z2-9]{8}$/.test(submissionId)) {
   fail('Submission ID has an invalid format.');
+}
+if (!/^[a-f0-9]{24}$/.test(expectedDispatchId)) {
+  fail('Dispatch ID has an invalid format.');
+}
+if (!Number.isSafeInteger(expectedWorkflowRunNumber) || expectedWorkflowRunNumber < 1) {
+  fail('Workflow run number must be a positive safe integer.');
 }
 
 if (stagingRoot === root || !stagingRoot.startsWith(`${root}${path.sep}`)) {
@@ -129,7 +193,46 @@ if (stagingRoot === root || !stagingRoot.startsWith(`${root}${path.sep}`)) {
 }
 
 const stagedFiles = await listRegularFiles(stagingRoot);
-const stagedFileNames = new Set(stagedFiles.map((file) => file.relativePath));
+const manifest = validatePublicationManifest(
+  await readBoundedJson(stagedManifestPath, 'Publication manifest'),
+  {
+    submissionId,
+    dispatchId: expectedDispatchId,
+    workflowRunNumber: expectedWorkflowRunNumber
+  }
+);
+const publicationState = await loadPublicationState();
+const publicationDecision = decidePublication(publicationState, manifest);
+
+if (
+  publicationDecision === 'apply'
+    ? manifest.artifactMode !== 'apply'
+    : ![publicationDecision, 'apply'].includes(manifest.artifactMode)
+) {
+  fail('Publication artifact mode does not match repository state.');
+}
+
+const publicationFiles = stagedFiles.filter(
+  (file) => file.relativePath !== 'publication-manifest.json'
+);
+const stagedFileNames = new Set(publicationFiles.map((file) => file.relativePath));
+
+if (publicationDecision === 'replay') {
+  assertSafeUnusedPublicationFiles(publicationFiles, manifest);
+  console.log(`Publication ${submissionId} is already applied at the requested revision.`);
+  return;
+}
+
+if (publicationDecision === 'record_retry') {
+  assertSafeUnusedPublicationFiles(publicationFiles, manifest);
+  await writeJsonAtomically(
+    publicationStatePath,
+    recordAppliedPublication(publicationState, manifest)
+  );
+  console.log(`Recorded idempotent publication retry for ${submissionId}.`);
+  return;
+}
+
 const hasGalleryArtifact = stagedFileNames.has('data/community-media-entry.json');
 const hasBlogArtifact = stagedFileNames.has('data/blog-operation.json');
 const hasArtArtifact = stagedFileNames.has('data/art-entry.json');
@@ -921,3 +1024,12 @@ if (hasBlogArtifact) {
   });
   console.log(`Verified and applied Gallery ${stagedData.operation} for ${submissionId}.`);
 }
+
+await writeJsonAtomically(
+  publicationStatePath,
+  recordAppliedPublication(publicationState, manifest)
+);
+console.log(`Recorded publication revision ${manifest.publicationRevision} for ${submissionId}.`);
+}
+
+await main();

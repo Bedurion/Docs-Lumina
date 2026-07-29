@@ -21,7 +21,26 @@ on:
 permissions: {}
 
 jobs:
+  guard:
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+    permissions: {}
+    steps:
+      - name: Require the repository default branch
+        shell: bash
+        env:
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+          REQUESTED_REF: ${{ github.ref }}
+        run: |
+          set -euo pipefail
+          expected_ref="refs/heads/${DEFAULT_BRANCH}"
+          if [[ "${REQUESTED_REF}" != "${expected_ref}" ]]; then
+            echo "Website publication is restricted to ${expected_ref}; received ${REQUESTED_REF}." >&2
+            exit 1
+          fi
+
   sanitize:
+    needs: guard
     runs-on: ubuntu-latest
     timeout-minutes: 8
     permissions:
@@ -30,6 +49,7 @@ jobs:
       - name: Check out the documentation repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
+          ref: ${{ github.ref_name }}
           persist-credentials: false
 
       - name: Set up Node.js
@@ -49,8 +69,10 @@ jobs:
       - name: Validate and stage approved website content
         env:
           SUBMISSION_ID: ${{ inputs.submission_id }}
+          DISPATCH_ID: ${{ inputs.dispatch_id }}
           ENCRYPTED_PAYLOAD: ${{ inputs.payload }}
           PUBLISH_PAYLOAD_SECRET: ${{ secrets.WEBSITE_PUBLISH_PAYLOAD_SECRET }}
+          PUBLICATION_WORKFLOW_RUN_NUMBER: ${{ github.run_number }}
           PUBLICATION_OUTPUT_DIR: publication
         run: node tools/publish-community-media.mjs
 
@@ -64,9 +86,13 @@ jobs:
           retention-days: 1
 
   publish:
-    needs: sanitize
+    needs:
+      - guard
+      - sanitize
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    outputs:
+      published_sha: ${{ steps.publish.outputs.published_sha }}
     concurrency:
       group: luminox-community-media-publisher
       cancel-in-progress: false
@@ -76,6 +102,8 @@ jobs:
       - name: Check out the documentation repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
           persist-credentials: true
 
       - name: Set up Node.js
@@ -92,28 +120,65 @@ jobs:
           name: publication-${{ inputs.submission_id }}
           path: publication
 
-      - name: Verify artifact and apply only generated files
+      - name: Apply safely to the latest branch and publish
+        id: publish
+        shell: bash
         env:
           SUBMISSION_ID: ${{ inputs.submission_id }}
-        run: node tools/verify-community-artifact.mjs publication "$SUBMISSION_ID"
-
-      - name: Validate the complete static website
-        run: npm test
-
-      - name: Commit sanitized website files
+          DISPATCH_ID: ${{ inputs.dispatch_id }}
+          PUBLICATION_WORKFLOW_RUN_NUMBER: ${{ github.run_number }}
         run: |
+          set -euo pipefail
           git config user.name "Luminox Website Publisher"
           git config user.email "luminox-publisher@users.noreply.github.com"
-          git add -- assets/community data/community-media.json data/blog-posts.json data/art-entries.json data/roleplay-stories.json
-          if git diff --cached --quiet; then
-            echo "No publishable changes were produced."
-            exit 1
-          fi
-          git commit -m "Publish approved website content"
-          git push origin "HEAD:${GITHUB_REF_NAME}"
+          branch="${GITHUB_REF_NAME}"
+          remote_ref="refs/remotes/origin/${branch}"
+
+          for attempt in 1 2 3; do
+            git fetch --no-tags origin "+refs/heads/${branch}:${remote_ref}"
+            git reset --hard "${remote_ref}"
+            git clean -fd -- assets/community data
+
+            node tools/verify-community-artifact.mjs \
+              publication \
+              "${SUBMISSION_ID}" \
+              "${DISPATCH_ID}" \
+              "${PUBLICATION_WORKFLOW_RUN_NUMBER}"
+            npm test
+
+            git add -- \
+              assets/community \
+              data/community-media.json \
+              data/blog-posts.json \
+              data/art-entries.json \
+              data/roleplay-stories.json \
+              .github/community-publication-state.json
+
+            if git diff --cached --quiet; then
+              published_sha="$(git rev-parse HEAD)"
+              echo "Publication was already present at ${published_sha}."
+              echo "published_sha=${published_sha}" >> "${GITHUB_OUTPUT}"
+              exit 0
+            fi
+
+            git commit -m "Publish approved website content ${SUBMISSION_ID}"
+            published_sha="$(git rev-parse HEAD)"
+
+            if git push origin "HEAD:refs/heads/${branch}"; then
+              echo "published_sha=${published_sha}" >> "${GITHUB_OUTPUT}"
+              exit 0
+            fi
+
+            echo "Branch advanced during publish attempt ${attempt}; rebuilding from the latest commit."
+          done
+
+          echo "Could not publish safely after three branch updates." >&2
+          exit 1
 
   deploy:
-    needs: publish
+    needs:
+      - guard
+      - publish
     runs-on: ubuntu-latest
     timeout-minutes: 5
     concurrency:
@@ -130,12 +195,48 @@ jobs:
       - name: Check out the newly published website
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
+          ref: ${{ needs.publish.outputs.published_sha }}
+          fetch-depth: 0
           persist-credentials: false
 
+      - name: Select a non-regressing deployment revision
+        id: revision
+        shell: bash
+        env:
+          PUBLISHED_SHA: ${{ needs.publish.outputs.published_sha }}
+        run: |
+          set -euo pipefail
+          checked_out_sha="$(git rev-parse HEAD)"
+          if [[ "${checked_out_sha}" != "${PUBLISHED_SHA}" ]]; then
+            echo "Checked-out SHA does not match the publication output." >&2
+            exit 1
+          fi
+
+          branch="${GITHUB_REF_NAME}"
+          remote_ref="refs/remotes/origin/${branch}"
+          git fetch --no-tags origin "+refs/heads/${branch}:${remote_ref}"
+          latest_sha="$(git rev-parse "${remote_ref}")"
+
+          deployment_sha="$(
+            node tools/select-community-deployment-revision.mjs \
+              "${PUBLISHED_SHA}" \
+              "${latest_sha}"
+          )"
+
+          if [[ "${deployment_sha}" == "${PUBLISHED_SHA}" ]]; then
+            echo "Deploying the exact requested publication; later ordinary commits remain outside this release."
+          else
+            echo "Deploying the exact newer publication ${deployment_sha} to avoid an out-of-order rollback."
+          fi
+
+          echo "deployment_sha=${deployment_sha}" >> "${GITHUB_OUTPUT}"
+
       - name: Prepare static Pages artifact
+        env:
+          DEPLOYMENT_SHA: ${{ steps.revision.outputs.deployment_sha }}
         run: |
           mkdir site
-          git archive HEAD | tar -x -C site
+          git archive "${DEPLOYMENT_SHA}" | tar -x -C site
           rm -rf site/.github site/tools site/package.json site/package-lock.json site/README.md site/.gitignore
           touch site/.nojekyll
 

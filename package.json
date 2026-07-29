@@ -6,8 +6,9 @@
   "scripts": {
     "seo": "node tools/build-seo.mjs",
     "seo:check": "node tools/seo-audit.mjs",
-    "test": "node tools/validate-site.js && node tools/seo-audit.mjs",
-    "validate": "node tools/validate-site.js && node tools/seo-audit.mjs"
+    "test:publication": "node --test test/*.test.mjs",
+    "test": "npm run test:publication && node tools/validate-site.js && node tools/seo-audit.mjs",
+    "validate": "npm run test:publication && node tools/validate-site.js && node tools/seo-audit.mjs"
   },
   "dependencies": {
     "sharp": "0.35.3"

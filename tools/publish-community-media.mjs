@@ -5,8 +5,16 @@ import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
+import {
+  decidePublication,
+  emptyPublicationState,
+  publicationRequestDigest,
+  validatePublicationManifest,
+  validatePublicationState
+} from './community-publication-state.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const publicationStatePath = path.join(root, '.github', 'community-publication-state.json');
 const sourceDataPath = path.join(root, 'data', 'community-media.json');
 const sourceBlogDataPath = path.join(root, 'data', 'blog-posts.json');
 const sourceArtDataPath = path.join(root, 'data', 'art-entries.json');
@@ -17,6 +25,7 @@ const outputGalleryDataPath = path.join(outputRoot, 'data', 'community-media-ent
 const outputBlogOperationPath = path.join(outputRoot, 'data', 'blog-operation.json');
 const outputArtDataPath = path.join(outputRoot, 'data', 'art-entry.json');
 const outputRoleplayOperationPath = path.join(outputRoot, 'data', 'roleplay-operation.json');
+const outputManifestPath = path.join(outputRoot, 'publication-manifest.json');
 const mediaDirectory = path.join(outputRoot, 'assets', 'community');
 const maximumAttachments = 4;
 const maximumBlogBodyLength = 12_000;
@@ -501,15 +510,49 @@ async function loadRoleplayData() {
   }
 }
 
+async function loadPublicationState() {
+  try {
+    return validatePublicationState(
+      JSON.parse(await fs.readFile(publicationStatePath, 'utf8'))
+    );
+  } catch (error) {
+    if (error.code === 'ENOENT') return emptyPublicationState();
+    throw error;
+  }
+}
+
+async function writePublicationManifest(manifest) {
+  await fs.mkdir(outputRoot, { recursive: true });
+  await fs.writeFile(
+    outputManifestPath,
+    `${JSON.stringify(manifest, null, 2)}\n`,
+    { encoding: 'utf8', flag: 'wx' }
+  );
+}
+
+function readPositiveInteger(value, label) {
+  const number = Number(value);
+  if (!Number.isSafeInteger(number) || number < 1) {
+    fail(`${label} must be a positive safe integer.`);
+  }
+  return number;
+}
+
+async function main() {
 const expectedSubmissionId = cleanSingleLine(process.env.SUBMISSION_ID, 32, 'Submission ID');
 
 if (!/^WS-[A-Z2-9]{8}$/.test(expectedSubmissionId)) {
   fail('Submission ID has an invalid format.');
 }
 
+const expectedDispatchId = cleanSingleLine(process.env.DISPATCH_ID, 64, 'Dispatch ID');
+const workflowRunNumber = readPositiveInteger(
+  process.env.PUBLICATION_WORKFLOW_RUN_NUMBER,
+  'Workflow run number'
+);
 const payload = decryptPayload(process.env.ENCRYPTED_PAYLOAD, process.env.PUBLISH_PAYLOAD_SECRET);
 
-if (![1, 2, 3, 4].includes(payload?.version) || payload.submissionId !== expectedSubmissionId) {
+if (![1, 2, 3, 4, 5].includes(payload?.version) || payload.submissionId !== expectedSubmissionId) {
   fail('Encrypted payload does not match the requested submission.');
 }
 
@@ -518,6 +561,61 @@ const operation = cleanSingleLine(payload.operation || 'create', 30, 'Publicatio
 
 if (!['gallery', 'blog', 'art', 'roleplay'].includes(contentType)) {
   fail('Encrypted payload contains an unsupported publication type.');
+}
+
+const protocolVersion = payload.version === 5 ? 5 : 4;
+const legacyDispatchDate = new Date(payload.submittedAt);
+const dispatchedAt = protocolVersion === 5
+  ? String(payload.dispatchedAt || '')
+  : legacyDispatchDate.toISOString();
+const publicationRevision = protocolVersion === 5
+  ? Number(payload.publicationRevision)
+  : workflowRunNumber;
+const publicationBaseRevision = protocolVersion === 5
+  ? Number(payload.publicationBaseRevision)
+  : 0;
+
+if (protocolVersion === 5 && payload.dispatchId !== expectedDispatchId) {
+  fail('Encrypted payload dispatch ID does not match the workflow request.');
+}
+
+const publicationState = await loadPublicationState();
+const initialManifest = {
+  version: 1,
+  protocolVersion,
+  submissionId: expectedSubmissionId,
+  dispatchId: expectedDispatchId,
+  dispatchedAt,
+  publicationRevision,
+  publicationBaseRevision,
+  workflowRunNumber,
+  contentType,
+  operation,
+  requestDigest: publicationRequestDigest(payload),
+  generatedAt: new Date().toISOString(),
+  artifactMode: 'apply'
+};
+validatePublicationManifest(initialManifest, {
+  submissionId: expectedSubmissionId,
+  dispatchId: expectedDispatchId,
+  workflowRunNumber,
+  publicationRevision,
+  protocolVersion
+});
+const artifactMode = decidePublication(publicationState, initialManifest);
+const publicationManifest = {
+  ...initialManifest,
+  artifactMode
+};
+
+if (artifactMode !== 'apply') {
+  await writePublicationManifest(publicationManifest);
+  console.log(
+    artifactMode === 'replay'
+      ? `Publication ${expectedSubmissionId} was already applied; emitted an idempotent replay artifact.`
+      : `Publication ${expectedSubmissionId} needs only a publication-state retry record.`
+  );
+  return;
 }
 
 const title = cleanSingleLine(payload.title, contentType === 'roleplay' ? 120 : 100, 'Title');
@@ -1132,3 +1230,8 @@ if (contentType === 'blog') {
   );
   console.log(`Sanitized ${publishedMedia.length} Gallery ${operation} media file(s) for ${expectedSubmissionId}.`);
 }
+
+await writePublicationManifest(publicationManifest);
+}
+
+await main();
