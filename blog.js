@@ -5,6 +5,17 @@ const trendingStatus = document.querySelector('[data-blog-trending-status]');
 const trendingContainer = document.querySelector('[data-blog-trending]');
 const leadersStatus = document.querySelector('[data-blog-leaders-status]');
 const leadersContainer = document.querySelector('[data-blog-leaders]');
+const blogCategoryLabels = Object.freeze({
+  'guild-news': 'Guild news',
+  events: 'Events',
+  community: 'Community',
+  guides: 'Guides',
+  'tibia-secura': 'Tibia & Secura',
+  luminox: 'Luminox',
+  history: 'History',
+  roleplay: 'Roleplay',
+  editorial: 'Editorial'
+});
 
 function createTextElement(tagName, className, text) {
   const element = document.createElement(tagName);
@@ -30,11 +41,18 @@ function formatViews(post) {
   return `${new Intl.NumberFormat().format(views)} ${views === 1 ? 'view' : 'views'}`;
 }
 
+function blogCategoryLabel(value) {
+  const normalized = String(value || '').trim().toLowerCase();
+  if (Object.hasOwn(blogCategoryLabels, normalized)) return blogCategoryLabels[normalized];
+  return Object.values(blogCategoryLabels)
+    .find((label) => label.toLowerCase() === normalized) || 'Guild journal';
+}
+
 function buildMeta(post, options = {}) {
   const meta = document.createElement('div');
   meta.className = 'blog-post-meta';
   const values = [
-    createTextElement('span', 'blog-category', post.category || 'Guild journal'),
+    createTextElement('span', 'blog-category', blogCategoryLabel(post.category)),
     createTextElement('span', '', formatDate(post.publishedAt)),
     createTextElement('span', '', `${Math.max(1, Number(post.readingMinutes) || 1)} min read`)
   ];
@@ -123,7 +141,7 @@ function buildFeatured(post) {
   const marker = document.createElement('div');
   marker.className = 'blog-featured-marker';
   marker.setAttribute('aria-hidden', 'true');
-  marker.innerHTML = '<img src="assets/icons/content-blog.svg?v=20260723-4" alt=""><span>Latest article</span>';
+  marker.innerHTML = '<img src="assets/icons/content-blog.svg?v=6f8bb5797a" alt=""><span>Latest article</span>';
 
   const content = document.createElement('div');
   content.className = 'blog-featured-content';
@@ -173,7 +191,7 @@ function buildArchivePost(post, options = {}) {
   return article;
 }
 
-function buildCollectionEmpty(eyebrow, title, description, icon = 'assets/illustrations/blog-journal.svg?v=20260723-4') {
+function buildCollectionEmpty(eyebrow, title, description, icon = 'assets/illustrations/blog-journal.svg?v=7c7862edb4') {
   const empty = document.createElement('article');
   empty.className = 'blog-archive-empty';
   const image = document.createElement('img');
@@ -231,21 +249,21 @@ function renderBlog(posts) {
 
   if (sorted.length === 0) {
     updateStatus(blogStatus, 'The journal is ready for its first visible Lumina story.', 'blog-status-empty');
-    featuredContainer.innerHTML = '<article class="blog-empty-state"><img src="assets/illustrations/blog-journal.svg?v=20260723-4" alt=""><div class="blog-empty-copy"><p class="eyebrow">The first page is waiting</p><h3>Lumina’s written archive begins here.</h3><p>Guild news and stories approved through Discord will appear in this space.</p></div></article>';
+    featuredContainer.innerHTML = '<article class="blog-empty-state"><img src="assets/illustrations/blog-journal.svg?v=7c7862edb4" alt=""><div class="blog-empty-copy"><p class="eyebrow">The first page is waiting</p><h3>Lumina’s written archive begins here.</h3><p>Guild news and stories approved through Discord will appear in this space.</p></div></article>';
     postList.replaceChildren(buildArchiveEmpty());
     updateStatus(trendingStatus, 'Trending articles will appear after published stories receive recorded public views.', 'blog-status-empty');
     trendingContainer.replaceChildren(buildCollectionEmpty(
       'Waiting for readers',
       'No trending stories yet.',
       'This section activates when published articles have verified public view totals.',
-      'assets/icons/blog-trending.svg?v=20260723-4'
+      'assets/icons/blog-trending.svg?v=d699ef552a'
     ));
     updateStatus(leadersStatus, 'Lumina leadership has not selected a public article yet.', 'blog-status-empty');
     leadersContainer.replaceChildren(buildCollectionEmpty(
       'Editorial shelf',
       'No leadership selections yet.',
       'Articles chosen by Lumina leadership will be collected here.',
-      'assets/icons/blog-leaders-selection.svg?v=20260723-4'
+      'assets/icons/blog-leaders-selection.svg?v=b6f6c5c89e'
     ));
     return;
   }
@@ -280,7 +298,7 @@ function renderBlog(posts) {
       'Waiting for readers',
       'No trending stories yet.',
       'This section activates when published articles have verified public view totals.',
-      'assets/icons/blog-trending.svg?v=20260723-4'
+      'assets/icons/blog-trending.svg?v=d699ef552a'
     ));
   }
 
@@ -302,7 +320,7 @@ function renderBlog(posts) {
       'Editorial shelf',
       'No leadership selections yet.',
       'Articles chosen by Lumina leadership will be collected here.',
-      'assets/icons/blog-leaders-selection.svg?v=20260723-4'
+      'assets/icons/blog-leaders-selection.svg?v=b6f6c5c89e'
     ));
   }
 

@@ -16,12 +16,48 @@ const stagedArtPath = path.join(stagingRoot, 'data', 'art-entry.json');
 const stagedRoleplayOperationPath = path.join(stagingRoot, 'data', 'roleplay-operation.json');
 const maximumArtifactBytes = 10 * 1024 * 1024;
 const maximumDataBytes = 10 * 1024 * 1024;
-const artCategories = new Set(['places', 'heroes', 'creatures', 'adversaries', 'guild-life']);
-const roleplayCategories = new Set(['campaign', 'one-shot', 'character', 'lore']);
+const gallerySubcategories = new Map([
+  ['adventures', new Set(['hunt', 'boss', 'quest', 'exploration', 'challenge', 'other'])],
+  ['community', new Set(['gathering', 'guildhall', 'celebration', 'teamwork', 'daily-life', 'recruitment', 'other'])],
+  ['events', new Set(['hunt-event', 'contest', 'tournament', 'ceremony', 'social-event', 'other'])],
+  ['milestones', new Set(['level', 'skill', 'quest', 'loot', 'anniversary', 'guild-progress', 'other'])],
+  ['roleplay', new Set(['scene', 'character', 'campaign', 'lore', 'other'])],
+  ['world', new Set(['city', 'landscape', 'dungeon', 'discovery', 'update', 'other'])]
+]);
+const artSubcategories = new Map([
+  ['places', new Set(['city', 'landscape', 'architecture', 'interior', 'dungeon', 'ruins', 'coast', 'other'])],
+  ['heroes', new Set(['portrait', 'party', 'action', 'journey', 'daily-life', 'npc', 'other'])],
+  ['creatures', new Set(['beast', 'dragon', 'undead', 'demon', 'humanoid', 'construct', 'aquatic', 'celestial', 'companion', 'other'])],
+  ['adversaries', new Set(['boss', 'rival', 'army', 'undead', 'supernatural', 'monster', 'other'])],
+  ['guild-life', new Set(['event', 'hunt', 'planning', 'celebration', 'achievement', 'rest', 'craft', 'trade', 'support', 'social', 'other'])],
+  ['objects', new Set(['equipment', 'item', 'relic', 'emblem', 'map', 'vehicle', 'costume', 'other'])],
+  ['concepts', new Set(['abstract', 'magic', 'atmosphere', 'poster', 'typography', 'concept', 'other'])]
+]);
+const artCategories = new Set(artSubcategories.keys());
+const blogCategoryLabels = new Map([
+  ['guild-news', 'Guild news'],
+  ['events', 'Events'],
+  ['community', 'Community'],
+  ['guides', 'Guides'],
+  ['tibia-secura', 'Tibia & Secura'],
+  ['luminox', 'Luminox'],
+  ['history', 'History'],
+  ['roleplay', 'Roleplay'],
+  ['editorial', 'Editorial']
+]);
+const roleplayCategories = new Set(['campaign', 'one-shot', 'character', 'lore', 'anthology']);
 const roleplayStatuses = new Set(['ongoing', 'complete']);
 
 function fail(message) {
   throw new Error(message);
+}
+
+function blogCategoryKeyFor(value) {
+  const normalized = String(value || '').trim().toLowerCase();
+  if (!normalized) return null;
+  if (blogCategoryLabels.has(normalized)) return normalized;
+  return [...blogCategoryLabels]
+    .find(([, label]) => label.toLowerCase() === normalized)?.[0] || null;
 }
 
 function isPlainObject(value) {
@@ -157,6 +193,7 @@ if (hasBlogArtifact) {
     assertIsoDate(post.updatedAt, 'Blog update date');
 
     if (typeof post.visible !== 'boolean') fail('Blog visibility must be boolean.');
+    if (!blogCategoryKeyFor(post.category)) fail('Blog category is not supported.');
     if (!Number.isSafeInteger(post.readingMinutes) || post.readingMinutes < 1 || post.readingMinutes > 60) {
       fail('Blog reading time is invalid.');
     }
@@ -613,7 +650,7 @@ if (hasBlogArtifact) {
   if (
     !isPlainObject(entry) ||
     !hasOnlyKeys(entry, [
-      'id', 'title', 'description', 'category', 'credit',
+      'id', 'title', 'description', 'category', 'subcategory', 'credit',
       'submittedAt', 'publishedAt', 'media'
     ])
   ) {
@@ -624,12 +661,16 @@ if (hasBlogArtifact) {
   assertString(entry.title, 3, 80, 'Art title');
   assertString(entry.description, 20, 360, 'Art description');
   assertString(entry.category, 3, 30, 'Art category');
+  assertString(entry.subcategory, 3, 30, 'Art subcategory');
   assertString(entry.credit, 1, 100, 'Art credit');
   assertIsoDate(entry.submittedAt, 'Art submission date');
   assertIsoDate(entry.publishedAt, 'Art publication date');
 
   if (!artCategories.has(entry.category)) {
     fail('Art category is not supported by the public archive.');
+  }
+  if (!artSubcategories.get(entry.category)?.has(entry.subcategory)) {
+    fail('Art category and subcategory are not a supported combination.');
   }
 
   const media = entry.media;
@@ -743,15 +784,24 @@ if (hasBlogArtifact) {
 
   const entry = stagedData.entry;
 
-  if (!isPlainObject(entry) || !hasOnlyKeys(entry, ['id', 'title', 'description', 'credit', 'submittedAt', 'publishedAt', 'media'])) {
+  if (!isPlainObject(entry) || !hasOnlyKeys(entry, [
+    'id', 'title', 'description', 'category', 'subcategory', 'credit',
+    'submittedAt', 'publishedAt', 'media'
+  ])) {
     fail('New gallery entry contains an invalid structure.');
   }
   if (entry.id !== submissionId) fail('Gallery entry does not match the requested submission.');
   assertString(entry.title, 3, 100, 'Title');
   assertString(entry.description, 10, 1200, 'Description');
+  assertString(entry.category, 3, 30, 'Gallery category');
+  assertString(entry.subcategory, 3, 30, 'Gallery subcategory');
   assertString(entry.credit, 1, 100, 'Credit');
   assertIsoDate(entry.submittedAt, 'Submission date');
   assertIsoDate(entry.publishedAt, 'Publication date');
+
+  if (!gallerySubcategories.get(entry.category)?.has(entry.subcategory)) {
+    fail('Gallery category and subcategory are not a supported combination.');
+  }
 
   if (!Array.isArray(entry.media) || entry.media.length < 1 || entry.media.length > 4) {
     fail('Gallery entry must contain between one and four media files.');

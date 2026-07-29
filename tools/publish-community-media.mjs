@@ -33,8 +33,36 @@ const maximumVideoWidth = 1920;
 const maximumVideoHeight = 1920;
 const allowedDiscordHosts = new Set(['cdn.discordapp.com', 'media.discordapp.net']);
 const allowedContentTypes = new Set(['image/jpeg', 'image/png', 'video/mp4']);
-const artCategories = new Set(['places', 'heroes', 'creatures', 'adversaries', 'guild-life']);
-const roleplayCategories = new Set(['campaign', 'one-shot', 'character', 'lore']);
+const gallerySubcategories = new Map([
+  ['adventures', new Set(['hunt', 'boss', 'quest', 'exploration', 'challenge', 'other'])],
+  ['community', new Set(['gathering', 'guildhall', 'celebration', 'teamwork', 'daily-life', 'recruitment', 'other'])],
+  ['events', new Set(['hunt-event', 'contest', 'tournament', 'ceremony', 'social-event', 'other'])],
+  ['milestones', new Set(['level', 'skill', 'quest', 'loot', 'anniversary', 'guild-progress', 'other'])],
+  ['roleplay', new Set(['scene', 'character', 'campaign', 'lore', 'other'])],
+  ['world', new Set(['city', 'landscape', 'dungeon', 'discovery', 'update', 'other'])]
+]);
+const artSubcategories = new Map([
+  ['places', new Set(['city', 'landscape', 'architecture', 'interior', 'dungeon', 'ruins', 'coast', 'other'])],
+  ['heroes', new Set(['portrait', 'party', 'action', 'journey', 'daily-life', 'npc', 'other'])],
+  ['creatures', new Set(['beast', 'dragon', 'undead', 'demon', 'humanoid', 'construct', 'aquatic', 'celestial', 'companion', 'other'])],
+  ['adversaries', new Set(['boss', 'rival', 'army', 'undead', 'supernatural', 'monster', 'other'])],
+  ['guild-life', new Set(['event', 'hunt', 'planning', 'celebration', 'achievement', 'rest', 'craft', 'trade', 'support', 'social', 'other'])],
+  ['objects', new Set(['equipment', 'item', 'relic', 'emblem', 'map', 'vehicle', 'costume', 'other'])],
+  ['concepts', new Set(['abstract', 'magic', 'atmosphere', 'poster', 'typography', 'concept', 'other'])]
+]);
+const artCategories = new Set(artSubcategories.keys());
+const blogCategoryLabels = new Map([
+  ['guild-news', 'Guild news'],
+  ['events', 'Events'],
+  ['community', 'Community'],
+  ['guides', 'Guides'],
+  ['tibia-secura', 'Tibia & Secura'],
+  ['luminox', 'Luminox'],
+  ['history', 'History'],
+  ['roleplay', 'Roleplay'],
+  ['editorial', 'Editorial']
+]);
+const roleplayCategories = new Set(['campaign', 'one-shot', 'character', 'lore', 'anthology']);
 
 if (outputRoot !== root && !outputRoot.startsWith(`${root}${path.sep}`)) {
   throw new Error('PUBLICATION_OUTPUT_DIR must remain inside the checked-out repository.');
@@ -42,6 +70,33 @@ if (outputRoot !== root && !outputRoot.startsWith(`${root}${path.sep}`)) {
 
 function fail(message) {
   throw new Error(message);
+}
+
+function blogCategoryKeyFor(value) {
+  const normalized = String(value || '').trim().toLowerCase();
+  if (!normalized) return null;
+  if (blogCategoryLabels.has(normalized)) return normalized;
+  return [...blogCategoryLabels]
+    .find(([, label]) => label.toLowerCase() === normalized)?.[0] || null;
+}
+
+function resolveBlogCategory(categoryKey, legacyCategory) {
+  const rawCategoryKey = String(categoryKey || '').trim().toLowerCase();
+  const normalizedKey = rawCategoryKey && blogCategoryLabels.has(rawCategoryKey)
+    ? rawCategoryKey
+    : null;
+  const normalizedLegacyCategory = blogCategoryKeyFor(legacyCategory);
+
+  if (rawCategoryKey && !normalizedKey) {
+    fail('Blog category key is not supported.');
+  }
+  if (normalizedKey && normalizedLegacyCategory && normalizedKey !== normalizedLegacyCategory) {
+    fail('Blog category key does not match its legacy category label.');
+  }
+
+  const category = normalizedKey || normalizedLegacyCategory;
+  if (!category) fail('Blog category is not supported.');
+  return category;
 }
 
 function decodeSecret(value) {
@@ -454,7 +509,7 @@ if (!/^WS-[A-Z2-9]{8}$/.test(expectedSubmissionId)) {
 
 const payload = decryptPayload(process.env.ENCRYPTED_PAYLOAD, process.env.PUBLISH_PAYLOAD_SECRET);
 
-if (![1, 2, 3].includes(payload?.version) || payload.submissionId !== expectedSubmissionId) {
+if (![1, 2, 3, 4].includes(payload?.version) || payload.submissionId !== expectedSubmissionId) {
   fail('Encrypted payload does not match the requested submission.');
 }
 
@@ -493,7 +548,7 @@ if (contentType === 'blog') {
   if (['create', 'update'].includes(operation)) {
     const excerpt = cleanMultiline(payload.excerpt, 300, 'Excerpt');
     const body = cleanMultiline(payload.body, maximumBlogBodyLength, 'Article body');
-    const category = cleanSingleLine(payload.category, 50, 'Category');
+    const category = resolveBlogCategory(payload.categoryKey, payload.category);
     const author = cleanSingleLine(payload.author, 100, 'Author');
 
     if (excerpt.length < 20 || body.length < 100 || category.length < 2) {
@@ -860,8 +915,22 @@ if (contentType === 'blog') {
   const altText = cleanSingleLine(payload.altText, 300, 'Artwork alternative text');
   const credit = cleanSingleLine(payload.credit, 100, 'Artwork credit');
   const category = cleanSingleLine(payload.categoryKey || payload.category, 30, 'Artwork category');
+  const hasSubcategory = typeof payload.subcategory === 'string' && payload.subcategory.trim().length > 0;
 
-  if (description.length < 20 || altText.length < 10 || !artCategories.has(category)) {
+  if (payload.version === 4 && !hasSubcategory) {
+    fail('Artwork payload version 4 requires a subcategory.');
+  }
+
+  const subcategory = hasSubcategory
+    ? cleanSingleLine(payload.subcategory, 30, 'Artwork subcategory')
+    : 'other';
+
+  if (
+    description.length < 20 ||
+    altText.length < 10 ||
+    !artCategories.has(category) ||
+    !artSubcategories.get(category)?.has(subcategory)
+  ) {
     fail('Artwork fields do not satisfy the public Art archive requirements.');
   }
 
@@ -920,6 +989,7 @@ if (contentType === 'blog') {
     title,
     description,
     category,
+    subcategory,
     credit,
     submittedAt: existingArtEntry?.submittedAt || submittedAt.toISOString(),
     publishedAt: existingArtEntry?.publishedAt || new Date().toISOString(),
@@ -945,6 +1015,25 @@ if (contentType === 'blog') {
   const description = cleanMultiline(payload.description, 1200, 'Description');
   const altText = cleanSingleLine(payload.altText, 300, 'Alternative text');
   const credit = cleanSingleLine(payload.credit, 100, 'Credit');
+  const hasCategory = typeof (payload.categoryKey || payload.category) === 'string' &&
+    String(payload.categoryKey || payload.category).trim().length > 0;
+  const hasSubcategory = typeof payload.subcategory === 'string' &&
+    payload.subcategory.trim().length > 0;
+
+  if (payload.version === 4 && (!hasCategory || !hasSubcategory)) {
+    fail('Gallery payload version 4 requires a category and subcategory.');
+  }
+
+  const category = hasCategory
+    ? cleanSingleLine(payload.categoryKey || payload.category, 30, 'Gallery category')
+    : 'community';
+  const subcategory = hasSubcategory
+    ? cleanSingleLine(payload.subcategory, 30, 'Gallery subcategory')
+    : 'other';
+
+  if (!gallerySubcategories.get(category)?.has(subcategory)) {
+    fail('Gallery category and subcategory are not a supported combination.');
+  }
 
   if (!Array.isArray(payload.attachments) || payload.attachments.length < 1 || payload.attachments.length > maximumAttachments) {
     fail(`Payload must contain between 1 and ${maximumAttachments} attachments.`);
@@ -1028,6 +1117,8 @@ if (contentType === 'blog') {
     id: expectedSubmissionId,
     title,
     description,
+    category,
+    subcategory,
     credit,
     submittedAt: existingGalleryEntry?.submittedAt || submittedAt.toISOString(),
     publishedAt: existingGalleryEntry?.publishedAt || new Date().toISOString(),

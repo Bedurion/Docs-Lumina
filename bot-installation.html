@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'none'; object-src 'none'; frame-src 'none'; form-action 'none'; img-src 'self' data:; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self'; font-src 'self'; media-src 'self'; manifest-src 'self'">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="Install Luminox in a new or existing Discord server through a template-first route, a safe guided wizard or modular panel-by-panel setup.">
   <meta name="theme-color" content="#090d19">
@@ -30,21 +32,21 @@
   <meta name="application-name" content="Lumina · Luminox">
   <script type="application/ld+json" data-seo-enhanced>{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","@id":"https://guildlumina.com/bot-installation.html#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://guildlumina.com/"},{"@type":"ListItem","position":2,"name":"Bot","item":"https://guildlumina.com/features.html"},{"@type":"ListItem","position":3,"name":"Installation","item":"https://guildlumina.com/bot-installation.html"}]},{"@type":"Organization","@id":"https://guildlumina.com/#organization","name":"Lumina","alternateName":"Lumina Guild","url":"https://guildlumina.com/","logo":{"@type":"ImageObject","url":"https://guildlumina.com/assets/brand/lumina-seal-256.png","width":256,"height":256},"description":"International Tibia guild on Secura focused on teamwork, progression, organized community life and the Luminox Discord guild bot.","sameAs":["https://www.tibia.com/community/?subtopic=guilds&page=view&GuildName=Lumina","https://discord.gg/9BTRjtjnU8"]},{"@type":"SoftwareApplication","@id":"https://guildlumina.com/#luminox","name":"Luminox","alternateName":"Luminox Discord Guild Bot","url":"https://guildlumina.com/features.html","image":"https://guildlumina.com/assets/social/features.png","applicationCategory":"CommunicationApplication","applicationSubCategory":"Discord guild management bot","operatingSystem":"Any","runtimePlatform":"Discord","description":"Discord guild bot for verified identities, events, Loyalty, GuildBank, private support, moderation and live guild intelligence.","isAccessibleForFree":true,"installUrl":"https://discord.com/oauth2/authorize?client_id=1520561230648049965&permissions=395541081168&integration_type=0&scope=bot+applications.commands","softwareHelp":"https://guildlumina.com/docs.html","releaseNotes":"https://guildlumina.com/changelog.html","featureList":"https://guildlumina.com/features.html","offers":{"@type":"Offer","name":"Luminox Free","price":"0","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://guildlumina.com/pricing.html","seller":{"@id":"https://guildlumina.com/#organization"}},"publisher":{"@id":"https://guildlumina.com/#organization"}}]}</script>
   <!-- /SEO ENHANCEMENTS -->
-  <link rel="stylesheet" href="styles.css?v=20260726-3">
-  <link rel="stylesheet" href="bot-installation.css?v=20260724-3">
-  <link rel="stylesheet" href="screenshot-showcases.css?v=20260723-5">
+  <link rel="stylesheet" href="styles.css?v=984f9f8277">
+  <link rel="stylesheet" href="bot-installation.css?v=d710ad3ef9">
+  <link rel="stylesheet" href="screenshot-showcases.css?v=7516e60dd8">
   <link rel="icon" type="image/svg+xml" sizes="any" href="assets/brand/favicon-dark.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="assets/brand/favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/brand/apple-touch-icon.png">
   <link rel="manifest" href="site.webmanifest">
-  <script src="screenshot-showcases.js?v=20260724-1" defer></script>
+  <script src="screenshot-showcases.js?v=0d1d875f63" defer></script>
   <meta property="og:image:secure_url" content="https://guildlumina.com/assets/social/bot-installation.png">
-</head>
+  </head>
 <body class="installation-page page-interior page-family-product page-accent-violet">
   <header class="site-header compact-header" id="top">
     <nav class="nav">
-      <a class="brand" href="index.html"><span class="brand-mark"><img src="assets/brand/lumina-seal-256.png" alt="" aria-hidden="true"></span><img class="brand-wordmark" src="assets/brand/lumina-wordmark.svg?v=20260723-4" alt="Lumina" width="128" height="39"></a>
+      <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span><img class="brand-wordmark" src="assets/brand/lumina-wordmark.svg?v=540b8ab637" alt="Lumina" width="128" height="39"></a>
       <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">☰</button>
       <div class="nav-links" data-nav-links></div>
     </nav>
@@ -53,9 +55,9 @@
   <main class="page-shell" data-no-contextual-conversion>
     <section class="installation-hero" aria-labelledby="installation-title">
       <div class="installation-hero-copy">
-        <div class="installation-editions" aria-label="Available editions">
-          <a href="editions.html#universal-edition"><img src="assets/icons/edition-universal.svg?v=20260724-4" alt="" aria-hidden="true">Universal</a>
-          <a href="editions.html#community-edition"><img src="assets/icons/edition-community.svg?v=20260724-4" alt="" aria-hidden="true">Community</a>
+        <div class="installation-editions" role="navigation" aria-label="Available editions">
+          <a href="editions.html#universal-edition"><img src="assets/icons/edition-universal.svg?v=1ab6f913da" alt="" aria-hidden="true">Universal</a>
+          <a href="editions.html#community-edition"><img src="assets/icons/edition-community.svg?v=8a1220e1d4" alt="" aria-hidden="true">Community</a>
         </div>
         <p class="eyebrow">Bot · Installation</p>
         <h1 id="installation-title">A working guild server starts with one clear route.</h1>
@@ -88,21 +90,21 @@
       <div class="installation-route-grid">
         <a class="installation-route-card installation-route-card--recommended" href="#template-route">
           <span class="installation-route-badge">Recommended for new servers</span>
-          <span class="installation-route-icon"><img src="assets/icons/content-setup.svg?v=20260724-4" alt="" aria-hidden="true"></span>
+          <span class="installation-route-icon"><img src="assets/icons/content-setup.svg?v=810c143949" alt="" aria-hidden="true"></span>
           <small>Template-first</small>
           <h3>Begin with an organized structure.</h3>
           <p>Prepare the recommended channels and roles first, then let the guided wizard connect Luminox to that foundation.</p>
           <strong>See the recommended route <span aria-hidden="true">↘</span></strong>
         </a>
         <a class="installation-route-card" href="#existing-server">
-          <span class="installation-route-icon"><img src="assets/icons/action-discord.svg?v=20260724-4" alt="" aria-hidden="true"></span>
+          <span class="installation-route-icon"><img src="assets/icons/action-discord.svg?v=ba0cbaebe5" alt="" aria-hidden="true"></span>
           <small>Existing server</small>
           <h3>Keep what your community already uses.</h3>
           <p>Add Luminox, run the safe wizard and connect only the channels and roles your chosen systems need.</p>
           <strong>Protect the current structure <span aria-hidden="true">↘</span></strong>
         </a>
         <a class="installation-route-card" href="#modular-route">
-          <span class="installation-route-icon"><img src="assets/icons/content-systems.svg?v=20260724-4" alt="" aria-hidden="true"></span>
+          <span class="installation-route-icon"><img src="assets/icons/content-systems.svg?v=779cdb5351" alt="" aria-hidden="true"></span>
           <small>Modular setup</small>
           <h3>Enable one useful function at a time.</h3>
           <p>Configure a single panel, verify the member experience and expand only when another workflow adds value.</p>
@@ -148,7 +150,7 @@
       </ol>
 
       <div class="installation-clarification">
-        <img src="assets/icons/action-security.svg?v=20260724-4" alt="" aria-hidden="true">
+        <img src="assets/icons/action-security.svg?v=283093e022" alt="" aria-hidden="true">
         <div><strong>The template and the bot perform different jobs.</strong><p>Discord creates the starting server layout. Luminox is authorized separately and then connects its systems to that layout. The bot never silently recreates or deletes your server structure.</p></div>
       </div>
     </section>
@@ -169,7 +171,7 @@
           <a class="button secondary" href="setup.html">Read the technical guide</a>
         </div>
       </div>
-      <div class="installation-audit" aria-label="Guided installation flow">
+      <div class="installation-audit" role="group" aria-label="Guided installation flow">
         <div class="installation-audit-header"><span>Installation audit</span><strong>Non-destructive</strong></div>
         <div class="installation-audit-row"><span class="is-ready">✓</span><div><strong>Edition selected</strong><small>Universal or Community</small></div><em>Ready</em></div>
         <div class="installation-audit-row"><span class="is-ready">✓</span><div><strong>Existing roles</strong><small>Preserved and inspected</small></div><em>Ready</em></div>
@@ -202,10 +204,10 @@
         <p>You do not need to configure every Luminox system on day one. A focused rollout is easier to verify, easier to explain and easier for members to adopt.</p>
       </div>
       <div class="installation-module-flow">
-        <article><span>1</span><img src="assets/icons/content-usecases.svg?v=20260724-4" alt="" aria-hidden="true"><h3>Choose the friction</h3><p>Private support, recurring events, member identity, moderation or another repeated task.</p></article>
-        <article><span>2</span><img src="assets/icons/action-settings.svg?v=20260724-4" alt="" aria-hidden="true"><h3>Configure its foundation</h3><p>Assign the channel and responsible roles required by that function—not the whole product.</p></article>
-        <article><span>3</span><img src="assets/icons/content-systems.svg?v=20260724-4" alt="" aria-hidden="true"><h3>Publish the panel</h3><p>Place one clear permanent control surface where the community already expects it.</p></article>
-        <article><span>4</span><img src="assets/icons/content-automation.svg?v=20260724-4" alt="" aria-hidden="true"><h3>Verify, then expand</h3><p>Use <code>/install overview</code>, confirm the member experience and add the next useful module.</p></article>
+        <article><span>1</span><img src="assets/icons/content-usecases.svg?v=545cf0b359" alt="" aria-hidden="true"><h3>Choose the friction</h3><p>Private support, recurring events, member identity, moderation or another repeated task.</p></article>
+        <article><span>2</span><img src="assets/icons/action-settings.svg?v=6e5715c5a1" alt="" aria-hidden="true"><h3>Configure its foundation</h3><p>Assign the channel and responsible roles required by that function—not the whole product.</p></article>
+        <article><span>3</span><img src="assets/icons/content-systems.svg?v=779cdb5351" alt="" aria-hidden="true"><h3>Publish the panel</h3><p>Place one clear permanent control surface where the community already expects it.</p></article>
+        <article><span>4</span><img src="assets/icons/content-automation.svg?v=14a7befbbe" alt="" aria-hidden="true"><h3>Verify, then expand</h3><p>Use <code>/install overview</code>, confirm the member experience and add the next useful module.</p></article>
       </div>
     </section>
 
@@ -234,8 +236,8 @@
         <p>The edition determines what Luminox understands. The plan determines available functions, limits, history and supported refresh speed. Both public editions begin with Free.</p>
       </div>
       <div class="installation-choice-grid">
-        <a href="editions.html#universal-edition"><img src="assets/icons/edition-universal.svg?v=20260724-4" alt="" aria-hidden="true"><span><small>Any game or community</small><strong>Universal Edition</strong><em>Game-independent identity, panels and operations.</em></span><b aria-hidden="true">↗</b></a>
-        <a href="editions.html#community-edition"><img src="assets/icons/edition-community.svg?v=20260724-4" alt="" aria-hidden="true"><span><small>Purpose-built for Tibia</small><strong>Community Edition</strong><em>Characters, worlds, guild ranks and live Tibia context.</em></span><b aria-hidden="true">↗</b></a>
+        <a href="editions.html#universal-edition"><img src="assets/icons/edition-universal.svg?v=1ab6f913da" alt="" aria-hidden="true"><span><small>Any game or community</small><strong>Universal Edition</strong><em>Game-independent identity, panels and operations.</em></span><b aria-hidden="true">↗</b></a>
+        <a href="editions.html#community-edition"><img src="assets/icons/edition-community.svg?v=8a1220e1d4" alt="" aria-hidden="true"><span><small>Purpose-built for Tibia</small><strong>Community Edition</strong><em>Characters, worlds, guild ranks and live Tibia context.</em></span><b aria-hidden="true">↗</b></a>
       </div>
     </section>
 
@@ -269,6 +271,6 @@
   </main>
 
   <footer class="footer"><a href="#top">Back to top</a><span>Built for Lumina · Luminox</span></footer>
-  <script src="script.js?v=20260726-2"></script>
+  <script src="script.js?v=7d963ee3b4"></script>
 </body>
 </html>

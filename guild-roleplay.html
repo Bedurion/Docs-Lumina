@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'none'; object-src 'none'; frame-src 'none'; form-action 'none'; img-src 'self' data:; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self'; font-src 'self'; media-src 'self'; manifest-src 'self'">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="Explore Lumina's Tibia roleplay archive on Secura: browse future sagas, chapters, character stories, lore and illustrated guild chronicles.">
   <meta name="theme-color" content="#090d19">
@@ -30,16 +32,16 @@
   <meta name="application-name" content="Lumina · Luminox">
   <script type="application/ld+json" data-seo-enhanced>{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","@id":"https://guildlumina.com/guild-roleplay.html#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://guildlumina.com/"},{"@type":"ListItem","position":2,"name":"Guild","item":"https://guildlumina.com/guild.html"},{"@type":"ListItem","position":3,"name":"Lumina Guild Roleplay","item":"https://guildlumina.com/guild-roleplay.html"}]},{"@type":"Organization","@id":"https://guildlumina.com/#organization","name":"Lumina","alternateName":"Lumina Guild","url":"https://guildlumina.com/","logo":{"@type":"ImageObject","url":"https://guildlumina.com/assets/brand/lumina-seal-256.png","width":256,"height":256},"description":"International Tibia guild on Secura focused on teamwork, progression, organized community life and the Luminox Discord guild bot.","sameAs":["https://www.tibia.com/community/?subtopic=guilds&page=view&GuildName=Lumina","https://discord.gg/9BTRjtjnU8"]}]}</script>
   <!-- /SEO ENHANCEMENTS -->
-  <link rel="stylesheet" href="styles.css?v=20260726-3">
+  <link rel="stylesheet" href="styles.css?v=984f9f8277">
   <meta property="og:image:secure_url" content="https://guildlumina.com/assets/social/guild-roleplay.png">
   <link rel="icon" type="image/svg+xml" sizes="any" href="assets/brand/favicon-dark.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="assets/brand/favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/brand/apple-touch-icon.png">
   <link rel="manifest" href="site.webmanifest">
-</head>
+  </head>
 <body>
-  <header class="site-header compact-header" id="top"><nav class="nav"><a class="brand" href="index.html"><span class="brand-mark"><img src="assets/brand/lumina-seal-256.png" alt="" aria-hidden="true"></span><img class="brand-wordmark" src="assets/brand/lumina-wordmark.svg?v=20260723-4" alt="Lumina" width="128" height="39"></a><button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">☰</button><div class="nav-links" data-nav-links></div></nav></header>
+  <header class="site-header compact-header" id="top"><nav class="nav"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span><img class="brand-wordmark" src="assets/brand/lumina-wordmark.svg?v=540b8ab637" alt="Lumina" width="128" height="39"></a><button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">☰</button><div class="nav-links" data-nav-links></div></nav></header>
   <main class="page-shell">
     <section class="page-hero">
       <p class="eyebrow">Guild · Roleplay</p>
@@ -63,15 +65,15 @@
         <h2>One doorway into every Lumina story.</h2>
         <p>Each published chronicle will have a clear reading order, chapter index, story status and visual context. Readers will be able to begin from the first chapter, continue an ongoing saga or open a complete standalone tale without searching across different pages.</p>
         <p>The archive is already structured for future text and images. Until the first public story arrives, every section below explains exactly where it will live.</p>
-        <div class="roleplay-gateway-stats" aria-label="Roleplay archive totals">
+        <div class="roleplay-gateway-stats" role="group" aria-label="Roleplay archive totals">
           <span><strong data-roleplay-story-count>0</strong><small>Published stories</small></span>
           <span><strong data-roleplay-chapter-count>0</strong><small>Readable chapters</small></span>
           <span><strong data-roleplay-image-count>0</strong><small>Story illustrations</small></span>
         </div>
       </div>
       <aside class="roleplay-gateway-visual" aria-label="Map of the future Lumina story archive">
-        <img src="assets/illustrations/roleplay-story-atlas.svg?v=20260723-4" alt="Illustrated story atlas connecting a central Lumina chronicle to chapters, characters and locations">
-        <div class="roleplay-gateway-key" aria-hidden="true"><span>Sagas</span><span>Characters</span><span>Lore</span></div>
+        <img src="assets/illustrations/roleplay-story-atlas.svg?v=0ed2f89f29" alt="Illustrated story atlas connecting a central Lumina chronicle to chapters, characters and locations">
+        <div class="roleplay-gateway-key" aria-hidden="true"><span>Sagas</span><span>Characters</span><span>Anthologies</span></div>
       </aside>
     </section>
 
@@ -80,7 +82,7 @@
       <p class="roleplay-library-status" data-roleplay-featured-status aria-live="polite">Preparing the featured chronicle…</p>
       <div class="roleplay-featured-stage" data-roleplay-featured>
         <article class="roleplay-featured-empty">
-          <div class="roleplay-featured-empty-art"><img src="assets/illustrations/roleplay-archive-empty.svg?v=20260723-4" alt="An illuminated but unwritten chronicle waiting for its first story"></div>
+          <div class="roleplay-featured-empty-art"><img src="assets/illustrations/roleplay-archive-empty.svg?v=bbbf908eae" alt="An illuminated but unwritten chronicle waiting for its first story"></div>
           <div class="roleplay-featured-empty-copy"><p class="eyebrow">The first chronicle is waiting</p><h3>This stage is ready for Lumina's opening roleplay story.</h3><p>Once the first tale is approved, readers will see its cover, premise, status, chapter count and a clear button to begin from Chapter One.</p></div>
         </article>
       </div>
@@ -95,6 +97,7 @@
           <button type="button" data-roleplay-filter="one-shot" aria-pressed="false">One-shots</button>
           <button type="button" data-roleplay-filter="character" aria-pressed="false">Characters</button>
           <button type="button" data-roleplay-filter="lore" aria-pressed="false">Lore</button>
+          <button type="button" data-roleplay-filter="anthology" aria-pressed="false">Anthologies</button>
         </div>
       </header>
       <p class="roleplay-library-status" data-roleplay-library-status aria-live="polite">Loading the Story Library…</p>
@@ -109,7 +112,7 @@
           <ol><li><span>01</span><div><strong>Opening chapter</strong><small>Waiting for publication</small></div></li><li><span>02</span><div><strong>The story continues</strong><small>Future chapters remain ordered</small></div></li></ol>
         </aside>
         <article class="roleplay-reader-page">
-          <div class="roleplay-reader-placeholder-mark" aria-hidden="true"><img src="assets/icons/roleplay-chapter.svg?v=20260723-4" alt=""></div>
+          <div class="roleplay-reader-placeholder-mark" aria-hidden="true"><img src="assets/icons/roleplay-chapter.svg?v=b8ca75bec8" alt=""></div>
           <p class="eyebrow">Reader preview</p>
           <h3>Select a story to open its first chapter.</h3>
           <p>Text, quotes and illustrations will be arranged in a focused reading column. The story index remains available beside it on larger screens and moves above the chapter on mobile.</p>
@@ -120,10 +123,11 @@
     <section class="section roleplay-atlas-section" id="story-atlas">
       <div class="section-heading roleplay-heading"><div><p class="eyebrow">Story Atlas</p><h2>Choose the kind of tale you want to enter.</h2></div><p>The atlas provides permanent routes through the archive even when the number of stories grows.</p></div>
       <div class="roleplay-atlas-grid">
-        <a class="roleplay-atlas-card roleplay-atlas-campaign" href="#story-library" data-roleplay-jump="campaign"><img src="assets/icons/roleplay-campaign.svg?v=20260723-4" alt="" aria-hidden="true"><span>01</span><div><p>Sagas</p><h3>Long-form campaigns</h3><small>Connected chapters, recurring characters and an evolving central plot.</small></div><b data-roleplay-category-count="campaign">0</b></a>
-        <a class="roleplay-atlas-card roleplay-atlas-oneshot" href="#story-library" data-roleplay-jump="one-shot"><img src="assets/icons/roleplay-one-shot.svg?v=20260723-4" alt="" aria-hidden="true"><span>02</span><div><p>One-shots</p><h3>Complete adventures</h3><small>Self-contained stories designed to be read from beginning to end in one visit.</small></div><b data-roleplay-category-count="one-shot">0</b></a>
-        <a class="roleplay-atlas-card roleplay-atlas-character" href="#story-library" data-roleplay-jump="character"><img src="assets/icons/roleplay-character.svg?v=20260723-4" alt="" aria-hidden="true"><span>03</span><div><p>Character journals</p><h3>Personal perspectives</h3><small>Backstories, diaries and defining moments told through one character's eyes.</small></div><b data-roleplay-category-count="character">0</b></a>
-        <a class="roleplay-atlas-card roleplay-atlas-lore" href="#story-library" data-roleplay-jump="lore"><img src="assets/icons/roleplay-lore.svg?v=20260723-4" alt="" aria-hidden="true"><span>04</span><div><p>Lorebook</p><h3>Places, factions and history</h3><small>Reference stories that deepen the people, locations and ideas behind each chronicle.</small></div><b data-roleplay-category-count="lore">0</b></a>
+        <a class="roleplay-atlas-card roleplay-atlas-campaign" href="#story-library" data-roleplay-jump="campaign"><img src="assets/icons/roleplay-campaign.svg?v=f732c83c8b" alt="" aria-hidden="true"><span>01</span><div><p>Sagas</p><h3>Long-form campaigns</h3><small>Connected chapters, recurring characters and an evolving central plot.</small></div><b data-roleplay-category-count="campaign">0</b></a>
+        <a class="roleplay-atlas-card roleplay-atlas-oneshot" href="#story-library" data-roleplay-jump="one-shot"><img src="assets/icons/roleplay-one-shot.svg?v=bc30650bdc" alt="" aria-hidden="true"><span>02</span><div><p>One-shots</p><h3>Complete adventures</h3><small>Self-contained stories designed to be read from beginning to end in one visit.</small></div><b data-roleplay-category-count="one-shot">0</b></a>
+        <a class="roleplay-atlas-card roleplay-atlas-character" href="#story-library" data-roleplay-jump="character"><img src="assets/icons/roleplay-character.svg?v=b6c12a5a62" alt="" aria-hidden="true"><span>03</span><div><p>Character journals</p><h3>Personal perspectives</h3><small>Backstories, diaries and defining moments told through one character's eyes.</small></div><b data-roleplay-category-count="character">0</b></a>
+        <a class="roleplay-atlas-card roleplay-atlas-lore" href="#story-library" data-roleplay-jump="lore"><img src="assets/icons/roleplay-lore.svg?v=e1d084890a" alt="" aria-hidden="true"><span>04</span><div><p>Lorebook</p><h3>Places, factions and history</h3><small>Reference stories that deepen the people, locations and ideas behind each chronicle.</small></div><b data-roleplay-category-count="lore">0</b></a>
+        <a class="roleplay-atlas-card roleplay-atlas-anthology" href="#story-library" data-roleplay-jump="anthology"><img src="assets/icons/roleplay-chapter.svg?v=b8ca75bec8" alt="" aria-hidden="true"><span>05</span><div><p>Anthologies</p><h3>Many voices, one collection</h3><small>Multi-author or themed stories gathered into one ordered Lumina volume.</small></div><b data-roleplay-category-count="anthology">0</b></a>
       </div>
     </section>
 
@@ -158,7 +162,7 @@
           <span class="roleplay-path-icon">✦</span><p class="eyebrow">Player</p><h3>Live the story</h3><p>Play a character, respond to the scene and help other participants create moments together.</p><ul><li>Prepare a simple motivation</li><li>Listen and leave space for others</li><li>Accept that outcomes may be unexpected</li></ul>
         </article>
         <article class="roleplay-path-card roleplay-path-narrator">
-          <span class="roleplay-path-icon"><img src="assets/icons/roleplay.svg?v=20260723-4" alt="" aria-hidden="true"></span><p class="eyebrow">Narrator</p><h3>Open the world</h3><p>Introduce a situation, guide its pace and adapt the experience to the choices made by the players.</p><ul><li>Set expectations before starting</li><li>Offer choices instead of one solution</li><li>Protect the agreed tone and boundaries</li></ul>
+          <span class="roleplay-path-icon"><img src="assets/icons/roleplay.svg?v=e95520fbf1" alt="" aria-hidden="true"></span><p class="eyebrow">Narrator</p><h3>Open the world</h3><p>Introduce a situation, guide its pace and adapt the experience to the choices made by the players.</p><ul><li>Set expectations before starting</li><li>Offer choices instead of one solution</li><li>Protect the agreed tone and boundaries</li></ul>
         </article>
         <article class="roleplay-path-card roleplay-path-observer">
           <span class="roleplay-path-icon">◉</span><p class="eyebrow">Observer</p><h3>Watch before joining</h3><p>Follow a session respectfully, understand how the group plays and join a future story when ready.</p><ul><li>No pressure to perform immediately</li><li>Learn the rhythm of a session</li><li>Respect immersion while observing</li></ul>
@@ -177,7 +181,7 @@
     </section>
 
     <section class="section roleplay-chronicles" id="publishing">
-      <div class="roleplay-chronicles-art"><img src="assets/illustrations/roleplay-chronicle.svg?v=20260723-4" alt="Illustrated open chronicle with roleplay symbols"></div>
+      <div class="roleplay-chronicles-art"><img src="assets/illustrations/roleplay-chronicle.svg?v=193c31102c" alt="Illustrated open chronicle with roleplay symbols"></div>
       <div class="roleplay-chronicles-copy"><p class="eyebrow">Published from Discord</p><h2>A private writing thread becomes a public chronicle.</h2><p>Authors choose a story format in Lumina's Website panel, add its public details and write the first chapter naturally across several Discord messages. Images remain in their intended order, the first one becomes the cover and staff discussion never enters the public story.</p><p>When the author submits the draft, authorized staff review a locked snapshot. Approval publishes it directly into this Story Library; later revisions, visibility changes and removal continue from the same private control thread.</p><div class="hero-actions"><a class="button primary" href="#story-library">Browse published stories</a><a class="button secondary" href="docs-website.html#roleplay">Read the publishing guide</a></div></div>
     </section>
 
@@ -187,7 +191,7 @@
     </section>
   </main>
   <footer class="footer"><a href="#top">Back to top</a><span>Built for Lumina · Luminox</span></footer>
-  <script src="script.js?v=20260726-2"></script>
-  <script src="roleplay.js?v=20260723-4"></script>
+  <script src="script.js?v=7d963ee3b4"></script>
+  <script src="roleplay.js?v=27100d3a5c"></script>
 </body>
 </html>

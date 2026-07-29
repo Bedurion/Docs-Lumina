@@ -6,7 +6,8 @@
       "title": "Lumina city",
       "description": "This is a test for the website.",
       "category": "places",
-      "credit": "Lumina community",
+      "subcategory": "city",
+      "credit": "Sacrel",
       "submittedAt": "2026-07-27T19:38:11.304Z",
       "publishedAt": "2026-07-27T21:52:45.512Z",
       "media": {

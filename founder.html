@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'none'; object-src 'none'; frame-src 'none'; form-action 'none'; img-src 'self' data:; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self'; font-src 'self'; media-src 'self'; manifest-src 'self'">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="Discover Luminox Founder Edition: the complete private guild system reserved for accepted Lumina members on Secura and operated inside Discord.">
   <meta name="theme-color" content="#090d19">
@@ -25,8 +27,8 @@
   <meta name="application-name" content="Lumina · Luminox">
   <script type="application/ld+json" data-seo-enhanced>{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","@id":"https://guildlumina.com/founder.html#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://guildlumina.com/"},{"@type":"ListItem","position":2,"name":"Bot","item":"https://guildlumina.com/features.html"},{"@type":"ListItem","position":3,"name":"Founder Edition","item":"https://guildlumina.com/founder.html"}]},{"@type":"Organization","@id":"https://guildlumina.com/#organization","name":"Lumina","alternateName":"Lumina Guild","url":"https://guildlumina.com/","logo":{"@type":"ImageObject","url":"https://guildlumina.com/assets/brand/lumina-seal-256.png","width":256,"height":256},"description":"International Tibia guild on Secura focused on teamwork, progression, organized community life and the Luminox Discord guild bot.","sameAs":["https://www.tibia.com/community/?subtopic=guilds&page=view&GuildName=Lumina","https://discord.gg/9BTRjtjnU8"]},{"@type":"SoftwareApplication","@id":"https://guildlumina.com/#luminox","name":"Luminox","alternateName":"Luminox Discord Guild Bot","url":"https://guildlumina.com/features.html","image":"https://guildlumina.com/assets/social/features.png","applicationCategory":"CommunicationApplication","applicationSubCategory":"Discord guild management bot","operatingSystem":"Any","runtimePlatform":"Discord","description":"Discord guild bot for verified identities, events, Loyalty, GuildBank, private support, moderation and live guild intelligence.","isAccessibleForFree":true,"installUrl":"https://discord.com/oauth2/authorize?client_id=1520561230648049965&permissions=395541081168&integration_type=0&scope=bot+applications.commands","softwareHelp":"https://guildlumina.com/docs.html","releaseNotes":"https://guildlumina.com/changelog.html","featureList":"https://guildlumina.com/features.html","offers":{"@type":"Offer","name":"Luminox Free","price":"0","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://guildlumina.com/pricing.html","seller":{"@id":"https://guildlumina.com/#organization"}},"publisher":{"@id":"https://guildlumina.com/#organization"}}]}</script>
   <!-- /SEO ENHANCEMENTS -->
-  <link rel="stylesheet" href="styles.css?v=20260726-3">
-  <link rel="stylesheet" href="founder.css?v=20260724-2">
+  <link rel="stylesheet" href="styles.css?v=984f9f8277">
+  <link rel="stylesheet" href="founder.css?v=f52d243e27">
   <link rel="icon" type="image/svg+xml" sizes="any" href="assets/brand/favicon-dark.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="assets/brand/favicon-16x16.png">
@@ -38,9 +40,9 @@
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Founder Edition · Complete Luminox for Lumina — official GuildLumina.com preview">
   <meta name="twitter:image:alt" content="Founder Edition · Complete Luminox for Lumina — official GuildLumina.com preview">
-</head>
+  </head>
 <body>
-  <header class="site-header compact-header" id="top"><nav class="nav"><a class="brand" href="index.html"><span class="brand-mark"><img src="assets/brand/lumina-seal-256.png" alt="" aria-hidden="true"></span><img class="brand-wordmark" src="assets/brand/lumina-wordmark.svg?v=20260723-4" alt="Lumina" width="128" height="39"></a><button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">☰</button><div class="nav-links" data-nav-links></div></nav></header>
+  <header class="site-header compact-header" id="top"><nav class="nav"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span><img class="brand-wordmark" src="assets/brand/lumina-wordmark.svg?v=540b8ab637" alt="Lumina" width="128" height="39"></a><button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">☰</button><div class="nav-links" data-nav-links></div></nav></header>
 
   <main class="page-shell" data-no-contextual-conversion>
     <section class="page-hero">
@@ -57,7 +59,7 @@
         <p>Universal and Community are the public Luminox editions available to other Discord servers. Founder is different: it is the private edition running in Lumina’s official server, shaped around our real guild structure and available only to eligible Lumina members.</p>
         <p>You cannot purchase Founder, unlock it with a Premium subscription or transfer it to another server. Access begins after Lumina accepts you into the guild and your identity becomes part of our verified Discord ecosystem.</p>
       </div>
-      <div class="founder-foundation-facts" aria-label="Founder Edition facts">
+      <div class="founder-foundation-facts" role="group" aria-label="Founder Edition facts">
         <article><span>Access</span><strong>Accepted Lumina members</strong><p>Membership—not payment—opens the private edition.</p></article>
         <article><span>Home</span><strong>Official Lumina Discord</strong><p>Every interaction remains inside the guild server.</p></article>
         <article><span>Purpose</span><strong>Operate and improve</strong><p>Founder powers daily guild life and validates new Luminox work.</p></article>
@@ -89,35 +91,35 @@
       </div>
       <div class="founder-capability-grid">
         <article class="founder-capability founder-capability-identity">
-          <span class="founder-capability-icon"><img src="assets/icons/content-registration.svg?v=20260723-4" alt="" aria-hidden="true"></span>
+          <span class="founder-capability-icon"><img src="assets/icons/content-registration.svg?v=88ac19d022" alt="" aria-hidden="true"></span>
           <p class="eyebrow">Identity &amp; membership</p>
           <h3>Know who every member is.</h3>
           <p>Verified Tibia characters, mains, vocations, levels, world, guild rank, Discord roles and automatic nicknames form one dependable identity.</p>
           <a href="bot-registration.html">See verified registration <span aria-hidden="true">→</span></a>
         </article>
         <article class="founder-capability founder-capability-activity">
-          <span class="founder-capability-icon"><img src="assets/icons/content-events.svg?v=20260723-4" alt="" aria-hidden="true"></span>
+          <span class="founder-capability-icon"><img src="assets/icons/content-events.svg?v=dcf3d8d6eb" alt="" aria-hidden="true"></span>
           <p class="eyebrow">Activities &amp; participation</p>
           <h3>Move from an idea to an organized team.</h3>
           <p>Hunts, bosses, quests and general events combine scheduling, availability, invitations, leadership, roles, attendance and archived discussion threads.</p>
           <a href="bot-events.html">Explore Event Boards <span aria-hidden="true">→</span></a>
         </article>
         <article class="founder-capability founder-capability-economy">
-          <span class="founder-capability-icon"><img src="assets/icons/content-economy.svg?v=20260723-4" alt="" aria-hidden="true"></span>
+          <span class="founder-capability-icon"><img src="assets/icons/content-economy.svg?v=91b8facb50" alt="" aria-hidden="true"></span>
           <p class="eyebrow">Economy &amp; recognition</p>
           <h3>Make contribution visible and accountable.</h3>
           <p>GuildBank, Loot Split, Guildhall, Loyalty Levels, Server Boost rewards, streaming and recruitment protection share reviewed records.</p>
           <a href="bot-loyalty.html">Understand Loyalty <span aria-hidden="true">→</span></a>
         </article>
         <article class="founder-capability founder-capability-intelligence">
-          <span class="founder-capability-icon"><img src="assets/icons/content-intelligence.svg?v=20260723-4" alt="" aria-hidden="true"></span>
+          <span class="founder-capability-icon"><img src="assets/icons/content-intelligence.svg?v=4054450d26" alt="" aria-hidden="true"></span>
           <p class="eyebrow">Intelligence &amp; protection</p>
           <h3>Keep current risk information connected.</h3>
           <p>Online lists, Watchlists, Blacklist, Ban List, Tracker, Guards and Automod preserve context through trades, transfers and returns.</p>
           <a href="features-intelligence.html">Review live intelligence <span aria-hidden="true">→</span></a>
         </article>
         <article class="founder-capability founder-capability-staff">
-          <span class="founder-capability-icon"><img src="assets/icons/content-support.svg?v=20260723-4" alt="" aria-hidden="true"></span>
+          <span class="founder-capability-icon"><img src="assets/icons/content-support.svg?v=5932e3d65c" alt="" aria-hidden="true"></span>
           <p class="eyebrow">Staff &amp; publishing</p>
           <h3>Give responsibility a clear private workflow.</h3>
           <p>Support tickets, specialist roles, voting, applications, moderation logs and Founder-only Website Publishing remain role-aware and reviewable.</p>
@@ -166,21 +168,21 @@
       </div>
       <div class="founder-edition-lanes">
         <article>
-          <img src="assets/icons/edition-universal.svg?v=20260723-4" alt="" aria-hidden="true">
+          <img src="assets/icons/edition-universal.svg?v=1ab6f913da" alt="" aria-hidden="true">
           <span>Public edition</span>
           <h3>Universal</h3>
           <p>Game-independent panels and workflows for any organized Discord community.</p>
           <a href="editions.html#universal-edition">Explore Universal</a>
         </article>
         <article>
-          <img src="assets/icons/edition-community.svg?v=20260723-4" alt="" aria-hidden="true">
+          <img src="assets/icons/edition-community.svg?v=8a1220e1d4" alt="" aria-hidden="true">
           <span>Public edition</span>
           <h3>Community</h3>
           <p>Purpose-built Tibia identity, guild operations and live game context.</p>
           <a href="editions.html#community-edition">Explore Community</a>
         </article>
         <article class="founder-edition-lane-private">
-          <img src="assets/icons/edition-founder.svg?v=20260723-4" alt="" aria-hidden="true">
+          <img src="assets/icons/edition-founder.svg?v=a4a3d78932" alt="" aria-hidden="true">
           <span>Private edition</span>
           <h3>Founder</h3>
           <p>The complete Lumina environment with private capabilities and no public commercial caps.</p>
@@ -197,7 +199,7 @@
         <p class="eyebrow">A living development environment</p>
         <h2 id="founder-workshop-title">Founder is where Luminox proves that an idea works in real guild life.</h2>
         <p>New workflows begin with an actual Lumina need. They are used under real membership, staff and activity conditions, observed over time and refined before selected capabilities become suitable for Community or Universal.</p>
-        <div class="founder-development-flow" aria-label="Founder development cycle">
+        <div class="founder-development-flow" role="group" aria-label="Founder development cycle">
           <article><span>1</span><div><strong>Real friction appears</strong><p>A repeated guild problem reveals what should improve.</p></div></article>
           <article><span>2</span><div><strong>Founder tests the solution</strong><p>Lumina operates the complete workflow in Discord.</p></div></article>
           <article><span>3</span><div><strong>Feedback refines it</strong><p>Members and staff expose unclear steps and edge cases.</p></div></article>
@@ -252,6 +254,6 @@
   </main>
 
   <footer class="footer"><a href="#top">Back to top</a><span>Built for Lumina · Luminox</span></footer>
-  <script src="script.js?v=20260726-2"></script>
+  <script src="script.js?v=7d963ee3b4"></script>
 </body>
 </html>

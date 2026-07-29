@@ -38,3 +38,9 @@ In the GitHub repository settings, open **Pages** and select **GitHub Actions** 
 The Website workflow accepts only a staff-approved Discord proposal and creates a cleaned web copy before updating the gallery. Uploaded files are checked in GitHub Actions rather than on the Luminox host computer.
 
 Publishing credentials belong only in the private bot environment and GitHub repository secrets. Never commit their values, paste them into Discord or include them in screenshots. Keep repository permissions limited to the actions required by the workflow.
+
+## Browser security on GitHub Pages
+
+`npm run seo` adds a compatible Content Security Policy and a strict referrer policy to every HTML page. The policy keeps scripts, data requests and media on the same origin while allowing the small set of dynamic inline styles used by navigation, galleries and the custom cursor.
+
+Some protections can only be delivered as HTTP response headers, not as HTML metadata. HSTS, `X-Content-Type-Options`, `Permissions-Policy` and CSP `frame-ancestors` therefore require configuration at an upstream CDN/proxy or a host that supports custom response headers. Do not add platform-specific `_headers` files to this repository unless the deployment platform changes and explicitly supports them.

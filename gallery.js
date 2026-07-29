@@ -7,9 +7,61 @@ const collectionLinks = [...document.querySelectorAll('[data-gallery-jump]')];
 const categoryLabels = Object.freeze({
   adventures: 'Adventures',
   community: 'Guild life',
+  events: 'Events',
   roleplay: 'Roleplay',
   milestones: 'Milestones',
-  video: 'Video'
+  world: 'World & discoveries'
+});
+const subcategoryLabels = Object.freeze({
+  adventures: Object.freeze({
+    hunt: 'Hunt',
+    boss: 'Boss',
+    quest: 'Quest',
+    exploration: 'Exploration',
+    challenge: 'Challenge',
+    other: 'Other'
+  }),
+  community: Object.freeze({
+    gathering: 'Gathering',
+    guildhall: 'Guildhall',
+    celebration: 'Celebration',
+    teamwork: 'Teamwork',
+    'daily-life': 'Daily life',
+    recruitment: 'Recruitment',
+    other: 'Other'
+  }),
+  events: Object.freeze({
+    'hunt-event': 'Hunt event',
+    contest: 'Contest',
+    tournament: 'Tournament',
+    ceremony: 'Ceremony',
+    'social-event': 'Social event',
+    other: 'Other'
+  }),
+  milestones: Object.freeze({
+    level: 'Level',
+    skill: 'Skill',
+    quest: 'Quest',
+    loot: 'Loot',
+    anniversary: 'Anniversary',
+    'guild-progress': 'Guild progress',
+    other: 'Other'
+  }),
+  roleplay: Object.freeze({
+    scene: 'Scene',
+    character: 'Character',
+    campaign: 'Campaign',
+    lore: 'Lore',
+    other: 'Other'
+  }),
+  world: Object.freeze({
+    city: 'City',
+    landscape: 'Landscape',
+    dungeon: 'Dungeon',
+    discovery: 'Discovery',
+    update: 'Update',
+    other: 'Other'
+  })
 });
 
 let galleryEntries = [];
@@ -32,9 +84,16 @@ function formatPublishedDate(value) {
 function normalizeCategory(entry) {
   const candidate = String(entry.category || '').trim().toLowerCase();
   if (Object.hasOwn(categoryLabels, candidate)) return candidate;
+  return 'community';
+}
 
-  const mediaItems = Array.isArray(entry.media) ? entry.media : [];
-  return mediaItems.some((media) => media.type === 'video') ? 'video' : 'community';
+function normalizeSubcategory(entry, category) {
+  const candidate = String(entry.subcategory || '').trim().toLowerCase();
+  return Object.hasOwn(subcategoryLabels[category] || {}, candidate) ? candidate : 'other';
+}
+
+function isVideoEntry(entry) {
+  return normalizeMedia(entry).some((media) => media.type === 'video');
 }
 
 function normalizeMedia(entry) {
@@ -53,7 +112,7 @@ function buildMedia(entry, featured = false) {
   if (mediaItems.length === 0) {
     const fallback = document.createElement('div');
     fallback.className = 'gallery-media-fallback';
-    fallback.innerHTML = '<img src="assets/illustrations/gallery-frames.svg?v=20260723-4" alt="Decorative gallery frames">';
+    fallback.innerHTML = '<img src="assets/illustrations/gallery-frames.svg?v=355a035b64" alt="Decorative gallery frames">';
     media.append(fallback);
     return media;
   }
@@ -86,12 +145,18 @@ function buildMedia(entry, featured = false) {
 }
 
 function buildEntryMeta(entry, category) {
+  const subcategory = normalizeSubcategory(entry, category);
   const meta = document.createElement('div');
   meta.className = 'gallery-entry-meta';
-  meta.append(
-    createTextElement('span', 'gallery-category-badge', categoryLabels[category]),
-    createTextElement('span', '', formatPublishedDate(entry.publishedAt))
-  );
+  meta.append(createTextElement(
+    'span',
+    'gallery-category-badge',
+    `${categoryLabels[category]} · ${subcategoryLabels[category][subcategory]}`
+  ));
+  if (isVideoEntry(entry)) {
+    meta.append(createTextElement('span', 'gallery-category-badge', 'Video'));
+  }
+  meta.append(createTextElement('span', '', formatPublishedDate(entry.publishedAt)));
   return meta;
 }
 
@@ -100,6 +165,7 @@ function buildGalleryEntry(entry) {
   const article = document.createElement('article');
   article.className = 'community-gallery-entry';
   article.dataset.galleryCategory = category;
+  article.dataset.galleryFormat = isVideoEntry(entry) ? 'video' : 'image';
   article.id = String(entry.id || '').toLowerCase();
 
   const content = document.createElement('div');
@@ -108,7 +174,7 @@ function buildGalleryEntry(entry) {
     buildEntryMeta(entry, category),
     createTextElement('h3', '', entry.title || 'Lumina story'),
     createTextElement('p', 'community-gallery-description', entry.description || ''),
-    createTextElement('p', 'community-gallery-credit', `Credit · ${entry.credit || 'Lumina community'}`)
+    createTextElement('p', 'community-gallery-credit', `Credit · ${entry.credit || 'Lumina member'}`)
   );
 
   article.append(buildMedia(entry), content);
@@ -126,7 +192,7 @@ function buildFeaturedEntry(entry) {
     buildEntryMeta(entry, category),
     createTextElement('h3', '', entry.title || 'Lumina story'),
     createTextElement('p', '', entry.description || ''),
-    createTextElement('p', 'community-gallery-credit', `Credit · ${entry.credit || 'Lumina community'}`)
+    createTextElement('p', 'community-gallery-credit', `Credit · ${entry.credit || 'Lumina member'}`)
   );
 
   article.append(buildMedia(entry, true), content);
@@ -134,11 +200,14 @@ function buildFeaturedEntry(entry) {
 }
 
 function updateFilter(filter) {
-  activeFilter = Object.hasOwn(categoryLabels, filter) ? filter : 'all';
+  activeFilter = (filter === 'video' || Object.hasOwn(categoryLabels, filter)) ? filter : 'all';
   let visibleCount = 0;
 
   galleryEntries.forEach((entry) => {
-    const visible = activeFilter === 'all' || normalizeCategory(entry.data) === activeFilter;
+    const visible = activeFilter === 'all' ||
+      (activeFilter === 'video'
+        ? isVideoEntry(entry.data)
+        : normalizeCategory(entry.data) === activeFilter);
     entry.element.classList.toggle('is-hidden', !visible);
     if (visible) visibleCount += 1;
   });
@@ -150,12 +219,13 @@ function updateFilter(filter) {
   });
 
   if (galleryEntries.length > 0) {
+    const activeFilterLabel = activeFilter === 'video' ? 'Video' : categoryLabels[activeFilter];
     if (activeFilter === 'all') {
       statusMessage.textContent = `${visibleCount} approved ${visibleCount === 1 ? 'story' : 'stories'}.`;
     } else if (visibleCount === 0) {
-      statusMessage.textContent = `No ${categoryLabels[activeFilter].toLowerCase()} entries have been published yet.`;
+      statusMessage.textContent = `No ${activeFilterLabel.toLowerCase()} entries have been published yet.`;
     } else {
-      statusMessage.textContent = `${visibleCount} ${categoryLabels[activeFilter].toLowerCase()} ${visibleCount === 1 ? 'entry' : 'entries'}.`;
+      statusMessage.textContent = `${visibleCount} ${activeFilterLabel.toLowerCase()} ${visibleCount === 1 ? 'entry' : 'entries'}.`;
     }
     statusMessage.classList.add('gallery-status-summary');
   }

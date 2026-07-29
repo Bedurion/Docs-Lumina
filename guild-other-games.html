@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'none'; object-src 'none'; frame-src 'none'; form-action 'none'; img-src 'self' data:; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self'; font-src 'self'; media-src 'self'; manifest-src 'self'">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="See how Lumina uses Discord text and voice rooms for MMORPGs and RPGs beyond Tibia while remaining one organized guild on Secura.">
   <meta name="theme-color" content="#090d19">
@@ -25,7 +27,7 @@
   <meta name="application-name" content="Lumina · Luminox">
   <script type="application/ld+json" data-seo-enhanced>{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","@id":"https://guildlumina.com/guild-other-games.html#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://guildlumina.com/"},{"@type":"ListItem","position":2,"name":"Guild","item":"https://guildlumina.com/guild.html"},{"@type":"ListItem","position":3,"name":"Other Games","item":"https://guildlumina.com/guild-other-games.html"}]},{"@type":"Organization","@id":"https://guildlumina.com/#organization","name":"Lumina","alternateName":"Lumina Guild","url":"https://guildlumina.com/","logo":{"@type":"ImageObject","url":"https://guildlumina.com/assets/brand/lumina-seal-256.png","width":256,"height":256},"description":"International Tibia guild on Secura focused on teamwork, progression, organized community life and the Luminox Discord guild bot.","sameAs":["https://www.tibia.com/community/?subtopic=guilds&page=view&GuildName=Lumina","https://discord.gg/9BTRjtjnU8"]}]}</script>
   <!-- /SEO ENHANCEMENTS -->
-  <link rel="stylesheet" href="styles.css?v=20260726-3">
+  <link rel="stylesheet" href="styles.css?v=984f9f8277">
   <link rel="icon" type="image/svg+xml" sizes="any" href="assets/brand/favicon-dark.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="assets/brand/favicon-16x16.png">
@@ -37,9 +39,9 @@
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Other Games | Lumina Beyond Tibia — official GuildLumina.com preview">
   <meta name="twitter:image:alt" content="Other Games | Lumina Beyond Tibia — official GuildLumina.com preview">
-</head>
+  </head>
 <body>
-  <header class="site-header compact-header" id="top"><nav class="nav"><a class="brand" href="index.html"><span class="brand-mark"><img src="assets/brand/lumina-seal-256.png" alt="" aria-hidden="true"></span><img class="brand-wordmark" src="assets/brand/lumina-wordmark.svg?v=20260723-4" alt="Lumina" width="128" height="39"></a><button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">☰</button><div class="nav-links" data-nav-links></div></nav></header>
+  <header class="site-header compact-header" id="top"><nav class="nav"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span><img class="brand-wordmark" src="assets/brand/lumina-wordmark.svg?v=540b8ab637" alt="Lumina" width="128" height="39"></a><button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">☰</button><div class="nav-links" data-nav-links></div></nav></header>
   <main class="page-shell" data-no-contextual-conversion>
     <section class="page-hero">
       <p class="eyebrow">Guild · Other Games</p>
@@ -59,15 +61,15 @@
         <p>Members do not need to create a separate server or wait for an official guild event. Our Discord provides shared spaces for starting a conversation, finding interested players and moving into voice when a session begins.</p>
         <div class="other-games-room-grid">
           <article class="other-games-room-card other-games-room-card--text">
-            <img src="assets/icons/content-support.svg?v=20260724-4" alt="" aria-hidden="true">
+            <img src="assets/icons/content-support.svg?v=5932e3d65c" alt="" aria-hidden="true">
             <div><span>Text rooms</span><h3>Find the people first</h3><p>Share a game, ask who wants to join, compare builds, post clips or arrange a day and time without filling the main guild channels.</p></div>
           </article>
           <article class="other-games-room-card other-games-room-card--voice">
-            <img src="assets/icons/content-streaming.svg?v=20260724-4" alt="" aria-hidden="true">
+            <img src="assets/icons/content-streaming.svg?v=e447978faa" alt="" aria-hidden="true">
             <div><span>Voice rooms</span><h3>Play, talk and stream</h3><p>Move into a voice room when the group is ready. Members can talk, coordinate and use Discord screen sharing during the session.</p></div>
           </article>
         </div>
-        <div class="other-games-channel-preview" aria-label="Example of Lumina Discord rooms for other games">
+        <div class="other-games-channel-preview" role="group" aria-label="Example of Lumina Discord rooms for other games">
           <div class="other-games-channel-preview-head"><span>Lumina gaming lounge</span><small>Available to members</small></div>
           <div class="other-games-channel-row"><b aria-hidden="true">#</b><span><strong>other-games</strong><small>Ideas, groups, builds and clips</small></span><em>Text</em></div>
           <div class="other-games-channel-row other-games-channel-row--voice"><b aria-hidden="true">◉</b><span><strong>Gaming Lounge</strong><small>Voice, coordination and screen share</small></span><em>Voice</em></div>
@@ -138,9 +140,9 @@
     <section class="section other-games-routes">
       <div class="other-games-routes-intro"><p class="eyebrow">A lightweight social flow</p><h2>No extra bureaucracy. Just a clear place to find people.</h2><p>Other-game sessions can form naturally inside the Discord our members already use. Nothing needs to become a second guild before people are allowed to enjoy it together.</p></div>
       <div class="other-games-route-grid">
-        <article><img src="assets/icons/content-support.svg?v=20260724-4" alt="" aria-hidden="true"><span>Start in text</span><h3>Share the game or idea</h3><p>Post what you want to play, when you are available and whether you need a full party or just one more person.</p></article>
-        <article><img src="assets/icons/content-streaming.svg?v=20260724-4" alt="" aria-hidden="true"><span>Move to voice</span><h3>Play in one shared room</h3><p>Use voice, live coordination and screen sharing when the session begins, then leave the room ready for the next group.</p></article>
-        <article><img src="assets/icons/content-identity.svg?v=20260724-4" alt="" aria-hidden="true"><span>Keep one identity</span><h3>Return without fragmentation</h3><p>The evening can end without creating new ranks, rosters or obligations. The same friends remain connected through Lumina.</p></article>
+        <article><img src="assets/icons/content-support.svg?v=5932e3d65c" alt="" aria-hidden="true"><span>Start in text</span><h3>Share the game or idea</h3><p>Post what you want to play, when you are available and whether you need a full party or just one more person.</p></article>
+        <article><img src="assets/icons/content-streaming.svg?v=e447978faa" alt="" aria-hidden="true"><span>Move to voice</span><h3>Play in one shared room</h3><p>Use voice, live coordination and screen sharing when the session begins, then leave the room ready for the next group.</p></article>
+        <article><img src="assets/icons/content-identity.svg?v=e97aac0b2a" alt="" aria-hidden="true"><span>Keep one identity</span><h3>Return without fragmentation</h3><p>The evening can end without creating new ranks, rosters or obligations. The same friends remain connected through Lumina.</p></article>
       </div>
     </section>
 
@@ -155,6 +157,6 @@
     </section>
   </main>
   <footer class="footer"><a href="#top">Back to top</a><span>Built for Lumina · Luminox</span></footer>
-  <script src="script.js?v=20260726-2"></script>
+  <script src="script.js?v=7d963ee3b4"></script>
 </body>
 </html>

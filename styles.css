@@ -1236,7 +1236,7 @@ html.keyboard-navigation .skip-link:focus-visible {
   width: 100%;
   height: 100%;
   content: "";
-  background: url("assets/brand/seal-dark-nav.svg?v=20260723-4") center / contain no-repeat;
+  background: url("assets/brand/seal-dark-nav.svg?v=8313b7fbad") center / contain no-repeat;
   mix-blend-mode: screen;
 }
 
@@ -3097,7 +3097,7 @@ html.keyboard-navigation .skip-link:focus-visible {
   }
 
   .footer-brand small {
-    font-size: 0.59rem;
+    font-size: 0.68rem;
     white-space: normal;
   }
 
@@ -3132,7 +3132,7 @@ html.keyboard-navigation .skip-link:focus-visible {
 
   .footer-copyright,
   .footer-legal {
-    font-size: 0.62rem;
+    font-size: 0.68rem;
   }
 
   .footer-legal {
@@ -3146,7 +3146,7 @@ html.keyboard-navigation .skip-link:focus-visible {
   }
 
   .footer-links a {
-    font-size: 0.57rem;
+    font-size: 0.64rem;
   }
 }
 
@@ -3967,8 +3967,8 @@ html.keyboard-navigation .skip-link:focus-visible {
 }
 
 .guild-cover-facts small {
-  color: rgba(86, 199, 245, 0.68);
-  font-size: 0.57rem;
+  color: rgba(128, 216, 252, 0.9);
+  font-size: 0.65rem;
   font-weight: 850;
   letter-spacing: 0.09em;
   line-height: 1.2;
@@ -5296,12 +5296,12 @@ html.keyboard-navigation .skip-link:focus-visible {
 
   .guild-cover-stage { inset: 0 1% -2%; }
   .guild-cover-seal { width: 194px; height: 194px; }
-  .guild-cover-kicker { gap: 0.5rem; font-size: 0.59rem; }
+  .guild-cover-kicker { gap: 0.5rem; font-size: 0.65rem; }
   .guild-cover-identity strong { font-size: 1.85rem; }
   .guild-cover-facts { gap: 0.38rem; }
   .guild-cover-facts span { padding-inline: 0.35rem; }
   .guild-cover-facts strong { font-size: 0.66rem; }
-  .guild-cover-facts small { font-size: 0.5rem; }
+  .guild-cover-facts small { font-size: 0.62rem; }
 
   .opening-bot-character {
     min-height: 500px;
@@ -8564,7 +8564,7 @@ body.page-interior .opening-title-row h1 {
 
   .home-story-signals span {
     padding: 0.3rem 0.48rem;
-    font-size: 0.58rem;
+    font-size: 0.66rem;
   }
 
   .home-story-copy {
@@ -9407,7 +9407,7 @@ body.page-interior .opening-title-row h1 {
   .opening-gallery-key,
   .opening-roleplay-cover > p { bottom: 0.4rem; }
   .opening-gallery-key span,
-  .opening-roleplay-cover > p span { font-size: 0.57rem; }
+  .opening-roleplay-cover > p span { font-size: 0.65rem; }
   .gallery-publish-card { grid-template-columns: 1fr; }
   .gallery-category-nav { margin-bottom: 4rem; }
   .gallery-featured-placeholder,
@@ -10629,7 +10629,7 @@ body.page-interior .opening-title-row h1 {
 
   .opening-bot-character-key span {
     padding: 0.35rem 0.5rem;
-    font-size: 0.54rem;
+    font-size: 0.64rem;
   }
 }
 
@@ -13192,7 +13192,7 @@ body.page-interior .opening-title-row h1 {
   }
 
   .roleplay-gateway-key span {
-    font-size: 0.56rem;
+    font-size: 0.64rem;
   }
 
   .roleplay-featured-stage {
@@ -15114,7 +15114,7 @@ body[data-page="guild-loyalty"] .page-hero::after {
   .narrative-meta span {
     min-height: 28px;
     padding: 0.4rem 0.58rem;
-    font-size: 0.58rem;
+    font-size: 0.66rem;
   }
 }
 
@@ -17517,8 +17517,8 @@ body[data-page="guild-art"] .opening-aside-scene .opening-aside-body {
 
 .member-action-copy small {
   overflow: visible;
-  color: rgba(211, 217, 234, 0.62);
-  font-size: 0.62rem;
+  color: rgba(221, 226, 240, 0.8);
+  font-size: 0.68rem;
   font-weight: 760;
   line-height: 1.2;
   white-space: nowrap;
@@ -17621,39 +17621,39 @@ body[data-page="guild-art"] .opening-aside-scene .opening-aside-body {
 }
 
 @media (hover: hover) and (pointer: fine) {
-  html,
-  html body,
-  html body * {
+  html.has-lumina-cursor,
+  html.has-lumina-cursor body,
+  html.has-lumina-cursor body * {
     cursor: url("assets/cursors/cursor-transparent.png") 0 0, none !important;
   }
 
-  html body a[href],
-  html body a[href]:hover,
-  html body a[href]:active,
-  html body button,
-  html body button:hover,
-  html body button:active,
-  html body summary,
-  html body summary:hover,
-  html body summary:active,
-  html body [role="button"],
-  html body [role="button"]:hover,
-  html body [role="button"]:active,
-  html body [role="link"],
-  html body [role="link"]:hover,
-  html body [role="link"]:active {
+  html.has-lumina-cursor body a[href],
+  html.has-lumina-cursor body a[href]:hover,
+  html.has-lumina-cursor body a[href]:active,
+  html.has-lumina-cursor body button,
+  html.has-lumina-cursor body button:hover,
+  html.has-lumina-cursor body button:active,
+  html.has-lumina-cursor body summary,
+  html.has-lumina-cursor body summary:hover,
+  html.has-lumina-cursor body summary:active,
+  html.has-lumina-cursor body [role="button"],
+  html.has-lumina-cursor body [role="button"]:hover,
+  html.has-lumina-cursor body [role="button"]:active,
+  html.has-lumina-cursor body [role="link"],
+  html.has-lumina-cursor body [role="link"]:hover,
+  html.has-lumina-cursor body [role="link"]:active {
     cursor: url("assets/cursors/cursor-transparent.png") 0 0, none !important;
   }
 
-  html body a[href],
-  html body a[href] img {
+  html.has-lumina-cursor body a[href],
+  html.has-lumina-cursor body a[href] img {
     -webkit-user-drag: none;
   }
 
-  html input:not([type="button"]):not([type="submit"]):not([type="reset"]),
-  html textarea,
-  html [contenteditable="true"],
-  html [data-native-cursor] {
+  html.has-lumina-cursor input:not([type="button"]):not([type="submit"]):not([type="reset"]),
+  html.has-lumina-cursor textarea,
+  html.has-lumina-cursor [contenteditable="true"],
+  html.has-lumina-cursor [data-native-cursor] {
     cursor: text !important;
   }
 
@@ -17668,7 +17668,6 @@ body[data-page="guild-art"] .opening-aside-scene .opening-aside-body {
     margin: -14px 0 0 -14px;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 120ms ease;
     will-change: transform;
     contain: strict;
   }

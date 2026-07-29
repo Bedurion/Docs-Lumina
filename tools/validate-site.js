@@ -1,5 +1,6 @@
 const fs = require('node:fs');
 const path = require('node:path');
+const { createHash } = require('node:crypto');
 const { execFileSync } = require('node:child_process');
 
 const root = path.resolve(__dirname, '..');
@@ -11,10 +12,61 @@ const warnings = [];
 const pageTitles = new Map();
 const docsGuidePath = path.join(root, 'docs-guide.js');
 const docsGuideSource = fs.existsSync(docsGuidePath) ? fs.readFileSync(docsGuidePath, 'utf8') : '';
+const gallerySubcategories = new Map([
+  ['adventures', new Set(['hunt', 'boss', 'quest', 'exploration', 'challenge', 'other'])],
+  ['community', new Set(['gathering', 'guildhall', 'celebration', 'teamwork', 'daily-life', 'recruitment', 'other'])],
+  ['events', new Set(['hunt-event', 'contest', 'tournament', 'ceremony', 'social-event', 'other'])],
+  ['milestones', new Set(['level', 'skill', 'quest', 'loot', 'anniversary', 'guild-progress', 'other'])],
+  ['roleplay', new Set(['scene', 'character', 'campaign', 'lore', 'other'])],
+  ['world', new Set(['city', 'landscape', 'dungeon', 'discovery', 'update', 'other'])]
+]);
+const artSubcategories = new Map([
+  ['places', new Set(['city', 'landscape', 'architecture', 'interior', 'dungeon', 'ruins', 'coast', 'other'])],
+  ['heroes', new Set(['portrait', 'party', 'action', 'journey', 'daily-life', 'npc', 'other'])],
+  ['creatures', new Set(['beast', 'dragon', 'undead', 'demon', 'humanoid', 'construct', 'aquatic', 'celestial', 'companion', 'other'])],
+  ['adversaries', new Set(['boss', 'rival', 'army', 'undead', 'supernatural', 'monster', 'other'])],
+  ['guild-life', new Set(['event', 'hunt', 'planning', 'celebration', 'achievement', 'rest', 'craft', 'trade', 'support', 'social', 'other'])],
+  ['objects', new Set(['equipment', 'item', 'relic', 'emblem', 'map', 'vehicle', 'costume', 'other'])],
+  ['concepts', new Set(['abstract', 'magic', 'atmosphere', 'poster', 'typography', 'concept', 'other'])]
+]);
+const blogCategoryLabels = new Map([
+  ['guild-news', 'Guild news'],
+  ['events', 'Events'],
+  ['community', 'Community'],
+  ['guides', 'Guides'],
+  ['tibia-secura', 'Tibia & Secura'],
+  ['luminox', 'Luminox'],
+  ['history', 'History'],
+  ['roleplay', 'Roleplay'],
+  ['editorial', 'Editorial']
+]);
+const roleplayCategories = new Set(['campaign', 'one-shot', 'character', 'lore', 'anthology']);
 
 function report(file, message) {
   errors.push(`${file}: ${message}`);
 }
+
+function blogCategoryKeyFor(value) {
+  const normalized = String(value || '').trim().toLowerCase();
+  if (!normalized) return null;
+  if (blogCategoryLabels.has(normalized)) return normalized;
+  return [...blogCategoryLabels]
+    .find(([, label]) => label.toLowerCase() === normalized)?.[0] || null;
+}
+
+for (const [name, catalog] of [
+  ['Gallery categories', gallerySubcategories],
+  ['Art categories', artSubcategories]
+]) {
+  if (catalog.size > 25) report('content taxonomy', `${name} exceed Discord's 25-option select limit`);
+  for (const [category, subcategories] of catalog) {
+    if (subcategories.size > 25) {
+      report('content taxonomy', `${category} exceeds Discord's 25-option subcategory limit`);
+    }
+  }
+}
+if (blogCategoryLabels.size > 25) report('content taxonomy', "Blog categories exceed Discord's 25-option select limit");
+if (roleplayCategories.size > 25) report('content taxonomy', "Roleplay categories exceed Discord's 25-option select limit");
 
 const manifest = JSON.parse(fs.readFileSync(path.join(root, 'site.webmanifest'), 'utf8'));
 if (manifest.background_color !== '#090d19') report('site.webmanifest', 'background color must match the shared canvas edge');
@@ -27,6 +79,73 @@ const requiredManifestIcons = new Map([
 for (const [src, sizes] of requiredManifestIcons) {
   const icon = manifest.icons?.find((entry) => entry.src === src && entry.sizes === sizes);
   if (!icon) report('site.webmanifest', `missing application icon ${src} (${sizes})`);
+}
+
+for (const stylesheetFile of fs.readdirSync(root).filter((file) => file.endsWith('.css'))) {
+  const source = fs.readFileSync(path.join(root, stylesheetFile), 'utf8');
+  for (const match of source.matchAll(/url\(\s*["']?([^"'?)]+)\?v=([^"'?)&#]+)/gi)) {
+    const [, localPath, version] = match;
+    const absolutePath = path.resolve(root, localPath);
+    if (!fs.existsSync(absolutePath)) {
+      report(stylesheetFile, `broken versioned asset ${localPath}`);
+      continue;
+    }
+    const expectedVersion = createHash('sha256')
+      .update(fs.readFileSync(absolutePath))
+      .digest('hex')
+      .slice(0, 10);
+    if (version !== expectedVersion) report(stylesheetFile, `stale cache version for ${localPath}`);
+  }
+}
+
+for (const scriptFile of fs.readdirSync(root).filter((file) => file.endsWith('.js'))) {
+  const source = fs.readFileSync(path.join(root, scriptFile), 'utf8');
+  for (const match of source.matchAll(/(assets\/[^"'`?\s]+\.(?:svg|png|webp|jpe?g|gif|avif|woff2?))\?v=([^"'`&#\s]+)/gi)) {
+    const [, localPath, version] = match;
+    const absolutePath = path.resolve(root, localPath);
+    if (!fs.existsSync(absolutePath)) {
+      report(scriptFile, `broken versioned asset ${localPath}`);
+      continue;
+    }
+    const expectedVersion = createHash('sha256')
+      .update(fs.readFileSync(absolutePath))
+      .digest('hex')
+      .slice(0, 10);
+    if (version !== expectedVersion) report(scriptFile, `stale cache version for ${localPath}`);
+  }
+}
+
+function assetFilesWithin(relativeDirectory) {
+  const directory = path.join(root, relativeDirectory);
+  if (!fs.existsSync(directory)) return [];
+  return fs.readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
+    const relativePath = path.posix.join(relativeDirectory, entry.name);
+    if (entry.isDirectory()) return assetFilesWithin(relativePath);
+    return /\.(?:svg|png|webp|jpe?g|gif|avif)$/i.test(entry.name) ? [relativePath] : [];
+  });
+}
+
+const sharedScriptSource = fs.readFileSync(path.join(root, 'script.js'), 'utf8');
+const vectorVersionMatch = /const vectorAssetVersions = Object\.freeze\((\{[\s\S]*?\})\);/.exec(sharedScriptSource);
+if (!vectorVersionMatch) {
+  report('script.js', 'missing generated vector asset versions');
+} else {
+  try {
+    const vectorVersions = JSON.parse(vectorVersionMatch[1]);
+    const expectedAssets = [...assetFilesWithin('assets/icons'), ...assetFilesWithin('assets/illustrations')].sort();
+    for (const assetPath of expectedAssets) {
+      const expectedVersion = createHash('sha256')
+        .update(fs.readFileSync(path.join(root, assetPath)))
+        .digest('hex')
+        .slice(0, 10);
+      if (vectorVersions[assetPath] !== expectedVersion) report('script.js', `stale generated version for ${assetPath}`);
+    }
+    for (const assetPath of Object.keys(vectorVersions)) {
+      if (!expectedAssets.includes(assetPath)) report('script.js', `unknown generated asset version ${assetPath}`);
+    }
+  } catch {
+    report('script.js', 'generated vector asset versions are not valid JSON');
+  }
 }
 
 function stripFragment(value) {
@@ -52,6 +171,10 @@ for (const file of htmlFiles) {
   if (!/<meta\s+name="viewport"/i.test(source)) report(file, 'missing viewport');
   if (!/<meta\s+name="viewport"\s+content="[^"]*viewport-fit=cover[^"]*"/i.test(source)) report(file, 'viewport must cover mobile safe areas');
   if (!/<meta\s+name="theme-color"\s+content="#090d19"/i.test(source)) report(file, 'missing shared mobile browser color');
+  if (!/<meta\s+name="referrer"\s+content="strict-origin-when-cross-origin"/i.test(source)) report(file, 'missing strict referrer policy');
+  if (!/<meta\s+http-equiv="Content-Security-Policy"\s+content="[^"]*default-src 'self'[^"]*script-src 'self'[^"]*"/i.test(source)) {
+    report(file, 'missing compatible Content Security Policy');
+  }
   if (!/<link\b[^>]*rel="icon"[^>]*type="image\/svg\+xml"[^>]*href="assets\/brand\/favicon-dark\.svg"/i.test(source)) report(file, 'missing SVG favicon');
   if (!/<link\b[^>]*rel="icon"[^>]*sizes="32x32"[^>]*href="assets\/brand\/favicon-32x32\.png"/i.test(source)) report(file, 'missing 32px favicon fallback');
   if (!/<link\b[^>]*rel="icon"[^>]*sizes="16x16"[^>]*href="assets\/brand\/favicon-16x16\.png"/i.test(source)) report(file, 'missing 16px favicon fallback');
@@ -108,6 +231,15 @@ for (const file of htmlFiles) {
   const htmlWithoutStructuredData = source.replace(/<script\b[^>]*type="application\/ld\+json"[^>]*>[\s\S]*?<\/script>/gi, '');
   const rawEntity = htmlWithoutStructuredData.match(/&(?![A-Za-z][A-Za-z0-9]+;|#[0-9]+;|#x[0-9A-Fa-f]+;)/);
   if (rawEntity) report(file, 'contains an unescaped ampersand');
+  for (const match of htmlWithoutStructuredData.matchAll(/<span\b[^>]*>([\s\S]*?)<\/span>/gi)) {
+    if (/<h[1-6]\b/i.test(match[1])) report(file, 'contains a heading inside a phrasing-only span');
+  }
+  if (/<div\b(?=[^>]*\baria-label=)(?![^>]*\brole=)[^>]*>/i.test(htmlWithoutStructuredData)) {
+    report(file, 'aria-label on a generic div requires an explicit semantic role');
+  }
+  if (/<span class="brand-mark">\s*<img\b[^>]*src="assets\/brand\/lumina-seal-256\.png"/i.test(source)) {
+    report(file, 'hidden navigation seal must not be downloaded');
+  }
 
   const ids = [...source.matchAll(/\sid="([^"]+)"/g)].map((match) => match[1]);
   const duplicateIds = [...new Set(ids.filter((id, index) => ids.indexOf(id) !== index))];
@@ -139,6 +271,15 @@ for (const file of htmlFiles) {
     const localPath = stripFragment(reference);
     if (!localPath) continue;
     if (!fs.existsSync(path.resolve(root, localPath))) report(file, `broken local reference ${reference}`);
+
+    const version = /[?&]v=([^&#]+)/.exec(reference)?.[1];
+    if (version && fs.existsSync(path.resolve(root, localPath))) {
+      const expectedVersion = createHash('sha256')
+        .update(fs.readFileSync(path.resolve(root, localPath)))
+        .digest('hex')
+        .slice(0, 10);
+      if (version !== expectedVersion) report(file, `stale cache version for ${localPath}`);
+    }
   }
 
   for (const match of source.matchAll(/href="#([^"]+)"/gi)) {
@@ -183,6 +324,117 @@ if (!fs.existsSync(robotsPath)) {
   if (!robotsSource.includes(`Sitemap: ${publicBaseUrl}sitemap.xml`)) report('robots.txt', 'sitemap URL does not match the public site');
 }
 
+const galleryDataPath = path.join(root, 'data', 'community-media.json');
+if (!fs.existsSync(galleryDataPath)) {
+  report('data/community-media.json', 'missing Gallery data source');
+} else {
+  try {
+    const galleryData = JSON.parse(fs.readFileSync(galleryDataPath, 'utf8'));
+    if (
+      !isPlainObject(galleryData) ||
+      !hasExactKeys(galleryData, ['version', 'entries']) ||
+      galleryData.version !== 1 ||
+      !Array.isArray(galleryData.entries)
+    ) {
+      report('data/community-media.json', 'invalid root schema');
+    } else {
+      const seenIds = new Set();
+      const entryKeys = [
+        'id', 'title', 'description', 'category', 'subcategory', 'credit',
+        'submittedAt', 'publishedAt', 'media'
+      ];
+
+      galleryData.entries.forEach((entry, entryIndex) => {
+        const label = `entry ${entryIndex + 1}`;
+        const validId = /^WS-[A-Z2-9]{8}$/.test(entry?.id);
+
+        if (!isPlainObject(entry) || !hasExactKeys(entry, entryKeys)) {
+          report('data/community-media.json', `${label} has an invalid schema`);
+          return;
+        }
+        if (!validId || seenIds.has(entry.id)) report('data/community-media.json', `${label} has an invalid or duplicate ID`);
+        seenIds.add(entry.id);
+        if (typeof entry.title !== 'string' || entry.title.length < 3 || entry.title.length > 100) report('data/community-media.json', `${label} has an invalid title`);
+        if (typeof entry.description !== 'string' || entry.description.length < 10 || entry.description.length > 1200) report('data/community-media.json', `${label} has an invalid description`);
+        if (!gallerySubcategories.get(entry.category)?.has(entry.subcategory)) report('data/community-media.json', `${label} has an invalid category and subcategory combination`);
+        if (typeof entry.credit !== 'string' || entry.credit.length < 1 || entry.credit.length > 100) report('data/community-media.json', `${label} has an invalid credit`);
+        if (Number.isNaN(Date.parse(entry.submittedAt)) || Number.isNaN(Date.parse(entry.publishedAt))) report('data/community-media.json', `${label} has an invalid date`);
+
+        if (!Array.isArray(entry.media) || entry.media.length < 1 || entry.media.length > 4) {
+          report('data/community-media.json', `${label} has invalid media`);
+          return;
+        }
+
+        entry.media.forEach((media, mediaIndex) => {
+          const mediaLabel = `${label} media ${mediaIndex + 1}`;
+          const isVideo = media?.type === 'video';
+          const expectedKeys = isVideo
+            ? ['type', 'src', 'alt', 'width', 'height', 'duration']
+            : ['type', 'src', 'alt', 'width', 'height'];
+          const expectedSource = validId
+            ? `assets/community/${entry.id.toLowerCase()}-${mediaIndex + 1}.${isVideo ? 'mp4' : 'webp'}`
+            : '';
+
+          if (
+            !isPlainObject(media) ||
+            !['image', 'video'].includes(media.type) ||
+            !hasExactKeys(media, expectedKeys) ||
+            media.src !== expectedSource ||
+            typeof media.alt !== 'string' ||
+            media.alt.length < 5 ||
+            media.alt.length > 340 ||
+            !Number.isSafeInteger(media.width) ||
+            !Number.isSafeInteger(media.height) ||
+            media.width < 1 ||
+            media.height < 1 ||
+            media.width > (isVideo ? 1920 : 2400) ||
+            media.height > (isVideo ? 1920 : 2400) ||
+            media.width * media.height > 40_000_000
+          ) {
+            report('data/community-media.json', `${mediaLabel} is invalid`);
+            return;
+          }
+
+          if (
+            isVideo &&
+            (
+              typeof media.duration !== 'number' ||
+              !Number.isFinite(media.duration) ||
+              media.duration <= 0 ||
+              media.duration > 120
+            )
+          ) {
+            report('data/community-media.json', `${mediaLabel} has an invalid duration`);
+          }
+
+          const mediaPath = path.resolve(root, media.src);
+          if (!fs.existsSync(mediaPath)) {
+            report('data/community-media.json', `${mediaLabel} references missing media ${media.src}`);
+            return;
+          }
+
+          const signature = fs.readFileSync(mediaPath).subarray(0, 12);
+          if (
+            (!isVideo && (
+              signature.length < 12 ||
+              signature.subarray(0, 4).toString('ascii') !== 'RIFF' ||
+              signature.subarray(8, 12).toString('ascii') !== 'WEBP'
+            )) ||
+            (isVideo && (
+              signature.length < 12 ||
+              signature.subarray(4, 8).toString('ascii') !== 'ftyp'
+            ))
+          ) {
+            report('data/community-media.json', `${mediaLabel} has an invalid file signature`);
+          }
+        });
+      });
+    }
+  } catch {
+    report('data/community-media.json', 'contains invalid JSON');
+  }
+}
+
 const blogDataPath = path.join(root, 'data', 'blog-posts.json');
 if (!fs.existsSync(blogDataPath)) {
   report('data/blog-posts.json', 'missing Blog data source');
@@ -211,7 +463,14 @@ if (!fs.existsSync(blogDataPath)) {
         if (typeof post.title !== 'string' || post.title.length < 3 || post.title.length > 100) report('data/blog-posts.json', `${label} has an invalid title`);
         if (typeof post.excerpt !== 'string' || post.excerpt.length < 20 || post.excerpt.length > 300) report('data/blog-posts.json', `${label} has an invalid excerpt`);
         if (typeof post.body !== 'string' || post.body.length < 100 || post.body.length > 12_000) report('data/blog-posts.json', `${label} has an invalid body`);
-        if (typeof post.category !== 'string' || post.category.length < 2 || post.category.length > 50) report('data/blog-posts.json', `${label} has an invalid category`);
+        if (
+          typeof post.category !== 'string' ||
+          post.category.length < 2 ||
+          post.category.length > 50 ||
+          !blogCategoryKeyFor(post.category)
+        ) {
+          report('data/blog-posts.json', `${label} has an invalid category`);
+        }
         if (typeof post.author !== 'string' || post.author.length < 1 || post.author.length > 100) report('data/blog-posts.json', `${label} has an invalid author`);
         if (Number.isNaN(Date.parse(post.submittedAt)) || Number.isNaN(Date.parse(post.publishedAt)) || Number.isNaN(Date.parse(post.updatedAt))) report('data/blog-posts.json', `${label} has an invalid date`);
         if (typeof post.visible !== 'boolean') report('data/blog-posts.json', `${label} has an invalid visibility value`);
@@ -301,9 +560,9 @@ if (!fs.existsSync(artDataPath)) {
       report('data/art-entries.json', 'invalid root schema');
     } else {
       const seenIds = new Set();
-      const categories = new Set(['places', 'heroes', 'creatures', 'adversaries', 'guild-life']);
+      const categories = new Set(artSubcategories.keys());
       const entryKeys = [
-        'id', 'title', 'description', 'category', 'credit',
+        'id', 'title', 'description', 'category', 'subcategory', 'credit',
         'submittedAt', 'publishedAt', 'media'
       ];
 
@@ -320,6 +579,7 @@ if (!fs.existsSync(artDataPath)) {
         if (typeof entry.title !== 'string' || entry.title.length < 3 || entry.title.length > 80) report('data/art-entries.json', `${label} has an invalid title`);
         if (typeof entry.description !== 'string' || entry.description.length < 20 || entry.description.length > 360) report('data/art-entries.json', `${label} has an invalid description`);
         if (!categories.has(entry.category)) report('data/art-entries.json', `${label} has an invalid category`);
+        if (!artSubcategories.get(entry.category)?.has(entry.subcategory)) report('data/art-entries.json', `${label} has an invalid category and subcategory combination`);
         if (typeof entry.credit !== 'string' || entry.credit.length < 1 || entry.credit.length > 100) report('data/art-entries.json', `${label} has an invalid credit`);
         if (Number.isNaN(Date.parse(entry.submittedAt)) || Number.isNaN(Date.parse(entry.publishedAt))) report('data/art-entries.json', `${label} has an invalid date`);
 
@@ -383,7 +643,6 @@ if (!fs.existsSync(roleplayDataPath)) {
         'readingMinutes', 'cover', 'chapters'
       ];
       const chapterKeys = ['id', 'title', 'summary', 'publishedAt', 'visible', 'content'];
-      const categories = new Set(['campaign', 'one-shot', 'character', 'lore']);
       const statuses = new Set(['ongoing', 'complete']);
 
       roleplayData.stories.forEach((story, storyIndex) => {
@@ -399,7 +658,7 @@ if (!fs.existsSync(roleplayDataPath)) {
         if (typeof story.title !== 'string' || story.title.length < 3 || story.title.length > 120) report('data/roleplay-stories.json', `${storyLabel} has an invalid title`);
         if (typeof story.subtitle !== 'string' || story.subtitle.length > 180) report('data/roleplay-stories.json', `${storyLabel} has an invalid subtitle`);
         if (typeof story.summary !== 'string' || story.summary.length < 20 || story.summary.length > 600) report('data/roleplay-stories.json', `${storyLabel} has an invalid summary`);
-        if (!categories.has(story.category)) report('data/roleplay-stories.json', `${storyLabel} has an invalid category`);
+        if (!roleplayCategories.has(story.category)) report('data/roleplay-stories.json', `${storyLabel} has an invalid category`);
         if (!statuses.has(story.status)) report('data/roleplay-stories.json', `${storyLabel} has an invalid status`);
         if (typeof story.featured !== 'boolean' || typeof story.visible !== 'boolean') report('data/roleplay-stories.json', `${storyLabel} has invalid publication flags`);
         if (typeof story.author !== 'string' || story.author.length < 1 || story.author.length > 100) report('data/roleplay-stories.json', `${storyLabel} has an invalid author`);
@@ -523,6 +782,28 @@ if (!fs.existsSync(artScriptPath)) {
     execFileSync(process.execPath, ['--check', artScriptPath], { stdio: 'pipe' });
   } catch {
     report('art.js', 'contains invalid JavaScript');
+  }
+}
+
+const galleryScriptPath = path.join(root, 'gallery.js');
+if (!fs.existsSync(galleryScriptPath)) {
+  report('gallery.js', 'missing Gallery archive script');
+} else {
+  try {
+    execFileSync(process.execPath, ['--check', galleryScriptPath], { stdio: 'pipe' });
+  } catch {
+    report('gallery.js', 'contains invalid JavaScript');
+  }
+}
+
+const blogScriptPath = path.join(root, 'blog.js');
+if (!fs.existsSync(blogScriptPath)) {
+  report('blog.js', 'missing Blog archive script');
+} else {
+  try {
+    execFileSync(process.execPath, ['--check', blogScriptPath], { stdio: 'pipe' });
+  } catch {
+    report('blog.js', 'contains invalid JavaScript');
   }
 }
 

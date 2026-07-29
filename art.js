@@ -24,10 +24,45 @@ const dialogClose = document.querySelector('[data-art-dialog-close]');
 
 const categoryLabels = new Map([
   ['places', 'Places'],
-  ['heroes', 'Heroes'],
+  ['heroes', 'Heroes & characters'],
   ['creatures', 'Creatures'],
   ['adversaries', 'Adversaries'],
-  ['guild-life', 'Guild life']
+  ['guild-life', 'Guild life'],
+  ['objects', 'Objects & designs'],
+  ['concepts', 'Abstract & concepts']
+]);
+const subcategoryLabels = new Map([
+  ['places', new Map([
+    ['city', 'City'], ['landscape', 'Landscape'], ['architecture', 'Architecture'],
+    ['interior', 'Interior'], ['dungeon', 'Dungeon'], ['ruins', 'Ruins'], ['coast', 'Coast'],
+    ['other', 'Other']
+  ])],
+  ['heroes', new Map([
+    ['portrait', 'Portrait'], ['party', 'Party'], ['action', 'Action'], ['journey', 'Journey'],
+    ['daily-life', 'Daily life'], ['npc', 'NPC & ally'], ['other', 'Other']
+  ])],
+  ['creatures', new Map([
+    ['beast', 'Beast'], ['dragon', 'Dragon'], ['undead', 'Undead'], ['demon', 'Demon'],
+    ['humanoid', 'Humanoid'], ['construct', 'Construct'], ['aquatic', 'Aquatic'],
+    ['celestial', 'Celestial'], ['companion', 'Companion'], ['other', 'Other']
+  ])],
+  ['adversaries', new Map([
+    ['boss', 'Boss'], ['rival', 'Rival'], ['army', 'Army'], ['undead', 'Undead'],
+    ['supernatural', 'Supernatural'], ['monster', 'Monster'], ['other', 'Other']
+  ])],
+  ['guild-life', new Map([
+    ['event', 'Event'], ['hunt', 'Hunt'], ['planning', 'Planning'], ['celebration', 'Celebration'],
+    ['achievement', 'Achievement'], ['rest', 'Rest'], ['craft', 'Craft'], ['trade', 'Trade'],
+    ['support', 'Support'], ['social', 'Social'], ['other', 'Other']
+  ])],
+  ['objects', new Map([
+    ['equipment', 'Equipment'], ['item', 'Item'], ['relic', 'Relic'], ['emblem', 'Emblem'],
+    ['map', 'Map'], ['vehicle', 'Vehicle'], ['costume', 'Costume'], ['other', 'Other']
+  ])],
+  ['concepts', new Map([
+    ['abstract', 'Abstract'], ['magic', 'Magic'], ['atmosphere', 'Atmosphere'],
+    ['poster', 'Poster'], ['typography', 'Typography'], ['concept', 'Concept'], ['other', 'Other']
+  ])]
 ]);
 
 let artCards = [];
@@ -118,12 +153,17 @@ const openDialog = (card) => {
 };
 
 const createPublishedArtCard = (entry) => {
+  const subcategory = typeof entry?.subcategory === 'string' ? entry.subcategory : 'other';
+  const categoryLabel = categoryLabels.get(entry?.category);
+  const subcategoryLabel = subcategoryLabels.get(entry?.category)?.get(subcategory);
+
   if (
     !entry ||
     typeof entry.id !== 'string' ||
     typeof entry.title !== 'string' ||
     typeof entry.description !== 'string' ||
-    !categoryLabels.has(entry.category) ||
+    !categoryLabel ||
+    !subcategoryLabel ||
     typeof entry.credit !== 'string' ||
     !entry.media ||
     entry.media.type !== 'image' ||
@@ -142,7 +182,7 @@ const createPublishedArtCard = (entry) => {
   card.dataset.artSrc = entry.media.src;
   card.dataset.artTitle = entry.title;
   card.dataset.artDescription = entry.description;
-  card.dataset.artTags = `${categoryLabels.get(entry.category)},Community artwork`;
+  card.dataset.artTags = `${categoryLabel},${subcategoryLabel}`;
   card.dataset.artCredit = entry.credit;
 
   const imageFrame = document.createElement('span');
@@ -158,7 +198,7 @@ const createPublishedArtCard = (entry) => {
   const copy = document.createElement('span');
   copy.className = 'art-card-copy';
   const category = document.createElement('small');
-  category.textContent = `${categoryLabels.get(entry.category)} · Community`;
+  category.textContent = `${categoryLabel} · ${subcategoryLabel}`;
   const title = document.createElement('strong');
   title.textContent = entry.title;
   const credit = document.createElement('em');

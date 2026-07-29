@@ -243,7 +243,7 @@ body[data-page="editions"] {
 }
 
 .edition-path-title img { width: 58px; height: 58px; filter: drop-shadow(0 12px 22px rgba(var(--edition-accent), 0.22)); }
-.edition-path-title span { display: grid; gap: 0.12rem; }
+.edition-path-heading { display: grid; gap: 0.12rem; }
 .edition-path-title small { color: rgb(var(--edition-accent)); font-size: 0.7rem; font-weight: 950; letter-spacing: 0.12em; text-transform: uppercase; }
 .edition-path-title h3 { margin: 0; font-size: clamp(1.55rem, 3vw, 2.25rem); }
 .edition-path-summary { min-height: 112px; margin: 1.15rem 0 1.35rem; color: var(--muted); }
