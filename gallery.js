@@ -174,7 +174,11 @@ function buildGalleryEntry(entry) {
     buildEntryMeta(entry, category),
     createTextElement('h3', '', entry.title || 'Lumina story'),
     createTextElement('p', 'community-gallery-description', entry.description || ''),
-    createTextElement('p', 'community-gallery-credit', `Credit · ${entry.credit || 'Lumina member'}`)
+    window.LuminaContentCredit.create(entry.credit, {
+      label: 'Captured by',
+      tone: 'gallery',
+      compact: true
+    })
   );
 
   article.append(buildMedia(entry), content);
@@ -192,7 +196,10 @@ function buildFeaturedEntry(entry) {
     buildEntryMeta(entry, category),
     createTextElement('h3', '', entry.title || 'Lumina story'),
     createTextElement('p', '', entry.description || ''),
-    createTextElement('p', 'community-gallery-credit', `Credit · ${entry.credit || 'Lumina member'}`)
+    window.LuminaContentCredit.create(entry.credit, {
+      label: 'Captured by',
+      tone: 'gallery'
+    })
   );
 
   article.append(buildMedia(entry, true), content);

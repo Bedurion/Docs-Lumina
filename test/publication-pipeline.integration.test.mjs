@@ -186,3 +186,37 @@ test('pipeline applies once, replays safely, and records a retry after deploy fa
   assert.equal(state.submissions[submissionId].publicationRevision, 2);
   assert.equal(state.submissions[submissionId].dispatchId, retryRequest.dispatchId);
 });
+
+test('publisher assigns uncredited community content to Lumina', async (t) => {
+  const temporaryRoot = await prepareRepository();
+  t.after(() => fs.rm(temporaryRoot, { recursive: true, force: true }));
+
+  await fs.writeFile(
+    path.join(temporaryRoot, 'data', 'blog-posts.json'),
+    `${JSON.stringify({ version: 1, posts: [] }, null, 2)}\n`
+  );
+
+  const request = payload({
+    operation: 'create',
+    title: 'A guild-authored chronicle',
+    excerpt: 'A complete public summary of a story created together by the guild.',
+    body: 'Lumina preserves the adventures its members create together. '.repeat(3).trim(),
+    categoryKey: 'community'
+  });
+  delete request.author;
+
+  await sanitize(temporaryRoot, request, 102);
+  const operation = JSON.parse(
+    await fs.readFile(
+      path.join(temporaryRoot, 'publication', 'data', 'blog-operation.json'),
+      'utf8'
+    )
+  );
+  assert.equal(operation.post.author, 'Lumina');
+
+  await verify(temporaryRoot, request.dispatchId, 102);
+  const publishedBlog = JSON.parse(
+    await fs.readFile(path.join(temporaryRoot, 'data', 'blog-posts.json'), 'utf8')
+  );
+  assert.equal(publishedBlog.posts[0].author, 'Lumina');
+});

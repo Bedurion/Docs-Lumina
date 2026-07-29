@@ -149,7 +149,10 @@ function buildFeatured(post) {
     buildMeta(post, { showLeadership: true }),
     createTextElement('h3', '', post.title || 'Lumina story'),
     createTextElement('p', 'blog-post-excerpt', post.excerpt || ''),
-    createTextElement('p', 'blog-post-author', `By ${post.author || 'Lumina staff'}`),
+    window.LuminaContentCredit.create(post.author, {
+      label: 'Written by',
+      tone: 'blog'
+    }),
     buildArticleContent(post)
   );
   article.append(marker, content);
@@ -171,7 +174,11 @@ function buildArchivePost(post, options = {}) {
     }),
     createTextElement('h3', '', post.title || 'Lumina story'),
     createTextElement('p', 'blog-post-excerpt', post.excerpt || ''),
-    createTextElement('p', 'blog-post-author', `By ${post.author || 'Lumina staff'}`)
+    window.LuminaContentCredit.create(post.author, {
+      label: 'Written by',
+      tone: 'blog',
+      compact: true
+    })
   );
 
   if (options.curated) {

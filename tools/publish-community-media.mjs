@@ -173,6 +173,10 @@ function cleanOptionalSingleLine(value, maximumLength, label) {
   return text;
 }
 
+function cleanContentCredit(value, label) {
+  return cleanOptionalSingleLine(value, 100, label) || 'Lumina';
+}
+
 function cleanMultiline(value, maximumLength, label) {
   const text = String(value || '')
     .replace(/\r\n?/g, '\n')
@@ -647,7 +651,7 @@ if (contentType === 'blog') {
     const excerpt = cleanMultiline(payload.excerpt, 300, 'Excerpt');
     const body = cleanMultiline(payload.body, maximumBlogBodyLength, 'Article body');
     const category = resolveBlogCategory(payload.categoryKey, payload.category);
-    const author = cleanSingleLine(payload.author, 100, 'Author');
+    const author = cleanContentCredit(payload.author, 'Author');
 
     if (excerpt.length < 20 || body.length < 100 || category.length < 2) {
       fail('Blog publication fields are below their minimum length.');
@@ -830,7 +834,7 @@ if (contentType === 'blog') {
     const chapterTitle = cleanSingleLine(payload.chapterTitle, 140, 'Roleplay chapter title');
     const category = cleanSingleLine(payload.categoryKey || payload.category, 30, 'Roleplay category');
     const status = cleanSingleLine(payload.storyStatus, 20, 'Roleplay status');
-    const author = cleanSingleLine(payload.author, 100, 'Roleplay author');
+    const author = cleanContentCredit(payload.author, 'Roleplay author');
 
     if (summary.length < 20 || !roleplayCategories.has(category) || !['ongoing', 'complete'].includes(status)) {
       fail('Roleplay publication fields do not satisfy the Lumina Chronicles requirements.');
@@ -1011,7 +1015,7 @@ if (contentType === 'blog') {
 
   const description = cleanMultiline(payload.description, 360, 'Artwork description');
   const altText = cleanSingleLine(payload.altText, 300, 'Artwork alternative text');
-  const credit = cleanSingleLine(payload.credit, 100, 'Artwork credit');
+  const credit = cleanContentCredit(payload.credit, 'Artwork credit');
   const category = cleanSingleLine(payload.categoryKey || payload.category, 30, 'Artwork category');
   const hasSubcategory = typeof payload.subcategory === 'string' && payload.subcategory.trim().length > 0;
 
@@ -1112,7 +1116,7 @@ if (contentType === 'blog') {
   }
   const description = cleanMultiline(payload.description, 1200, 'Description');
   const altText = cleanSingleLine(payload.altText, 300, 'Alternative text');
-  const credit = cleanSingleLine(payload.credit, 100, 'Credit');
+  const credit = cleanContentCredit(payload.credit, 'Credit');
   const hasCategory = typeof (payload.categoryKey || payload.category) === 'string' &&
     String(payload.categoryKey || payload.category).trim().length > 0;
   const hasSubcategory = typeof payload.subcategory === 'string' &&

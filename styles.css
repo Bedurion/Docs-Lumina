@@ -737,7 +737,11 @@
 
 .blog-featured-content h3 { font-size: clamp(2rem, 4vw, 3.5rem); line-height: 1.04; }
 .blog-post-excerpt { color: #d8deed; font-size: 1.05rem; line-height: 1.7; }
-.blog-post-author { color: #f3d779; font-size: 0.78rem; font-weight: 800; }
+
+.blog-featured-content > .content-credit,
+.blog-archive-summary > .content-credit {
+  margin-top: 0.25rem;
+}
 
 .blog-post-body {
   margin-top: 1.8rem;
@@ -1065,6 +1069,182 @@ a {
 :focus-visible {
   outline: 3px solid rgba(86, 199, 245, 0.8);
   outline-offset: 3px;
+}
+
+/* Editorial credit signature
+   Credits are deliberately presented as authorship, never as taxonomy tags. */
+.content-credit {
+  --content-credit-accent: 243, 204, 99;
+  position: relative;
+  z-index: 0;
+  display: inline-grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.72rem;
+  align-items: center;
+  min-width: 0;
+  max-width: 100%;
+  padding: 0.48rem 0.95rem 0.48rem 0.68rem;
+  isolation: isolate;
+  box-sizing: border-box;
+  vertical-align: middle;
+}
+
+.content-credit::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  content: "";
+  border-left: 1px solid rgba(var(--content-credit-accent), 0.46);
+  border-radius: 0 14px 14px 0;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(var(--content-credit-accent), 0.11),
+      rgba(var(--content-credit-accent), 0.035) 58%,
+      transparent 100%
+    );
+}
+
+.content-credit::after {
+  position: absolute;
+  top: 50%;
+  left: -1px;
+  width: 2px;
+  height: 58%;
+  content: "";
+  border-radius: 999px;
+  background: linear-gradient(
+    180deg,
+    rgba(var(--content-credit-accent), 0.2),
+    rgb(var(--content-credit-accent)),
+    rgba(var(--content-credit-accent), 0.2)
+  );
+  box-shadow: 0 0 16px rgba(var(--content-credit-accent), 0.35);
+  transform: translateY(-50%);
+}
+
+.content-credit__seal {
+  position: relative;
+  display: grid;
+  width: 2.55rem;
+  aspect-ratio: 1;
+  place-items: center;
+  flex: 0 0 auto;
+  overflow: hidden;
+  border: 1px solid rgba(var(--content-credit-accent), 0.46);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.15), transparent 34%),
+    rgba(var(--content-credit-accent), 0.09);
+  box-shadow:
+    inset 0 0 0 3px rgba(4, 8, 20, 0.74),
+    0 7px 20px rgba(var(--content-credit-accent), 0.13);
+}
+
+.content-credit__seal::before {
+  position: absolute;
+  inset: 4px;
+  content: "";
+  border: 1px solid rgba(var(--content-credit-accent), 0.2);
+  border-radius: inherit;
+}
+
+.content-credit__mark {
+  position: relative;
+  z-index: 1;
+  color: rgb(var(--content-credit-accent));
+  font-size: 0.68rem;
+  font-weight: 950;
+  letter-spacing: 0.05em;
+  line-height: 1;
+}
+
+.content-credit__copy {
+  display: grid;
+  gap: 0.08rem;
+  min-width: 0;
+  line-height: 1.18;
+}
+
+.content-credit__label {
+  color: #8994aa;
+  font-size: 0.57rem;
+  font-weight: 850;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.content-credit__name {
+  min-width: 0;
+  color: #f8f5eb;
+  font-size: 0.9rem;
+  font-weight: 850;
+  letter-spacing: 0.005em;
+  overflow-wrap: anywhere;
+}
+
+.content-credit.is-guild .content-credit__mark {
+  visibility: hidden;
+}
+
+.content-credit.is-guild .content-credit__seal::after {
+  position: absolute;
+  z-index: 2;
+  inset: 4px;
+  content: "";
+  background: url("assets/brand/seal-dark-nav.svg?v=8313b7fbad") center / contain no-repeat;
+  filter: drop-shadow(0 3px 7px rgba(243, 204, 99, 0.2));
+}
+
+.content-credit--blog { --content-credit-accent: 243, 204, 99; }
+.content-credit--gallery { --content-credit-accent: 86, 199, 245; }
+.content-credit--art { --content-credit-accent: 167, 113, 255; }
+.content-credit--roleplay { --content-credit-accent: 198, 151, 255; }
+
+.content-credit--compact {
+  gap: 0.58rem;
+  padding: 0.36rem 0.78rem 0.36rem 0.54rem;
+}
+
+.content-credit--compact .content-credit__seal {
+  width: 2rem;
+  box-shadow:
+    inset 0 0 0 2px rgba(4, 8, 20, 0.74),
+    0 5px 14px rgba(var(--content-credit-accent), 0.1);
+}
+
+.content-credit--compact .content-credit__seal::before,
+.content-credit--compact.is-guild .content-credit__seal::after {
+  inset: 3px;
+}
+
+.content-credit--compact .content-credit__mark {
+  font-size: 0.57rem;
+}
+
+.content-credit--compact .content-credit__label {
+  font-size: 0.51rem;
+}
+
+.content-credit--compact .content-credit__name {
+  font-size: 0.78rem;
+}
+
+@media (forced-colors: active) {
+  .content-credit::before {
+    border-left: 2px solid CanvasText;
+    background: none;
+  }
+
+  .content-credit::after {
+    background: CanvasText;
+    box-shadow: none;
+  }
+
+  .content-credit__seal {
+    border-color: CanvasText;
+    box-shadow: none;
+  }
 }
 
 h1,
@@ -3617,12 +3797,6 @@ html.keyboard-navigation .skip-link:focus-visible {
 
 .community-gallery-content > p:not(.eyebrow) {
   white-space: pre-line;
-}
-
-.community-gallery-credit {
-  margin-top: 1.25rem;
-  color: var(--muted);
-  font-size: 0.9rem;
 }
 
 @media (max-width: 760px) {
@@ -8861,9 +9035,14 @@ body.page-interior .opening-title-row h1 {
 }
 
 .gallery-placeholder-copy > p:not(.eyebrow),
-.gallery-featured-content > p:not(.community-gallery-credit) {
+.gallery-featured-content > p {
   color: var(--muted);
   line-height: 1.75;
+}
+
+.gallery-featured-content > .content-credit,
+.community-gallery-content > .content-credit {
+  margin-top: 1.25rem;
 }
 
 .gallery-featured-media {
@@ -9143,8 +9322,6 @@ body.page-interior .opening-title-row h1 {
   color: var(--muted);
   line-height: 1.65;
 }
-
-.community-gallery-credit { margin-bottom: 0; }
 
 .gallery-roleplay-bridge,
 .roleplay-final-cta {
@@ -12476,10 +12653,21 @@ body.page-interior .opening-title-row h1 {
   font-weight: 750;
 }
 
-.roleplay-story-byline,
 .roleplay-story-updated {
   color: #8994ab;
   font-size: 0.74rem;
+}
+
+.roleplay-featured-content > .content-credit {
+  margin-top: 0.35rem;
+}
+
+.roleplay-story-card-copy > .content-credit {
+  margin: 0.35rem 0 0.65rem;
+}
+
+.roleplay-reader-index .content-credit {
+  margin: 0.25rem 0 0.8rem;
 }
 
 .roleplay-story-meta {
@@ -16416,7 +16604,7 @@ body[data-page="guild-loyalty"] .page-hero::after {
 }
 
 .art-featured-tags,
-.art-dialog-copy > div {
+.art-dialog-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 0.55rem;
@@ -16424,7 +16612,7 @@ body[data-page="guild-loyalty"] .page-hero::after {
 }
 
 .art-featured-tags span,
-.art-dialog-copy > div span {
+.art-dialog-tags span {
   padding: 0.45rem 0.7rem;
   color: #d9ccff;
   font-size: 0.72rem;
@@ -16432,6 +16620,11 @@ body[data-page="guild-loyalty"] .page-hero::after {
   border: 1px solid rgba(167, 113, 255, 0.3);
   border-radius: 999px;
   background: rgba(167, 113, 255, 0.08);
+}
+
+.art-featured-credit,
+.art-dialog-credit {
+  margin-top: 1.25rem;
 }
 
 .art-open-featured {
@@ -16683,6 +16876,10 @@ body[data-page="guild-loyalty"] .page-hero::after {
   font-size: 0.9rem;
   font-style: normal;
   line-height: 1.45;
+}
+
+.art-card-copy > .content-credit {
+  margin-top: 0.55rem;
 }
 
 .art-context {
@@ -17151,6 +17348,10 @@ body[data-page="guild-loyalty"] .page-hero::after {
 
   .art-dialog-copy {
     padding: 1.35rem;
+  }
+
+  .content-credit {
+    padding-right: 0.72rem;
   }
 }
 

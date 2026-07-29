@@ -126,7 +126,10 @@ function buildFeaturedRoleplayStory(story) {
     createRoleplayElement('h3', '', story.title || 'Lumina chronicle'),
     createRoleplayElement('p', 'roleplay-story-subtitle', story.subtitle || ''),
     createRoleplayElement('p', 'roleplay-story-summary', story.summary || ''),
-    createRoleplayElement('p', 'roleplay-story-byline', `Written by ${story.author || 'Lumina roleplay team'}`),
+    window.LuminaContentCredit.create(story.author, {
+      label: 'Story by',
+      tone: 'roleplay'
+    }),
     buildOpenStoryLink(story, 'Start with Chapter One')
   );
 
@@ -145,6 +148,11 @@ function buildRoleplayStoryCard(story) {
     buildRoleplayMeta(story),
     createRoleplayElement('h3', '', story.title || 'Lumina chronicle'),
     createRoleplayElement('p', 'roleplay-story-summary', story.summary || ''),
+    window.LuminaContentCredit.create(story.author, {
+      label: 'Story by',
+      tone: 'roleplay',
+      compact: true
+    }),
     createRoleplayElement('p', 'roleplay-story-updated', `Updated ${formatRoleplayDate(story.updatedAt || story.publishedAt)}`),
     buildOpenStoryLink(story, 'Open chronicle')
   );
@@ -265,6 +273,11 @@ function renderRoleplayReader(story, chapterIndex) {
   indexHeading.append(
     createRoleplayElement('p', 'eyebrow', roleplayCategoryLabels[normalizeRoleplayCategory(story)]),
     createRoleplayElement('h3', '', story.title || 'Lumina chronicle'),
+    window.LuminaContentCredit.create(story.author, {
+      label: 'Story by',
+      tone: 'roleplay',
+      compact: true
+    }),
     createRoleplayElement('p', '', story.subtitle || story.summary || '')
   );
   const list = document.createElement('ol');

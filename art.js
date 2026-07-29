@@ -6,6 +6,7 @@ const featuredTitle = document.querySelector('[data-art-featured-title]');
 const featuredDescription = document.querySelector('[data-art-featured-description]');
 const featuredCategory = document.querySelector('[data-art-featured-category]');
 const featuredTags = document.querySelector('[data-art-featured-tags]');
+const featuredCredit = document.querySelector('[data-art-featured-credit]');
 const featuredCurrent = document.querySelector('[data-art-featured-current]');
 const featuredTotal = document.querySelector('[data-art-featured-total]');
 const thumbnailRail = document.querySelector('[data-art-thumbnail-rail]');
@@ -20,6 +21,7 @@ const dialogTitle = document.querySelector('[data-art-dialog-title]');
 const dialogDescription = document.querySelector('[data-art-dialog-description]');
 const dialogCategory = document.querySelector('[data-art-dialog-category]');
 const dialogTags = document.querySelector('[data-art-dialog-tags]');
+const dialogCredit = document.querySelector('[data-art-dialog-credit]');
 const dialogClose = document.querySelector('[data-art-dialog-close]');
 
 const categoryLabels = new Map([
@@ -87,13 +89,13 @@ const restoreCursorFromDialog = () => {
 
 const cardData = (card) => {
   const tags = (card.dataset.artTags || '').split(',').map((tag) => tag.trim()).filter(Boolean);
-  if (card.dataset.artCredit) tags.push(`By ${card.dataset.artCredit}`);
 
   return {
     src: card.dataset.artSrc,
     title: card.dataset.artTitle,
     description: card.dataset.artDescription,
     tags,
+    credit: card.dataset.artCredit,
     category: card.querySelector('small')?.textContent || 'Illustration',
     alt: card.querySelector('img')?.alt || card.dataset.artTitle
   };
@@ -118,6 +120,10 @@ const setFeatured = (card, options = {}) => {
   featuredDescription.textContent = data.description;
   featuredCategory.textContent = data.category;
   renderTags(featuredTags, data.tags);
+  featuredCredit?.replaceChildren(window.LuminaContentCredit.create(data.credit, {
+    label: 'Artwork by',
+    tone: 'art'
+  }));
   const globalIndex = artCards.indexOf(card);
   featuredCurrent.textContent = String(globalIndex + 1).padStart(2, '0');
   document.querySelectorAll('[data-art-thumbnail]').forEach((thumbnail) => {
@@ -146,6 +152,10 @@ const openDialog = (card) => {
   dialogDescription.textContent = data.description;
   dialogCategory.textContent = data.category;
   renderTags(dialogTags, data.tags);
+  dialogCredit?.replaceChildren(window.LuminaContentCredit.create(data.credit, {
+    label: 'Artwork by',
+    tone: 'art'
+  }));
   if (typeof dialog.showModal === 'function') {
     dialog.showModal();
     mountCursorInDialog();
@@ -201,11 +211,20 @@ const createPublishedArtCard = (entry) => {
   category.textContent = `${categoryLabel} · ${subcategoryLabel}`;
   const title = document.createElement('strong');
   title.textContent = entry.title;
-  const credit = document.createElement('em');
-  credit.textContent = `Artwork by ${entry.credit}.`;
-  copy.append(category, title, credit);
+  copy.append(category, title);
   card.append(imageFrame, copy);
   return card;
+};
+
+const ensureArtCardCredit = (card) => {
+  const copy = card?.querySelector('.art-card-copy');
+  if (!copy || copy.querySelector('.content-credit')) return;
+  copy.append(window.LuminaContentCredit.create(card.dataset.artCredit, {
+    label: 'Artwork by',
+    tone: 'art',
+    compact: true,
+    tagName: 'span'
+  }));
 };
 
 const loadPublishedArt = async () => {
@@ -262,6 +281,7 @@ const initializeArchive = () => {
   if (featuredTotal) featuredTotal.textContent = total.padStart(2, '0');
 
   artCards.forEach((card) => {
+    ensureArtCardCredit(card);
     card.addEventListener('click', () => {
       setFeatured(card);
       openDialog(card);
