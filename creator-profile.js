@@ -1,6 +1,9 @@
 const profileSummary = document.querySelector('[data-creator-summary]');
+const profileFeatured = document.querySelector('[data-creator-featured]');
 const profilePublications = document.querySelector('[data-creator-publications]');
 const profileStatus = document.querySelector('[data-creator-profile-status]');
+const profilePublicationsSection = document.querySelector('[data-creator-publications-section]');
+const profilePrimaryAction = document.querySelector('[data-creator-primary-action]');
 const profileFilterButtons = [...document.querySelectorAll('[data-profile-filter]')];
 const requestedProfileId = new URLSearchParams(window.location.search).get('profile') || '';
 let activeProfileFilter = 'all';
@@ -26,52 +29,31 @@ function profileCountCard(label, value, type = '') {
 }
 
 function buildProfileSummary(creator) {
-  const article = profileElement('article', `creator-summary-card${creator.isGuild ? ' is-guild' : ''}`);
-  const identity = profileElement('div', 'creator-summary-identity');
-  const marker = profileElement('span', 'creator-summary-marker');
-  if (creator.isGuild) {
-    const seal = document.createElement('img');
-    seal.src = 'assets/brand/seal-dark-nav.svg';
-    seal.alt = '';
-    seal.setAttribute('aria-hidden', 'true');
-    marker.append(seal);
-  } else {
-    marker.textContent = '✦';
-    marker.setAttribute('aria-hidden', 'true');
-  }
-  const copy = profileElement('div', 'creator-summary-copy');
-  const creatorHeading = profileElement('h2', '', creator.name);
-  creatorHeading.id = 'creator-summary-title';
-  copy.append(
-    profileElement('p', 'eyebrow', creator.isGuild ? 'Shared guild archive' : 'Community creator'),
-    creatorHeading,
-    profileElement('p', '', creator.isGuild
-      ? 'Collective, historic and unattributed publications remain together under the Lumina name.'
-      : `Every public contribution currently credited to ${creator.name}, gathered across Lumina's community archive.`)
+  const article = profileElement('article', `creator-summary-band${creator.isGuild ? ' is-guild' : ''}`);
+  const intro = profileElement('div', 'creator-summary-intro');
+  intro.append(
+    profileElement('span', '', 'Archive at a glance'),
+    profileElement('strong', '', `${creator.total} ${creator.total === 1 ? 'publication' : 'publications'}`),
+    profileElement('small', '', `Latest · ${profileDate(creator.latestAt, { long: true, fallback: 'Archive prepared' })}`)
   );
-  identity.append(marker, copy);
   const counts = profileElement('dl', 'creator-summary-counts');
   counts.append(
-    profileCountCard('All', creator.total),
     ...Object.entries(window.LuminaCommunityContent.contentTypes)
+      .filter(([type]) => (creator.counts[type] || 0) > 0)
       .map(([type, definition]) => profileCountCard(definition.label, creator.counts[type] || 0, type))
   );
-  const latest = profileElement('div', 'creator-summary-latest');
-  latest.append(
-    profileElement('span', '', 'Latest contribution'),
-    profileElement('strong', '', profileDate(creator.latestAt, { long: true, fallback: 'Archive prepared' }))
-  );
-  article.append(identity, counts, latest);
+  article.append(intro, counts);
   return article;
 }
 
-function publicationMedia(item) {
+function publicationMedia(item, options = {}) {
   const media = profileElement('span', `creator-publication-media creator-publication-media--${item.type}`);
   if (item.thumbnail?.src && item.thumbnail.type !== 'video') {
     const image = document.createElement('img');
     image.src = item.thumbnail.src;
     image.alt = item.thumbnail.alt || item.title;
-    image.loading = 'lazy';
+    image.loading = options.priority ? 'eager' : 'lazy';
+    if (options.priority) image.fetchPriority = 'high';
     image.decoding = 'async';
     media.append(image);
   } else {
@@ -101,6 +83,31 @@ function buildPublicationCard(item, index) {
     profileElement('span', 'creator-publication-open', `Open ${window.LuminaCommunityContent.contentTypes[item.type].singular} →`)
   );
   link.append(publicationMedia(item), copy);
+  article.append(link);
+  return article;
+}
+
+function buildFeaturedPublication(item, creator) {
+  const article = profileElement('article', `creator-featured-card creator-featured-card--${item.type}`);
+  const link = document.createElement('a');
+  link.href = item.href;
+  link.setAttribute('aria-label', `Open ${item.title}, the latest publication credited to ${creator.name}`);
+  const media = publicationMedia(item, { priority: true });
+  media.classList.add('creator-featured-media');
+  const copy = profileElement('span', 'creator-featured-copy');
+  const meta = profileElement('span', 'creator-featured-meta');
+  meta.append(
+    profileElement('span', 'creator-featured-kicker', 'Latest publication'),
+    profileElement('span', `creator-publication-type creator-publication-type--${item.type}`, item.typeLabel),
+    profileElement('span', '', profileDate(item.publishedAt))
+  );
+  copy.append(
+    meta,
+    profileElement('strong', 'creator-featured-title', item.title),
+    profileElement('span', 'creator-featured-summary', item.summary || `Open this ${window.LuminaCommunityContent.contentTypes[item.type].singular} in the Lumina archive.`),
+    profileElement('span', 'creator-featured-open', `View ${window.LuminaCommunityContent.contentTypes[item.type].singular} →`)
+  );
+  link.append(media, copy);
   article.append(link);
   return article;
 }
@@ -144,7 +151,7 @@ function applyProfileFilter(type) {
 }
 
 function updateProfileDocument(creator) {
-  const title = creator.isGuild ? 'Lumina Guild Archive' : `${creator.name} · Contributor archive`;
+  const title = creator.name;
   const lead = creator.isGuild
     ? 'Collective, historic and unattributed publications preserved under the Lumina name.'
     : `Articles, screenshots, artwork and roleplay chronicles credited to ${creator.name}.`;
@@ -179,6 +186,7 @@ async function loadCreatorProfile() {
     if (!requestedProfileId || !profileCreator) {
       document.querySelector('[data-creator-hero-title]').textContent = 'Creator not found';
       document.querySelector('[data-creator-hero-lead]').textContent = 'This creator link does not match a current public Lumina archive.';
+      profileFeatured?.replaceChildren(profileEmpty('No recent publication found.', 'Return to the creator directory to continue browsing.'));
       profileSummary.replaceChildren(profileEmpty('This creator archive is unavailable.', 'The credit may have moved, changed or no longer contain public content.'));
       profilePublications.replaceChildren();
       profileStatus.textContent = 'Return to the creator directory to continue browsing.';
@@ -187,13 +195,32 @@ async function loadCreatorProfile() {
       return;
     }
     updateProfileDocument(profileCreator);
+    const latestPublication = profileCreator.items[0] || null;
+    if (latestPublication) {
+      profileFeatured?.replaceChildren(buildFeaturedPublication(latestPublication, profileCreator));
+      profileFeatured?.setAttribute('aria-label', `Latest publication credited to ${profileCreator.name}`);
+      if (profilePrimaryAction) {
+        profilePrimaryAction.href = latestPublication.href;
+        profilePrimaryAction.textContent = 'Open latest publication';
+      }
+    } else {
+      profileFeatured?.replaceChildren(profileEmpty('No public work yet.', 'Approved publications credited here will appear in this archive.'));
+      if (profilePrimaryAction) {
+        profilePrimaryAction.href = 'guild-creators.html';
+        profilePrimaryAction.textContent = 'Explore all creators';
+      }
+    }
     profileSummary.replaceChildren(buildProfileSummary(profileCreator));
     applyProfileFilter('all');
+    if (profilePublicationsSection) {
+      profilePublicationsSection.hidden = profileCreator.total <= 1 && !archive.partial;
+    }
     if (archive.partial) {
       profileStatus.textContent += ' Some archive sources are temporarily unavailable.';
       profileStatus.classList.add('is-partial');
     }
   } catch {
+    profileFeatured?.replaceChildren(profileEmpty('The latest publication could not be loaded.', 'Please try again in a moment.'));
     profileSummary.replaceChildren(profileEmpty('The creator archive could not be loaded.', 'Please try again in a moment or return to the complete creator directory.'));
     profilePublications.replaceChildren();
     profileStatus.textContent = 'The community archive is temporarily unavailable.';

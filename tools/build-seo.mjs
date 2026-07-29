@@ -456,9 +456,9 @@ function ensureLink(source, rel, href, extra = '') {
 }
 
 function ensureSharedScript(source) {
-  const expression = /(<script\b[^>]*\bsrc=["'])script\.js(?:\?v=[^"']*)?(["'][^>]*><\/script>)/i;
+  const expression = /(<script\b[^>]*\bsrc=["'])(\/?)script\.js(?:\?v=[^"']*)?(["'][^>]*><\/script>)/i;
   return expression.test(source)
-    ? source.replace(expression, `$1${sharedScriptSrc}$2`)
+    ? source.replace(expression, `$1$2${sharedScriptSrc}$3`)
     : source;
 }
 
@@ -481,8 +481,23 @@ function normalizeVersionedAssets(source) {
   return source.replace(
     /((?:src|href)=["'])(?![a-z][a-z0-9+.-]*:|\/\/|#)([^"'?]+\.(?:css|js|svg|png|webp|jpe?g|gif|avif|woff2?))\?v=[^"'&#]+([^"']*["'])/gi,
     (match, prefix, relativePath, suffix) => {
-      const version = cacheVersionFor(relativePath);
-      return version ? `${prefix}${relativePath}?v=${version}${suffix}` : match;
+      const rootAbsolute = relativePath.startsWith('/');
+      const localPath = relativePath.replace(/^\/+/, '');
+      const version = cacheVersionFor(localPath);
+      return version ? `${prefix}${rootAbsolute ? '/' : ''}${localPath}?v=${version}${suffix}` : match;
+    }
+  );
+}
+
+function makeRootAbsoluteLocalReferences(source) {
+  return source.replace(
+    /\b(href|src)=(["'])([^"']+)\2/gi,
+    (match, attribute, quote, value) => {
+      if (
+        !value ||
+        /^(?:[a-z][a-z0-9+.-]*:|\/\/|\/|#|\?)/i.test(value)
+      ) return match;
+      return `${attribute}=${quote}/${value.replace(/^\.\//, '')}${quote}`;
     }
   );
 }
@@ -747,6 +762,7 @@ async function main() {
     output = ensureSecurityMeta(output);
     output = removeHiddenBrandSeal(output);
     output = normalizeVersionedAssets(output);
+    output = makeRootAbsoluteLocalReferences(output);
     fs.writeFileSync(notFoundPath, output);
   }
 

@@ -45,6 +45,7 @@ function creatorThumbnailStrip(items, className = '') {
     );
     return strip;
   }
+  strip.classList.add(`has-${images.length}-item${images.length === 1 ? '' : 's'}`);
   images.forEach((item) => {
     const frame = creatorElement('span', `creator-thumbnail creator-thumbnail--${item.type}`);
     if (item.thumbnail.type === 'video') {

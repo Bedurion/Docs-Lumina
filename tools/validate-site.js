@@ -158,7 +158,7 @@ if (!vectorVersionMatch) {
 }
 
 function stripFragment(value) {
-  return value.split('#')[0].split('?')[0];
+  return value.split('#')[0].split('?')[0].replace(/^\/+/, '');
 }
 
 function isPlainObject(value) {
@@ -184,10 +184,10 @@ for (const file of htmlFiles) {
   if (!/<meta\s+http-equiv="Content-Security-Policy"\s+content="[^"]*default-src 'self'[^"]*script-src 'self'[^"]*"/i.test(source)) {
     report(file, 'missing compatible Content Security Policy');
   }
-  if (!/<link\b[^>]*rel="icon"[^>]*type="image\/svg\+xml"[^>]*href="assets\/brand\/favicon-dark\.svg"/i.test(source)) report(file, 'missing SVG favicon');
-  if (!/<link\b[^>]*rel="icon"[^>]*sizes="32x32"[^>]*href="assets\/brand\/favicon-32x32\.png"/i.test(source)) report(file, 'missing 32px favicon fallback');
-  if (!/<link\b[^>]*rel="icon"[^>]*sizes="16x16"[^>]*href="assets\/brand\/favicon-16x16\.png"/i.test(source)) report(file, 'missing 16px favicon fallback');
-  if (!/<link\b[^>]*rel="apple-touch-icon"[^>]*sizes="180x180"[^>]*href="assets\/brand\/apple-touch-icon\.png"/i.test(source)) report(file, 'missing Apple touch icon');
+  if (!/<link\b[^>]*rel="icon"[^>]*type="image\/svg\+xml"[^>]*href="\/?assets\/brand\/favicon-dark\.svg"/i.test(source)) report(file, 'missing SVG favicon');
+  if (!/<link\b[^>]*rel="icon"[^>]*sizes="32x32"[^>]*href="\/?assets\/brand\/favicon-32x32\.png"/i.test(source)) report(file, 'missing 32px favicon fallback');
+  if (!/<link\b[^>]*rel="icon"[^>]*sizes="16x16"[^>]*href="\/?assets\/brand\/favicon-16x16\.png"/i.test(source)) report(file, 'missing 16px favicon fallback');
+  if (!/<link\b[^>]*rel="apple-touch-icon"[^>]*sizes="180x180"[^>]*href="\/?assets\/brand\/apple-touch-icon\.png"/i.test(source)) report(file, 'missing Apple touch icon');
   if (!description) report(file, 'missing meta description');
   if (!/<h1(?:\s[^>]*)?>[\s\S]*?<\/h1>/i.test(source)) report(file, 'missing h1');
   if (!/data-nav-links/.test(source)) report(file, 'missing shared navigation mount');

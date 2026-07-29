@@ -93,6 +93,8 @@ test('community archive aggregates all formats, hides private items and preserve
 test('creator pages and navigation expose the complete accessible experience', () => {
   const directory = fs.readFileSync(path.join(root, 'guild-creators.html'), 'utf8');
   const profile = fs.readFileSync(path.join(root, 'guild-creator.html'), 'utf8');
+  const directoryScript = fs.readFileSync(path.join(root, 'creators.js'), 'utf8');
+  const profileScript = fs.readFileSync(path.join(root, 'creator-profile.js'), 'utf8');
   const members = fs.readFileSync(path.join(root, 'guild-members.html'), 'utf8');
   const navigation = fs.readFileSync(path.join(root, 'script.js'), 'utf8');
   const galleryScript = fs.readFileSync(path.join(root, 'gallery.js'), 'utf8');
@@ -105,15 +107,31 @@ test('creator pages and navigation expose the complete accessible experience', (
   assert.match(directory, /data-creator-search/);
   assert.match(directory, /data-guild-creator/);
   assert.match(profile, /data-creator-publications/);
+  assert.match(profile, /data-creator-primary-action/);
   assert.match(members, /href="guild-creators\.html"/);
   assert.match(navigation, /\['guild-creators\.html', 'Creators', 'Guild Life'\]/);
   assert.match(navigation, /currentPage === 'guild-creator\.html'[\s\S]*?'guild-creators\.html'/);
+  assert.match(navigation, /'creator-profile': \['guild-creator\.html'\]/);
+  assert.match(navigation, /dataset\.creatorFeatured = ''/);
+  assert.match(profileScript, /const title = creator\.name;/);
+  assert.doesNotMatch(profileScript, /Contributor archive/);
+  assert.match(profileScript, /profileCreator\.items\[0\]/);
+  assert.match(profileScript, /publicationMedia\(item, \{ priority: true \}\)/);
+  assert.match(profileScript, /image\.fetchPriority = 'high'/);
+  assert.match(profileScript, /profilePublicationsSection\.hidden = profileCreator\.total <= 1 && !archive\.partial/);
+  assert.match(directoryScript, /has-\$\{images\.length\}-item/);
   assert.match(
     galleryScript,
     /function buildFeaturedEntry\(entry\)[\s\S]*?article\.id = String\(entry\.id \|\| ''\)\.toLowerCase\(\)/
   );
   assert.match(stylesheet, /\.creator-directory-grid\s*\{[\s\S]*?repeat\(3,/);
+  assert.match(stylesheet, /\.creator-directory-card > a\s*\{[\s\S]*?grid-template-areas:[\s\S]*?"thumbs"[\s\S]*?"heading"[\s\S]*?"types"[\s\S]*?"open"/);
+  assert.match(stylesheet, /\.creator-thumbnail-strip\.has-1-item\s*\{[\s\S]*?grid-template-columns:\s*1fr/);
+  assert.match(stylesheet, /\.creator-featured-card > a\s*\{[\s\S]*?grid-template-columns:/);
+  assert.match(stylesheet, /\.creators-closing,[\s\S]*?\.creator-profile-closing\s*\{[\s\S]*?border:\s*1px solid[\s\S]*?border-radius:/);
+  assert.match(stylesheet, /\.creator-publications-section\[hidden\]\s*\{[\s\S]*?display:\s*none/);
   assert.match(stylesheet, /@media \(max-width: 900px\)[\s\S]*?\.creator-directory-grid[\s\S]*?repeat\(2,/);
+  assert.match(stylesheet, /@media \(max-width: 900px\)[\s\S]*?\.creator-summary-band\s*\{[\s\S]*?grid-template-columns:\s*1fr/);
   assert.match(stylesheet, /@media \(max-width: 680px\)[\s\S]*?\.creator-directory-grid,[\s\S]*?grid-template-columns:\s*1fr/);
 });
 

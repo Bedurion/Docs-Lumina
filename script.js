@@ -1,6 +1,17 @@
 const navToggle = document.querySelector('.nav-toggle');
 const navLinks = document.querySelector('[data-nav-links]');
-const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+const declaredPageSource = document.body?.dataset.pageSource || '';
+const currentPage = declaredPageSource || window.location.pathname.split('/').pop() || 'index.html';
+const useRootAbsoluteLinks = document.body?.hasAttribute('data-root-absolute-links') || false;
+const siteLocalUrl = (value) => {
+  const target = String(value || '');
+  if (
+    !useRootAbsoluteLinks ||
+    !target ||
+    /^(?:[a-z][a-z0-9+.-]*:|\/\/|\/|#|\?)/i.test(target)
+  ) return target;
+  return `/${target.replace(/^\.\//, '')}`;
+};
 const navigationCurrentPage = currentPage === 'guild-creator.html'
   ? 'guild-creators.html'
   : currentPage;
@@ -164,6 +175,8 @@ const vectorAssetVersions = Object.freeze({
   "assets/illustrations/lumina-guild-table.webp": "28d1a2e762",
   "assets/illustrations/lumina-leadership-council.webp": "034403a07a",
   "assets/illustrations/lumina-legacy-chronicle.webp": "dd645d4079",
+  "assets/illustrations/lumina-lost-route-404-960.webp": "e30865e257",
+  "assets/illustrations/lumina-lost-route-404.webp": "6959dcf8ab",
   "assets/illustrations/lumina-membership.webp": "551aa9e9c5",
   "assets/illustrations/lumina-secura-world.webp": "565280acc3",
   "assets/illustrations/lumina-shared-charter.webp": "bc466b4394",
@@ -190,7 +203,7 @@ const vectorAssetVersions = Object.freeze({
 const vectorAssetUrl = (assetPath) => {
   const normalizedPath = String(assetPath).split('?')[0];
   const version = vectorAssetVersions[normalizedPath];
-  return version ? `${normalizedPath}?v=${version}` : normalizedPath;
+  return siteLocalUrl(version ? `${normalizedPath}?v=${version}` : normalizedPath);
 };
 
 const navigationSections = {
@@ -318,7 +331,7 @@ const renderDropdownLinks = (section) => {
   const hasGroups = section.pages.some(([, , group]) => group);
   if (!hasGroups) {
     return section.pages.map(([href, label]) =>
-      `<a class="${href === navigationCurrentPage ? 'active' : ''}" href="${href}">${label}</a>`
+      `<a class="${href === navigationCurrentPage ? 'active' : ''}" href="${siteLocalUrl(href)}">${label}</a>`
     ).join('');
   }
 
@@ -337,7 +350,7 @@ const renderDropdownLinks = (section) => {
       <button class="nav-dropdown-label nav-group-button" type="button" aria-expanded="false">${group.label}</button>
       <div class="nav-dropdown-group-links">
         ${group.pages.map(([href, label]) =>
-          `<a class="${href === navigationCurrentPage ? 'active' : ''}" href="${href}">${label}</a>`
+          `<a class="${href === navigationCurrentPage ? 'active' : ''}" href="${siteLocalUrl(href)}">${label}</a>`
         ).join('')}
       </div>
     </section>`).join('');
@@ -362,12 +375,12 @@ if (navLinks) {
         <span><small>Back to menu</small><strong data-mobile-nav-title>Navigation</strong></span>
       </button>
     </div>
-    <a class="nav-link ${currentPage === 'index.html' ? 'active' : ''}" href="index.html">${renderNavIcon('home.svg')}<span>Home</span></a>
+    <a class="nav-link ${currentPage === 'index.html' ? 'active' : ''}" href="${siteLocalUrl('index.html')}">${renderNavIcon('home.svg')}<span>Home</span></a>
     ${renderNavMenu(navigationSections.guild, true)}
     ${renderNavMenu(navigationSections.features, true)}
     ${renderNavMenu(navigationSections.docs, true)}
     ${renderNavMenu(navigationSections.pricing)}
-    <a class="nav-cta ${currentPage === 'contact.html' ? 'active' : ''}" href="contact.html"><span class="nav-cta-icon">${renderNavIcon('nav-support.svg')}</span><span>Questions?</span><span class="nav-cta-arrow" aria-hidden="true">↗</span></a>`;
+    <a class="nav-cta ${currentPage === 'contact.html' ? 'active' : ''}" href="${siteLocalUrl('contact.html')}"><span class="nav-cta-icon">${renderNavIcon('nav-support.svg')}</span><span>Questions?</span><span class="nav-cta-arrow" aria-hidden="true">↗</span></a>`;
 }
 
 if (navToggle) {
@@ -379,14 +392,14 @@ if (siteFooter) {
   const currentYear = new Date().getFullYear();
   const copyrightYears = currentYear > 2025 ? `2025–${currentYear}` : '2025';
   siteFooter.innerHTML = `
-    <a class="footer-brand" href="index.html" aria-label="Lumina home">
-      <img src="assets/brand/seal-dark-nav.svg?v=8313b7fbad" alt="" aria-hidden="true">
+    <a class="footer-brand" href="${siteLocalUrl('index.html')}" aria-label="Lumina home">
+      <img src="${siteLocalUrl('assets/brand/seal-dark-nav.svg?v=8313b7fbad')}" alt="" aria-hidden="true">
       <span><strong>Lumina Guild</strong><small>A Tibia Guild on Secura</small></span>
     </a>
     <nav class="footer-links" aria-label="Footer navigation">
-      <a href="guild.html">Guild</a><a href="features.html">Bot</a><a href="docs.html">Docs</a><a href="pricing.html">Pricing</a><a href="contact.html">Contact</a>
+      <a href="${siteLocalUrl('guild.html')}">Guild</a><a href="${siteLocalUrl('features.html')}">Bot</a><a href="${siteLocalUrl('docs.html')}">Docs</a><a href="${siteLocalUrl('pricing.html')}">Pricing</a><a href="${siteLocalUrl('contact.html')}">Contact</a>
     </nav>
-    <div class="footer-meta"><span class="footer-copyright">© ${copyrightYears} Lumina</span><span class="footer-meta-separator" aria-hidden="true">·</span><a class="footer-legal" href="legal.html">Legal</a></div>
+    <div class="footer-meta"><span class="footer-copyright">© ${copyrightYears} Lumina</span><span class="footer-meta-separator" aria-hidden="true">·</span><a class="footer-legal" href="${siteLocalUrl('legal.html')}">Legal</a></div>
     <a class="footer-top" href="#top"><span aria-hidden="true">↑</span> Top</a>`;
 }
 
@@ -538,7 +551,6 @@ const pagePresentations = {
 };
 
 const pageArtworkByPage = Object.freeze({
-  '404.html': 'trust-vault.svg',
   'changelog.html': 'progression-path.svg',
   'commands.html': 'docs-library.svg',
   'docs.html': 'docs-library.svg',
@@ -646,7 +658,7 @@ const openingArtworkClassName = (className = '') => [
 
 const pageOpeningTitles = {
   'index.html': 'Run Guilds Better',
-  '404.html': 'Route Not Found',
+  '404.html': "You've wandered beyond the guild map.",
   'changelog.html': 'Product Milestones',
   'commands.html': 'Command Reference',
   'contact.html': 'Talk With Us',
@@ -940,7 +952,6 @@ const openingLayoutGroups = {
     'guild-journal.html',
     'guild-art.html',
     'guild-creators.html',
-    'guild-creator.html',
     'guild-loyalty.html',
     'guild-other-games.html',
     'blog.html',
@@ -948,6 +959,7 @@ const openingLayoutGroups = {
     'bot-tracker.html',
     'bot-blacklist.html'
   ],
+  'creator-profile': ['guild-creator.html'],
   chapter: [
     'docs-registration.html',
     'docs-inactive-characters.html',
@@ -1173,6 +1185,20 @@ const renderContactPaths = () => {
   return visual;
 };
 
+const renderCreatorProfileFeature = () => {
+  const visual = document.createElement('aside');
+  visual.className = 'creator-profile-featured';
+  visual.dataset.creatorFeatured = '';
+  visual.setAttribute('aria-label', 'Latest credited publication');
+  visual.setAttribute('aria-live', 'polite');
+  visual.innerHTML = `
+    <div class="creator-profile-featured-loading">
+      <span aria-hidden="true"></span>
+      <p>Preparing the latest publication…</p>
+    </div>`;
+  return visual;
+};
+
 const customOpeningRenderers = {
   'guild-cover': renderGuildCover,
   'gallery-wall': renderGalleryWall,
@@ -1181,7 +1207,8 @@ const customOpeningRenderers = {
   'edition-choice': renderEditionChoice,
   'founder-cover': renderFounderCover,
   'pricing-tiers': renderPricingTiers,
-  'contact-paths': renderContactPaths
+  'contact-paths': renderContactPaths,
+  'creator-profile': renderCreatorProfileFeature
 };
 
 const addEditionAvailability = (copy) => {
