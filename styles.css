@@ -1113,7 +1113,7 @@ a {
 
 .content-credit__name {
   min-width: 0;
-  color: #f8f5eb;
+  color: #d8d2e8;
   font-size: 0.82rem;
   font-weight: 800;
   letter-spacing: 0.005em;
@@ -1143,6 +1143,11 @@ a {
   .content-credit::before {
     background: CanvasText;
     box-shadow: none;
+  }
+
+  .content-credit__label,
+  .content-credit__name {
+    color: CanvasText;
   }
 }
 
