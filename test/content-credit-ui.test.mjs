@@ -64,7 +64,7 @@ test('content credits use Lumina as the exact guild fallback, including legacy p
   }
 });
 
-test('content credits render a semantic two-line signature and safe personal monogram', () => {
+test('content credits render a compact text signature without an avatar or monogram', () => {
   const api = loadCreditApi();
   const credit = api.create('  Sacrel   Knight  ', {
     label: 'Artwork by',
@@ -78,10 +78,10 @@ test('content credits render a semantic two-line signature and safe personal mon
   assert.equal(credit.hasClass('content-credit--art'), true);
   assert.equal(credit.hasClass('content-credit--compact'), true);
   assert.equal(credit.hasClass('is-guild'), false);
-  assert.equal(credit.children[0].attributes.get('aria-hidden'), 'true');
-  assert.equal(credit.children[0].children[0].textContent, 'SK');
-  assert.equal(credit.children[1].children[0].textContent, 'Artwork by');
-  assert.equal(credit.children[1].children[1].textContent, 'Sacrel Knight');
+  assert.equal(credit.children.length, 2);
+  assert.equal(credit.children[0].textContent, 'Artwork by');
+  assert.equal(credit.children[1].textContent, 'Sacrel Knight');
+  assert.equal(credit.children.some((child) => child.hasClass('content-credit__seal')), false);
 });
 
 test('guild fallback renders the Lumina identity variant and ignores unsupported presentation values', () => {
@@ -95,8 +95,8 @@ test('guild fallback renders the Lumina identity variant and ignores unsupported
   assert.equal(credit.tagName, 'DIV');
   assert.equal(credit.hasClass('is-guild'), true);
   assert.equal(credit.hasClass('content-credit--unknown'), false);
-  assert.equal(credit.children[1].children[0].textContent, 'Created by');
-  assert.equal(credit.children[1].children[1].textContent, 'Lumina');
+  assert.equal(credit.children[0].textContent, 'Created by');
+  assert.equal(credit.children[1].textContent, 'Lumina');
 });
 
 test('every community archive loads and uses the shared credit component', () => {
