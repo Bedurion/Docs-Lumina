@@ -5,10 +5,10 @@ const dispatchIdPattern = /^[a-f0-9]{24}$/;
 const digestPattern = /^[a-f0-9]{64}$/;
 const contentTypes = new Set(['gallery', 'blog', 'art', 'roleplay']);
 const operationsByContentType = new Map([
-  ['gallery', new Set(['create', 'update'])],
-  ['art', new Set(['create', 'update'])],
-  ['blog', new Set(['create', 'update', 'hide', 'unhide', 'delete', 'hide_for_changes'])],
-  ['roleplay', new Set(['create', 'update', 'hide', 'unhide', 'delete', 'hide_for_changes'])]
+  ['gallery', new Set(['create', 'update', 'credit_update'])],
+  ['art', new Set(['create', 'update', 'credit_update'])],
+  ['blog', new Set(['create', 'update', 'hide', 'unhide', 'delete', 'hide_for_changes', 'credit_update'])],
+  ['roleplay', new Set(['create', 'update', 'hide', 'unhide', 'delete', 'hide_for_changes', 'credit_update'])]
 ]);
 const manifestKeys = [
   'version',
@@ -155,7 +155,7 @@ export function validatePublicationState(value) {
     if (!isPlainObject(record) || !hasOnlyKeys(record, stateRecordKeys)) {
       fail(`Publication state record ${submissionId} has an invalid schema.`);
     }
-    if (![4, 5].includes(record.protocolVersion)) {
+    if (![4, 5, 6].includes(record.protocolVersion)) {
       fail(`Publication state record ${submissionId} has an invalid protocol version.`);
     }
     if (!dispatchIdPattern.test(record.dispatchId)) {
@@ -184,7 +184,7 @@ export function validatePublicationManifest(manifest, expected = {}) {
     !isPlainObject(manifest) ||
     !hasOnlyKeys(manifest, manifestKeys) ||
     manifest.version !== 1 ||
-    ![4, 5].includes(manifest.protocolVersion)
+    ![4, 5, 6].includes(manifest.protocolVersion)
   ) {
     fail('Publication manifest has an invalid schema.');
   }
@@ -201,7 +201,7 @@ export function validatePublicationManifest(manifest, expected = {}) {
   assertSafeInteger(manifest.workflowRunNumber, 1, 'Workflow run number');
 
   if (
-    manifest.protocolVersion === 5 &&
+    manifest.protocolVersion >= 5 &&
     manifest.publicationBaseRevision >= manifest.publicationRevision
   ) {
     fail('Publication base revision must be older than its revision.');
@@ -274,8 +274,8 @@ export function decidePublication(state, manifest) {
   }
 
   if (manifest.protocolVersion === 4) {
-    if (current.protocolVersion === 5) {
-      fail('A legacy publication request cannot overwrite version 5 publication state.');
+    if (current.protocolVersion >= 5) {
+      fail('A legacy publication request cannot overwrite version 5 or 6 publication state.');
     }
     if (manifest.workflowRunNumber < current.workflowRunNumber) {
       fail('Legacy publication request is older than repository state.');
@@ -289,12 +289,16 @@ export function decidePublication(state, manifest) {
     if (sameSemanticRequest(current, manifest)) {
       return 'record_retry';
     }
-    fail('Legacy publication updates require a version 5 payload.');
+    fail('Legacy publication updates require a sequenced payload.');
+  }
+
+  if (current.protocolVersion > manifest.protocolVersion) {
+    fail('Publication protocol cannot downgrade repository state.');
   }
 
   if (current.protocolVersion === 4) {
     if (manifest.publicationBaseRevision !== 0) {
-      fail('The first version 5 publication must migrate from base revision zero.');
+      fail('The first sequenced publication must migrate from base revision zero.');
     }
     return sameSemanticRequest(current, manifest) ? 'record_retry' : 'apply';
   }

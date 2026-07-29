@@ -2,6 +2,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { createHash } = require('node:crypto');
 const { execFileSync } = require('node:child_process');
+const { extractCuratedArt } = require('./art-curated-data.cjs');
 
 const root = path.resolve(__dirname, '..');
 const htmlFiles = fs.readdirSync(root).filter((file) => file.endsWith('.html')).sort();
@@ -41,6 +42,14 @@ const blogCategoryLabels = new Map([
   ['editorial', 'Editorial']
 ]);
 const roleplayCategories = new Set(['campaign', 'one-shot', 'character', 'lore', 'anthology']);
+const creatorIdPattern = /^(?:lumina|member-[a-f0-9]{16}|legacy-[a-f0-9]{16})$/;
+
+function validCreator(entry, creditField) {
+  return (
+    creatorIdPattern.test(entry?.creatorId) &&
+    (entry.creatorId !== 'lumina' || entry?.[creditField] === 'Lumina')
+  );
+}
 
 function report(file, message) {
   errors.push(`${file}: ${message}`);
@@ -340,7 +349,7 @@ if (!fs.existsSync(galleryDataPath)) {
     } else {
       const seenIds = new Set();
       const entryKeys = [
-        'id', 'title', 'description', 'category', 'subcategory', 'credit',
+        'id', 'title', 'description', 'category', 'subcategory', 'credit', 'creatorId',
         'submittedAt', 'publishedAt', 'media'
       ];
 
@@ -358,6 +367,7 @@ if (!fs.existsSync(galleryDataPath)) {
         if (typeof entry.description !== 'string' || entry.description.length < 10 || entry.description.length > 1200) report('data/community-media.json', `${label} has an invalid description`);
         if (!gallerySubcategories.get(entry.category)?.has(entry.subcategory)) report('data/community-media.json', `${label} has an invalid category and subcategory combination`);
         if (typeof entry.credit !== 'string' || entry.credit.length < 1 || entry.credit.length > 100) report('data/community-media.json', `${label} has an invalid credit`);
+        if (!validCreator(entry, 'credit')) report('data/community-media.json', `${label} has an invalid creator identity`);
         if (Number.isNaN(Date.parse(entry.submittedAt)) || Number.isNaN(Date.parse(entry.publishedAt))) report('data/community-media.json', `${label} has an invalid date`);
 
         if (!Array.isArray(entry.media) || entry.media.length < 1 || entry.media.length > 4) {
@@ -446,7 +456,7 @@ if (!fs.existsSync(blogDataPath)) {
     } else {
       const seenIds = new Set();
       const postKeys = [
-        'id', 'title', 'excerpt', 'body', 'category', 'author', 'submittedAt',
+        'id', 'title', 'excerpt', 'body', 'category', 'author', 'creatorId', 'submittedAt',
         'publishedAt', 'updatedAt', 'visible', 'readingMinutes', 'views',
         'leadersSelection', 'media'
       ];
@@ -472,6 +482,7 @@ if (!fs.existsSync(blogDataPath)) {
           report('data/blog-posts.json', `${label} has an invalid category`);
         }
         if (typeof post.author !== 'string' || post.author.length < 1 || post.author.length > 100) report('data/blog-posts.json', `${label} has an invalid author`);
+        if (!validCreator(post, 'author')) report('data/blog-posts.json', `${label} has an invalid creator identity`);
         if (Number.isNaN(Date.parse(post.submittedAt)) || Number.isNaN(Date.parse(post.publishedAt)) || Number.isNaN(Date.parse(post.updatedAt))) report('data/blog-posts.json', `${label} has an invalid date`);
         if (typeof post.visible !== 'boolean') report('data/blog-posts.json', `${label} has an invalid visibility value`);
         if (!Number.isSafeInteger(post.readingMinutes) || post.readingMinutes < 1 || post.readingMinutes > 60) report('data/blog-posts.json', `${label} has an invalid reading time`);
@@ -562,7 +573,7 @@ if (!fs.existsSync(artDataPath)) {
       const seenIds = new Set();
       const categories = new Set(artSubcategories.keys());
       const entryKeys = [
-        'id', 'title', 'description', 'category', 'subcategory', 'credit',
+        'id', 'title', 'description', 'category', 'subcategory', 'credit', 'creatorId',
         'submittedAt', 'publishedAt', 'media'
       ];
 
@@ -581,6 +592,7 @@ if (!fs.existsSync(artDataPath)) {
         if (!categories.has(entry.category)) report('data/art-entries.json', `${label} has an invalid category`);
         if (!artSubcategories.get(entry.category)?.has(entry.subcategory)) report('data/art-entries.json', `${label} has an invalid category and subcategory combination`);
         if (typeof entry.credit !== 'string' || entry.credit.length < 1 || entry.credit.length > 100) report('data/art-entries.json', `${label} has an invalid credit`);
+        if (!validCreator(entry, 'credit')) report('data/art-entries.json', `${label} has an invalid creator identity`);
         if (Number.isNaN(Date.parse(entry.submittedAt)) || Number.isNaN(Date.parse(entry.publishedAt))) report('data/art-entries.json', `${label} has an invalid date`);
 
         const expectedSource = validId ? `assets/community/${entry.id.toLowerCase()}-art.webp` : '';
@@ -626,6 +638,89 @@ if (!fs.existsSync(artDataPath)) {
   }
 }
 
+const curatedArtDataPath = path.join(root, 'data', 'art-curated.json');
+if (!fs.existsSync(curatedArtDataPath)) {
+  report('data/art-curated.json', 'missing curated Art data source');
+} else {
+  try {
+    const curatedData = JSON.parse(fs.readFileSync(curatedArtDataPath, 'utf8'));
+    const expectedEntries = extractCuratedArt(
+      fs.readFileSync(path.join(root, 'guild-art.html'), 'utf8')
+    );
+
+    if (
+      !isPlainObject(curatedData) ||
+      !hasExactKeys(curatedData, ['version', 'entries']) ||
+      curatedData.version !== 1 ||
+      !Array.isArray(curatedData.entries) ||
+      curatedData.entries.length !== 32
+    ) {
+      report('data/art-curated.json', 'invalid root schema or curated entry count');
+    } else {
+      const ids = new Set();
+      curatedData.entries.forEach((entry, index) => {
+        const label = `entry ${index + 1}`;
+        if (!isPlainObject(entry) || !hasExactKeys(entry, [
+          'id', 'title', 'description', 'category', 'subcategory',
+          'credit', 'creatorId', 'tags', 'media'
+        ])) {
+          report('data/art-curated.json', `${label} has an invalid schema`);
+          return;
+        }
+        if (!/^art-[a-z0-9]+(?:-[a-z0-9]+)*$/.test(entry.id) || ids.has(entry.id)) {
+          report('data/art-curated.json', `${label} has an invalid or duplicate ID`);
+        }
+        ids.add(entry.id);
+        if (entry.credit !== 'Lumina' || entry.creatorId !== 'lumina') {
+          report('data/art-curated.json', `${label} must belong to Lumina`);
+        }
+        if (typeof entry.title !== 'string' || entry.title.length < 3 || entry.title.length > 100) {
+          report('data/art-curated.json', `${label} has an invalid title`);
+        }
+        if (typeof entry.description !== 'string' || entry.description.length < 20 || entry.description.length > 360) {
+          report('data/art-curated.json', `${label} has an invalid description`);
+        }
+        if (!artSubcategories.get(entry.category)?.has(entry.subcategory)) {
+          report('data/art-curated.json', `${label} has an invalid category and subcategory`);
+        }
+        if (
+          !Array.isArray(entry.tags) ||
+          entry.tags.length < 1 ||
+          entry.tags.length > 12 ||
+          entry.tags.some((tag) => typeof tag !== 'string' || tag.length < 1 || tag.length > 50)
+        ) {
+          report('data/art-curated.json', `${label} has invalid tags`);
+        }
+        const media = entry.media;
+        if (
+          !isPlainObject(media) ||
+          !hasExactKeys(media, ['type', 'src', 'alt', 'width', 'height']) ||
+          media.type !== 'image' ||
+          media.src !== `assets/art/${entry.id.slice(4)}.webp` ||
+          typeof media.alt !== 'string' ||
+          media.alt.length < 5 ||
+          !Number.isSafeInteger(media.width) ||
+          !Number.isSafeInteger(media.height) ||
+          media.width < 1 ||
+          media.height < 1 ||
+          !fs.existsSync(path.join(root, media.src))
+        ) {
+          report('data/art-curated.json', `${label} has invalid media`);
+        }
+      });
+    }
+
+    if (JSON.stringify(curatedData.entries) !== JSON.stringify(expectedEntries)) {
+      report(
+        'data/art-curated.json',
+        'curated data is out of sync with guild-art.html; run node tools/build-art-curated.mjs'
+      );
+    }
+  } catch {
+    report('data/art-curated.json', 'contains invalid JSON or cannot be synchronized');
+  }
+}
+
 const roleplayDataPath = path.join(root, 'data', 'roleplay-stories.json');
 if (!fs.existsSync(roleplayDataPath)) {
   report('data/roleplay-stories.json', 'missing Roleplay archive data source');
@@ -639,7 +734,7 @@ if (!fs.existsSync(roleplayDataPath)) {
       const storySlugs = new Set();
       const storyKeys = [
         'id', 'slug', 'title', 'subtitle', 'summary', 'category', 'status',
-        'featured', 'visible', 'author', 'publishedAt', 'updatedAt',
+        'featured', 'visible', 'author', 'creatorId', 'publishedAt', 'updatedAt',
         'readingMinutes', 'cover', 'chapters'
       ];
       const chapterKeys = ['id', 'title', 'summary', 'publishedAt', 'visible', 'content'];
@@ -662,6 +757,7 @@ if (!fs.existsSync(roleplayDataPath)) {
         if (!statuses.has(story.status)) report('data/roleplay-stories.json', `${storyLabel} has an invalid status`);
         if (typeof story.featured !== 'boolean' || typeof story.visible !== 'boolean') report('data/roleplay-stories.json', `${storyLabel} has invalid publication flags`);
         if (typeof story.author !== 'string' || story.author.length < 1 || story.author.length > 100) report('data/roleplay-stories.json', `${storyLabel} has an invalid author`);
+        if (!validCreator(story, 'author')) report('data/roleplay-stories.json', `${storyLabel} has an invalid creator identity`);
         if (Number.isNaN(Date.parse(story.publishedAt)) || Number.isNaN(Date.parse(story.updatedAt))) report('data/roleplay-stories.json', `${storyLabel} has an invalid date`);
         if (!Number.isSafeInteger(story.readingMinutes) || story.readingMinutes < 1 || story.readingMinutes > 600) report('data/roleplay-stories.json', `${storyLabel} has an invalid reading time`);
 

@@ -64,17 +64,20 @@ test('content credits use Lumina as the exact guild fallback, including legacy p
   }
 });
 
-test('content credits render a compact text signature without an avatar or monogram', () => {
+test('content credits render a compact linked signature without an avatar or monogram', () => {
   const api = loadCreditApi();
   const credit = api.create('  Sacrel   Knight  ', {
+    creatorId: 'creator-sacrel',
     label: 'Artwork by',
     tone: 'art',
-    compact: true,
-    tagName: 'span'
+    compact: true
   });
 
-  assert.equal(credit.tagName, 'SPAN');
+  assert.equal(credit.tagName, 'A');
   assert.equal(credit.dataset.contentCredit, 'Sacrel Knight');
+  assert.equal(credit.dataset.contentCreatorId, 'creator-sacrel');
+  assert.equal(credit.href, 'guild-creator.html?profile=creator-sacrel');
+  assert.equal(credit.attributes.get('aria-label'), 'View all content credited to Sacrel Knight');
   assert.equal(credit.hasClass('content-credit--art'), true);
   assert.equal(credit.hasClass('content-credit--compact'), true);
   assert.equal(credit.hasClass('is-guild'), false);
@@ -84,7 +87,7 @@ test('content credits render a compact text signature without an avatar or monog
   assert.equal(credit.children.some((child) => child.hasClass('content-credit__seal')), false);
 });
 
-test('guild fallback renders the Lumina identity variant and ignores unsupported presentation values', () => {
+test('guild fallback links to the Lumina archive and ignores unsupported presentation values', () => {
   const api = loadCreditApi();
   const credit = api.create(null, {
     label: '',
@@ -92,11 +95,24 @@ test('guild fallback renders the Lumina identity variant and ignores unsupported
     tagName: 'article'
   });
 
-  assert.equal(credit.tagName, 'DIV');
+  assert.equal(credit.tagName, 'A');
   assert.equal(credit.hasClass('is-guild'), true);
   assert.equal(credit.hasClass('content-credit--unknown'), false);
+  assert.equal(credit.dataset.contentCreatorId, 'lumina');
+  assert.equal(credit.href, 'guild-creator.html?profile=lumina');
+  assert.equal(credit.attributes.get('aria-label'), 'View the Lumina guild archive');
   assert.equal(credit.children[0].textContent, 'Created by');
   assert.equal(credit.children[1].textContent, 'Lumina');
+});
+
+test('legacy personal credits receive an opaque deterministic profile id', () => {
+  const api = loadCreditApi();
+  const first = api.create('Legacy Character');
+  const second = api.create('Legacy Character');
+
+  assert.equal(first.dataset.contentCreatorId, 'legacy-6b34410d622dfa8f');
+  assert.equal(first.dataset.contentCreatorId, second.dataset.contentCreatorId);
+  assert.doesNotMatch(first.href, /legacy-character/);
 });
 
 test('every community archive loads and uses the shared credit component', () => {
@@ -127,4 +143,6 @@ test('every community archive loads and uses the shared credit component', () =>
   assert.match(artworkHtml, /data-art-featured-credit/);
   assert.match(artworkHtml, /data-art-dialog-credit/);
   assert.doesNotMatch(stylesheet, /\.art-dialog-copy\s*>\s*div\s+span/);
+  assert.match(stylesheet, /\.content-credit__name\s*\{[\s\S]*?color:\s*#82b7ff/i);
+  assert.match(stylesheet, /\.content-credit:hover\s+\.content-credit__name,[\s\S]*?color:\s*#b9d5ff/i);
 });

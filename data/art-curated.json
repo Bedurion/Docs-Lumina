@@ -1,0 +1,677 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "id": "art-moonlit-citadel",
+      "title": "Moonlit Citadel",
+      "description": "A guild stronghold rises above a sleeping coastal city while violet storms and warm windows divide the night.",
+      "category": "places",
+      "subcategory": "city",
+      "credit": "Lumina",
+      "creatorId": "lumina",
+      "tags": [
+        "Citadel",
+        "Moonlight",
+        "Guild home"
+      ],
+      "media": {
+        "type": "image",
+        "src": "assets/art/moonlit-citadel.webp",
+        "alt": "Moonlit fantasy citadel above a coastal city",
+        "width": 1536,
+        "height": 1024
+      }
+    },
+    {
+      "id": "art-golden-harbor",
+      "title": "The Golden Harbor",
+      "description": "Morning arrives over a fortified port as travelers cross the final bridge toward the city.",
+      "category": "places",
+      "subcategory": "coast",
+      "credit": "Lumina",
+      "creatorId": "lumina",
+      "tags": [
+        "Harbor",
+        "Dawn",
+        "Arrival"
+      ],
+      "media": {
+        "type": "image",
+        "src": "assets/art/golden-harbor.webp",
+        "alt": "Golden fantasy harbor at sunrise",
+        "width": 1536,
+        "height": 1024
+      }
+    },
+    {
+      "id": "art-forest-ruins",
+      "title": "Lanterns in the Old Grove",
+      "description": "Ancient roots, ruined stone and luminous moths guide explorers toward a forgotten forest gate.",
+      "category": "places",
+      "subcategory": "ruins",
+      "credit": "Lumina",
+      "creatorId": "lumina",
+      "tags": [
+        "Forest",
+        "Ruins",
+        "Exploration"
+      ],
+      "media": {
+        "type": "image",
+        "src": "assets/art/forest-ruins.webp",
+        "alt": "Magical forest ruins with violet lantern moths",
+        "width": 1536,
+        "height": 1024
+      }
+    },
+    {
+      "id": "art-frozen-pass",
+      "title": "The Frozen Passage",
+      "description": "A small expedition follows one distant light through a mountain pass shaped by wind and ice.",
+      "category": "places",
+      "subcategory": "landscape",
+      "credit": "Lumina",
+      "creatorId": "lumina",
+      "tags": [
+        "Snow",
+        "Expedition",
+        "Refuge"
+      ],
+      "media": {
+        "type": "image",
+        "src": "assets/art/frozen-pass.webp",
+        "alt": "Adventurers crossing a frozen mountain pass",
+        "width": 1536,
+        "height": 1024
+      }
+    },
+    {
+      "id": "art-desert-temple",
+      "title": "Temple of the Red Beacon",
+      "description": "A forgotten desert complex wakes beneath a red crystal as three adventurers approach its causeway.",
+      "category": "places",
+      "subcategory": "ruins",
+      "credit": "Lumina",
+      "creatorId": "lumina",
+      "tags": [
+        "Desert",
+        "Temple",
+        "Red crystal"
+      ],
+      "media": {
+        "type": "image",
+        "src": "assets/art/desert-temple.webp",
+        "alt": "Ancient desert temple with a red crystal beacon",
+        "width": 1536,
+        "height": 1024
+      }
+    },
+    {
+      "id": "art-crystal-cavern",
+      "title": "The Crystal Descent",
+      "description": "Bridges, waterfalls and luminous crystal lead a guild party toward an ancient underground door.",
+      "category": "places",
+      "subcategory": "dungeon",
+      "credit": "Lumina",
+      "creatorId": "lumina",
+      "tags": [
+        "Cavern",
+        "Crystal",
+        "Ancient gate"
+      ],
+      "media": {
+        "type": "image",
+        "src": "assets/art/crystal-cavern.webp",
+        "alt": "Vast crystal cavern with bridges and waterfalls",
+        "width": 1536,
+        "height": 1024
+      }
+    },
+    {
+      "id": "art-wall-vigil",
+      "title": "Vigil Above the City",
+      "description": "A solitary paladin watches a living city from the wall while aurora light moves over distant towers.",
+      "category": "heroes",
+      "subcategory": "portrait",
+      "credit": "Lumina",
+      "creatorId": "lumina",
+      "tags": [
+        "Paladin",
+        "Watch",
+        "City"
+      ],
+      "media": {
+        "type": "image",
+        "src": "assets/art/wall-vigil.webp",
+        "alt": "Paladin standing watch above a fantasy city",
+        "width": 1536,
+        "height": 1024
+      }
+    },
+    {
+      "id": "art-map-council",
+      "title": "Council at the Living Map",
+      "description": "A knight and druid turn a quiet table into the beginning of the next expedition.",
+      "category": "guild-life",
+      "subcategory": "planning",
+      "credit": "Lumina",
+      "creatorId": "lumina",
+      "tags": [
+        "Planning",
+        "Council",
+        "Teamwork"
+      ],
+      "media": {
+        "type": "image",
+        "src": "assets/art/map-council.webp",
+        "alt": "Knight and druid planning over a magical map",
+        "width": 1536,
+        "height": 1024
+      }
+    },
+    {
+      "id": "art-star-library",
+      "title": "Keeper of the Star Library",
+      "description": "A mage studies a moving sky of books and constellations inside a library built for impossible questions.",
+      "category": "heroes",
+      "subcategory": "daily-life",
+      "credit": "Lumina",
+      "creatorId": "lumina",
+      "tags": [
+        "Mage",
+        "Library",
+        "Stars"
+      ],
+      "media": {
+        "type": "image",
+        "src": "assets/art/star-library.webp",
+        "alt": "Mage studying constellations in a magical library",
+        "width": 1536,
+        "height": 1024
+      }
+    },
+    {
+      "id": "art-ancient-bridge",
+      "title": "Across the Ancient Bridge",
+      "description": "Five adventurers cross above a fog-filled abyss with only lantern light and a distant city ahead.",
+      "category": "heroes",
+      "subcategory": "journey",
+      "credit": "Lumina",
+      "creatorId": "lumina",
+      "tags": [
+        "Party",
+        "Bridge",
+        "Journey"
+      ],
+      "media": {
+        "type": "image",
+        "src": "assets/art/ancient-bridge.webp",
+        "alt": "Guild party crossing an ancient suspended bridge",
+        "width": 1536,
+        "height": 1024
+      }
+    },
+    {
+      "id": "art-dragon-roost",
+      "title": "Before the Dragon Moves",
+      "description": "An obsidian dragon and a disciplined guild party measure the final silence before battle.",
+      "category": "creatures",
+      "subcategory": "dragon",
+      "credit": "Lumina",
+      "creatorId": "lumina",
+      "tags": [
+        "Dragon",
+        "Roost",
+        "Confrontation"
+      ],
+      "media": {
+        "type": "image",
+        "src": "assets/art/dragon-roost.webp",
+        "alt": "Guild party confronting an obsidian dragon",
+        "width": 1536,
+        "height": 1024
+      }
+    },
+    {
+      "id": "art-moonlit-hydra",
+      "title": "Hydra of the Drowned Court",
+      "description": "Three watchful heads rise among ruined statues while black water reflects a single scout's torch.",
+      "category": "creatures",
+      "subcategory": "beast",
+      "credit": "Lumina",
+      "creatorId": "lumina",
+      "tags": [
+        "Hydra",
+        "Swamp",
+        "Ruins"
+      ],
+      "media": {
+        "type": "image",
+        "src": "assets/art/moonlit-hydra.webp",
+        "alt": "Three-headed hydra in a moonlit swamp",
+        "width": 1536,
+        "height": 1024
+      }
+    },
+    {
+      "id": "art-moon-wolves",
+      "title": "The Moon-Wolf Run",
+      "description": "Spectral wolves race through the snow as silver fur carries the color of the night sky.",
+      "category": "creatures",
+      "subcategory": "beast",
+      "credit": "Lumina",
+      "creatorId": "lumina",
+      "tags": [
+        "Wolves",
+        "Moon",
+        "Snow"
+      ],
+      "media": {
+        "type": "image",
+        "src": "assets/art/moon-wolves.webp",
+        "alt": "Spectral moon wolves racing through snowy ruins",
+        "width": 1536,
+        "height": 1024
+      }
+    },
+    {
+      "id": "art-crystal-golem",
+      "title": "Guardian Beneath the Gate",
+      "description": "A crystal golem awakens above two explorers as its ancient core floods the temple with light.",
+      "category": "creatures",
+      "subcategory": "construct",
+      "credit": "Lumina",
+      "creatorId": "lumina",
+      "tags": [
+        "Golem",
+        "Crystal",
+        "Guardian"
+      ],
+      "media": {
+        "type": "image",
+        "src": "assets/art/crystal-golem.webp",
+        "alt": "Immense crystal golem awakening in an underground temple",
+        "width": 1536,
+        "height": 1024
+      }
+    },
+    {
+      "id": "art-fallen-warlord",
+      "title": "The Warlord at Black Gate",
+      "description": "A fallen commander waits in the rain before a sealed gate as another company finally arrives.",
+      "category": "adversaries",
+      "subcategory": "boss",
+      "credit": "Lumina",
+      "creatorId": "lumina",
+      "tags": [
+        "Warlord",
+        "Black gate",
+        "Storm"
+      ],
+      "media": {
+        "type": "image",
+        "src": "assets/art/fallen-warlord.webp",
+        "alt": "Armored fallen warlord before a black gate",
+        "width": 1536,
+        "height": 1024
+      }
+    },
+    {
+      "id": "art-crypt-necromancer",
+      "title": "The Violet Crypt",
+      "description": "A necromancer calls translucent spirits through a cathedral-sized crypt of candles and stone.",
+      "category": "adversaries",
+      "subcategory": "supernatural",
+      "credit": "Lumina",
+      "creatorId": "lumina",
+      "tags": [
+        "Necromancer",
+        "Crypt",
+        "Spirits"
+      ],
+      "media": {
+        "type": "image",
+        "src": "assets/art/crypt-necromancer.webp",
+        "alt": "Necromancer summoning spirits in a candlelit crypt",
+        "width": 1536,
+        "height": 1024
+      }
+    },
+    {
+      "id": "art-sea-leviathan",
+      "title": "Leviathan at the Harbor Light",
+      "description": "A colossal sea creature rises beyond the lighthouse while ships turn toward the city's shelter.",
+      "category": "creatures",
+      "subcategory": "aquatic",
+      "credit": "Lumina",
+      "creatorId": "lumina",
+      "tags": [
+        "Leviathan",
+        "Storm",
+        "Harbor"
+      ],
+      "media": {
+        "type": "image",
+        "src": "assets/art/sea-leviathan.webp",
+        "alt": "Sea leviathan surfacing near a stormy harbor",
+        "width": 1536,
+        "height": 1024
+      }
+    },
+    {
+      "id": "art-cathedral-sentinel",
+      "title": "Sentinel of the Broken Nave",
+      "description": "An ancient guardian remains standing where stained glass and forest light reclaim a ruined cathedral.",
+      "category": "creatures",
+      "subcategory": "undead",
+      "credit": "Lumina",
+      "creatorId": "lumina",
+      "tags": [
+        "Sentinel",
+        "Cathedral",
+        "Ruins"
+      ],
+      "media": {
+        "type": "image",
+        "src": "assets/art/cathedral-sentinel.webp",
+        "alt": "Ghostly sentinel inside a ruined cathedral",
+        "width": 1536,
+        "height": 1024
+      }
+    },
+    {
+      "id": "art-guild-campfire",
+      "title": "After the Hunt",
+      "description": "Weapons rest beside the fire while a guild party trades food, stories and the quiet relief of returning together.",
+      "category": "guild-life",
+      "subcategory": "rest",
+      "credit": "Lumina",
+      "creatorId": "lumina",
+      "tags": [
+        "Campfire",
+        "Party",
+        "Rest"
+      ],
+      "media": {
+        "type": "image",
+        "src": "assets/art/guild-campfire.webp",
+        "alt": "Guild adventurers resting around a campfire",
+        "width": 1536,
+        "height": 1024
+      }
+    },
+    {
+      "id": "art-city-festival",
+      "title": "Festival of the Red Crystal",
+      "description": "Adventurers, townsfolk and friendly creatures celebrate together around a luminous monument.",
+      "category": "guild-life",
+      "subcategory": "celebration",
+      "credit": "Lumina",
+      "creatorId": "lumina",
+      "tags": [
+        "Festival",
+        "Community",
+        "City"
+      ],
+      "media": {
+        "type": "image",
+        "src": "assets/art/city-festival.webp",
+        "alt": "Fantasy guild city festival around a red crystal monument",
+        "width": 1536,
+        "height": 1024
+      }
+    },
+    {
+      "id": "art-stormbound-arrival",
+      "title": "The Stormbound Arrival",
+      "description": "A guild skyship reaches a cliffside citadel while lantern-bearing hosts wait beneath a violet storm.",
+      "category": "places",
+      "subcategory": "architecture",
+      "credit": "Lumina",
+      "creatorId": "lumina",
+      "tags": [
+        "Skyship",
+        "Citadel",
+        "Arrival"
+      ],
+      "media": {
+        "type": "image",
+        "src": "assets/art/stormbound-arrival.webp",
+        "alt": "Fantasy skyship approaching a cliffside guild citadel in a violet storm",
+        "width": 1536,
+        "height": 1024
+      }
+    },
+    {
+      "id": "art-lantern-marsh-caravan",
+      "title": "Caravan of the Lantern Marsh",
+      "description": "Travelers cross a bioluminescent wetland beside a colossal snail carrying a lantern shrine.",
+      "category": "creatures",
+      "subcategory": "beast",
+      "credit": "Lumina",
+      "creatorId": "lumina",
+      "tags": [
+        "Marsh",
+        "Caravan",
+        "Great snail"
+      ],
+      "media": {
+        "type": "image",
+        "src": "assets/art/lantern-marsh-caravan.webp",
+        "alt": "Travelers crossing a luminous marsh beside a giant lantern-bearing snail",
+        "width": 1536,
+        "height": 1024
+      }
+    },
+    {
+      "id": "art-mountain-forge",
+      "title": "Forge Below the Mountain",
+      "description": "An artisan and fire salamander shape a luminous relic while companions watch in an ancient underground forge.",
+      "category": "guild-life",
+      "subcategory": "craft",
+      "credit": "Lumina",
+      "creatorId": "lumina",
+      "tags": [
+        "Forge",
+        "Craft",
+        "Relic"
+      ],
+      "media": {
+        "type": "image",
+        "src": "assets/art/mountain-forge.webp",
+        "alt": "Fantasy artisan and fire salamander crafting a relic in an underground forge",
+        "width": 1536,
+        "height": 1024
+      }
+    },
+    {
+      "id": "art-wyvern-keeper",
+      "title": "The Wyvern Keeper",
+      "description": "A desert keeper and celestial wyvern receive a guild expedition at an oasis observatory.",
+      "category": "heroes",
+      "subcategory": "npc",
+      "credit": "Lumina",
+      "creatorId": "lumina",
+      "tags": [
+        "Wyvern",
+        "Desert",
+        "First meeting"
+      ],
+      "media": {
+        "type": "image",
+        "src": "assets/art/wyvern-keeper.webp",
+        "alt": "Desert keeper and celestial wyvern greeting a guild expedition",
+        "width": 1536,
+        "height": 1024
+      }
+    },
+    {
+      "id": "art-sunken-concord",
+      "title": "The Sunken Concord",
+      "description": "Guild envoys exchange a glowing crystal with aquatic guardians inside a submerged temple.",
+      "category": "places",
+      "subcategory": "architecture",
+      "credit": "Lumina",
+      "creatorId": "lumina",
+      "tags": [
+        "Ocean",
+        "Temple",
+        "Diplomacy"
+      ],
+      "media": {
+        "type": "image",
+        "src": "assets/art/sunken-concord.webp",
+        "alt": "Guild envoys meeting aquatic guardians inside a submerged fantasy temple",
+        "width": 1536,
+        "height": 1024
+      }
+    },
+    {
+      "id": "art-snow-owl-courier",
+      "title": "Courier Above the Snow",
+      "description": "A colossal white owl carries guild satchels over a winter city as the streets look up.",
+      "category": "creatures",
+      "subcategory": "companion",
+      "credit": "Lumina",
+      "creatorId": "lumina",
+      "tags": [
+        "Owl",
+        "Courier",
+        "Winter"
+      ],
+      "media": {
+        "type": "image",
+        "src": "assets/art/snow-owl-courier.webp",
+        "alt": "Colossal white owl carrying guild satchels above a snowy fantasy city",
+        "width": 1536,
+        "height": 1024
+      }
+    },
+    {
+      "id": "art-timeless-clocktower",
+      "title": "The Clocktower Without Time",
+      "description": "Three adventurers enter a broken clocktower where spectral armor circles a shattered pendulum.",
+      "category": "adversaries",
+      "subcategory": "supernatural",
+      "credit": "Lumina",
+      "creatorId": "lumina",
+      "tags": [
+        "Clocktower",
+        "Spectres",
+        "Mystery"
+      ],
+      "media": {
+        "type": "image",
+        "src": "assets/art/timeless-clocktower.webp",
+        "alt": "Adventurers facing spectral armor inside a broken fantasy clocktower",
+        "width": 1536,
+        "height": 1024
+      }
+    },
+    {
+      "id": "art-shelter-after-storm",
+      "title": "Shelter After the Storm",
+      "description": "A weary party tends an injured companion while a forest spirit shields their ruined roadside shrine.",
+      "category": "guild-life",
+      "subcategory": "support",
+      "credit": "Lumina",
+      "creatorId": "lumina",
+      "tags": [
+        "Recovery",
+        "Companions",
+        "Hope"
+      ],
+      "media": {
+        "type": "image",
+        "src": "assets/art/shelter-after-storm.webp",
+        "alt": "Fantasy party tending an injured companion beneath a ruined shrine",
+        "width": 1536,
+        "height": 1024
+      }
+    },
+    {
+      "id": "art-high-bough-market",
+      "title": "Dawn Market in the High Boughs",
+      "description": "Human and nonhuman artisans trade maps, meals and charms across an ancient tree-city.",
+      "category": "guild-life",
+      "subcategory": "trade",
+      "credit": "Lumina",
+      "creatorId": "lumina",
+      "tags": [
+        "Market",
+        "Tree city",
+        "Community"
+      ],
+      "media": {
+        "type": "image",
+        "src": "assets/art/high-bough-market.webp",
+        "alt": "Fantasy market populated by humans and creatures in the branches of a giant tree",
+        "width": 1536,
+        "height": 1024
+      }
+    },
+    {
+      "id": "art-bone-colossus",
+      "title": "The Bone Colossus Wakes",
+      "description": "A canyon-born giant rises as a guild party evacuates travelers and forms a defensive line.",
+      "category": "adversaries",
+      "subcategory": "monster",
+      "credit": "Lumina",
+      "creatorId": "lumina",
+      "tags": [
+        "Colossus",
+        "Canyon",
+        "Defense"
+      ],
+      "media": {
+        "type": "image",
+        "src": "assets/art/bone-colossus.webp",
+        "alt": "Massive bone colossus rising above a canyon as adventurers defend travelers",
+        "width": 1536,
+        "height": 1024
+      }
+    },
+    {
+      "id": "art-astral-whale",
+      "title": "Road Beneath the Astral Whale",
+      "description": "A night caravan pauses beneath a star-whale crossing the sky above a distant mountain city.",
+      "category": "creatures",
+      "subcategory": "celestial",
+      "credit": "Lumina",
+      "creatorId": "lumina",
+      "tags": [
+        "Astral whale",
+        "Caravan",
+        "Wonder"
+      ],
+      "media": {
+        "type": "image",
+        "src": "assets/art/astral-whale.webp",
+        "alt": "Night caravan beneath a glowing astral whale crossing a starry sky",
+        "width": 1536,
+        "height": 1024
+      }
+    },
+    {
+      "id": "art-moon-garden",
+      "title": "Tea in the Moon Garden",
+      "description": "Guild envoys share a quiet table with a forest guardian and curious young griffins after a long conflict.",
+      "category": "guild-life",
+      "subcategory": "social",
+      "credit": "Lumina",
+      "creatorId": "lumina",
+      "tags": [
+        "Diplomacy",
+        "Garden",
+        "Peace"
+      ],
+      "media": {
+        "type": "image",
+        "src": "assets/art/moon-garden.webp",
+        "alt": "Guild envoys sharing tea with a forest guardian and young griffins in a moonlit garden",
+        "width": 1536,
+        "height": 1024
+      }
+    }
+  ]
+}

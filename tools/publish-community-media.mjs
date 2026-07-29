@@ -12,6 +12,14 @@ import {
   validatePublicationManifest,
   validatePublicationState
 } from './community-publication-state.mjs';
+import {
+  creatorSchema,
+  legacyCreatorIdForName,
+  normalizeCreatorName,
+  storedCreatorId,
+  validateCreatorIdentity,
+  validateCreatorOperation
+} from './content-creators.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const publicationStatePath = path.join(root, '.github', 'community-publication-state.json');
@@ -25,6 +33,7 @@ const outputGalleryDataPath = path.join(outputRoot, 'data', 'community-media-ent
 const outputBlogOperationPath = path.join(outputRoot, 'data', 'blog-operation.json');
 const outputArtDataPath = path.join(outputRoot, 'data', 'art-entry.json');
 const outputRoleplayOperationPath = path.join(outputRoot, 'data', 'roleplay-operation.json');
+const outputCreatorOperationPath = path.join(outputRoot, 'data', 'creator-operation.json');
 const outputManifestPath = path.join(outputRoot, 'publication-manifest.json');
 const mediaDirectory = path.join(outputRoot, 'assets', 'community');
 const maximumAttachments = 4;
@@ -174,7 +183,50 @@ function cleanOptionalSingleLine(value, maximumLength, label) {
 }
 
 function cleanContentCredit(value, label) {
-  return cleanOptionalSingleLine(value, 100, label) || 'Lumina';
+  return normalizeCreatorName(cleanOptionalSingleLine(value, 100, label));
+}
+
+function resolveContentCreator(payload, rawName, label, existingEntry, creditField, creatorOperation) {
+  if (creatorOperation && existingEntry) {
+    const existingCreatorId = storedCreatorId(existingEntry, creditField);
+    if (existingCreatorId !== creatorOperation.sourceCreatorId) {
+      fail(`${label} creator operation source does not own the updated publication.`);
+    }
+    return {
+      creatorId: existingCreatorId,
+      creatorName: cleanContentCredit(existingEntry[creditField], label)
+    };
+  }
+
+  const creatorName = cleanContentCredit(rawName, label);
+
+  if (payload.version === 6) {
+    const identity = validateCreatorIdentity(
+      payload.creatorId,
+      payload.creatorScope,
+      creatorName,
+      label
+    );
+    const existingCreatorId = existingEntry
+      ? storedCreatorId(existingEntry, creditField)
+      : null;
+
+    if (existingCreatorId && existingCreatorId !== identity.creatorId) {
+      fail(`${label} ownership cannot change without a creator operation.`);
+    }
+
+    return {
+      creatorId: identity.creatorId,
+      creatorName: identity.creatorName
+    };
+  }
+
+  return {
+    creatorId: existingEntry
+      ? storedCreatorId(existingEntry, creditField)
+      : legacyCreatorIdForName(creatorName),
+    creatorName
+  };
 }
 
 function cleanMultiline(value, maximumLength, label) {
@@ -514,6 +566,31 @@ async function loadRoleplayData() {
   }
 }
 
+async function assertGlobalCreatorAlias(creatorId, creatorName) {
+  const [galleryData, blogData, artData, roleplayData] = await Promise.all([
+    loadGalleryData(),
+    loadBlogData(),
+    loadArtData(),
+    loadRoleplayData()
+  ]);
+  const collections = [
+    { entries: galleryData.entries, creditField: 'credit' },
+    { entries: blogData.posts, creditField: 'author' },
+    { entries: artData.entries, creditField: 'credit' },
+    { entries: roleplayData.stories, creditField: 'author' }
+  ];
+
+  for (const collection of collections) {
+    for (const entry of collection.entries) {
+      if (entry?.creatorId !== creatorId) continue;
+      const storedName = cleanContentCredit(entry[collection.creditField], 'Stored creator alias');
+      if (storedName !== creatorName) {
+        fail('Version 6 creator alias differs from existing publications; use an approved creator operation.');
+      }
+    }
+  }
+}
+
 async function loadPublicationState() {
   try {
     return validatePublicationState(
@@ -556,30 +633,74 @@ const workflowRunNumber = readPositiveInteger(
 );
 const payload = decryptPayload(process.env.ENCRYPTED_PAYLOAD, process.env.PUBLISH_PAYLOAD_SECRET);
 
-if (![1, 2, 3, 4, 5].includes(payload?.version) || payload.submissionId !== expectedSubmissionId) {
+if (![1, 2, 3, 4, 5, 6].includes(payload?.version) || payload.submissionId !== expectedSubmissionId) {
   fail('Encrypted payload does not match the requested submission.');
 }
 
 const contentType = cleanSingleLine(payload.contentType || 'gallery', 20, 'Content type');
-const operation = cleanSingleLine(payload.operation || 'create', 30, 'Publication operation');
+const requestedOperation = cleanSingleLine(payload.operation || 'create', 30, 'Publication operation');
+const operation = requestedOperation === 'creatorOperation' ? 'credit_update' : requestedOperation;
 
 if (!['gallery', 'blog', 'art', 'roleplay'].includes(contentType)) {
   fail('Encrypted payload contains an unsupported publication type.');
 }
 
-const protocolVersion = payload.version === 5 ? 5 : 4;
+let creatorOperation = null;
+if (payload.version === 6) {
+  if (!['member', 'guild'].includes(payload.creatorScope)) {
+    fail('Version 6 payload creator scope must be member or guild.');
+  }
+  if (
+    (payload.creatorScope === 'guild' && payload.creatorId !== creatorSchema.guildCreatorId) ||
+    (payload.creatorScope === 'member' && !creatorSchema.memberCreatorIdPattern.test(String(payload.creatorId || '')))
+  ) {
+    fail('Version 6 payload creator identity is invalid.');
+  }
+  if (payload.creatorOperation !== undefined) {
+    creatorOperation = validateCreatorOperation(payload.creatorOperation);
+    if (
+      payload.creatorId !== creatorOperation.targetCreatorId ||
+      payload.creatorScope !== creatorOperation.targetScope
+    ) {
+      fail('Version 6 payload creator identity must match its creator operation target.');
+    }
+    if (
+      creatorOperation.scope === 'submission' &&
+      (
+        creatorOperation.submissionId !== expectedSubmissionId ||
+        creatorOperation.contentType !== contentType
+      )
+    ) {
+      fail('Scoped creator operation must match the dispatched submission and content type.');
+    }
+  }
+} else if (payload.creatorOperation !== undefined || operation === 'credit_update') {
+  fail('Creator operations require a version 6 payload.');
+}
+
+if (operation === 'credit_update' && !creatorOperation) {
+  fail('Credit update requires a creator operation.');
+}
+if (creatorOperation && !['update', 'credit_update'].includes(operation)) {
+  fail('Creator operation can accompany only update or credit_update.');
+}
+if (operation === 'credit_update' && (!Array.isArray(payload.attachments) || payload.attachments.length !== 0)) {
+  fail('Credit update cannot contain attachments.');
+}
+
+const protocolVersion = payload.version >= 5 ? payload.version : 4;
 const legacyDispatchDate = new Date(payload.submittedAt);
-const dispatchedAt = protocolVersion === 5
+const dispatchedAt = protocolVersion >= 5
   ? String(payload.dispatchedAt || '')
   : legacyDispatchDate.toISOString();
-const publicationRevision = protocolVersion === 5
+const publicationRevision = protocolVersion >= 5
   ? Number(payload.publicationRevision)
   : workflowRunNumber;
-const publicationBaseRevision = protocolVersion === 5
+const publicationBaseRevision = protocolVersion >= 5
   ? Number(payload.publicationBaseRevision)
   : 0;
 
-if (protocolVersion === 5 && payload.dispatchId !== expectedDispatchId) {
+if (protocolVersion >= 5 && payload.dispatchId !== expectedDispatchId) {
   fail('Encrypted payload dispatch ID does not match the workflow request.');
 }
 
@@ -622,6 +743,21 @@ if (artifactMode !== 'apply') {
   return;
 }
 
+if (creatorOperation) {
+  await fs.mkdir(path.dirname(outputCreatorOperationPath), { recursive: true });
+  await fs.writeFile(
+    outputCreatorOperationPath,
+    `${JSON.stringify(creatorOperation, null, 2)}\n`,
+    'utf8'
+  );
+}
+
+if (operation === 'credit_update') {
+  await writePublicationManifest(publicationManifest);
+  console.log(`Validated creator ${creatorOperation.type} operation for ${expectedSubmissionId}.`);
+  return;
+}
+
 const title = cleanSingleLine(payload.title, contentType === 'roleplay' ? 120 : 100, 'Title');
 const submittedAt = new Date(payload.submittedAt);
 
@@ -651,7 +787,17 @@ if (contentType === 'blog') {
     const excerpt = cleanMultiline(payload.excerpt, 300, 'Excerpt');
     const body = cleanMultiline(payload.body, maximumBlogBodyLength, 'Article body');
     const category = resolveBlogCategory(payload.categoryKey, payload.category);
-    const author = cleanContentCredit(payload.author, 'Author');
+    const creator = resolveContentCreator(
+      payload,
+      payload.author,
+      'Author',
+      existingPost,
+      'author',
+      creatorOperation
+    );
+    if (payload.version === 6 && !creatorOperation) {
+      await assertGlobalCreatorAlias(creator.creatorId, creator.creatorName);
+    }
 
     if (excerpt.length < 20 || body.length < 100 || category.length < 2) {
       fail('Blog publication fields are below their minimum length.');
@@ -783,7 +929,8 @@ if (contentType === 'blog') {
       body,
       content: publishedContent,
       category,
-      author,
+      author: creator.creatorName,
+      creatorId: creator.creatorId,
       submittedAt: existingPost?.submittedAt || submittedAt.toISOString(),
       publishedAt: existingPost?.publishedAt || operationAt,
       updatedAt: operationAt,
@@ -834,7 +981,17 @@ if (contentType === 'blog') {
     const chapterTitle = cleanSingleLine(payload.chapterTitle, 140, 'Roleplay chapter title');
     const category = cleanSingleLine(payload.categoryKey || payload.category, 30, 'Roleplay category');
     const status = cleanSingleLine(payload.storyStatus, 20, 'Roleplay status');
-    const author = cleanContentCredit(payload.author, 'Roleplay author');
+    const creator = resolveContentCreator(
+      payload,
+      payload.author,
+      'Roleplay author',
+      existingStory,
+      'author',
+      creatorOperation
+    );
+    if (payload.version === 6 && !creatorOperation) {
+      await assertGlobalCreatorAlias(creator.creatorId, creator.creatorName);
+    }
 
     if (summary.length < 20 || !roleplayCategories.has(category) || !['ongoing', 'complete'].includes(status)) {
       fail('Roleplay publication fields do not satisfy the Lumina Chronicles requirements.');
@@ -968,7 +1125,8 @@ if (contentType === 'blog') {
       status,
       featured: existingStory?.featured === true,
       visible: existingStory ? payload.publishVisible !== false : true,
-      author,
+      author: creator.creatorName,
+      creatorId: creator.creatorId,
       publishedAt: existingStory?.publishedAt || operationAt,
       updatedAt: operationAt,
       readingMinutes: Math.max(1, Math.min(600, Math.ceil(wordCount / 220))),
@@ -1015,7 +1173,6 @@ if (contentType === 'blog') {
 
   const description = cleanMultiline(payload.description, 360, 'Artwork description');
   const altText = cleanSingleLine(payload.altText, 300, 'Artwork alternative text');
-  const credit = cleanContentCredit(payload.credit, 'Artwork credit');
   const category = cleanSingleLine(payload.categoryKey || payload.category, 30, 'Artwork category');
   const hasSubcategory = typeof payload.subcategory === 'string' && payload.subcategory.trim().length > 0;
 
@@ -1055,6 +1212,17 @@ if (contentType === 'blog') {
   if (operation === 'update' && !existingArtEntry) {
     fail('The requested Art publication does not exist.');
   }
+  const creator = resolveContentCreator(
+    payload,
+    payload.credit,
+    'Artwork credit',
+    existingArtEntry,
+    'credit',
+    creatorOperation
+  );
+  if (payload.version === 6 && !creatorOperation) {
+    await assertGlobalCreatorAlias(creator.creatorId, creator.creatorName);
+  }
 
   const downloaded = await downloadAttachment(attachment);
   const outputName = `${expectedSubmissionId.toLowerCase()}-art.webp`;
@@ -1092,7 +1260,8 @@ if (contentType === 'blog') {
     description,
     category,
     subcategory,
-    credit,
+    credit: creator.creatorName,
+    creatorId: creator.creatorId,
     submittedAt: existingArtEntry?.submittedAt || submittedAt.toISOString(),
     publishedAt: existingArtEntry?.publishedAt || new Date().toISOString(),
     media: {
@@ -1116,7 +1285,6 @@ if (contentType === 'blog') {
   }
   const description = cleanMultiline(payload.description, 1200, 'Description');
   const altText = cleanSingleLine(payload.altText, 300, 'Alternative text');
-  const credit = cleanContentCredit(payload.credit, 'Credit');
   const hasCategory = typeof (payload.categoryKey || payload.category) === 'string' &&
     String(payload.categoryKey || payload.category).trim().length > 0;
   const hasSubcategory = typeof payload.subcategory === 'string' &&
@@ -1156,6 +1324,17 @@ if (contentType === 'blog') {
   }
   if (operation === 'update' && !existingGalleryEntry) {
     fail('The requested Gallery publication does not exist.');
+  }
+  const creator = resolveContentCreator(
+    payload,
+    payload.credit,
+    'Credit',
+    existingGalleryEntry,
+    'credit',
+    creatorOperation
+  );
+  if (payload.version === 6 && !creatorOperation) {
+    await assertGlobalCreatorAlias(creator.creatorId, creator.creatorName);
   }
 
   await fs.mkdir(mediaDirectory, { recursive: true });
@@ -1221,7 +1400,8 @@ if (contentType === 'blog') {
     description,
     category,
     subcategory,
-    credit,
+    credit: creator.creatorName,
+    creatorId: creator.creatorId,
     submittedAt: existingGalleryEntry?.submittedAt || submittedAt.toISOString(),
     publishedAt: existingGalleryEntry?.publishedAt || new Date().toISOString(),
     media: publishedMedia

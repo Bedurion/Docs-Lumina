@@ -96,6 +96,7 @@ const cardData = (card) => {
     description: card.dataset.artDescription,
     tags,
     credit: card.dataset.artCredit,
+    creatorId: card.dataset.artCreatorId,
     category: card.querySelector('small')?.textContent || 'Illustration',
     alt: card.querySelector('img')?.alt || card.dataset.artTitle
   };
@@ -121,6 +122,7 @@ const setFeatured = (card, options = {}) => {
   featuredCategory.textContent = data.category;
   renderTags(featuredTags, data.tags);
   featuredCredit?.replaceChildren(window.LuminaContentCredit.create(data.credit, {
+    creatorId: data.creatorId,
     label: 'Artwork by',
     tone: 'art'
   }));
@@ -153,6 +155,7 @@ const openDialog = (card) => {
   dialogCategory.textContent = data.category;
   renderTags(dialogTags, data.tags);
   dialogCredit?.replaceChildren(window.LuminaContentCredit.create(data.credit, {
+    creatorId: data.creatorId,
     label: 'Artwork by',
     tone: 'art'
   }));
@@ -183,17 +186,23 @@ const createPublishedArtCard = (entry) => {
     return null;
   }
 
-  const card = document.createElement('button');
+  const card = document.createElement('article');
   const ratio = Number(entry.media.width) / Number(entry.media.height);
   card.className = ratio >= 1.65 ? 'art-card art-card-wide' : 'art-card';
-  card.type = 'button';
   card.id = entry.id.toLowerCase();
+  card.dataset.artId = entry.id.toLowerCase();
   card.dataset.artCategories = entry.category;
   card.dataset.artSrc = entry.media.src;
   card.dataset.artTitle = entry.title;
   card.dataset.artDescription = entry.description;
   card.dataset.artTags = `${categoryLabel},${subcategoryLabel}`;
   card.dataset.artCredit = entry.credit;
+  if (entry.creatorId) card.dataset.artCreatorId = entry.creatorId;
+
+  const open = document.createElement('button');
+  open.className = 'art-card-open';
+  open.type = 'button';
+  open.setAttribute('aria-label', `Open ${entry.title}`);
 
   const imageFrame = document.createElement('span');
   imageFrame.className = 'art-card-image';
@@ -212,18 +221,36 @@ const createPublishedArtCard = (entry) => {
   const title = document.createElement('strong');
   title.textContent = entry.title;
   copy.append(category, title);
-  card.append(imageFrame, copy);
+  open.append(imageFrame, copy);
+  card.append(open);
   return card;
 };
 
+const upgradeStaticArtCards = () => {
+  document.querySelectorAll('button.art-card').forEach((legacyCard) => {
+    const card = document.createElement('article');
+    card.className = legacyCard.className;
+    [...legacyCard.attributes].forEach((attribute) => {
+      if (attribute.name === 'class' || attribute.name === 'type') return;
+      card.setAttribute(attribute.name, attribute.value);
+    });
+    const open = document.createElement('button');
+    open.className = 'art-card-open';
+    open.type = 'button';
+    open.setAttribute('aria-label', `Open ${legacyCard.dataset.artTitle || 'artwork'}`);
+    while (legacyCard.firstChild) open.append(legacyCard.firstChild);
+    card.append(open);
+    legacyCard.replaceWith(card);
+  });
+};
+
 const ensureArtCardCredit = (card) => {
-  const copy = card?.querySelector('.art-card-copy');
-  if (!copy || copy.querySelector('.content-credit')) return;
-  copy.append(window.LuminaContentCredit.create(card.dataset.artCredit, {
+  if (!card || card.querySelector(':scope > .content-credit')) return;
+  card.append(window.LuminaContentCredit.create(card.dataset.artCredit, {
+    creatorId: card.dataset.artCreatorId,
     label: 'Artwork by',
     tone: 'art',
-    compact: true,
-    tagName: 'span'
+    compact: true
   }));
 };
 
@@ -271,6 +298,7 @@ const showRequestedCard = ({ scroll = false } = {}) => {
 };
 
 const initializeArchive = () => {
+  upgradeStaticArtCards();
   artCards = [...document.querySelectorAll('.art-card')];
   visibleCards = [...artCards];
   activeCard = artCards[0] || null;
@@ -282,7 +310,7 @@ const initializeArchive = () => {
 
   artCards.forEach((card) => {
     ensureArtCardCredit(card);
-    card.addEventListener('click', () => {
+    card.querySelector('.art-card-open')?.addEventListener('click', () => {
       setFeatured(card);
       openDialog(card);
     });
@@ -341,7 +369,7 @@ const initializeArchive = () => {
   });
   window.addEventListener('hashchange', () => showRequestedCard({ scroll: true }));
 
-  if (!showRequestedCard()) setFeatured(activeCard);
+  if (!showRequestedCard({ scroll: Boolean(window.location.hash) })) setFeatured(activeCard);
 };
 
 loadPublishedArt().finally(initializeArchive);

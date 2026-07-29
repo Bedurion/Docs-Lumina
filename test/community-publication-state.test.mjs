@@ -36,6 +36,40 @@ test('accepts the first version 5 publication from base revision zero', () => {
   assert.equal(decidePublication(emptyPublicationState(), manifest()), 'apply');
 });
 
+test('accepts version 6 creator credit updates under sequenced revision rules', () => {
+  const request = manifest({
+    protocolVersion: 6,
+    operation: 'credit_update'
+  });
+  assert.equal(decidePublication(emptyPublicationState(), request), 'apply');
+  const state = recordAppliedPublication(emptyPublicationState(), request);
+  assert.equal(state.submissions[submissionId].protocolVersion, 6);
+  assert.equal(state.submissions[submissionId].operation, 'credit_update');
+});
+
+test('never lets version 5 downgrade an existing version 6 publication record', () => {
+  const versionSix = manifest({
+    protocolVersion: 6,
+    operation: 'credit_update'
+  });
+  const state = recordAppliedPublication(emptyPublicationState(), versionSix);
+  const laterVersionFive = manifest({
+    protocolVersion: 5,
+    publicationRevision: 2,
+    publicationBaseRevision: 1,
+    workflowRunNumber: 101,
+    dispatchId: '2234567890abcdef12345678',
+    dispatchedAt: '2026-07-29T10:05:00.000Z',
+    operation: 'update',
+    requestDigest: secondDigest
+  });
+
+  assert.throws(
+    () => decidePublication(state, laterVersionFive),
+    /protocol cannot downgrade/
+  );
+});
+
 test('treats an exact workflow rerun as an idempotent replay', () => {
   const request = manifest();
   const state = recordAppliedPublication(emptyPublicationState(), request);

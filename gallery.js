@@ -175,6 +175,7 @@ function buildGalleryEntry(entry) {
     createTextElement('h3', '', entry.title || 'Lumina story'),
     createTextElement('p', 'community-gallery-description', entry.description || ''),
     window.LuminaContentCredit.create(entry.credit, {
+      creatorId: entry.creatorId,
       label: 'Captured by',
       tone: 'gallery',
       compact: true
@@ -189,6 +190,7 @@ function buildFeaturedEntry(entry) {
   const category = normalizeCategory(entry);
   const article = document.createElement('article');
   article.className = 'gallery-featured-entry';
+  article.id = String(entry.id || '').toLowerCase();
 
   const content = document.createElement('div');
   content.className = 'gallery-featured-content';
@@ -197,6 +199,7 @@ function buildFeaturedEntry(entry) {
     createTextElement('h3', '', entry.title || 'Lumina story'),
     createTextElement('p', '', entry.description || ''),
     window.LuminaContentCredit.create(entry.credit, {
+      creatorId: entry.creatorId,
       label: 'Captured by',
       tone: 'gallery'
     })

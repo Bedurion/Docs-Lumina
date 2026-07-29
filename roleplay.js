@@ -127,6 +127,7 @@ function buildFeaturedRoleplayStory(story) {
     createRoleplayElement('p', 'roleplay-story-subtitle', story.subtitle || ''),
     createRoleplayElement('p', 'roleplay-story-summary', story.summary || ''),
     window.LuminaContentCredit.create(story.author, {
+      creatorId: story.creatorId,
       label: 'Story by',
       tone: 'roleplay'
     }),
@@ -149,6 +150,7 @@ function buildRoleplayStoryCard(story) {
     createRoleplayElement('h3', '', story.title || 'Lumina chronicle'),
     createRoleplayElement('p', 'roleplay-story-summary', story.summary || ''),
     window.LuminaContentCredit.create(story.author, {
+      creatorId: story.creatorId,
       label: 'Story by',
       tone: 'roleplay',
       compact: true
@@ -274,6 +276,7 @@ function renderRoleplayReader(story, chapterIndex) {
     createRoleplayElement('p', 'eyebrow', roleplayCategoryLabels[normalizeRoleplayCategory(story)]),
     createRoleplayElement('h3', '', story.title || 'Lumina chronicle'),
     window.LuminaContentCredit.create(story.author, {
+      creatorId: story.creatorId,
       label: 'Story by',
       tone: 'roleplay',
       compact: true

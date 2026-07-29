@@ -9,6 +9,11 @@ import {
   validatePublicationManifest,
   validatePublicationState
 } from './community-publication-state.mjs';
+import {
+  assertPublicCreatorId,
+  creatorSchema,
+  validateCreatorOperation
+} from './content-creators.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const stagingRoot = path.resolve(root, process.argv[2] || 'publication');
@@ -25,6 +30,7 @@ const stagedGalleryPath = path.join(stagingRoot, 'data', 'community-media-entry.
 const stagedBlogOperationPath = path.join(stagingRoot, 'data', 'blog-operation.json');
 const stagedArtPath = path.join(stagingRoot, 'data', 'art-entry.json');
 const stagedRoleplayOperationPath = path.join(stagingRoot, 'data', 'roleplay-operation.json');
+const stagedCreatorOperationPath = path.join(stagingRoot, 'data', 'creator-operation.json');
 const maximumArtifactBytes = 10 * 1024 * 1024;
 const maximumDataBytes = 10 * 1024 * 1024;
 const gallerySubcategories = new Map([
@@ -97,6 +103,14 @@ function assertIsoDate(value, label) {
   if (Number.isNaN(Date.parse(value))) fail(`${label} is not a valid date.`);
 }
 
+function assertStoredCreator(entry, creditField, label) {
+  assertPublicCreatorId(entry?.creatorId, `${label} creator ID`);
+  assertString(entry?.[creditField], 1, 100, `${label} credit`);
+  if (entry.creatorId === creatorSchema.guildCreatorId && entry[creditField] !== creatorSchema.guildCreatorName) {
+    fail(`${label} guild creator must use the Lumina credit name.`);
+  }
+}
+
 async function listRegularFiles(directory, prefix = '') {
   const entries = await fs.readdir(directory, { withFileTypes: true });
   const files = [];
@@ -142,6 +156,184 @@ async function loadPublicationState() {
   }
 }
 
+const creatorCollectionSpecs = Object.freeze([
+  { contentType: 'gallery', filePath: gallerySourcePath, listKey: 'entries', creditField: 'credit' },
+  { contentType: 'blog', filePath: blogSourcePath, listKey: 'posts', creditField: 'author' },
+  { contentType: 'art', filePath: artSourcePath, listKey: 'entries', creditField: 'credit' },
+  { contentType: 'roleplay', filePath: roleplaySourcePath, listKey: 'stories', creditField: 'author' }
+]);
+
+function operationEntryId(operation, contentType) {
+  return contentType === 'roleplay'
+    ? operation.submissionId.replace(/^WS-/, 'RP-')
+    : operation.submissionId;
+}
+
+async function loadCreatorCollections({ validateEntries = true } = {}) {
+  return Promise.all(creatorCollectionSpecs.map(async (spec) => {
+    const data = await readBoundedJson(spec.filePath, `${spec.contentType} creator source`);
+    if (
+      !isPlainObject(data) ||
+      !hasOnlyKeys(data, ['version', spec.listKey]) ||
+      data.version !== 1 ||
+      !Array.isArray(data[spec.listKey])
+    ) {
+      fail(`${spec.contentType} creator source has an invalid root schema.`);
+    }
+
+    if (validateEntries) {
+      data[spec.listKey].forEach((entry, index) => {
+        if (!isPlainObject(entry)) {
+          fail(`${spec.contentType} creator source entry ${index + 1} is invalid.`);
+        }
+        assertStoredCreator(entry, spec.creditField, `${spec.contentType} entry ${index + 1}`);
+      });
+    }
+
+    return { ...spec, data };
+  }));
+}
+
+async function assertGlobalCreatorAlias(creatorId, creatorName) {
+  const collections = await loadCreatorCollections({ validateEntries: false });
+
+  for (const collection of collections) {
+    for (const entry of collection.data[collection.listKey]) {
+      if (entry?.creatorId !== creatorId) continue;
+      assertString(entry[collection.creditField], 1, 100, 'Stored creator alias');
+      if (entry[collection.creditField] !== creatorName) {
+        fail('Version 6 creator alias differs from existing publications; use an approved creator operation.');
+      }
+    }
+  }
+}
+
+function creatorOperationMatches(operation, collection, entry) {
+  if (operation.scope === 'all') {
+    return entry.creatorId === operation.sourceCreatorId;
+  }
+  if (collection.contentType !== operation.contentType) return false;
+  return (
+    entry.id === operationEntryId(operation, collection.contentType) &&
+    entry.creatorId === operation.sourceCreatorId
+  );
+}
+
+function validateCreatorOperationTarget(operation, collections) {
+  let matchingEntries = 0;
+  let scopedEntryFound = false;
+
+  for (const collection of collections) {
+    for (const entry of collection.data[collection.listKey]) {
+      if (
+        operation.scope === 'submission' &&
+        collection.contentType === operation.contentType &&
+        entry.id === operationEntryId(operation, collection.contentType)
+      ) {
+        scopedEntryFound = true;
+        if (entry.creatorId !== operation.sourceCreatorId) {
+          fail('Creator operation source does not own the scoped submission.');
+        }
+      }
+      if (creatorOperationMatches(operation, collection, entry)) matchingEntries += 1;
+    }
+  }
+
+  if (operation.scope === 'submission' && !scopedEntryFound) {
+    fail('Creator operation targets a submission that does not exist.');
+  }
+  if (matchingEntries < 1) {
+    fail('Creator operation did not find any publication owned by its source creator.');
+  }
+}
+
+async function writeCreatorCollectionsAtomically(changes) {
+  if (changes.length === 0) return;
+  const nonce = `${process.pid}-${process.hrtime.bigint()}`;
+  const transaction = changes.map((change, index) => ({
+    ...change,
+    temporaryPath: `${change.filePath}.${nonce}-${index}.tmp`,
+    backupPath: `${change.filePath}.${nonce}-${index}.bak`,
+    backedUp: false,
+    committed: false
+  }));
+
+  try {
+    await Promise.all(transaction.map((entry) => fs.writeFile(
+      entry.temporaryPath,
+      `${JSON.stringify(entry.value, null, 2)}\n`,
+      { encoding: 'utf8', flag: 'wx' }
+    )));
+
+    for (const entry of transaction) {
+      await fs.rename(entry.filePath, entry.backupPath);
+      entry.backedUp = true;
+    }
+    for (const entry of transaction) {
+      await fs.rename(entry.temporaryPath, entry.filePath);
+      entry.committed = true;
+    }
+  } catch (error) {
+    for (const entry of [...transaction].reverse()) {
+      try {
+        if (entry.committed) await fs.rm(entry.filePath, { force: true });
+        if (entry.backedUp) await fs.rename(entry.backupPath, entry.filePath);
+        await fs.rm(entry.temporaryPath, { force: true });
+      } catch {
+        // The GitHub publish workspace is disposable; preserve the original failure.
+      }
+    }
+    throw error;
+  }
+
+  await Promise.all(transaction.map((entry) => fs.rm(entry.backupPath, { force: true })));
+}
+
+async function applyCreatorOperation(operation) {
+  const collections = await loadCreatorCollections();
+  validateCreatorOperationTarget(operation, collections);
+  let updatedEntries = 0;
+  const changes = [];
+
+  for (const collection of collections) {
+    let changed = false;
+    const entries = collection.data[collection.listKey].map((entry) => {
+      const movesSource = creatorOperationMatches(operation, collection, entry);
+      const harmonizesTarget = (
+        operation.type === 'transfer' &&
+        entry.creatorId === operation.targetCreatorId
+      );
+      if (!movesSource && !harmonizesTarget) return entry;
+      if (
+        entry.creatorId === operation.targetCreatorId &&
+        entry[collection.creditField] === operation.targetName
+      ) {
+        return entry;
+      }
+      changed = true;
+      updatedEntries += 1;
+      return {
+        ...entry,
+        [collection.creditField]: operation.targetName,
+        creatorId: operation.targetCreatorId
+      };
+    });
+
+    if (changed) {
+      changes.push({
+        filePath: collection.filePath,
+        value: {
+          version: 1,
+          [collection.listKey]: entries
+        }
+      });
+    }
+  }
+
+  await writeCreatorCollectionsAtomically(changes);
+  return updatedEntries;
+}
+
 function assertSafeUnusedPublicationFiles(files, manifest) {
   if (files.length === 0) return;
   if (manifest.artifactMode !== 'apply') {
@@ -156,22 +348,27 @@ function assertSafeUnusedPublicationFiles(files, manifest) {
     art: 'data/art-entry.json',
     roleplay: 'data/roleplay-operation.json'
   };
-  const expectedDataPath = dataPathByType[manifest.contentType];
+  const expectedDataPath = manifest.operation === 'credit_update'
+    ? 'data/creator-operation.json'
+    : dataPathByType[manifest.contentType];
   const mediaPatterns = {
     gallery: new RegExp(`^assets/community/${lowerSubmissionId}-\\d+\\.(?:webp|mp4)$`),
     blog: new RegExp(`^assets/community/${lowerSubmissionId}-blog-\\d+\\.webp$`),
     art: new RegExp(`^assets/community/${lowerSubmissionId}-art\\.webp$`),
     roleplay: new RegExp(`^assets/community/${lowerSubmissionId}-roleplay-\\d+\\.webp$`)
   };
-  const mediaNames = names.filter((name) => name !== expectedDataPath);
+  const allowedDataPaths = new Set([expectedDataPath]);
+  if (manifest.operation === 'update') allowedDataPaths.add('data/creator-operation.json');
+  const mediaNames = names.filter((name) => !allowedDataPaths.has(name));
 
   if (
     names.filter((name) => name === expectedDataPath).length !== 1 ||
+    names.filter((name) => name === 'data/creator-operation.json').length > 1 ||
     mediaNames.some((name) => !mediaPatterns[manifest.contentType]?.test(name)) ||
-    (manifest.contentType === 'gallery' && (mediaNames.length < 1 || mediaNames.length > 4)) ||
-    (manifest.contentType === 'blog' && mediaNames.length > 4) ||
-    (manifest.contentType === 'art' && mediaNames.length !== 1) ||
-    (manifest.contentType === 'roleplay' && mediaNames.length > 8)
+    (manifest.operation !== 'credit_update' && manifest.contentType === 'gallery' && (mediaNames.length < 1 || mediaNames.length > 4)) ||
+    (manifest.operation !== 'credit_update' && manifest.contentType === 'blog' && mediaNames.length > 4) ||
+    (manifest.operation !== 'credit_update' && manifest.contentType === 'art' && mediaNames.length !== 1) ||
+    (manifest.operation !== 'credit_update' && manifest.contentType === 'roleplay' && mediaNames.length > 8)
   ) {
     fail('Already-applied publication artifact contains unexpected files.');
   }
@@ -237,9 +434,64 @@ const hasGalleryArtifact = stagedFileNames.has('data/community-media-entry.json'
 const hasBlogArtifact = stagedFileNames.has('data/blog-operation.json');
 const hasArtArtifact = stagedFileNames.has('data/art-entry.json');
 const hasRoleplayArtifact = stagedFileNames.has('data/roleplay-operation.json');
+const hasCreatorArtifact = stagedFileNames.has('data/creator-operation.json');
+const primaryArtifactCount = [
+  hasGalleryArtifact,
+  hasBlogArtifact,
+  hasArtArtifact,
+  hasRoleplayArtifact
+].filter(Boolean).length;
 
-if ([hasGalleryArtifact, hasBlogArtifact, hasArtArtifact, hasRoleplayArtifact].filter(Boolean).length !== 1) {
+if (
+  (manifest.operation === 'credit_update' && (primaryArtifactCount !== 0 || !hasCreatorArtifact)) ||
+  (manifest.operation !== 'credit_update' && primaryArtifactCount !== 1) ||
+  (hasCreatorArtifact && !['update', 'credit_update'].includes(manifest.operation))
+) {
   fail('Artifact must contain exactly one recognized publication type.');
+}
+const manifestArtifactMatches = (
+  (manifest.contentType === 'gallery' && hasGalleryArtifact) ||
+  (manifest.contentType === 'blog' && hasBlogArtifact) ||
+  (manifest.contentType === 'art' && hasArtArtifact) ||
+  (manifest.contentType === 'roleplay' && hasRoleplayArtifact)
+);
+if (manifest.operation !== 'credit_update' && !manifestArtifactMatches) {
+  fail('Publication artifact type does not match its manifest.');
+}
+
+let creatorOperation = null;
+if (hasCreatorArtifact) {
+  if (manifest.protocolVersion !== 6) {
+    fail('Creator operation artifacts require protocol version 6.');
+  }
+  creatorOperation = validateCreatorOperation(
+    await readBoundedJson(stagedCreatorOperationPath, 'Creator operation data')
+  );
+  if (
+    creatorOperation.scope === 'submission' &&
+    (
+      creatorOperation.submissionId !== submissionId ||
+      creatorOperation.contentType !== manifest.contentType
+    )
+  ) {
+    fail('Scoped creator operation does not match the publication manifest.');
+  }
+  const creatorCollections = await loadCreatorCollections();
+  validateCreatorOperationTarget(creatorOperation, creatorCollections);
+}
+
+if (manifest.operation === 'credit_update') {
+  if (stagedFileNames.size !== 1) {
+    fail('Credit update artifact contains unexpected files.');
+  }
+  const updatedEntries = await applyCreatorOperation(creatorOperation);
+  await writeJsonAtomically(
+    publicationStatePath,
+    recordAppliedPublication(publicationState, manifest)
+  );
+  console.log(`Verified and applied creator operation to ${updatedEntries} publication(s).`);
+  console.log(`Recorded publication revision ${manifest.publicationRevision} for ${submissionId}.`);
+  return;
 }
 
 if (hasBlogArtifact) {
@@ -260,6 +512,9 @@ if (hasBlogArtifact) {
   ) {
     fail('Blog operation artifact has an invalid schema.');
   }
+  if (operationData.operation !== manifest.operation) {
+    fail('Blog operation does not match the publication manifest.');
+  }
 
   assertIsoDate(operationData.operationAt, 'Blog operation date');
   const existingIndex = sourceData.posts.findIndex((post) => post?.id === submissionId);
@@ -271,15 +526,22 @@ if (hasBlogArtifact) {
   if (requiresExisting && existingIndex < 0) {
     fail('Blog operation targets an article that does not exist.');
   }
+  if (
+    creatorOperation &&
+    sourceData.posts[existingIndex]?.creatorId !== creatorOperation.sourceCreatorId
+  ) {
+    fail('Creator operation source does not own the updated Blog publication.');
+  }
 
   const expectedFiles = new Set(['data/blog-operation.json']);
+  if (creatorOperation) expectedFiles.add('data/creator-operation.json');
   const post = operationData.post;
 
   if (['create', 'update'].includes(operationData.operation)) {
     const postKeys = [
       'id', 'title', 'excerpt', 'body', 'category', 'author', 'submittedAt',
       'publishedAt', 'updatedAt', 'visible', 'readingMinutes', 'views',
-      'leadersSelection', 'media', 'content'
+      'leadersSelection', 'media', 'content', 'creatorId'
     ];
 
     if (!isPlainObject(post) || !hasOnlyKeys(post, postKeys) || post.id !== submissionId) {
@@ -291,6 +553,13 @@ if (hasBlogArtifact) {
     assertString(post.body, 100, 12_000, 'Blog body');
     assertString(post.category, 2, 50, 'Blog category');
     assertString(post.author, 1, 100, 'Blog author');
+    assertStoredCreator(post, 'author', 'Blog post');
+    if (creatorOperation && post.creatorId !== creatorOperation.sourceCreatorId) {
+      fail('Blog update must preserve source ownership until its creator operation is applied.');
+    }
+    if (manifest.protocolVersion === 6 && !creatorOperation) {
+      await assertGlobalCreatorAlias(post.creatorId, post.author);
+    }
     assertIsoDate(post.submittedAt, 'Submission date');
     assertIsoDate(post.publishedAt, 'Publication date');
     assertIsoDate(post.updatedAt, 'Blog update date');
@@ -466,6 +735,9 @@ if (hasBlogArtifact) {
   ) {
     fail('Roleplay operation artifact has an invalid schema.');
   }
+  if (operationData.operation !== manifest.operation) {
+    fail('Roleplay operation does not match the publication manifest.');
+  }
 
   assertIsoDate(operationData.operationAt, 'Roleplay operation date');
   const expectedStoryId = submissionId.replace(/^WS-/, 'RP-');
@@ -480,8 +752,15 @@ if (hasBlogArtifact) {
   if (requiresExisting && existingIndex < 0) {
     fail('Roleplay operation targets a story that does not exist.');
   }
+  if (
+    creatorOperation &&
+    sourceData.stories[existingIndex]?.creatorId !== creatorOperation.sourceCreatorId
+  ) {
+    fail('Creator operation source does not own the updated Roleplay publication.');
+  }
 
   const expectedFiles = new Set(['data/roleplay-operation.json']);
+  if (creatorOperation) expectedFiles.add('data/creator-operation.json');
   const story = operationData.story;
   const imageSources = [];
 
@@ -489,7 +768,7 @@ if (hasBlogArtifact) {
     const storyKeys = [
       'id', 'slug', 'title', 'subtitle', 'summary', 'category', 'status',
       'featured', 'visible', 'author', 'publishedAt', 'updatedAt',
-      'readingMinutes', 'cover', 'chapters'
+      'readingMinutes', 'cover', 'chapters', 'creatorId'
     ];
 
     if (
@@ -505,6 +784,13 @@ if (hasBlogArtifact) {
     assertString(story.subtitle, 0, 180, 'Roleplay subtitle');
     assertString(story.summary, 20, 600, 'Roleplay summary');
     assertString(story.author, 1, 100, 'Roleplay author');
+    assertStoredCreator(story, 'author', 'Roleplay story');
+    if (creatorOperation && story.creatorId !== creatorOperation.sourceCreatorId) {
+      fail('Roleplay update must preserve source ownership until its creator operation is applied.');
+    }
+    if (manifest.protocolVersion === 6 && !creatorOperation) {
+      await assertGlobalCreatorAlias(story.creatorId, story.author);
+    }
     assertIsoDate(story.publishedAt, 'Roleplay publication date');
     assertIsoDate(story.updatedAt, 'Roleplay update date');
 
@@ -739,6 +1025,9 @@ if (hasBlogArtifact) {
   ) {
     fail('Art artifact data schema is invalid.');
   }
+  if (stagedData.operation !== manifest.operation) {
+    fail('Art operation does not match the publication manifest.');
+  }
   const existingIndex = sourceData.entries.findIndex((item) => item?.id === submissionId);
 
   if (stagedData.operation === 'create' && existingIndex >= 0) {
@@ -747,6 +1036,12 @@ if (hasBlogArtifact) {
   if (stagedData.operation === 'update' && existingIndex < 0) {
     fail('Art update targets a publication that does not exist.');
   }
+  if (
+    creatorOperation &&
+    sourceData.entries[existingIndex]?.creatorId !== creatorOperation.sourceCreatorId
+  ) {
+    fail('Creator operation source does not own the updated Art publication.');
+  }
 
   const entry = stagedData.entry;
 
@@ -754,7 +1049,7 @@ if (hasBlogArtifact) {
     !isPlainObject(entry) ||
     !hasOnlyKeys(entry, [
       'id', 'title', 'description', 'category', 'subcategory', 'credit',
-      'submittedAt', 'publishedAt', 'media'
+      'creatorId', 'submittedAt', 'publishedAt', 'media'
     ])
   ) {
     fail('New Art entry contains an invalid structure.');
@@ -766,6 +1061,13 @@ if (hasBlogArtifact) {
   assertString(entry.category, 3, 30, 'Art category');
   assertString(entry.subcategory, 3, 30, 'Art subcategory');
   assertString(entry.credit, 1, 100, 'Art credit');
+  assertStoredCreator(entry, 'credit', 'Art entry');
+  if (creatorOperation && entry.creatorId !== creatorOperation.sourceCreatorId) {
+    fail('Art update must preserve source ownership until its creator operation is applied.');
+  }
+  if (manifest.protocolVersion === 6 && !creatorOperation) {
+    await assertGlobalCreatorAlias(entry.creatorId, entry.credit);
+  }
   assertIsoDate(entry.submittedAt, 'Art submission date');
   assertIsoDate(entry.publishedAt, 'Art publication date');
 
@@ -803,6 +1105,7 @@ if (hasBlogArtifact) {
   }
 
   const expectedFiles = new Set(['data/art-entry.json', expectedSource]);
+  if (creatorOperation) expectedFiles.add('data/creator-operation.json');
 
   if (
     stagedFileNames.size !== expectedFiles.size ||
@@ -876,6 +1179,9 @@ if (hasBlogArtifact) {
   ) {
     fail('Gallery artifact data schema is invalid.');
   }
+  if (stagedData.operation !== manifest.operation) {
+    fail('Gallery operation does not match the publication manifest.');
+  }
   const existingIndex = sourceData.entries.findIndex((item) => item?.id === submissionId);
 
   if (stagedData.operation === 'create' && existingIndex >= 0) {
@@ -884,12 +1190,18 @@ if (hasBlogArtifact) {
   if (stagedData.operation === 'update' && existingIndex < 0) {
     fail('Gallery update targets a publication that does not exist.');
   }
+  if (
+    creatorOperation &&
+    sourceData.entries[existingIndex]?.creatorId !== creatorOperation.sourceCreatorId
+  ) {
+    fail('Creator operation source does not own the updated Gallery publication.');
+  }
 
   const entry = stagedData.entry;
 
   if (!isPlainObject(entry) || !hasOnlyKeys(entry, [
     'id', 'title', 'description', 'category', 'subcategory', 'credit',
-    'submittedAt', 'publishedAt', 'media'
+    'creatorId', 'submittedAt', 'publishedAt', 'media'
   ])) {
     fail('New gallery entry contains an invalid structure.');
   }
@@ -899,6 +1211,13 @@ if (hasBlogArtifact) {
   assertString(entry.category, 3, 30, 'Gallery category');
   assertString(entry.subcategory, 3, 30, 'Gallery subcategory');
   assertString(entry.credit, 1, 100, 'Credit');
+  assertStoredCreator(entry, 'credit', 'Gallery entry');
+  if (creatorOperation && entry.creatorId !== creatorOperation.sourceCreatorId) {
+    fail('Gallery update must preserve source ownership until its creator operation is applied.');
+  }
+  if (manifest.protocolVersion === 6 && !creatorOperation) {
+    await assertGlobalCreatorAlias(entry.creatorId, entry.credit);
+  }
   assertIsoDate(entry.submittedAt, 'Submission date');
   assertIsoDate(entry.publishedAt, 'Publication date');
 
@@ -911,6 +1230,7 @@ if (hasBlogArtifact) {
   }
 
   const expectedFiles = new Set(['data/community-media-entry.json']);
+  if (creatorOperation) expectedFiles.add('data/creator-operation.json');
 
   for (const [index, media] of entry.media.entries()) {
     if (!isPlainObject(media) || !['image', 'video'].includes(media.type)) {
@@ -1023,6 +1343,11 @@ if (hasBlogArtifact) {
     entries: updatedEntries
   });
   console.log(`Verified and applied Gallery ${stagedData.operation} for ${submissionId}.`);
+}
+
+if (creatorOperation) {
+  const updatedEntries = await applyCreatorOperation(creatorOperation);
+  console.log(`Applied creator operation to ${updatedEntries} publication(s).`);
 }
 
 await writeJsonAtomically(

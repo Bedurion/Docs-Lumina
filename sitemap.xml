@@ -717,6 +717,22 @@
     </image:image>
   </url>
   <url>
+    <loc>https://guildlumina.com/guild-creator.html</loc>
+    <lastmod>2026-07-29</lastmod>
+    <image:image>
+      <image:loc>https://guildlumina.com/assets/social/guild-creator.png</image:loc>
+      <image:title>Creator Archive | Lumina Guild social preview</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://guildlumina.com/guild-creators.html</loc>
+    <lastmod>2026-07-29</lastmod>
+    <image:image>
+      <image:loc>https://guildlumina.com/assets/social/guild-creators.png</image:loc>
+      <image:title>Community Creators | Lumina Guild social preview</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://guildlumina.com/guild-faq.html</loc>
     <lastmod>2026-07-29</lastmod>
     <image:image>

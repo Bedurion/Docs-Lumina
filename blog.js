@@ -150,6 +150,7 @@ function buildFeatured(post) {
     createTextElement('h3', '', post.title || 'Lumina story'),
     createTextElement('p', 'blog-post-excerpt', post.excerpt || ''),
     window.LuminaContentCredit.create(post.author, {
+      creatorId: post.creatorId,
       label: 'Written by',
       tone: 'blog'
     }),
@@ -175,6 +176,7 @@ function buildArchivePost(post, options = {}) {
     createTextElement('h3', '', post.title || 'Lumina story'),
     createTextElement('p', 'blog-post-excerpt', post.excerpt || ''),
     window.LuminaContentCredit.create(post.author, {
+      creatorId: post.creatorId,
       label: 'Written by',
       tone: 'blog',
       compact: true
